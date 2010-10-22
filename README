@@ -1,0 +1,12 @@
+rake default
+  - Startet den CC-Server im Hintergrund (Prozess-ID ./command-control/cc.pid)
+    * Port in ./command-control/cc.yaml angegeben
+    * Log-Ausgaben (STDOUT + STDERR) in ./log/rake-start_cc.log
+
+rake start_cc
+  - Startet den CC-Server im Vordergrund
+    * Port in ./command-control/cc.yaml angegeben
+    * Log-Ausgaben auf dem Bildschirm, Beenden mit CTRL-C
+
+rake stop_cc
+  - Beendet einen im Hintergrund laufenden CC-Server
