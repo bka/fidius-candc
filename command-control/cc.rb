@@ -45,7 +45,7 @@ get '/info' do
   body << footer
 end
 
-get '/session' do  
+get '/session' do
   id = DB[:bots].insert(:hostname => '--', :ip => request.ip, :last_seen => DateTime.now)
   body  = header
   body << "Your session id is <strong>#{id}</strong>."
