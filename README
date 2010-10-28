@@ -21,6 +21,33 @@
 
 == CC-REST-Interface ==
 
-  * GET /session
-    * gibt Session-ID (Integer > 0) mit HTML-Overhead zurück
+=== bisher implementiert ===
+
+  * GET /sessions
+    * liefert eine Liste der angemeldeten Clients
+    * curl http://<server>/sessions
+  * POST /session/new
+    * meldet einen neuen Clienten an
+    * curl -d "" http://<server>/session/new
+  * GET /session/:id
+    * liefert Informationen zum angemeldeten Client mit der ID :id
+    * curl http://<server>/session/:id
+      * hier muss :id aus dem vorherigen POST ausgelesen werden
+  * DELETE /session/:id
+    * meldet Client mit der ID :id ab
+    * curl -X DELETE http://<server>/session/:id
+      * auch hier muss :id bekannt sein
+  
+=== noch zu implementieren/erweitern ===
+
+  * GET /session/new
+    * nicht sinnvoll, weil POST direkt ausgeführt wird
+  * DELETE /sessions
+    * nicht wirklich sinnvoll
+    * `rake clobber` leer/löscht DB
+  * PUT /session/:id
+    * aktualisieren von Einträgen
+  * Aufgabenverwaltung
+    * woher weiß ein Bot, was er wann zu tun hat?
+    * Liste von Aufgaben in GET /session/:id unterbringen
 

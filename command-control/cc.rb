@@ -3,6 +3,7 @@
 require 'rubygems'
 require 'sinatra'
 require 'sequel'
+require 'haml'
 
 unless Process.uid == 0
   puts "[FIDIUS CC] You need to be root!"
@@ -32,39 +33,35 @@ end
 end
 
 enable :run
-set :port => 80
+set :port, 80
+set :views, File.dirname(__FILE__) + '/templates'
+set :haml, :format => :html5
+set :public, File.dirname(__FILE__) + '/static'
 
-def header title = 'FIDIUS CC Server version 0.1.0'
-  "<html><head><title>#{title}</title></head><body><h1>#{title}</h1>"
+
+get '/sessions' do
+  haml :sessions
 end
 
-def footer
-  "</body></html>"
+get '/session/:id' do
+  @bot = DB[:bots].first("id = ?", params[:id])
+  halt 404 unless @bot
+  haml :session
 end
 
-get '/info' do
-  body  = header
-  body << '<table>'
-  body << '<tr><th>ID</th><th>Hostname</th><th>IP</th><th>seen</th></tr>'
-  if DB[:bots].count > 0
-    DB[:bots].each do |bot|
-      body << '<tr>'
-      body << "<td>#{bot[:id]}</td>"
-      body << "<td>#{bot[:hostname]}</td>"
-      body << "<td>#{bot[:ip]}</td>"
-      body << "<td>#{bot[:last_seen]}</td>"
-      body << '</tr>'
-    end
-  else
-    body << '<tr><td colspan="5">No database entries.</td></tr>'
-  end
-  body << '</table>'
-  body << footer
-end
-
-get '/session' do
+post '/session/new' do
   id = DB[:bots].insert(:hostname => '--', :ip => request.ip, :last_seen => DateTime.now)
-  body  = header
-  body << "Your session id is <strong>#{id}</strong>."
-  body << footer
+  @bot = DB[:bots].filter("id = ?", id)
+  haml :session
+end
+
+delete '/session/:id' do
+  @bot = DB[:bots].filter("id = ?", params[:id])
+  halt 404 unless bot
+  bot.delete
+  haml :sessions
+end
+
+not_found do
+  haml :"404"
 end

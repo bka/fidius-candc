@@ -21,7 +21,7 @@ file CC_PID_FILE do
     puts "[FIDIUS CC] You need to be root!"
     exit 1
   end
-  system "ruby #{CC_FILE} 2>&1 >> #{CC_LOG_FILE} &"
+  system "nohup ruby #{CC_FILE} 2>&1 >> #{CC_LOG_FILE} &"
 end
 
 desc "Stops the CC server."
