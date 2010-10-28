@@ -29,6 +29,7 @@ task :stop_cc do
   begin
     pid = File.read(CC_PID_FILE).strip
     sh "kill -TERM #{pid}"
+    File.unlink CC_PID_FILE
     puts "[FIDIUS CC] Server stopped."
   rescue Errno::ENOENT
     puts "[FIDIUS CC] Server not running."
