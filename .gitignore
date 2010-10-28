@@ -1,0 +1,3 @@
+command-control/*.log
+command-control/*.pid
+command-control/*.sqlite
