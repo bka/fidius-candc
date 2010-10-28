@@ -1,12 +1,26 @@
-rake default
-  - Startet den CC-Server im Hintergrund (Prozess-ID ./command-control/cc.pid)
-    * Port in ./command-control/cc.yaml angegeben
-    * Log-Ausgaben (STDOUT + STDERR) in ./log/rake-start_cc.log
+= FIDIUS Command&Control Server =
 
-rake start_cc
-  - Startet den CC-Server im Vordergrund
-    * Port in ./command-control/cc.yaml angegeben
-    * Log-Ausgaben auf dem Bildschirm, Beenden mit CTRL-C
+== Voraussetzungen ==
 
-rake stop_cc
-  - Beendet einen im Hintergrund laufenden CC-Server
+  * RubyGems: Sinatra, Sequel
+    * `sudo gem install sinatra sequel`
+  * Root-Rechte zum Starten auf Port 80
+
+== Beschreibung ==
+
+...
+
+== CC-Server CLI ==
+
+  * Starten:
+    * `sudo rake`
+  * Stoppen:
+    * `sudo rake stop_cc`
+  * Logs und DB löschen:
+    * `rake clobber`
+
+== CC-REST-Interface ==
+
+  * GET /session
+    * gibt Session-ID (Integer > 0) mit HTML-Overhead zurück
+

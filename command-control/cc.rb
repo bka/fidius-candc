@@ -4,13 +4,30 @@ require 'rubygems'
 require 'sinatra'
 require 'sequel'
 
-DB = Sequel.sqlite 'cc.db'
+unless Process.uid == 0
+  puts "[FIDIUS CC] You need to be root!"
+  exit 1
+end
+
+DB = Sequel.sqlite File.join(File.dirname(__FILE__), 'cc.sqlite')
 unless DB.table_exists? :bots
   DB.create_table :bots do
     primary_key :id
     String :hostname
     String :ip
     DateTime :last_seen
+  end
+end
+
+PID_FILE = File.join(File.dirname(__FILE__), 'cc.pid')
+raise "[FIDIUS CC] Already running!" if File.exists? PID_FILE
+File.open(PID_FILE, 'w+') do |f|
+  f.puts Process.pid
+end
+%w[SIGINT SIGTERM].each do |sig|
+  Signal.trap(sig) do
+    puts "[FIDIUS CC] Shutdown."
+    File.unlink PID_FILE rescue true
   end
 end
 
