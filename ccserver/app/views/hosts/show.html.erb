@@ -1,0 +1,2 @@
+<h1>Host <%= @host.name %>(<%= @host.address %>)</h1>
+<%= render :partial=>"services/services_from_host", :locals=>{:services=>@host.services} %>

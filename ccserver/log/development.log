@@ -1,0 +1,2483 @@
+  [4;36;1mSQL (0.9ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (22.4ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.3ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mMsf::DBManager::Host Columns (98.7ms)[0m   [0;1mSHOW FIELDS FROM `hosts`[0m
+  [4;35;1mMsf::DBManager::Host Load (0.3ms)[0m   [0mSELECT * FROM `hosts` WHERE (`hosts`.`id` = 1) [0m
+  [4;36;1mMsf::DBManager::Host Load (0.4ms)[0m   [0;1mSELECT * FROM `hosts` [0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mMsf::DBManager::Host Load (260.5ms)[0m   [0;1mSELECT * FROM `hosts` [0m
+  [4;35;1mMsf::DBManager::Host Columns (2.0ms)[0m   [0mSHOW FIELDS FROM `hosts`[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1mSHOW TABLES[0m
+  [4;35;1mSQL (138.7ms)[0m   [0mCREATE TABLE `schema_migrations` (`version` varchar(255) NOT NULL) ENGINE=InnoDB[0m
+  [4;36;1mSQL (191.0ms)[0m   [0;1mCREATE UNIQUE INDEX `unique_schema_migrations` ON `schema_migrations` (`version`)[0m
+  [4;35;1mSQL (0.6ms)[0m   [0mSHOW TABLES[0m
+  [4;36;1mSQL (0.6ms)[0m   [0;1mSELECT version FROM schema_migrations[0m
+Migrating to SetupMsfDb (20101103185746)
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1mSHOW TABLES[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSELECT version FROM schema_migrations[0m
+Migrating to SetupMsfDb (20101103185746)
+  [4;36;1mSQL (0.2ms)[0m   [0;1mSHOW TABLES[0m
+  [4;35;1mSQL (99.6ms)[0m   [0mINSERT INTO schema_migrations (version) VALUES ('20101103185746')[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1mSHOW TABLES[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSELECT version FROM schema_migrations[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSHOW TABLES[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1mSHOW TABLES[0m
+  [4;35;1mSQL (157.3ms)[0m   [0mCREATE TABLE `schema_migrations` (`version` varchar(255) NOT NULL) ENGINE=InnoDB[0m
+  [4;36;1mSQL (215.0ms)[0m   [0;1mCREATE UNIQUE INDEX `unique_schema_migrations` ON `schema_migrations` (`version`)[0m
+  [4;35;1mSQL (0.6ms)[0m   [0mSHOW TABLES[0m
+  [4;36;1mSQL (0.7ms)[0m   [0;1mSELECT version FROM schema_migrations[0m
+Migrating to SetupMsfDb (20101103185746)
+  [4;35;1mSQL (0.4ms)[0m   [0mSHOW TABLES[0m
+  [4;36;1mSQL (47.9ms)[0m   [0;1mINSERT INTO schema_migrations (version) VALUES ('20101103185746')[0m
+  [4;35;1mSQL (0.3ms)[0m   [0mSHOW TABLES[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSELECT version FROM schema_migrations[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSHOW TABLES[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1mSHOW TABLES[0m
+  [4;35;1mSQL (298.1ms)[0m   [0mCREATE TABLE `schema_migrations` (`version` varchar(255) NOT NULL) ENGINE=InnoDB[0m
+  [4;36;1mSQL (224.6ms)[0m   [0;1mCREATE UNIQUE INDEX `unique_schema_migrations` ON `schema_migrations` (`version`)[0m
+  [4;35;1mSQL (0.6ms)[0m   [0mSHOW TABLES[0m
+  [4;36;1mSQL (0.4ms)[0m   [0;1mSELECT version FROM schema_migrations[0m
+Migrating to SetupMsfDb (20101103185746)
+  [4;35;1mSQL (0.4ms)[0m   [0mSHOW TABLES[0m
+  [4;36;1mSQL (58.8ms)[0m   [0;1mINSERT INTO schema_migrations (version) VALUES ('20101103185746')[0m
+  [4;35;1mSQL (0.3ms)[0m   [0mSHOW TABLES[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSELECT version FROM schema_migrations[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSHOW TABLES[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1mSHOW TABLES[0m
+  [4;35;1mSQL (312.1ms)[0m   [0mCREATE TABLE `schema_migrations` (`version` varchar(255) NOT NULL) ENGINE=InnoDB[0m
+  [4;36;1mSQL (245.1ms)[0m   [0;1mCREATE UNIQUE INDEX `unique_schema_migrations` ON `schema_migrations` (`version`)[0m
+  [4;35;1mSQL (0.5ms)[0m   [0mSHOW TABLES[0m
+  [4;36;1mSQL (0.4ms)[0m   [0;1mSELECT version FROM schema_migrations[0m
+Migrating to SetupMsfDb (20101103185746)
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1mSHOW TABLES[0m
+  [4;35;1mSQL (101.2ms)[0m   [0mCREATE TABLE `schema_migrations` (`version` varchar(255) NOT NULL) ENGINE=InnoDB[0m
+  [4;36;1mSQL (235.6ms)[0m   [0;1mCREATE UNIQUE INDEX `unique_schema_migrations` ON `schema_migrations` (`version`)[0m
+  [4;35;1mSQL (0.6ms)[0m   [0mSHOW TABLES[0m
+  [4;36;1mSQL (0.6ms)[0m   [0;1mSELECT version FROM schema_migrations[0m
+Migrating to SetupMsfDb (20101103185746)
+  [4;35;1mSQL (0.5ms)[0m   [0mSHOW TABLES[0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1mSELECT version FROM schema_migrations[0m
+Migrating to CreateTables (0)
+  [4;35;1mSQL (103.8ms)[0m   [0mCREATE TABLE `hosts` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `created` datetime, `address` varchar(16), `address6` varchar(255), `mac` varchar(255), `comm` varchar(255), `name` varchar(255), `state` varchar(255), `info` varchar(1024), `os_name` varchar(255), `os_flavor` varchar(255), `os_sp` varchar(255), `os_lang` varchar(255), `arch` varchar(255)) ENGINE=InnoDB[0m
+  [4;36;1mSQL (236.3ms)[0m   [0;1mCREATE UNIQUE INDEX `index_hosts_on_address` ON `hosts` (`address`)[0m
+  [4;35;1mSQL (77.0ms)[0m   [0mCREATE TABLE `clients` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `host_id` int(11), `created` datetime, `ua_string` varchar(1024) NOT NULL, `ua_name` varchar(64), `ua_ver` varchar(32)) ENGINE=InnoDB[0m
+  [4;36;1mSQL (77.3ms)[0m   [0;1mCREATE TABLE `services` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `host_id` int(11), `created` datetime, `port` int(11) NOT NULL, `proto` varchar(16) NOT NULL, `state` varchar(255), `name` varchar(255), `info` varchar(1024)) ENGINE=InnoDB[0m
+  [4;35;1mSQL (121.7ms)[0m   [0mCREATE TABLE `vulns` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `host_id` int(11), `service_id` int(11), `created` datetime, `name` varchar(255), `data` text) ENGINE=InnoDB[0m
+  [4;36;1mSQL (122.1ms)[0m   [0;1mCREATE TABLE `refs` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `ref_id` int(11), `created` datetime, `name` varchar(512)) ENGINE=InnoDB[0m
+  [4;35;1mSQL (122.4ms)[0m   [0mCREATE TABLE `vulns_refs` (`ref_id` int(11), `vuln_id` int(11)) ENGINE=InnoDB[0m
+  [4;36;1mSQL (122.1ms)[0m   [0;1mCREATE TABLE `notes` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `host_id` int(11), `created` datetime, `ntype` varchar(512), `data` text) ENGINE=InnoDB[0m
+  [4;35;1mSQL (43.5ms)[0m   [0mINSERT INTO schema_migrations (version) VALUES ('0')[0m
+Migrating to AddWmapTables (1)
+  [4;36;1mSQL (142.0ms)[0m   [0;1mCREATE TABLE `wmap_targets` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `host` varchar(255), `address` varchar(16), `address6` varchar(255), `port` int(11), `ssl` int(11), `selected` int(11)) ENGINE=InnoDB[0m
+  [4;35;1mSQL (143.3ms)[0m   [0mCREATE TABLE `wmap_requests` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `host` varchar(255), `address` varchar(16), `address6` varchar(255), `port` int(11), `ssl` int(11), `meth` varchar(32), `path` text, `headers` text, `query` text, `body` text, `respcode` varchar(16), `resphead` text, `response` text, `created` datetime) ENGINE=InnoDB[0m
+  [4;36;1mSQL (46.3ms)[0m   [0;1mINSERT INTO schema_migrations (version) VALUES ('1')[0m
+Migrating to AddWorkspaces (2)
+  [4;35;1mSQL (118.0ms)[0m   [0mCREATE TABLE `workspaces` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `name` varchar(255), `created_at` datetime, `updated_at` datetime) ENGINE=InnoDB[0m
+  [4;36;1mSQL (235.2ms)[0m   [0;1mALTER TABLE `hosts` ADD `workspace_id` int(11)[0m
+  [4;35;1mSQL (257.6ms)[0m   [0mDROP INDEX `index_hosts_on_address` ON hosts[0m
+  [4;36;1mSQL (43.7ms)[0m   [0;1mINSERT INTO schema_migrations (version) VALUES ('2')[0m
+Migrating to MoveNotes (3)
+  [4;35;1mSQL (276.4ms)[0m   [0mALTER TABLE `notes` DROP `host_id`[0m
+  [4;36;1mSQL (236.2ms)[0m   [0;1mALTER TABLE `notes` ADD `workspace_id` int(11) DEFAULT 1 NOT NULL[0m
+  [4;35;1mSQL (391.2ms)[0m   [0mALTER TABLE `notes` ADD `service_id` int(11)[0m
+  [4;36;1mSQL (235.7ms)[0m   [0;1mALTER TABLE `notes` ADD `host_id` int(11)[0m
+  [4;35;1mSQL (54.5ms)[0m   [0mINSERT INTO schema_migrations (version) VALUES ('3')[0m
+Migrating to AddEventsTable (4)
+  [4;36;1mSQL (149.9ms)[0m   [0;1mCREATE TABLE `events` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `workspace_id` int(11), `host_id` int(11), `created_at` datetime, `user` varchar(255), `name` varchar(255), `info` varchar(255)) ENGINE=InnoDB[0m
+  [4;35;1mSQL (54.7ms)[0m   [0mINSERT INTO schema_migrations (version) VALUES ('4')[0m
+Migrating to ExpandInfo (5)
+  [4;36;1mSQL (289.8ms)[0m   [0;1mALTER TABLE `events` DROP `info`[0m
+  [4;35;1mSQL (268.3ms)[0m   [0mALTER TABLE `events` ADD `info` varchar(4096)[0m
+  [4;36;1mSQL (268.5ms)[0m   [0;1mALTER TABLE `notes` DROP `data`[0m
+  [4;35;1mSQL (279.8ms)[0m   [0mALTER TABLE `notes` ADD `data` varchar(4096)[0m
+  [4;36;1mSQL (236.7ms)[0m   [0;1mALTER TABLE `vulns` DROP `data`[0m
+  [4;35;1mSQL (268.7ms)[0m   [0mALTER TABLE `vulns` ADD `data` varchar(4096)[0m
+  [4;36;1mSQL (268.8ms)[0m   [0;1mALTER TABLE `hosts` DROP `info`[0m
+  [4;35;1mSQL (246.2ms)[0m   [0mALTER TABLE `hosts` ADD `info` varchar(4096)[0m
+  [4;36;1mSQL (570.7ms)[0m   [0;1mALTER TABLE `services` DROP `info`[0m
+  [4;35;1mSQL (436.3ms)[0m   [0mALTER TABLE `services` ADD `info` varchar(4096)[0m
+  [4;36;1mSQL (65.8ms)[0m   [0;1mINSERT INTO schema_migrations (version) VALUES ('5')[0m
+Migrating to AddTimestamps (6)
+  [4;35;1mSQL (1.8ms)[0m   [0mSHOW FIELDS FROM `clients`[0m
+  [4;36;1mSQL (0.8ms)[0m   [0;1mSHOW COLUMNS FROM `clients` LIKE 'created'[0m
+  [4;35;1mSQL (95.0ms)[0m   [0mALTER TABLE `clients` CHANGE `created` `created_at` datetime DEFAULT NULL[0m
+  [4;36;1mSQL (2.5ms)[0m   [0;1mSHOW FIELDS FROM `hosts`[0m
+  [4;35;1mSQL (0.9ms)[0m   [0mSHOW COLUMNS FROM `hosts` LIKE 'created'[0m
+  [4;36;1mSQL (84.6ms)[0m   [0;1mALTER TABLE `hosts` CHANGE `created` `created_at` datetime DEFAULT NULL[0m
+  [4;35;1mSQL (2.3ms)[0m   [0mSHOW FIELDS FROM `notes`[0m
+  [4;36;1mSQL (0.9ms)[0m   [0;1mSHOW COLUMNS FROM `notes` LIKE 'created'[0m
+  [4;35;1mSQL (85.2ms)[0m   [0mALTER TABLE `notes` CHANGE `created` `created_at` datetime DEFAULT NULL[0m
+  [4;36;1mSQL (1.4ms)[0m   [0;1mSHOW FIELDS FROM `refs`[0m
+  [4;35;1mSQL (0.8ms)[0m   [0mSHOW COLUMNS FROM `refs` LIKE 'created'[0m
+  [4;36;1mSQL (87.8ms)[0m   [0;1mALTER TABLE `refs` CHANGE `created` `created_at` datetime DEFAULT NULL[0m
+  [4;35;1mSQL (1.8ms)[0m   [0mSHOW FIELDS FROM `services`[0m
+  [4;36;1mSQL (1.1ms)[0m   [0;1mSHOW COLUMNS FROM `services` LIKE 'created'[0m
+  [4;35;1mSQL (85.5ms)[0m   [0mALTER TABLE `services` CHANGE `created` `created_at` datetime DEFAULT NULL[0m
+  [4;36;1mSQL (1.5ms)[0m   [0;1mSHOW FIELDS FROM `vulns`[0m
+  [4;35;1mSQL (0.9ms)[0m   [0mSHOW COLUMNS FROM `vulns` LIKE 'created'[0m
+  [4;36;1mSQL (86.2ms)[0m   [0;1mALTER TABLE `vulns` CHANGE `created` `created_at` datetime DEFAULT NULL[0m
+  [4;35;1mSQL (2.1ms)[0m   [0mSHOW FIELDS FROM `wmap_requests`[0m
+  [4;36;1mSQL (0.9ms)[0m   [0;1mSHOW COLUMNS FROM `wmap_requests` LIKE 'created'[0m
+  [4;35;1mSQL (84.5ms)[0m   [0mALTER TABLE `wmap_requests` CHANGE `created` `created_at` datetime DEFAULT NULL[0m
+  [4;36;1mSQL (257.4ms)[0m   [0;1mALTER TABLE `wmap_targets` ADD `created_at` datetime[0m
+  [4;35;1mSQL (257.4ms)[0m   [0mALTER TABLE `clients` ADD `updated_at` datetime[0m
+  [4;36;1mSQL (258.9ms)[0m   [0;1mALTER TABLE `events` ADD `updated_at` datetime[0m
+  [4;35;1mSQL (268.5ms)[0m   [0mALTER TABLE `hosts` ADD `updated_at` datetime[0m
+  [4;36;1mSQL (202.0ms)[0m   [0;1mALTER TABLE `notes` ADD `updated_at` datetime[0m
+  [4;35;1mSQL (460.0ms)[0m   [0mALTER TABLE `refs` ADD `updated_at` datetime[0m
+  [4;36;1mSQL (267.3ms)[0m   [0;1mALTER TABLE `services` ADD `updated_at` datetime[0m
+  [4;35;1mSQL (257.3ms)[0m   [0mALTER TABLE `vulns` ADD `updated_at` datetime[0m
+  [4;36;1mSQL (224.2ms)[0m   [0;1mALTER TABLE `wmap_requests` ADD `updated_at` datetime[0m
+  [4;35;1mSQL (246.3ms)[0m   [0mALTER TABLE `wmap_targets` ADD `updated_at` datetime[0m
+  [4;36;1mSQL (43.7ms)[0m   [0;1mINSERT INTO schema_migrations (version) VALUES ('6')[0m
+Migrating to AddLoots (7)
+  [4;35;1mSQL (148.8ms)[0m   [0mCREATE TABLE `loots` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `workspace_id` int(11) DEFAULT 1 NOT NULL, `host_id` int(11), `service_id` int(11), `ltype` varchar(512), `path` varchar(1024), `data` text, `created_at` datetime, `updated_at` datetime) ENGINE=InnoDB[0m
+  [4;36;1mSQL (43.5ms)[0m   [0;1mINSERT INTO schema_migrations (version) VALUES ('7')[0m
+Migrating to CreateUsers (8)
+  [4;35;1mSQL (131.8ms)[0m   [0mCREATE TABLE `users` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `username` varchar(255), `crypted_password` varchar(255), `password_salt` varchar(255), `persistence_token` varchar(255), `created_at` datetime, `updated_at` datetime) ENGINE=InnoDB[0m
+  [4;36;1mSQL (43.9ms)[0m   [0;1mINSERT INTO schema_migrations (version) VALUES ('8')[0m
+Migrating to AddLootsCtype (9)
+  [4;35;1mSQL (232.7ms)[0m   [0mALTER TABLE `loots` ADD `content_type` varchar(255)[0m
+  [4;36;1mSQL (43.9ms)[0m   [0;1mINSERT INTO schema_migrations (version) VALUES ('9')[0m
+Migrating to AddAlertFields (10)
+  [4;35;1mSQL (464.7ms)[0m   [0mALTER TABLE `notes` ADD `critical` tinyint(1)[0m
+  [4;36;1mSQL (268.5ms)[0m   [0;1mALTER TABLE `notes` ADD `seen` tinyint(1)[0m
+  [4;35;1mSQL (258.8ms)[0m   [0mALTER TABLE `events` ADD `critical` tinyint(1)[0m
+  [4;36;1mSQL (246.5ms)[0m   [0;1mALTER TABLE `events` ADD `seen` tinyint(1)[0m
+  [4;35;1mSQL (44.1ms)[0m   [0mINSERT INTO schema_migrations (version) VALUES ('10')[0m
+Migrating to AddReports (11)
+  [4;36;1mSQL (139.7ms)[0m   [0;1mCREATE TABLE `reports` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `workspace_id` int(11) DEFAULT 1 NOT NULL, `created_by` varchar(255), `rtype` varchar(255), `path` varchar(1024), `options` text, `created_at` datetime, `updated_at` datetime) ENGINE=InnoDB[0m
+  [4;35;1mSQL (43.8ms)[0m   [0mINSERT INTO schema_migrations (version) VALUES ('11')[0m
+Migrating to AddTasks (12)
+  [4;36;1mSQL (140.8ms)[0m   [0;1mCREATE TABLE `tasks` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `workspace_id` int(11) DEFAULT 1 NOT NULL, `created_by` varchar(255), `module` varchar(255), `completed_at` datetime, `path` varchar(1024), `info` varchar(255), `description` varchar(255), `progress` int(11), `options` text, `error` text, `created_at` datetime, `updated_at` datetime) ENGINE=InnoDB[0m
+  [4;35;1mSQL (43.7ms)[0m   [0mINSERT INTO schema_migrations (version) VALUES ('12')[0m
+Migrating to AddTasksResult (13)
+  [4;36;1mSQL (279.3ms)[0m   [0;1mALTER TABLE `tasks` ADD `result` text[0m
+  [4;35;1mSQL (32.2ms)[0m   [0mINSERT INTO schema_migrations (version) VALUES ('13')[0m
+Migrating to AddLootsFields (14)
+  [4;36;1mSQL (255.1ms)[0m   [0;1mALTER TABLE `loots` ADD `name` text[0m
+  [4;35;1mSQL (246.2ms)[0m   [0mALTER TABLE `loots` ADD `info` text[0m
+  [4;36;1mSQL (43.8ms)[0m   [0;1mINSERT INTO schema_migrations (version) VALUES ('14')[0m
+Migrating to RenameUser (15)
+  [4;35;1mSQL (276.5ms)[0m   [0mALTER TABLE `events` DROP `user`[0m
+  [4;36;1mSQL (247.6ms)[0m   [0;1mALTER TABLE `events` ADD `username` varchar(255)[0m
+  [4;35;1mSQL (43.5ms)[0m   [0mINSERT INTO schema_migrations (version) VALUES ('15')[0m
+Migrating to AddHostPurpose (16)
+  [4;36;1mSQL (260.2ms)[0m   [0;1mALTER TABLE `hosts` ADD `purpose` text[0m
+  [4;35;1mSQL (43.7ms)[0m   [0mINSERT INTO schema_migrations (version) VALUES ('16')[0m
+Migrating to ExpandInfo2 (17)
+  [4;36;1mSQL (287.3ms)[0m   [0;1mALTER TABLE `events` DROP `info`[0m
+  [4;35;1mSQL (257.5ms)[0m   [0mALTER TABLE `events` ADD `info` varchar(65536)[0m
+  [4;36;1mSQL (247.6ms)[0m   [0;1mALTER TABLE `notes` DROP `data`[0m
+  [4;35;1mSQL (468.6ms)[0m   [0mALTER TABLE `notes` ADD `data` varchar(65536)[0m
+  [4;36;1mSQL (268.4ms)[0m   [0;1mALTER TABLE `vulns` DROP `data`[0m
+  [4;35;1mSQL (257.4ms)[0m   [0mALTER TABLE `vulns` ADD `data` varchar(65536)[0m
+  [4;36;1mSQL (247.9ms)[0m   [0;1mALTER TABLE `hosts` DROP `info`[0m
+  [4;35;1mSQL (246.2ms)[0m   [0mALTER TABLE `hosts` ADD `info` varchar(65536)[0m
+  [4;36;1mSQL (246.5ms)[0m   [0;1mALTER TABLE `services` DROP `info`[0m
+  [4;35;1mSQL (457.8ms)[0m   [0mALTER TABLE `services` ADD `info` varchar(65536)[0m
+  [4;36;1mSQL (43.6ms)[0m   [0;1mINSERT INTO schema_migrations (version) VALUES ('17')[0m
+Migrating to AddWorkspaceUserInfo (18)
+  [4;35;1mSQL (765.0ms)[0m   [0mALTER TABLE `workspaces` ADD `boundary` varchar(4096)[0m
+  [4;36;1mSQL (245.8ms)[0m   [0;1mALTER TABLE `users` ADD `fullname` varchar(255)[0m
+  [4;35;1mSQL (224.8ms)[0m   [0mALTER TABLE `users` ADD `email` varchar(255)[0m
+  [4;36;1mSQL (235.2ms)[0m   [0;1mALTER TABLE `users` ADD `phone` varchar(255)[0m
+  [4;35;1mSQL (225.7ms)[0m   [0mALTER TABLE `users` ADD `company` varchar(255)[0m
+  [4;36;1mSQL (43.6ms)[0m   [0;1mINSERT INTO schema_migrations (version) VALUES ('18')[0m
+Migrating to AddWorkspaceDesc (19)
+  [4;35;1mSQL (244.7ms)[0m   [0mALTER TABLE `workspaces` ADD `description` varchar(4096)[0m
+  [4;36;1mSQL (212.8ms)[0m   [0;1mALTER TABLE `hosts` ADD `comments` varchar(4096)[0m
+  [4;35;1mSQL (43.8ms)[0m   [0mINSERT INTO schema_migrations (version) VALUES ('19')[0m
+Migrating to AddUserPreferences (20)
+  [4;36;1mSQL (233.9ms)[0m   [0;1mALTER TABLE `users` ADD `prefs` varchar(524288)[0m
+  [4;35;1mSQL (43.7ms)[0m   [0mINSERT INTO schema_migrations (version) VALUES ('20')[0m
+Migrating to StandardizeInfoAndData (21)
+  [4;36;1mSQL (244.0ms)[0m   [0;1mALTER TABLE `vulns` DROP `data`[0m
+  [4;35;1mSQL (246.2ms)[0m   [0mALTER TABLE `vulns` ADD `info` varchar(65536)[0m
+  [4;36;1mSQL (32.5ms)[0m   [0;1mINSERT INTO schema_migrations (version) VALUES ('21')[0m
+Migrating to EnlargeEventInfo (22)
+  [4;35;1mSQL (1.8ms)[0m   [0mSHOW FIELDS FROM `events`[0m
+  [4;36;1mSQL (242.0ms)[0m   [0;1mALTER TABLE `events` CHANGE `info` `info` text DEFAULT NULL[0m
+  [4;35;1mSQL (43.9ms)[0m   [0mINSERT INTO schema_migrations (version) VALUES ('22')[0m
+Migrating to AddReportDownloadedAt (23)
+  [4;36;1mSQL (234.2ms)[0m   [0;1mALTER TABLE `reports` ADD `downloaded_at` datetime[0m
+  [4;35;1mSQL (43.8ms)[0m   [0mINSERT INTO schema_migrations (version) VALUES ('23')[0m
+Migrating to ConvertServiceInfoToText (24)
+  [4;36;1mSQL (1.9ms)[0m   [0;1mSHOW FIELDS FROM `services`[0m
+  [4;35;1mSQL (234.8ms)[0m   [0mALTER TABLE `services` CHANGE `info` `info` text DEFAULT NULL[0m
+  [4;36;1mSQL (43.7ms)[0m   [0;1mINSERT INTO schema_migrations (version) VALUES ('24')[0m
+Migrating to AddUserAdmin (25)
+  [4;35;1mSQL (254.9ms)[0m   [0mALTER TABLE `users` ADD `admin` tinyint(1) DEFAULT 1[0m
+  [4;36;1mSQL (99.8ms)[0m   [0;1mCREATE TABLE `project_members` (`workspace_id` int(11) NOT NULL, `user_id` int(11) NOT NULL) ENGINE=InnoDB[0m
+  [4;35;1mSQL (43.5ms)[0m   [0mINSERT INTO schema_migrations (version) VALUES ('25')[0m
+Migrating to AddCredsTable (26)
+  [4;36;1mSQL (101.4ms)[0m   [0;1mCREATE TABLE `creds` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `service_id` int(11) NOT NULL, `created_at` datetime, `updated_at` datetime, `user` varchar(2048), `pass` varchar(4096), `active` tinyint(1) DEFAULT 1, `proof` varchar(4096), `ptype` varchar(16), `source_id` int(11), `source_type` varchar(255)) ENGINE=InnoDB[0m
+  [4;35;1mSQL (43.6ms)[0m   [0mINSERT INTO schema_migrations (version) VALUES ('26')[0m
+Migrating to MigrateCredData (20100819123300)
+  [4;36;1mMsf::DBManager::Note Load (0.6ms)[0m   [0;1mSELECT * FROM `notes` [0m
+  [4;35;1mMsf::DBManager::Note Load (1.4ms)[0m   [0mSELECT * FROM `notes` [0m
+  [4;36;1mSQL (44.8ms)[0m   [0;1mINSERT INTO schema_migrations (version) VALUES ('20100819123300')[0m
+Migrating to AddExploitedTable (20100824151500)
+  [4;35;1mSQL (107.8ms)[0m   [0mCREATE TABLE `exploited_hosts` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `host_id` int(11) NOT NULL, `service_id` int(11), `session_uuid` varchar(8), `name` varchar(2048), `payload` varchar(2048), `created_at` datetime, `updated_at` datetime) ENGINE=InnoDB[0m
+  [4;36;1mSQL (43.6ms)[0m   [0;1mINSERT INTO schema_migrations (version) VALUES ('20100824151500')[0m
+Migrating to AddOwnerToWorkspaces (20100908001428)
+  [4;35;1mSQL (245.2ms)[0m   [0mALTER TABLE `workspaces` ADD `owner_id` int(11)[0m
+  [4;36;1mSQL (43.1ms)[0m   [0;1mINSERT INTO schema_migrations (version) VALUES ('20100908001428')[0m
+Migrating to AddReportTemplates (20100911122000)
+  [4;35;1mSQL (108.4ms)[0m   [0mCREATE TABLE `report_templates` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `workspace_id` int(11) DEFAULT 1 NOT NULL, `created_by` varchar(255), `path` varchar(1024), `name` text, `created_at` datetime, `updated_at` datetime) ENGINE=InnoDB[0m
+  [4;36;1mSQL (43.7ms)[0m   [0;1mINSERT INTO schema_migrations (version) VALUES ('20100911122000')[0m
+Migrating to RequireAdminFlag (20100916151530)
+  [4;35;1mMsf::DBManager::User Update (0.3ms)[0m   [0mUPDATE `users` SET `admin` = 1 WHERE (`users`.`admin` IS NULL) [0m
+  [4;36;1mSQL (0.7ms)[0m   [0;1mSHOW FIELDS FROM `users`[0m
+  [4;35;1mSQL (246.2ms)[0m   [0mALTER TABLE `users` CHANGE `admin` `admin` tinyint(1) DEFAULT 1 NOT NULL[0m
+  [4;36;1mSQL (54.6ms)[0m   [0;1mINSERT INTO schema_migrations (version) VALUES ('20100916151530')[0m
+Migrating to AddCampaignsAndTemplates (20100916175000)
+  [4;35;1mSQL (99.6ms)[0m   [0mCREATE TABLE `campaigns` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `workspace_id` int(11) NOT NULL, `name` varchar(512), `prefs` text, `status` int(11) DEFAULT 0, `started_at` datetime, `created_at` datetime, `updated_at` datetime) ENGINE=InnoDB[0m
+  [4;36;1mSQL (122.1ms)[0m   [0;1mCREATE TABLE `email_templates` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `name` varchar(512), `subject` varchar(1024), `body` text, `parent_id` int(11), `campaign_id` int(11)) ENGINE=InnoDB[0m
+  [4;35;1mSQL (99.6ms)[0m   [0mCREATE TABLE `attachments` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `name` varchar(512), `data` blob, `content_type` varchar(512), `inline` tinyint(1) DEFAULT 1 NOT NULL, `zip` tinyint(1) DEFAULT 0 NOT NULL) ENGINE=InnoDB[0m
+  [4;36;1mSQL (110.8ms)[0m   [0;1mCREATE TABLE `attachments_email_templates` (`attachment_id` int(11), `email_template_id` int(11)) ENGINE=InnoDB[0m
+  [4;35;1mSQL (110.7ms)[0m   [0mCREATE TABLE `email_addresses` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `campaign_id` int(11) NOT NULL, `first_name` varchar(512), `last_name` varchar(512), `address` varchar(512), `sent` tinyint(1) DEFAULT 0 NOT NULL, `clicked_at` datetime) ENGINE=InnoDB[0m
+  [4;36;1mSQL (111.1ms)[0m   [0;1mCREATE TABLE `web_templates` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `name` varchar(512), `title` varchar(512), `body` varchar(524288), `campaign_id` int(11)) ENGINE=InnoDB[0m
+  [4;35;1mSQL (43.9ms)[0m   [0mINSERT INTO schema_migrations (version) VALUES ('20100916175000')[0m
+Migrating to AddGenerateExeColumn (20100920012100)
+  [4;36;1mSQL (244.8ms)[0m   [0;1mALTER TABLE `email_templates` ADD `generate_exe` tinyint(1) DEFAULT 0 NOT NULL[0m
+  [4;35;1mSQL (43.6ms)[0m   [0mINSERT INTO schema_migrations (version) VALUES ('20100920012100')[0m
+Migrating to AddTemplatePrefs (20100926214000)
+  [4;36;1mSQL (233.3ms)[0m   [0;1mALTER TABLE `email_templates` DROP `generate_exe`[0m
+  [4;35;1mSQL (246.4ms)[0m   [0mALTER TABLE `email_templates` ADD `prefs` text[0m
+  [4;36;1mSQL (257.5ms)[0m   [0;1mALTER TABLE `web_templates` ADD `prefs` text[0m
+  [4;35;1mSQL (43.4ms)[0m   [0mINSERT INTO schema_migrations (version) VALUES ('20100926214000')[0m
+Migrating to AddWebTables (20101001000000)
+  [4;36;1mSQL (123.1ms)[0m   [0;1mCREATE TABLE `web_sites` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `service_id` int(11) NOT NULL, `created_at` datetime, `updated_at` datetime, `vhost` varchar(2048), `comments` text, `options` text) ENGINE=InnoDB[0m
+  [4;35;1mSQL (89.1ms)[0m   [0mCREATE TABLE `web_pages` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `web_site_id` int(11) NOT NULL, `created_at` datetime, `updated_at` datetime, `path` varchar(65535), `query` varchar(65535), `code` int(11) NOT NULL, `cookie` varchar(65535), `auth` varchar(65535), `ctype` varchar(65535), `mtime` datetime, `location` varchar(65535), `body` text, `headers` text) ENGINE=InnoDB[0m
+  [4;36;1mSQL (110.6ms)[0m   [0;1mCREATE TABLE `web_forms` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `web_site_id` int(11) NOT NULL, `created_at` datetime, `updated_at` datetime, `path` varchar(65535), `method` varchar(1024), `params` text) ENGINE=InnoDB[0m
+  [4;35;1mSQL (110.3ms)[0m   [0mCREATE TABLE `web_vulns` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `web_site_id` int(11) NOT NULL, `created_at` datetime, `updated_at` datetime, `path` varchar(65535), `method` varchar(1024), `params` text, `pname` varchar(65535), `proof` text, `risk` int(11), `name` varchar(1024)) ENGINE=InnoDB[0m
+  [4;36;1mSQL (43.8ms)[0m   [0;1mINSERT INTO schema_migrations (version) VALUES ('20101001000000')[0m
+Migrating to AddQuery (20101002000000)
+  [4;35;1mSQL (243.9ms)[0m   [0mALTER TABLE `web_forms` ADD `query` text[0m
+  [4;36;1mSQL (246.0ms)[0m   [0;1mALTER TABLE `web_vulns` ADD `query` text[0m
+  [4;35;1mSQL (43.8ms)[0m   [0mINSERT INTO schema_migrations (version) VALUES ('20101002000000')[0m
+Migrating to AddVulnInfo (20101007000000)
+  [4;36;1mSQL (233.9ms)[0m   [0;1mALTER TABLE `web_vulns` ADD `category` text[0m
+  [4;35;1mSQL (234.9ms)[0m   [0mALTER TABLE `web_vulns` ADD `confidence` text[0m
+  [4;36;1mSQL (246.1ms)[0m   [0;1mALTER TABLE `web_vulns` ADD `description` text[0m
+  [4;35;1mSQL (257.6ms)[0m   [0mALTER TABLE `web_vulns` ADD `blame` text[0m
+  [4;36;1mSQL (43.9ms)[0m   [0;1mINSERT INTO schema_migrations (version) VALUES ('20101007000000')[0m
+Migrating to AddClientsToCampaigns (20101008111800)
+  [4;35;1mSQL (225.2ms)[0m   [0mALTER TABLE `clients` ADD `campaign_id` int(11)[0m
+  [4;36;1mSQL (43.2ms)[0m   [0;1mINSERT INTO schema_migrations (version) VALUES ('20101008111800')[0m
+Migrating to AddCampaignAttachments (20101009023300)
+  [4;35;1mSQL (432.8ms)[0m   [0mALTER TABLE `attachments` ADD `campaign_id` int(11)[0m
+  [4;36;1mSQL (43.4ms)[0m   [0;1mINSERT INTO schema_migrations (version) VALUES ('20101009023300')[0m
+  [4;35;1mSQL (44.7ms)[0m   [0mINSERT INTO schema_migrations (version) VALUES ('20101103185746')[0m
+  [4;36;1mSQL (0.5ms)[0m   [0;1mSHOW TABLES[0m
+  [4;35;1mSQL (0.2ms)[0m   [0mSELECT version FROM schema_migrations[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1mSHOW TABLES[0m
+  [4;35;1mSQL (0.5ms)[0m   [0mSHOW FIELDS FROM `attachments`[0m
+  [4;36;1mSQL (0.4ms)[0m   [0;1mdescribe `attachments`[0m
+  [4;35;1mSQL (0.2ms)[0m   [0mSHOW KEYS FROM `attachments`[0m
+  [4;36;1mSQL (0.4ms)[0m   [0;1mSHOW FIELDS FROM `attachments_email_templates`[0m
+  [4;35;1mSQL (0.3ms)[0m   [0mdescribe `attachments_email_templates`[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSHOW KEYS FROM `attachments_email_templates`[0m
+  [4;35;1mSQL (0.5ms)[0m   [0mSHOW FIELDS FROM `campaigns`[0m
+  [4;36;1mSQL (0.4ms)[0m   [0;1mdescribe `campaigns`[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSHOW KEYS FROM `campaigns`[0m
+  [4;36;1mSQL (0.5ms)[0m   [0;1mSHOW FIELDS FROM `clients`[0m
+  [4;35;1mSQL (0.4ms)[0m   [0mdescribe `clients`[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSHOW KEYS FROM `clients`[0m
+  [4;35;1mSQL (0.6ms)[0m   [0mSHOW FIELDS FROM `creds`[0m
+  [4;36;1mSQL (0.5ms)[0m   [0;1mdescribe `creds`[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSHOW KEYS FROM `creds`[0m
+  [4;36;1mSQL (0.5ms)[0m   [0;1mSHOW FIELDS FROM `email_addresses`[0m
+  [4;35;1mSQL (0.4ms)[0m   [0mdescribe `email_addresses`[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSHOW KEYS FROM `email_addresses`[0m
+  [4;35;1mSQL (0.5ms)[0m   [0mSHOW FIELDS FROM `email_templates`[0m
+  [4;36;1mSQL (0.6ms)[0m   [0;1mdescribe `email_templates`[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSHOW KEYS FROM `email_templates`[0m
+  [4;36;1mSQL (0.6ms)[0m   [0;1mSHOW FIELDS FROM `events`[0m
+  [4;35;1mSQL (0.5ms)[0m   [0mdescribe `events`[0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1mSHOW KEYS FROM `events`[0m
+  [4;35;1mSQL (0.5ms)[0m   [0mSHOW FIELDS FROM `exploited_hosts`[0m
+  [4;36;1mSQL (0.4ms)[0m   [0;1mdescribe `exploited_hosts`[0m
+  [4;35;1mSQL (0.2ms)[0m   [0mSHOW KEYS FROM `exploited_hosts`[0m
+  [4;36;1mSQL (0.8ms)[0m   [0;1mSHOW FIELDS FROM `hosts`[0m
+  [4;35;1mSQL (0.6ms)[0m   [0mdescribe `hosts`[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSHOW KEYS FROM `hosts`[0m
+  [4;35;1mSQL (0.6ms)[0m   [0mSHOW FIELDS FROM `loots`[0m
+  [4;36;1mSQL (0.5ms)[0m   [0;1mdescribe `loots`[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSHOW KEYS FROM `loots`[0m
+  [4;36;1mSQL (0.5ms)[0m   [0;1mSHOW FIELDS FROM `notes`[0m
+  [4;35;1mSQL (0.5ms)[0m   [0mdescribe `notes`[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSHOW KEYS FROM `notes`[0m
+  [4;35;1mSQL (0.4ms)[0m   [0mSHOW FIELDS FROM `project_members`[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1mdescribe `project_members`[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSHOW KEYS FROM `project_members`[0m
+  [4;36;1mSQL (0.4ms)[0m   [0;1mSHOW FIELDS FROM `refs`[0m
+  [4;35;1mSQL (0.4ms)[0m   [0mdescribe `refs`[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSHOW KEYS FROM `refs`[0m
+  [4;35;1mSQL (0.5ms)[0m   [0mSHOW FIELDS FROM `report_templates`[0m
+  [4;36;1mSQL (0.4ms)[0m   [0;1mdescribe `report_templates`[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSHOW KEYS FROM `report_templates`[0m
+  [4;36;1mSQL (0.8ms)[0m   [0;1mSHOW FIELDS FROM `reports`[0m
+  [4;35;1mSQL (0.5ms)[0m   [0mdescribe `reports`[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSHOW KEYS FROM `reports`[0m
+  [4;35;1mSQL (0.5ms)[0m   [0mSHOW FIELDS FROM `services`[0m
+  [4;36;1mSQL (0.4ms)[0m   [0;1mdescribe `services`[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSHOW KEYS FROM `services`[0m
+  [4;36;1mSQL (0.6ms)[0m   [0;1mSHOW FIELDS FROM `tasks`[0m
+  [4;35;1mSQL (0.6ms)[0m   [0mdescribe `tasks`[0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1mSHOW KEYS FROM `tasks`[0m
+  [4;35;1mSQL (0.6ms)[0m   [0mSHOW FIELDS FROM `users`[0m
+  [4;36;1mSQL (0.5ms)[0m   [0;1mdescribe `users`[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSHOW KEYS FROM `users`[0m
+  [4;36;1mSQL (0.5ms)[0m   [0;1mSHOW FIELDS FROM `vulns`[0m
+  [4;35;1mSQL (0.4ms)[0m   [0mdescribe `vulns`[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSHOW KEYS FROM `vulns`[0m
+  [4;35;1mSQL (0.4ms)[0m   [0mSHOW FIELDS FROM `vulns_refs`[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1mdescribe `vulns_refs`[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSHOW KEYS FROM `vulns_refs`[0m
+  [4;36;1mSQL (0.5ms)[0m   [0;1mSHOW FIELDS FROM `web_forms`[0m
+  [4;35;1mSQL (0.4ms)[0m   [0mdescribe `web_forms`[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSHOW KEYS FROM `web_forms`[0m
+  [4;35;1mSQL (0.6ms)[0m   [0mSHOW FIELDS FROM `web_pages`[0m
+  [4;36;1mSQL (0.5ms)[0m   [0;1mdescribe `web_pages`[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSHOW KEYS FROM `web_pages`[0m
+  [4;36;1mSQL (0.5ms)[0m   [0;1mSHOW FIELDS FROM `web_sites`[0m
+  [4;35;1mSQL (0.6ms)[0m   [0mdescribe `web_sites`[0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1mSHOW KEYS FROM `web_sites`[0m
+  [4;35;1mSQL (0.4ms)[0m   [0mSHOW FIELDS FROM `web_templates`[0m
+  [4;36;1mSQL (0.4ms)[0m   [0;1mdescribe `web_templates`[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSHOW KEYS FROM `web_templates`[0m
+  [4;36;1mSQL (0.7ms)[0m   [0;1mSHOW FIELDS FROM `web_vulns`[0m
+  [4;35;1mSQL (0.6ms)[0m   [0mdescribe `web_vulns`[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSHOW KEYS FROM `web_vulns`[0m
+  [4;35;1mSQL (0.6ms)[0m   [0mSHOW FIELDS FROM `wmap_requests`[0m
+  [4;36;1mSQL (0.6ms)[0m   [0;1mdescribe `wmap_requests`[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSHOW KEYS FROM `wmap_requests`[0m
+  [4;36;1mSQL (0.5ms)[0m   [0;1mSHOW FIELDS FROM `wmap_targets`[0m
+  [4;35;1mSQL (0.4ms)[0m   [0mdescribe `wmap_targets`[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSHOW KEYS FROM `wmap_targets`[0m
+  [4;35;1mSQL (0.5ms)[0m   [0mSHOW FIELDS FROM `workspaces`[0m
+  [4;36;1mSQL (0.4ms)[0m   [0;1mdescribe `workspaces`[0m
+  [4;35;1mSQL (0.2ms)[0m   [0mSHOW KEYS FROM `workspaces`[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing ApplicationController#index (for 127.0.0.1 at 2010-11-03 20:06:47) [GET]
+
+ActionController::RoutingError (No route matches "/" with {:method=>:get}):
+  /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:29:in `call'
+  /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:29:in `block in call'
+  /home/bernd/metasploit/trunk/lib/active_record/connection_adapters/abstract/query_cache.rb:34:in `cache'
+  /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:9:in `cache'
+  /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:28:in `call'
+  /home/bernd/metasploit/trunk/lib/active_record/connection_adapters/abstract/connection_pool.rb:361:in `call'
+  <internal:prelude>:8:in `synchronize'
+  /home/bernd/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/httpserver.rb:111:in `service'
+  /home/bernd/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/httpserver.rb:70:in `run'
+  /home/bernd/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/server.rb:183:in `block in start_thread'
+
+Rendering rescues/layout (not_found)
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing HostsController#index (for 127.0.0.1 at 2010-11-03 20:07:47) [GET]
+
+ActionView::MissingTemplate (Missing template hosts/index.erb in view path app/views):
+  /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:29:in `call'
+  /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:29:in `block in call'
+  /home/bernd/metasploit/trunk/lib/active_record/connection_adapters/abstract/query_cache.rb:34:in `cache'
+  /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:9:in `cache'
+  /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:28:in `call'
+  /home/bernd/metasploit/trunk/lib/active_record/connection_adapters/abstract/connection_pool.rb:361:in `call'
+  <internal:prelude>:8:in `synchronize'
+  /home/bernd/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/httpserver.rb:111:in `service'
+  /home/bernd/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/httpserver.rb:70:in `run'
+  /home/bernd/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/server.rb:183:in `block in start_thread'
+
+Rendering rescues/layout (internal_server_error)
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing HostsController#index (for 127.0.0.1 at 2010-11-03 20:08:03) [GET]
+Rendering hosts/index
+Completed in 94ms (View: 93, DB: 0) | 200 OK [http://localhost/]
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing HostsController#index (for 127.0.0.1 at 2010-11-03 20:09:04) [GET]
+  [4;36;1mMsf::DBManager::Host Load (0.3ms)[0m   [0;1mSELECT * FROM `hosts` [0m
+Rendering hosts/index
+  [4;35;1mMsf::DBManager::Host Columns (1.0ms)[0m   [0mSHOW FIELDS FROM `hosts`[0m
+
+ActionView::TemplateError (undefined method `foreach' for #<ActionView::Base:0xba733ac>) on line #1 of app/views/hosts/index.html.erb:
+1: <% foreach @host do |host| %>
+2:   <%= host.address %>
+3: <% end %>
+
+    app/views/hosts/index.html.erb:1
+    /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:29:in `call'
+    /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:29:in `block in call'
+    /home/bernd/metasploit/trunk/lib/active_record/connection_adapters/abstract/query_cache.rb:34:in `cache'
+    /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:9:in `cache'
+    /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:28:in `call'
+    /home/bernd/metasploit/trunk/lib/active_record/connection_adapters/abstract/connection_pool.rb:361:in `call'
+    <internal:prelude>:8:in `synchronize'
+    /home/bernd/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/httpserver.rb:111:in `service'
+    /home/bernd/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/httpserver.rb:70:in `run'
+    /home/bernd/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/server.rb:183:in `block in start_thread'
+
+Rendered rescues/_trace (62.3ms)
+Rendered rescues/_request_and_response (1.1ms)
+Rendering rescues/layout (internal_server_error)
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing HostsController#index (for 127.0.0.1 at 2010-11-03 20:09:44) [GET]
+  [4;36;1mMsf::DBManager::Host Load (0.3ms)[0m   [0;1mSELECT * FROM `hosts` [0m
+Rendering hosts/index
+Completed in 13ms (View: 11, DB: 0) | 200 OK [http://localhost/]
+  [4;35;1mSQL (0.2ms)[0m   [0mSET NAMES 'utf8'[0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing HostsController#index (for 127.0.0.1 at 2010-11-03 20:22:21) [GET]
+  [4;35;1mMsf::DBManager::Host Load (3.0ms)[0m   [0mSELECT * FROM `hosts` [0m
+Rendering hosts/index
+Completed in 12ms (View: 7, DB: 3) | 200 OK [http://localhost/]
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing HostsController#index (for 127.0.0.1 at 2010-11-03 20:23:09) [GET]
+  [4;36;1mMsf::DBManager::Host Load (0.4ms)[0m   [0;1mSELECT * FROM `hosts` [0m
+Rendering template within layouts/application
+Rendering hosts/index
+Completed in 11ms (View: 10, DB: 0) | 200 OK [http://localhost/]
+  [4;35;1mSQL (0.1ms)[0m   [0mSET NAMES 'utf8'[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing ApplicationController#index (for 127.0.0.1 at 2010-11-03 20:23:09) [GET]
+
+ActionController::RoutingError (No route matches "/stylesheets/scaffold.css" with {:method=>:get}):
+  /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:29:in `call'
+  /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:29:in `block in call'
+  /home/bernd/metasploit/trunk/lib/active_record/connection_adapters/abstract/query_cache.rb:34:in `cache'
+  /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:9:in `cache'
+  /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:28:in `call'
+  /home/bernd/metasploit/trunk/lib/active_record/connection_adapters/abstract/connection_pool.rb:361:in `call'
+  <internal:prelude>:8:in `synchronize'
+  /home/bernd/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/httpserver.rb:111:in `service'
+  /home/bernd/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/httpserver.rb:70:in `run'
+  /home/bernd/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/server.rb:183:in `block in start_thread'
+
+Rendering rescues/layout (not_found)
+  [4;35;1mSQL (0.1ms)[0m   [0mSET NAMES 'utf8'[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing HostsController#index (for 127.0.0.1 at 2010-11-03 20:23:44) [GET]
+  [4;35;1mMsf::DBManager::Host Load (0.3ms)[0m   [0mSELECT * FROM `hosts` [0m
+Rendering template within layouts/application
+Rendering hosts/index
+Completed in 9ms (View: 8, DB: 0) | 200 OK [http://localhost/]
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing HostsController#index (for 127.0.0.1 at 2010-11-03 20:24:29) [GET]
+  [4;36;1mMsf::DBManager::Host Load (0.3ms)[0m   [0;1mSELECT * FROM `hosts` [0m
+Rendering template within layouts/application
+Rendering hosts/index
+Completed in 3ms (View: 1, DB: 0) | 200 OK [http://localhost/]
+  [4;35;1mSQL (0.1ms)[0m   [0mSET NAMES 'utf8'[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing HostsController#index (for 127.0.0.1 at 2010-11-03 20:24:51) [GET]
+  [4;35;1mMsf::DBManager::Host Load (0.3ms)[0m   [0mSELECT * FROM `hosts` [0m
+Rendering template within layouts/application
+Rendering hosts/index
+Completed in 3ms (View: 1, DB: 0) | 200 OK [http://localhost/]
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing HostsController#index (for 127.0.0.1 at 2010-11-03 20:25:09) [GET]
+  [4;36;1mMsf::DBManager::Host Load (0.3ms)[0m   [0;1mSELECT * FROM `hosts` [0m
+Rendering template within layouts/application
+Rendering hosts/index
+Completed in 9ms (View: 7, DB: 0) | 200 OK [http://localhost/]
+  [4;35;1mSQL (0.1ms)[0m   [0mSET NAMES 'utf8'[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing HostsController#index (for 127.0.0.1 at 2010-11-03 20:25:33) [GET]
+  [4;35;1mMsf::DBManager::Host Load (0.3ms)[0m   [0mSELECT * FROM `hosts` [0m
+Rendering template within layouts/application
+Rendering hosts/index
+Completed in 9ms (View: 7, DB: 0) | 200 OK [http://localhost/]
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing HostsController#index (for 127.0.0.1 at 2010-11-03 20:27:04) [GET]
+  [4;36;1mMsf::DBManager::Host Load (0.3ms)[0m   [0;1mSELECT * FROM `hosts` [0m
+Rendering template within layouts/application
+Rendering hosts/index
+Rendered menu/_menu (0.4ms)
+Completed in 18ms (View: 16, DB: 0) | 200 OK [http://localhost/]
+  [4;35;1mSQL (0.1ms)[0m   [0mSET NAMES 'utf8'[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing HostsController#index (for 127.0.0.1 at 2010-11-03 20:28:52) [GET]
+  [4;35;1mMsf::DBManager::Host Load (0.3ms)[0m   [0mSELECT * FROM `hosts` [0m
+Rendering template within layouts/application
+Rendering hosts/index
+Rendered menu/_menu (57.5ms)
+Completed in 67ms (View: 65, DB: 0) | 200 OK [http://localhost/]
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing HostsController#index (for 127.0.0.1 at 2010-11-03 20:28:54) [GET]
+  [4;36;1mMsf::DBManager::Host Load (0.4ms)[0m   [0;1mSELECT * FROM `hosts` [0m
+Rendering template within layouts/application
+Rendering hosts/index
+Rendered menu/_menu (0.1ms)
+Completed in 3ms (View: 1, DB: 0) | 200 OK [http://localhost/hosts]
+  [4;35;1mSQL (0.1ms)[0m   [0mSET NAMES 'utf8'[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing HostsController#index (for 127.0.0.1 at 2010-11-03 20:30:16) [GET]
+  [4;35;1mMsf::DBManager::Host Load (1.9ms)[0m   [0mSELECT * FROM `hosts` [0m
+Rendering template within layouts/application
+Rendering hosts/index
+ERROR: compiling _run_erb_app47views47menu47_menu46html46erb_locals_menu_object RAISED /home/bernd/tmp/cuc-server/app/views/menu/_menu.html.erb:3: syntax error, unexpected tIDENTIFIER, expecting ')'
+...cat(( link_to "Tasks" tasks_url ).to_s); @output_buffer.conc...
+...                               ^
+Function body:           def _run_erb_app47views47menu47_menu46html46erb_locals_menu_object(local_assigns)
+            old_output_buffer = output_buffer;menu = local_assigns[:menu];object = local_assigns[:object];;@output_buffer = '';  __in_erb_template=true ; @output_buffer.concat "<ul>\n<li>"
+; @output_buffer.concat(( link_to "Hosts", hosts_url ).to_s); @output_buffer.concat "</li>\n<li>"
+; @output_buffer.concat(( link_to "Tasks" tasks_url ).to_s); @output_buffer.concat "</li>\n</ul>\n"
+
+; @output_buffer.force_encoding(__ENCODING__)
+          ensure
+            self.output_buffer = old_output_buffer
+          end
+Backtrace: /home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/actionpack-2.3.5/lib/action_view/renderable.rb:77:in `module_eval'
+/home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/actionpack-2.3.5/lib/action_view/renderable.rb:77:in `compile!'
+/home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/actionpack-2.3.5/lib/action_view/renderable.rb:61:in `compile'
+/home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/actionpack-2.3.5/lib/action_view/renderable.rb:28:in `render'
+/home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/actionpack-2.3.5/lib/action_view/renderable_partial.rb:20:in `block in render'
+/home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/actionpack-2.3.5/lib/action_controller/benchmarking.rb:26:in `block in benchmark'
+/home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/activesupport-2.3.5/lib/active_support/core_ext/benchmark.rb:17:in `block in ms'
+/home/bernd/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/benchmark.rb:309:in `realtime'
+/home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/activesupport-2.3.5/lib/active_support/core_ext/benchmark.rb:17:in `ms'
+/home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/actionpack-2.3.5/lib/action_controller/benchmarking.rb:26:in `benchmark'
+/home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/actionpack-2.3.5/lib/action_view/renderable_partial.rb:19:in `render'
+/home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/actionpack-2.3.5/lib/action_view/template.rb:205:in `render_template'
+/home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/actionpack-2.3.5/lib/action_view/renderable_partial.rb:44:in `render_partial'
+/home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/actionpack-2.3.5/lib/action_view/partials.rb:184:in `render_partial'
+/home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/actionpack-2.3.5/lib/action_view/base.rb:267:in `render'
+/home/bernd/tmp/cuc-server/app/views/layouts/application.html.erb:13:in `_run_erb_app47views47layouts47application46html46erb'
+/home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/actionpack-2.3.5/lib/action_view/renderable.rb:34:in `block in render'
+/home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/actionpack-2.3.5/lib/action_view/base.rb:306:in `with_template'
+/home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/actionpack-2.3.5/lib/action_view/renderable.rb:30:in `render'
+/home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/actionpack-2.3.5/lib/action_view/template.rb:205:in `render_template'
+/home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/actionpack-2.3.5/lib/action_view/base.rb:265:in `render'
+/home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/actionpack-2.3.5/lib/action_view/base.rb:352:in `_render_with_layout'
+/home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/actionpack-2.3.5/lib/action_view/base.rb:262:in `render'
+/home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/actionpack-2.3.5/lib/action_controller/base.rb:1250:in `render_for_file'
+/home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/actionpack-2.3.5/lib/action_controller/base.rb:945:in `render'
+/home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/actionpack-2.3.5/lib/action_controller/benchmarking.rb:51:in `block in render_with_benchmark'
+/home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/activesupport-2.3.5/lib/active_support/core_ext/benchmark.rb:17:in `block in ms'
+/home/bernd/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/benchmark.rb:309:in `realtime'
+/home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/activesupport-2.3.5/lib/active_support/core_ext/benchmark.rb:17:in `ms'
+/home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/actionpack-2.3.5/lib/action_controller/benchmarking.rb:51:in `render_with_benchmark'
+/home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/actionpack-2.3.5/lib/action_controller/base.rb:1326:in `default_render'
+/home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/actionpack-2.3.5/lib/action_controller/base.rb:1332:in `perform_action'
+/home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/actionpack-2.3.5/lib/action_controller/filters.rb:617:in `call_filters'
+/home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/actionpack-2.3.5/lib/action_controller/filters.rb:610:in `perform_action_with_filters'
+/home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/actionpack-2.3.5/lib/action_controller/benchmarking.rb:68:in `block in perform_action_with_benchmark'
+/home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/activesupport-2.3.5/lib/active_support/core_ext/benchmark.rb:17:in `block in ms'
+/home/bernd/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/benchmark.rb:309:in `realtime'
+/home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/activesupport-2.3.5/lib/active_support/core_ext/benchmark.rb:17:in `ms'
+/home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/actionpack-2.3.5/lib/action_controller/benchmarking.rb:68:in `perform_action_with_benchmark'
+/home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/actionpack-2.3.5/lib/action_controller/rescue.rb:160:in `perform_action_with_rescue'
+/home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/actionpack-2.3.5/lib/action_controller/flash.rb:146:in `perform_action_with_flash'
+/home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/actionpack-2.3.5/lib/action_controller/base.rb:532:in `process'
+/home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/actionpack-2.3.5/lib/action_controller/filters.rb:606:in `process_with_filters'
+/home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/actionpack-2.3.5/lib/action_controller/base.rb:391:in `process'
+/home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/actionpack-2.3.5/lib/action_controller/base.rb:386:in `call'
+/home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/actionpack-2.3.5/lib/action_controller/routing/route_set.rb:437:in `call'
+/home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/actionpack-2.3.5/lib/action_controller/dispatcher.rb:87:in `dispatch'
+/home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/actionpack-2.3.5/lib/action_controller/dispatcher.rb:121:in `_call'
+/home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/actionpack-2.3.5/lib/action_controller/dispatcher.rb:130:in `block in build_middleware_stack'
+/home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:29:in `call'
+/home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:29:in `block in call'
+/home/bernd/metasploit/trunk/lib/active_record/connection_adapters/abstract/query_cache.rb:34:in `cache'
+/home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:9:in `cache'
+/home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:28:in `call'
+/home/bernd/metasploit/trunk/lib/active_record/connection_adapters/abstract/connection_pool.rb:361:in `call'
+/home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/actionpack-2.3.5/lib/action_controller/string_coercion.rb:25:in `call'
+/home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/rack-1.0.1/lib/rack/head.rb:9:in `call'
+/home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/rack-1.0.1/lib/rack/methodoverride.rb:24:in `call'
+/home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/actionpack-2.3.5/lib/action_controller/params_parser.rb:15:in `call'
+/home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/actionpack-2.3.5/lib/action_controller/session/cookie_store.rb:93:in `call'
+/home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/actionpack-2.3.5/lib/action_controller/failsafe.rb:26:in `call'
+/home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/rack-1.0.1/lib/rack/lock.rb:11:in `block in call'
+<internal:prelude>:8:in `synchronize'
+/home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/rack-1.0.1/lib/rack/lock.rb:11:in `call'
+/home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/actionpack-2.3.5/lib/action_controller/dispatcher.rb:114:in `block in call'
+/home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/actionpack-2.3.5/lib/action_controller/reloader.rb:34:in `run'
+/home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/actionpack-2.3.5/lib/action_controller/dispatcher.rb:108:in `call'
+/home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/rails-2.3.5/lib/rails/rack/static.rb:31:in `call'
+/home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/rack-1.0.1/lib/rack/urlmap.rb:46:in `block in call'
+/home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/rack-1.0.1/lib/rack/urlmap.rb:40:in `each'
+/home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/rack-1.0.1/lib/rack/urlmap.rb:40:in `call'
+/home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/rails-2.3.5/lib/rails/rack/log_tailer.rb:17:in `call'
+/home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/rack-1.0.1/lib/rack/content_length.rb:13:in `call'
+/home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/rack-1.0.1/lib/rack/handler/webrick.rb:50:in `service'
+/home/bernd/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/httpserver.rb:111:in `service'
+/home/bernd/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/httpserver.rb:70:in `run'
+/home/bernd/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/server.rb:183:in `block in start_thread'
+
+ActionView::TemplateError (/home/bernd/tmp/cuc-server/app/views/menu/_menu.html.erb:3: syntax error, unexpected tIDENTIFIER, expecting ')'
+...cat(( link_to "Tasks" tasks_url ).to_s); @output_buffer.conc...
+...                               ^) on line #3 of app/views/menu/_menu.html.erb:
+1: <ul>
+2: <li><%= link_to "Hosts", hosts_url %></li>
+3: <li><%= link_to "Tasks" tasks_url %></li>
+4: </ul>
+
+    app/views/layouts/application.html.erb:13
+    /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:29:in `call'
+    /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:29:in `block in call'
+    /home/bernd/metasploit/trunk/lib/active_record/connection_adapters/abstract/query_cache.rb:34:in `cache'
+    /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:9:in `cache'
+    /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:28:in `call'
+    /home/bernd/metasploit/trunk/lib/active_record/connection_adapters/abstract/connection_pool.rb:361:in `call'
+    <internal:prelude>:8:in `synchronize'
+    /home/bernd/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/httpserver.rb:111:in `service'
+    /home/bernd/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/httpserver.rb:70:in `run'
+    /home/bernd/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/server.rb:183:in `block in start_thread'
+
+Rendered rescues/_trace (106.0ms)
+Rendered rescues/_request_and_response (0.3ms)
+Rendering rescues/layout (internal_server_error)
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing HostsController#index (for 127.0.0.1 at 2010-11-03 20:30:26) [GET]
+  [4;36;1mMsf::DBManager::Host Load (0.3ms)[0m   [0;1mSELECT * FROM `hosts` [0m
+Rendering template within layouts/application
+Rendering hosts/index
+Rendered menu/_menu (0.7ms)
+Completed in 10ms (View: 8, DB: 0) | 200 OK [http://localhost/hosts]
+  [4;35;1mSQL (0.1ms)[0m   [0mSET NAMES 'utf8'[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing TasksController#index (for 127.0.0.1 at 2010-11-03 20:30:27) [GET]
+Rendering template within layouts/application
+Rendering tasks/index
+Rendered menu/_menu (0.2ms)
+Completed in 11ms (View: 10, DB: 0) | 200 OK [http://localhost/tasks]
+  [4;35;1mSQL (0.2ms)[0m   [0mSET NAMES 'utf8'[0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing HostsController#index (for 127.0.0.1 at 2010-11-03 20:30:28) [GET]
+  [4;35;1mMsf::DBManager::Host Load (0.4ms)[0m   [0mSELECT * FROM `hosts` [0m
+Rendering template within layouts/application
+Rendering hosts/index
+Rendered menu/_menu (0.2ms)
+Completed in 3ms (View: 1, DB: 1) | 200 OK [http://localhost/hosts]
+  [4;36;1mSQL (0.2ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing HostsController#index (for 127.0.0.1 at 2010-11-03 20:30:51) [GET]
+  [4;36;1mMsf::DBManager::Host Load (0.3ms)[0m   [0;1mSELECT * FROM `hosts` [0m
+Rendering template within layouts/application
+Rendering hosts/index
+Rendered menu/_menu (0.2ms)
+Completed in 10ms (View: 8, DB: 1) | 200 OK [http://localhost/hosts]
+  [4;35;1mSQL (0.1ms)[0m   [0mSET NAMES 'utf8'[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing HostsController#index (for 127.0.0.1 at 2010-11-03 20:31:04) [GET]
+  [4;35;1mMsf::DBManager::Host Load (0.4ms)[0m   [0mSELECT * FROM `hosts` [0m
+Rendering template within layouts/application
+Rendering hosts/index
+ERROR: compiling _run_erb_app47views47hosts47index46html46erb RAISED /home/bernd/tmp/cuc-server/app/views/hosts/index.html.erb:11: syntax error, unexpected tIDENTIFIER, expecting keyword_do or '{' or '('
+...r.concat(( link_to host, h host.name ).to_s); @output_buffer...
+...                               ^
+Function body:           def _run_erb_app47views47hosts47index46html46erb(local_assigns)
+            old_output_buffer = output_buffer;;@output_buffer = '';  __in_erb_template=true ; @output_buffer.concat "<h1>Hosts</h1>\n\n<table border=\"1\">\n<tr>\n<th>Address</th>\n<th>Name</th>\n</tr>\n"
+
+
+
+
+
+
+;  @hosts.each do |host| ; @output_buffer.concat "\n<tr>\n  <td>"
+
+; @output_buffer.concat(( host.address ).to_s); @output_buffer.concat "</td>\n  <td>"
+; @output_buffer.concat(( link_to host, h host.name ).to_s); @output_buffer.concat "</td>\n</tr>\n"
+
+;  end ; @output_buffer.concat "\n</table>\n"
+
+; @output_buffer.force_encoding(__ENCODING__)
+          ensure
+            self.output_buffer = old_output_buffer
+          end
+Backtrace: /home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/actionpack-2.3.5/lib/action_view/renderable.rb:77:in `module_eval'
+/home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/actionpack-2.3.5/lib/action_view/renderable.rb:77:in `compile!'
+/home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/actionpack-2.3.5/lib/action_view/renderable.rb:61:in `compile'
+/home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/actionpack-2.3.5/lib/action_view/renderable.rb:28:in `render'
+/home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/actionpack-2.3.5/lib/action_view/template.rb:205:in `render_template'
+/home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/actionpack-2.3.5/lib/action_view/base.rb:265:in `render'
+/home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/actionpack-2.3.5/lib/action_view/base.rb:348:in `_render_with_layout'
+/home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/actionpack-2.3.5/lib/action_view/base.rb:262:in `render'
+/home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/actionpack-2.3.5/lib/action_controller/base.rb:1250:in `render_for_file'
+/home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/actionpack-2.3.5/lib/action_controller/base.rb:945:in `render'
+/home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/actionpack-2.3.5/lib/action_controller/benchmarking.rb:51:in `block in render_with_benchmark'
+/home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/activesupport-2.3.5/lib/active_support/core_ext/benchmark.rb:17:in `block in ms'
+/home/bernd/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/benchmark.rb:309:in `realtime'
+/home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/activesupport-2.3.5/lib/active_support/core_ext/benchmark.rb:17:in `ms'
+/home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/actionpack-2.3.5/lib/action_controller/benchmarking.rb:51:in `render_with_benchmark'
+/home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/actionpack-2.3.5/lib/action_controller/base.rb:1326:in `default_render'
+/home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/actionpack-2.3.5/lib/action_controller/base.rb:1332:in `perform_action'
+/home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/actionpack-2.3.5/lib/action_controller/filters.rb:617:in `call_filters'
+/home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/actionpack-2.3.5/lib/action_controller/filters.rb:610:in `perform_action_with_filters'
+/home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/actionpack-2.3.5/lib/action_controller/benchmarking.rb:68:in `block in perform_action_with_benchmark'
+/home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/activesupport-2.3.5/lib/active_support/core_ext/benchmark.rb:17:in `block in ms'
+/home/bernd/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/benchmark.rb:309:in `realtime'
+/home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/activesupport-2.3.5/lib/active_support/core_ext/benchmark.rb:17:in `ms'
+/home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/actionpack-2.3.5/lib/action_controller/benchmarking.rb:68:in `perform_action_with_benchmark'
+/home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/actionpack-2.3.5/lib/action_controller/rescue.rb:160:in `perform_action_with_rescue'
+/home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/actionpack-2.3.5/lib/action_controller/flash.rb:146:in `perform_action_with_flash'
+/home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/actionpack-2.3.5/lib/action_controller/base.rb:532:in `process'
+/home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/actionpack-2.3.5/lib/action_controller/filters.rb:606:in `process_with_filters'
+/home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/actionpack-2.3.5/lib/action_controller/base.rb:391:in `process'
+/home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/actionpack-2.3.5/lib/action_controller/base.rb:386:in `call'
+/home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/actionpack-2.3.5/lib/action_controller/routing/route_set.rb:437:in `call'
+/home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/actionpack-2.3.5/lib/action_controller/dispatcher.rb:87:in `dispatch'
+/home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/actionpack-2.3.5/lib/action_controller/dispatcher.rb:121:in `_call'
+/home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/actionpack-2.3.5/lib/action_controller/dispatcher.rb:130:in `block in build_middleware_stack'
+/home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:29:in `call'
+/home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:29:in `block in call'
+/home/bernd/metasploit/trunk/lib/active_record/connection_adapters/abstract/query_cache.rb:34:in `cache'
+/home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:9:in `cache'
+/home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:28:in `call'
+/home/bernd/metasploit/trunk/lib/active_record/connection_adapters/abstract/connection_pool.rb:361:in `call'
+/home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/actionpack-2.3.5/lib/action_controller/string_coercion.rb:25:in `call'
+/home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/rack-1.0.1/lib/rack/head.rb:9:in `call'
+/home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/rack-1.0.1/lib/rack/methodoverride.rb:24:in `call'
+/home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/actionpack-2.3.5/lib/action_controller/params_parser.rb:15:in `call'
+/home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/actionpack-2.3.5/lib/action_controller/session/cookie_store.rb:93:in `call'
+/home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/actionpack-2.3.5/lib/action_controller/failsafe.rb:26:in `call'
+/home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/rack-1.0.1/lib/rack/lock.rb:11:in `block in call'
+<internal:prelude>:8:in `synchronize'
+/home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/rack-1.0.1/lib/rack/lock.rb:11:in `call'
+/home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/actionpack-2.3.5/lib/action_controller/dispatcher.rb:114:in `block in call'
+/home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/actionpack-2.3.5/lib/action_controller/reloader.rb:34:in `run'
+/home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/actionpack-2.3.5/lib/action_controller/dispatcher.rb:108:in `call'
+/home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/rails-2.3.5/lib/rails/rack/static.rb:31:in `call'
+/home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/rack-1.0.1/lib/rack/urlmap.rb:46:in `block in call'
+/home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/rack-1.0.1/lib/rack/urlmap.rb:40:in `each'
+/home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/rack-1.0.1/lib/rack/urlmap.rb:40:in `call'
+/home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/rails-2.3.5/lib/rails/rack/log_tailer.rb:17:in `call'
+/home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/rack-1.0.1/lib/rack/content_length.rb:13:in `call'
+/home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/rack-1.0.1/lib/rack/handler/webrick.rb:50:in `service'
+/home/bernd/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/httpserver.rb:111:in `service'
+/home/bernd/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/httpserver.rb:70:in `run'
+/home/bernd/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/server.rb:183:in `block in start_thread'
+
+ActionView::TemplateError (/home/bernd/tmp/cuc-server/app/views/hosts/index.html.erb:11: syntax error, unexpected tIDENTIFIER, expecting keyword_do or '{' or '('
+...r.concat(( link_to host, h host.name ).to_s); @output_buffer...
+...                               ^) on line #11 of app/views/hosts/index.html.erb:
+8: <% @hosts.each do |host| %>
+9: <tr>
+10:   <td><%= host.address %></td>
+11:   <td><%= link_to host, h host.name %></td>
+12: </tr>
+13: <% end %>
+14: </table>
+
+    /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:29:in `call'
+    /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:29:in `block in call'
+    /home/bernd/metasploit/trunk/lib/active_record/connection_adapters/abstract/query_cache.rb:34:in `cache'
+    /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:9:in `cache'
+    /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:28:in `call'
+    /home/bernd/metasploit/trunk/lib/active_record/connection_adapters/abstract/connection_pool.rb:361:in `call'
+    <internal:prelude>:8:in `synchronize'
+    /home/bernd/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/httpserver.rb:111:in `service'
+    /home/bernd/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/httpserver.rb:70:in `run'
+    /home/bernd/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/server.rb:183:in `block in start_thread'
+
+Rendered rescues/_trace (102.4ms)
+Rendered rescues/_request_and_response (0.3ms)
+Rendering rescues/layout (internal_server_error)
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing HostsController#index (for 127.0.0.1 at 2010-11-03 20:31:15) [GET]
+  [4;36;1mMsf::DBManager::Host Load (0.3ms)[0m   [0;1mSELECT * FROM `hosts` [0m
+Rendering template within layouts/application
+Rendering hosts/index
+
+ActionView::TemplateError (undefined method `msf_db_manager_host_path' for #<ActionView::Base:0xbc9c1b4>) on line #11 of app/views/hosts/index.html.erb:
+8: <% @hosts.each do |host| %>
+9: <tr>
+10:   <td><%= host.address %></td>
+11:   <td><%= link_to host.name, host %></td>
+12: </tr>
+13: <% end %>
+14: </table>
+
+    app/views/hosts/index.html.erb:11:in `block in _run_erb_app47views47hosts47index46html46erb'
+    app/views/hosts/index.html.erb:8:in `each'
+    app/views/hosts/index.html.erb:8
+    /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:29:in `call'
+    /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:29:in `block in call'
+    /home/bernd/metasploit/trunk/lib/active_record/connection_adapters/abstract/query_cache.rb:34:in `cache'
+    /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:9:in `cache'
+    /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:28:in `call'
+    /home/bernd/metasploit/trunk/lib/active_record/connection_adapters/abstract/connection_pool.rb:361:in `call'
+    <internal:prelude>:8:in `synchronize'
+    /home/bernd/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/httpserver.rb:111:in `service'
+    /home/bernd/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/httpserver.rb:70:in `run'
+    /home/bernd/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/server.rb:183:in `block in start_thread'
+
+Rendered rescues/_trace (70.4ms)
+Rendered rescues/_request_and_response (0.3ms)
+Rendering rescues/layout (internal_server_error)
+  [4;35;1mSQL (0.1ms)[0m   [0mSET NAMES 'utf8'[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing HostsController#index (for 127.0.0.1 at 2010-11-03 20:31:45) [GET]
+  [4;35;1mMsf::DBManager::Host Load (0.4ms)[0m   [0mSELECT * FROM `hosts` [0m
+Rendering template within layouts/application
+Rendering hosts/index
+Rendered menu/_menu (0.2ms)
+Completed in 10ms (View: 8, DB: 0) | 200 OK [http://localhost/hosts]
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing HostsController#index (for 127.0.0.1 at 2010-11-03 20:31:55) [GET]
+
+NameError (uninitialized constant HostsController::Host):
+  app/controllers/hosts_controller.rb:3:in `index'
+  /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:29:in `call'
+  /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:29:in `block in call'
+  /home/bernd/metasploit/trunk/lib/active_record/connection_adapters/abstract/query_cache.rb:34:in `cache'
+  /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:9:in `cache'
+  /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:28:in `call'
+  /home/bernd/metasploit/trunk/lib/active_record/connection_adapters/abstract/connection_pool.rb:361:in `call'
+  <internal:prelude>:8:in `synchronize'
+  /home/bernd/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/httpserver.rb:111:in `service'
+  /home/bernd/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/httpserver.rb:70:in `run'
+  /home/bernd/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/server.rb:183:in `block in start_thread'
+
+Rendered rescues/_trace (48.6ms)
+Rendered rescues/_request_and_response (0.3ms)
+Rendering rescues/layout (internal_server_error)
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing HostsController#index (for 127.0.0.1 at 2010-11-03 20:32:11) [GET]
+  [4;36;1mMsf::DBManager::Host Load (0.3ms)[0m   [0;1mSELECT * FROM `hosts` [0m
+Rendering template within layouts/application
+Rendering hosts/index
+
+ActionView::TemplateError (undefined method `msf_db_manager_host_path' for #<ActionView::Base:0xbc3b008>) on line #11 of app/views/hosts/index.html.erb:
+8: <% @hosts.each do |host| %>
+9: <tr>
+10:   <td><%= host.address %></td>
+11:   <td><%= link_to host.name, host %></td>
+12: </tr>
+13: <% end %>
+14: </table>
+
+    app/views/hosts/index.html.erb:11:in `block in _run_erb_app47views47hosts47index46html46erb'
+    app/views/hosts/index.html.erb:8:in `each'
+    app/views/hosts/index.html.erb:8
+    /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:29:in `call'
+    /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:29:in `block in call'
+    /home/bernd/metasploit/trunk/lib/active_record/connection_adapters/abstract/query_cache.rb:34:in `cache'
+    /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:9:in `cache'
+    /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:28:in `call'
+    /home/bernd/metasploit/trunk/lib/active_record/connection_adapters/abstract/connection_pool.rb:361:in `call'
+    <internal:prelude>:8:in `synchronize'
+    /home/bernd/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/httpserver.rb:111:in `service'
+    /home/bernd/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/httpserver.rb:70:in `run'
+    /home/bernd/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/server.rb:183:in `block in start_thread'
+
+Rendered rescues/_trace (109.0ms)
+Rendered rescues/_request_and_response (0.3ms)
+Rendering rescues/layout (internal_server_error)
+  [4;35;1mSQL (0.1ms)[0m   [0mSET NAMES 'utf8'[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+/!\ FAILSAFE /!\  2010-11-03 20:34:21 +0100
+  Status: 500 Internal Server Error
+  Expected /home/bernd/tmp/cuc-server/app/helpers/msf_helper.rb to define MsfHelper
+    /home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/activesupport-2.3.5/lib/active_support/dependencies.rb:426:in `load_missing_constant'
+    /home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/activesupport-2.3.5/lib/active_support/dependencies.rb:80:in `const_missing_with_dependencies'
+    /home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/activesupport-2.3.5/lib/active_support/dependencies.rb:92:in `const_missing'
+    /home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/activesupport-2.3.5/lib/active_support/inflector.rb:372:in `const_get'
+    /home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/activesupport-2.3.5/lib/active_support/inflector.rb:372:in `block in constantize'
+    /home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/activesupport-2.3.5/lib/active_support/inflector.rb:371:in `each'
+    /home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/activesupport-2.3.5/lib/active_support/inflector.rb:371:in `constantize'
+    /home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/activesupport-2.3.5/lib/active_support/core_ext/string/inflections.rb:162:in `constantize'
+    /home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/actionpack-2.3.5/lib/action_controller/helpers.rb:137:in `block in helper'
+    /home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/actionpack-2.3.5/lib/action_controller/helpers.rb:115:in `each'
+    /home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/actionpack-2.3.5/lib/action_controller/helpers.rb:115:in `helper'
+    /home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/actionpack-2.3.5/lib/action_controller/helpers.rb:120:in `block in helper'
+    /home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/actionpack-2.3.5/lib/action_controller/helpers.rb:115:in `each'
+    /home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/actionpack-2.3.5/lib/action_controller/helpers.rb:115:in `helper'
+    /home/bernd/tmp/cuc-server/app/controllers/application_controller.rb:5:in `<class:ApplicationController>'
+    /home/bernd/tmp/cuc-server/app/controllers/application_controller.rb:4:in `<top (required)>'
+    /home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/activesupport-2.3.5/lib/active_support/dependencies.rb:380:in `load'
+    /home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/activesupport-2.3.5/lib/active_support/dependencies.rb:380:in `block in load_file'
+    /home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/activesupport-2.3.5/lib/active_support/dependencies.rb:521:in `new_constants_in'
+    /home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/activesupport-2.3.5/lib/active_support/dependencies.rb:379:in `load_file'
+    /home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/activesupport-2.3.5/lib/active_support/dependencies.rb:259:in `require_or_load'
+    /home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/activesupport-2.3.5/lib/active_support/dependencies.rb:425:in `load_missing_constant'
+    /home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/activesupport-2.3.5/lib/active_support/dependencies.rb:80:in `const_missing_with_dependencies'
+    /home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/activesupport-2.3.5/lib/active_support/dependencies.rb:92:in `const_missing'
+    /home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/actionpack-2.3.5/lib/action_controller/dispatcher.rb:89:in `rescue in dispatch'
+    /home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/actionpack-2.3.5/lib/action_controller/dispatcher.rb:96:in `dispatch'
+    /home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/actionpack-2.3.5/lib/action_controller/dispatcher.rb:121:in `_call'
+    /home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/actionpack-2.3.5/lib/action_controller/dispatcher.rb:130:in `block in build_middleware_stack'
+    /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:29:in `call'
+    /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:29:in `block in call'
+    /home/bernd/metasploit/trunk/lib/active_record/connection_adapters/abstract/query_cache.rb:34:in `cache'
+    /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:9:in `cache'
+    /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:28:in `call'
+    /home/bernd/metasploit/trunk/lib/active_record/connection_adapters/abstract/connection_pool.rb:361:in `call'
+    /home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/actionpack-2.3.5/lib/action_controller/string_coercion.rb:25:in `call'
+    /home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/rack-1.0.1/lib/rack/head.rb:9:in `call'
+    /home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/rack-1.0.1/lib/rack/methodoverride.rb:24:in `call'
+    /home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/actionpack-2.3.5/lib/action_controller/params_parser.rb:15:in `call'
+    /home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/actionpack-2.3.5/lib/action_controller/session/cookie_store.rb:93:in `call'
+    /home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/actionpack-2.3.5/lib/action_controller/failsafe.rb:26:in `call'
+    /home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/rack-1.0.1/lib/rack/lock.rb:11:in `block in call'
+    <internal:prelude>:8:in `synchronize'
+    /home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/rack-1.0.1/lib/rack/lock.rb:11:in `call'
+    /home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/actionpack-2.3.5/lib/action_controller/dispatcher.rb:114:in `block in call'
+    /home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/actionpack-2.3.5/lib/action_controller/reloader.rb:34:in `run'
+    /home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/actionpack-2.3.5/lib/action_controller/dispatcher.rb:108:in `call'
+    /home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/rails-2.3.5/lib/rails/rack/static.rb:31:in `call'
+    /home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/rack-1.0.1/lib/rack/urlmap.rb:46:in `block in call'
+    /home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/rack-1.0.1/lib/rack/urlmap.rb:40:in `each'
+    /home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/rack-1.0.1/lib/rack/urlmap.rb:40:in `call'
+    /home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/rails-2.3.5/lib/rails/rack/log_tailer.rb:17:in `call'
+    /home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/rack-1.0.1/lib/rack/content_length.rb:13:in `call'
+    /home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/rack-1.0.1/lib/rack/handler/webrick.rb:50:in `service'
+    /home/bernd/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/httpserver.rb:111:in `service'
+    /home/bernd/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/httpserver.rb:70:in `run'
+    /home/bernd/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/server.rb:183:in `block in start_thread'
+  [4;35;1mSQL (0.1ms)[0m   [0mSET NAMES 'utf8'[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+/!\ FAILSAFE /!\  2010-11-03 20:34:54 +0100
+  Status: 500 Internal Server Error
+  /home/bernd/tmp/cuc-server/app/helpers/msf_helper.rb:8: syntax error, unexpected $end, expecting keyword_end
+    /home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/activesupport-2.3.5/lib/active_support/dependencies.rb:380:in `load'
+    /home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/activesupport-2.3.5/lib/active_support/dependencies.rb:380:in `block in load_file'
+    /home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/activesupport-2.3.5/lib/active_support/dependencies.rb:521:in `new_constants_in'
+    /home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/activesupport-2.3.5/lib/active_support/dependencies.rb:379:in `load_file'
+    /home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/activesupport-2.3.5/lib/active_support/dependencies.rb:259:in `require_or_load'
+    /home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/activesupport-2.3.5/lib/active_support/dependencies.rb:224:in `depend_on'
+    /home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/activesupport-2.3.5/lib/active_support/dependencies.rb:136:in `require_dependency'
+    /home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/actionpack-2.3.5/lib/action_controller/helpers.rb:126:in `block in helper'
+    /home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/actionpack-2.3.5/lib/action_controller/helpers.rb:115:in `each'
+    /home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/actionpack-2.3.5/lib/action_controller/helpers.rb:115:in `helper'
+    /home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/actionpack-2.3.5/lib/action_controller/helpers.rb:120:in `block in helper'
+    /home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/actionpack-2.3.5/lib/action_controller/helpers.rb:115:in `each'
+    /home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/actionpack-2.3.5/lib/action_controller/helpers.rb:115:in `helper'
+    /home/bernd/tmp/cuc-server/app/controllers/application_controller.rb:5:in `<class:ApplicationController>'
+    /home/bernd/tmp/cuc-server/app/controllers/application_controller.rb:4:in `<top (required)>'
+    /home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/activesupport-2.3.5/lib/active_support/dependencies.rb:380:in `load'
+    /home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/activesupport-2.3.5/lib/active_support/dependencies.rb:380:in `block in load_file'
+    /home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/activesupport-2.3.5/lib/active_support/dependencies.rb:521:in `new_constants_in'
+    /home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/activesupport-2.3.5/lib/active_support/dependencies.rb:379:in `load_file'
+    /home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/activesupport-2.3.5/lib/active_support/dependencies.rb:259:in `require_or_load'
+    /home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/activesupport-2.3.5/lib/active_support/dependencies.rb:425:in `load_missing_constant'
+    /home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/activesupport-2.3.5/lib/active_support/dependencies.rb:80:in `const_missing_with_dependencies'
+    /home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/activesupport-2.3.5/lib/active_support/dependencies.rb:92:in `const_missing'
+    /home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/actionpack-2.3.5/lib/action_controller/dispatcher.rb:89:in `rescue in dispatch'
+    /home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/actionpack-2.3.5/lib/action_controller/dispatcher.rb:96:in `dispatch'
+    /home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/actionpack-2.3.5/lib/action_controller/dispatcher.rb:121:in `_call'
+    /home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/actionpack-2.3.5/lib/action_controller/dispatcher.rb:130:in `block in build_middleware_stack'
+    /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:29:in `call'
+    /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:29:in `block in call'
+    /home/bernd/metasploit/trunk/lib/active_record/connection_adapters/abstract/query_cache.rb:34:in `cache'
+    /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:9:in `cache'
+    /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:28:in `call'
+    /home/bernd/metasploit/trunk/lib/active_record/connection_adapters/abstract/connection_pool.rb:361:in `call'
+    /home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/actionpack-2.3.5/lib/action_controller/string_coercion.rb:25:in `call'
+    /home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/rack-1.0.1/lib/rack/head.rb:9:in `call'
+    /home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/rack-1.0.1/lib/rack/methodoverride.rb:24:in `call'
+    /home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/actionpack-2.3.5/lib/action_controller/params_parser.rb:15:in `call'
+    /home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/actionpack-2.3.5/lib/action_controller/session/cookie_store.rb:93:in `call'
+    /home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/actionpack-2.3.5/lib/action_controller/failsafe.rb:26:in `call'
+    /home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/rack-1.0.1/lib/rack/lock.rb:11:in `block in call'
+    <internal:prelude>:8:in `synchronize'
+    /home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/rack-1.0.1/lib/rack/lock.rb:11:in `call'
+    /home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/actionpack-2.3.5/lib/action_controller/dispatcher.rb:114:in `block in call'
+    /home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/actionpack-2.3.5/lib/action_controller/reloader.rb:34:in `run'
+    /home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/actionpack-2.3.5/lib/action_controller/dispatcher.rb:108:in `call'
+    /home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/rails-2.3.5/lib/rails/rack/static.rb:31:in `call'
+    /home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/rack-1.0.1/lib/rack/urlmap.rb:46:in `block in call'
+    /home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/rack-1.0.1/lib/rack/urlmap.rb:40:in `each'
+    /home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/rack-1.0.1/lib/rack/urlmap.rb:40:in `call'
+    /home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/rails-2.3.5/lib/rails/rack/log_tailer.rb:17:in `call'
+    /home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/rack-1.0.1/lib/rack/content_length.rb:13:in `call'
+    /home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/rack-1.0.1/lib/rack/handler/webrick.rb:50:in `service'
+    /home/bernd/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/httpserver.rb:111:in `service'
+    /home/bernd/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/httpserver.rb:70:in `run'
+    /home/bernd/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/server.rb:183:in `block in start_thread'
+  [4;35;1mSQL (0.1ms)[0m   [0mSET NAMES 'utf8'[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing HostsController#index (for 127.0.0.1 at 2010-11-03 20:35:10) [GET]
+  [4;35;1mMsf::DBManager::Host Load (0.4ms)[0m   [0mSELECT * FROM `hosts` [0m
+Rendering template within layouts/application
+Rendering hosts/index
+
+ActionView::TemplateError (undefined method `msf_db_manager_host_path' for #<ActionView::Base:0xbfd4640>) on line #11 of app/views/hosts/index.html.erb:
+8: <% @hosts.each do |host| %>
+9: <tr>
+10:   <td><%= host.address %></td>
+11:   <td><%= link_to host.name, host %></td>
+12: </tr>
+13: <% end %>
+14: </table>
+
+    app/helpers/msf_helper.rb:4:in `method_missing'
+    app/views/hosts/index.html.erb:11:in `block in _run_erb_app47views47hosts47index46html46erb'
+    app/views/hosts/index.html.erb:8:in `each'
+    app/views/hosts/index.html.erb:8
+    /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:29:in `call'
+    /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:29:in `block in call'
+    /home/bernd/metasploit/trunk/lib/active_record/connection_adapters/abstract/query_cache.rb:34:in `cache'
+    /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:9:in `cache'
+    /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:28:in `call'
+    /home/bernd/metasploit/trunk/lib/active_record/connection_adapters/abstract/connection_pool.rb:361:in `call'
+    <internal:prelude>:8:in `synchronize'
+    /home/bernd/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/httpserver.rb:111:in `service'
+    /home/bernd/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/httpserver.rb:70:in `run'
+    /home/bernd/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/server.rb:183:in `block in start_thread'
+
+Rendered rescues/_trace (69.0ms)
+Rendered rescues/_request_and_response (0.3ms)
+Rendering rescues/layout (internal_server_error)
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing HostsController#index (for 127.0.0.1 at 2010-11-03 20:35:30) [GET]
+  [4;36;1mMsf::DBManager::Host Load (0.5ms)[0m   [0;1mSELECT * FROM `hosts` [0m
+Rendering template within layouts/application
+Rendering hosts/index
+
+ActionView::TemplateError (undefined method `msf_db_manager_host_path' for #<ActionView::Base:0xb147290>) on line #11 of app/views/hosts/index.html.erb:
+8: <% @hosts.each do |host| %>
+9: <tr>
+10:   <td><%= host.address %></td>
+11:   <td><%= link_to host.name, host %></td>
+12: </tr>
+13: <% end %>
+14: </table>
+
+    app/helpers/msf_helper.rb:4:in `method_missing'
+    app/views/hosts/index.html.erb:11:in `block in _run_erb_app47views47hosts47index46html46erb'
+    app/views/hosts/index.html.erb:8:in `each'
+    app/views/hosts/index.html.erb:8
+    /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:29:in `call'
+    /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:29:in `block in call'
+    /home/bernd/metasploit/trunk/lib/active_record/connection_adapters/abstract/query_cache.rb:34:in `cache'
+    /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:9:in `cache'
+    /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:28:in `call'
+    /home/bernd/metasploit/trunk/lib/active_record/connection_adapters/abstract/connection_pool.rb:361:in `call'
+    <internal:prelude>:8:in `synchronize'
+    /home/bernd/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/httpserver.rb:111:in `service'
+    /home/bernd/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/httpserver.rb:70:in `run'
+    /home/bernd/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/server.rb:183:in `block in start_thread'
+
+Rendered rescues/_trace (68.3ms)
+Rendered rescues/_request_and_response (0.2ms)
+Rendering rescues/layout (internal_server_error)
+  [4;35;1mSQL (0.2ms)[0m   [0mSET NAMES 'utf8'[0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing HostsController#index (for 127.0.0.1 at 2010-11-03 20:35:54) [GET]
+  [4;35;1mMsf::DBManager::Host Load (0.3ms)[0m   [0mSELECT * FROM `hosts` [0m
+Rendering template within layouts/application
+Rendering hosts/index
+
+ActionView::TemplateError (undefined method `msf_db_manager_host_path' for #<ActionView::Base:0xbaa3718>) on line #11 of app/views/hosts/index.html.erb:
+8: <% @hosts.each do |host| %>
+9: <tr>
+10:   <td><%= host.address %></td>
+11:   <td><%= link_to host.name, host %></td>
+12: </tr>
+13: <% end %>
+14: </table>
+
+    app/helpers/msf_helper.rb:5:in `method_missing'
+    app/views/hosts/index.html.erb:11:in `block in _run_erb_app47views47hosts47index46html46erb'
+    app/views/hosts/index.html.erb:8:in `each'
+    app/views/hosts/index.html.erb:8
+    /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:29:in `call'
+    /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:29:in `block in call'
+    /home/bernd/metasploit/trunk/lib/active_record/connection_adapters/abstract/query_cache.rb:34:in `cache'
+    /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:9:in `cache'
+    /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:28:in `call'
+    /home/bernd/metasploit/trunk/lib/active_record/connection_adapters/abstract/connection_pool.rb:361:in `call'
+    <internal:prelude>:8:in `synchronize'
+    /home/bernd/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/httpserver.rb:111:in `service'
+    /home/bernd/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/httpserver.rb:70:in `run'
+    /home/bernd/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/server.rb:183:in `block in start_thread'
+
+Rendered rescues/_trace (114.2ms)
+Rendered rescues/_request_and_response (0.3ms)
+Rendering rescues/layout (internal_server_error)
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing HostsController#index (for 127.0.0.1 at 2010-11-03 20:39:26) [GET]
+  [4;36;1mMsf::DBManager::Host Load (0.3ms)[0m   [0;1mSELECT * FROM `hosts` [0m
+Rendering template within layouts/application
+Rendering hosts/index
+
+ActionView::TemplateError (host_url failed to generate from {:controller=>"hosts", :action=>"show"} - you may have ambiguous routes, or you may need to supply additional parameters for this route.  content_url has the following required parameters: ["hosts", :id] - are they all satisfied?) on line #11 of app/views/hosts/index.html.erb:
+8: <% @hosts.each do |host| %>
+9: <tr>
+10:   <td><%= host.address %></td>
+11:   <td><%= link_to host.name, host %></td>
+12: </tr>
+13: <% end %>
+14: </table>
+
+    app/helpers/msf_helper.rb:5:in `eval'
+    (eval):16:in `host_path'
+    (eval):1:in `method_missing'
+    app/helpers/msf_helper.rb:5:in `eval'
+    app/helpers/msf_helper.rb:5:in `method_missing'
+    app/views/hosts/index.html.erb:11:in `block in _run_erb_app47views47hosts47index46html46erb'
+    app/views/hosts/index.html.erb:8:in `each'
+    app/views/hosts/index.html.erb:8
+    /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:29:in `call'
+    /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:29:in `block in call'
+    /home/bernd/metasploit/trunk/lib/active_record/connection_adapters/abstract/query_cache.rb:34:in `cache'
+    /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:9:in `cache'
+    /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:28:in `call'
+    /home/bernd/metasploit/trunk/lib/active_record/connection_adapters/abstract/connection_pool.rb:361:in `call'
+    <internal:prelude>:8:in `synchronize'
+    /home/bernd/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/httpserver.rb:111:in `service'
+    /home/bernd/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/httpserver.rb:70:in `run'
+    /home/bernd/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/server.rb:183:in `block in start_thread'
+
+Rendered rescues/_trace (77.2ms)
+Rendered rescues/_request_and_response (0.2ms)
+Rendering rescues/layout (internal_server_error)
+  [4;35;1mSQL (0.1ms)[0m   [0mSET NAMES 'utf8'[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing HostsController#index (for 127.0.0.1 at 2010-11-03 20:39:55) [GET]
+  [4;35;1mMsf::DBManager::Host Load (1.9ms)[0m   [0mSELECT * FROM `hosts` [0m
+Rendering template within layouts/application
+Rendering hosts/index
+
+ActionView::TemplateError (host_url failed to generate from {:controller=>"hosts", :action=>"show"} - you may have ambiguous routes, or you may need to supply additional parameters for this route.  content_url has the following required parameters: ["hosts", :id] - are they all satisfied?) on line #11 of app/views/hosts/index.html.erb:
+8: <% @hosts.each do |host| %>
+9: <tr>
+10:   <td><%= host.address %></td>
+11:   <td><%= link_to host.name, host %></td>
+12: </tr>
+13: <% end %>
+14: </table>
+
+    app/helpers/msf_helper.rb:5:in `eval'
+    (eval):16:in `host_path'
+    (eval):1:in `method_missing'
+    app/helpers/msf_helper.rb:5:in `eval'
+    app/helpers/msf_helper.rb:5:in `method_missing'
+    app/views/hosts/index.html.erb:11:in `block in _run_erb_app47views47hosts47index46html46erb'
+    app/views/hosts/index.html.erb:8:in `each'
+    app/views/hosts/index.html.erb:8
+    /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:29:in `call'
+    /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:29:in `block in call'
+    /home/bernd/metasploit/trunk/lib/active_record/connection_adapters/abstract/query_cache.rb:34:in `cache'
+    /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:9:in `cache'
+    /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:28:in `call'
+    /home/bernd/metasploit/trunk/lib/active_record/connection_adapters/abstract/connection_pool.rb:361:in `call'
+    <internal:prelude>:8:in `synchronize'
+    /home/bernd/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/httpserver.rb:111:in `service'
+    /home/bernd/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/httpserver.rb:70:in `run'
+    /home/bernd/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/server.rb:183:in `block in start_thread'
+
+Rendered rescues/_trace (79.8ms)
+Rendered rescues/_request_and_response (0.3ms)
+Rendering rescues/layout (internal_server_error)
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing HostsController#index (for 127.0.0.1 at 2010-11-03 20:40:17) [GET]
+  [4;36;1mMsf::DBManager::Host Load (0.3ms)[0m   [0;1mSELECT * FROM `hosts` [0m
+Rendering template within layouts/application
+Rendering hosts/index
+
+ActionView::TemplateError (undefined method `msf_db_manager_host_path' for #<ActionView::Base:0xbb6df00>) on line #11 of app/views/hosts/index.html.erb:
+8: <% @hosts.each do |host| %>
+9: <tr>
+10:   <td><%= host.address %></td>
+11:   <td><%= link_to host.name, host %></td>
+12: </tr>
+13: <% end %>
+14: </table>
+
+    app/helpers/msf_helper.rb:7:in `method_missing'
+    app/views/hosts/index.html.erb:11:in `block in _run_erb_app47views47hosts47index46html46erb'
+    app/views/hosts/index.html.erb:8:in `each'
+    app/views/hosts/index.html.erb:8
+    /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:29:in `call'
+    /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:29:in `block in call'
+    /home/bernd/metasploit/trunk/lib/active_record/connection_adapters/abstract/query_cache.rb:34:in `cache'
+    /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:9:in `cache'
+    /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:28:in `call'
+    /home/bernd/metasploit/trunk/lib/active_record/connection_adapters/abstract/connection_pool.rb:361:in `call'
+    <internal:prelude>:8:in `synchronize'
+    /home/bernd/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/httpserver.rb:111:in `service'
+    /home/bernd/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/httpserver.rb:70:in `run'
+    /home/bernd/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/server.rb:183:in `block in start_thread'
+
+Rendered rescues/_trace (116.0ms)
+Rendered rescues/_request_and_response (0.3ms)
+Rendering rescues/layout (internal_server_error)
+  [4;35;1mSQL (0.1ms)[0m   [0mSET NAMES 'utf8'[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing HostsController#index (for 127.0.0.1 at 2010-11-03 20:40:47) [GET]
+  [4;35;1mMsf::DBManager::Host Load (0.3ms)[0m   [0mSELECT * FROM `hosts` [0m
+Rendering template within layouts/application
+Rendering hosts/index
+
+ActionView::TemplateError ((eval):1: syntax error, unexpected $end, expecting ']'
+...il, info: nil, comments: nil>])
+...                               ^) on line #11 of app/views/hosts/index.html.erb:
+8: <% @hosts.each do |host| %>
+9: <tr>
+10:   <td><%= host.address %></td>
+11:   <td><%= link_to host.name, host %></td>
+12: </tr>
+13: <% end %>
+14: </table>
+
+    app/helpers/msf_helper.rb:5:in `eval'
+    app/helpers/msf_helper.rb:5:in `method_missing'
+    app/views/hosts/index.html.erb:11:in `block in _run_erb_app47views47hosts47index46html46erb'
+    app/views/hosts/index.html.erb:8:in `each'
+    app/views/hosts/index.html.erb:8
+    /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:29:in `call'
+    /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:29:in `block in call'
+    /home/bernd/metasploit/trunk/lib/active_record/connection_adapters/abstract/query_cache.rb:34:in `cache'
+    /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:9:in `cache'
+    /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:28:in `call'
+    /home/bernd/metasploit/trunk/lib/active_record/connection_adapters/abstract/connection_pool.rb:361:in `call'
+    <internal:prelude>:8:in `synchronize'
+    /home/bernd/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/httpserver.rb:111:in `service'
+    /home/bernd/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/httpserver.rb:70:in `run'
+    /home/bernd/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/server.rb:183:in `block in start_thread'
+
+Rendered rescues/_trace (69.7ms)
+Rendered rescues/_request_and_response (0.2ms)
+Rendering rescues/layout (internal_server_error)
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing HostsController#index (for 127.0.0.1 at 2010-11-03 20:41:07) [GET]
+  [4;36;1mMsf::DBManager::Host Load (7.4ms)[0m   [0;1mSELECT * FROM `hosts` [0m
+Rendering template within layouts/application
+Rendering hosts/index
+
+ActionView::TemplateError ((eval):1: syntax error, unexpected $end, expecting ']'
+...il, info: nil, comments: nil>])
+...                               ^) on line #11 of app/views/hosts/index.html.erb:
+8: <% @hosts.each do |host| %>
+9: <tr>
+10:   <td><%= host.address %></td>
+11:   <td><%= link_to host.name, host %></td>
+12: </tr>
+13: <% end %>
+14: </table>
+
+    app/helpers/msf_helper.rb:5:in `eval'
+    app/helpers/msf_helper.rb:5:in `method_missing'
+    app/views/hosts/index.html.erb:11:in `block in _run_erb_app47views47hosts47index46html46erb'
+    app/views/hosts/index.html.erb:8:in `each'
+    app/views/hosts/index.html.erb:8
+    /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:29:in `call'
+    /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:29:in `block in call'
+    /home/bernd/metasploit/trunk/lib/active_record/connection_adapters/abstract/query_cache.rb:34:in `cache'
+    /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:9:in `cache'
+    /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:28:in `call'
+    /home/bernd/metasploit/trunk/lib/active_record/connection_adapters/abstract/connection_pool.rb:361:in `call'
+    <internal:prelude>:8:in `synchronize'
+    /home/bernd/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/httpserver.rb:111:in `service'
+    /home/bernd/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/httpserver.rb:70:in `run'
+    /home/bernd/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/server.rb:183:in `block in start_thread'
+
+Rendered rescues/_trace (114.4ms)
+Rendered rescues/_request_and_response (0.3ms)
+Rendering rescues/layout (internal_server_error)
+  [4;35;1mSQL (0.1ms)[0m   [0mSET NAMES 'utf8'[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing HostsController#index (for 127.0.0.1 at 2010-11-03 20:41:10) [GET]
+  [4;35;1mMsf::DBManager::Host Load (0.4ms)[0m   [0mSELECT * FROM `hosts` [0m
+Rendering template within layouts/application
+Rendering hosts/index
+
+ActionView::TemplateError ((eval):1: syntax error, unexpected $end, expecting ']'
+...il, info: nil, comments: nil>])
+...                               ^) on line #11 of app/views/hosts/index.html.erb:
+8: <% @hosts.each do |host| %>
+9: <tr>
+10:   <td><%= host.address %></td>
+11:   <td><%= link_to host.name, host %></td>
+12: </tr>
+13: <% end %>
+14: </table>
+
+    app/helpers/msf_helper.rb:5:in `eval'
+    app/helpers/msf_helper.rb:5:in `method_missing'
+    app/views/hosts/index.html.erb:11:in `block in _run_erb_app47views47hosts47index46html46erb'
+    app/views/hosts/index.html.erb:8:in `each'
+    app/views/hosts/index.html.erb:8
+    /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:29:in `call'
+    /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:29:in `block in call'
+    /home/bernd/metasploit/trunk/lib/active_record/connection_adapters/abstract/query_cache.rb:34:in `cache'
+    /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:9:in `cache'
+    /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:28:in `call'
+    /home/bernd/metasploit/trunk/lib/active_record/connection_adapters/abstract/connection_pool.rb:361:in `call'
+    <internal:prelude>:8:in `synchronize'
+    /home/bernd/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/httpserver.rb:111:in `service'
+    /home/bernd/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/httpserver.rb:70:in `run'
+    /home/bernd/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/server.rb:183:in `block in start_thread'
+
+Rendered rescues/_trace (71.3ms)
+Rendered rescues/_request_and_response (0.3ms)
+Rendering rescues/layout (internal_server_error)
+  [4;36;1mSQL (0.5ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (14.9ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing HostsController#index (for 127.0.0.1 at 2010-11-03 20:41:14) [GET]
+  [4;36;1mMsf::DBManager::Host Load (0.3ms)[0m   [0;1mSELECT * FROM `hosts` [0m
+Rendering template within layouts/application
+Rendering hosts/index
+
+ActionView::TemplateError ((eval):1: syntax error, unexpected $end, expecting ']'
+...il, info: nil, comments: nil>])
+...                               ^) on line #11 of app/views/hosts/index.html.erb:
+8: <% @hosts.each do |host| %>
+9: <tr>
+10:   <td><%= host.address %></td>
+11:   <td><%= link_to host.name, host %></td>
+12: </tr>
+13: <% end %>
+14: </table>
+
+    app/helpers/msf_helper.rb:5:in `eval'
+    app/helpers/msf_helper.rb:5:in `method_missing'
+    app/views/hosts/index.html.erb:11:in `block in _run_erb_app47views47hosts47index46html46erb'
+    app/views/hosts/index.html.erb:8:in `each'
+    app/views/hosts/index.html.erb:8
+    /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:29:in `call'
+    /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:29:in `block in call'
+    /home/bernd/metasploit/trunk/lib/active_record/connection_adapters/abstract/query_cache.rb:34:in `cache'
+    /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:9:in `cache'
+    /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:28:in `call'
+    /home/bernd/metasploit/trunk/lib/active_record/connection_adapters/abstract/connection_pool.rb:361:in `call'
+    <internal:prelude>:8:in `synchronize'
+    /home/bernd/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/httpserver.rb:111:in `service'
+    /home/bernd/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/httpserver.rb:70:in `run'
+    /home/bernd/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/server.rb:183:in `block in start_thread'
+
+Rendered rescues/_trace (70.1ms)
+Rendered rescues/_request_and_response (0.2ms)
+Rendering rescues/layout (internal_server_error)
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing HostsController#index (for 127.0.0.1 at 2010-11-03 20:41:33) [GET]
+  [4;36;1mMsf::DBManager::Host Load (0.4ms)[0m   [0;1mSELECT * FROM `hosts` [0m
+Rendering template within layouts/application
+Rendering hosts/index
+  [4;35;1mMsf::DBManager::Host Columns (0.9ms)[0m   [0mSHOW FIELDS FROM `hosts`[0m
+
+ActionView::TemplateError (undefined method `msf_db_manager_host_path' for #<ActionView::Base:0xa4ba3c4>) on line #11 of app/views/hosts/index.html.erb:
+8: <% @hosts.each do |host| %>
+9: <tr>
+10:   <td><%= host.address %></td>
+11:   <td><%= link_to host.name, host %></td>
+12: </tr>
+13: <% end %>
+14: </table>
+
+    app/views/hosts/index.html.erb:11:in `block in _run_erb_app47views47hosts47index46html46erb'
+    app/views/hosts/index.html.erb:8:in `each'
+    app/views/hosts/index.html.erb:8
+    /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:29:in `call'
+    /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:29:in `block in call'
+    /home/bernd/metasploit/trunk/lib/active_record/connection_adapters/abstract/query_cache.rb:34:in `cache'
+    /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:9:in `cache'
+    /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:28:in `call'
+    /home/bernd/metasploit/trunk/lib/active_record/connection_adapters/abstract/connection_pool.rb:361:in `call'
+    <internal:prelude>:8:in `synchronize'
+    /home/bernd/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/httpserver.rb:111:in `service'
+    /home/bernd/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/httpserver.rb:70:in `run'
+    /home/bernd/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/server.rb:183:in `block in start_thread'
+
+Rendered rescues/_trace (96.3ms)
+Rendered rescues/_request_and_response (1.2ms)
+Rendering rescues/layout (internal_server_error)
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing HostsController#index (for 127.0.0.1 at 2010-11-03 20:41:34) [GET]
+  [4;36;1mMsf::DBManager::Host Load (0.3ms)[0m   [0;1mSELECT * FROM `hosts` [0m
+Rendering template within layouts/application
+Rendering hosts/index
+
+ActionView::TemplateError (undefined method `msf_db_manager_host_path' for #<ActionView::Base:0xa92616c>) on line #11 of app/views/hosts/index.html.erb:
+8: <% @hosts.each do |host| %>
+9: <tr>
+10:   <td><%= host.address %></td>
+11:   <td><%= link_to host.name, host %></td>
+12: </tr>
+13: <% end %>
+14: </table>
+
+    app/views/hosts/index.html.erb:11:in `block in _run_erb_app47views47hosts47index46html46erb'
+    app/views/hosts/index.html.erb:8:in `each'
+    app/views/hosts/index.html.erb:8
+    /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:29:in `call'
+    /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:29:in `block in call'
+    /home/bernd/metasploit/trunk/lib/active_record/connection_adapters/abstract/query_cache.rb:34:in `cache'
+    /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:9:in `cache'
+    /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:28:in `call'
+    /home/bernd/metasploit/trunk/lib/active_record/connection_adapters/abstract/connection_pool.rb:361:in `call'
+    <internal:prelude>:8:in `synchronize'
+    /home/bernd/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/httpserver.rb:111:in `service'
+    /home/bernd/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/httpserver.rb:70:in `run'
+    /home/bernd/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/server.rb:183:in `block in start_thread'
+
+Rendered rescues/_trace (69.9ms)
+Rendered rescues/_request_and_response (0.2ms)
+Rendering rescues/layout (internal_server_error)
+  [4;35;1mSQL (0.1ms)[0m   [0mSET NAMES 'utf8'[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing ApplicationController#index (for 127.0.0.1 at 2010-11-03 20:46:56) [GET]
+
+ActionController::RoutingError (No route matches "/favicon.gif" with {:method=>:get}):
+  /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:29:in `call'
+  /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:29:in `block in call'
+  /home/bernd/metasploit/trunk/lib/active_record/connection_adapters/abstract/query_cache.rb:34:in `cache'
+  /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:9:in `cache'
+  /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:28:in `call'
+  /home/bernd/metasploit/trunk/lib/active_record/connection_adapters/abstract/connection_pool.rb:361:in `call'
+  <internal:prelude>:8:in `synchronize'
+  /home/bernd/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/httpserver.rb:111:in `service'
+  /home/bernd/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/httpserver.rb:70:in `run'
+  /home/bernd/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/server.rb:183:in `block in start_thread'
+
+Rendering rescues/layout (not_found)
+  [4;35;1mSQL (0.1ms)[0m   [0mSET NAMES 'utf8'[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing HostsController#index (for 127.0.0.1 at 2010-11-03 20:46:57) [GET]
+  [4;35;1mMsf::DBManager::Host Load (0.3ms)[0m   [0mSELECT * FROM `hosts` [0m
+Rendering template within layouts/application
+Rendering hosts/index
+
+ActionView::TemplateError (wrong number of arguments (1 for 0)) on line #11 of app/views/hosts/index.html.erb:
+8: <% @hosts.each do |host| %>
+9: <tr>
+10:   <td><%= host.address %></td>
+11:   <td><%= link_to host.name, host %></td>
+12: </tr>
+13: <% end %>
+14: </table>
+
+    app/views/hosts/index.html.erb:11:in `block in _run_erb_app47views47hosts47index46html46erb'
+    app/views/hosts/index.html.erb:8:in `each'
+    app/views/hosts/index.html.erb:8
+    /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:29:in `call'
+    /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:29:in `block in call'
+    /home/bernd/metasploit/trunk/lib/active_record/connection_adapters/abstract/query_cache.rb:34:in `cache'
+    /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:9:in `cache'
+    /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:28:in `call'
+    /home/bernd/metasploit/trunk/lib/active_record/connection_adapters/abstract/connection_pool.rb:361:in `call'
+    <internal:prelude>:8:in `synchronize'
+    /home/bernd/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/httpserver.rb:111:in `service'
+    /home/bernd/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/httpserver.rb:70:in `run'
+    /home/bernd/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/server.rb:183:in `block in start_thread'
+
+Rendered rescues/_trace (67.8ms)
+Rendered rescues/_request_and_response (0.2ms)
+Rendering rescues/layout (internal_server_error)
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+/!\ FAILSAFE /!\  2010-11-03 20:47:06 +0100
+  Status: 500 Internal Server Error
+  /home/bernd/tmp/cuc-server/app/helpers/msf_helper.rb:3: syntax error, unexpected '*', expecting ';' or '\n'
+/home/bernd/tmp/cuc-server/app/helpers/msf_helper.rb:8: module definition in method body
+/home/bernd/tmp/cuc-server/app/helpers/msf_helper.rb:9: syntax error, unexpected $end, expecting keyword_end
+    /home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/activesupport-2.3.5/lib/active_support/dependencies.rb:380:in `load'
+    /home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/activesupport-2.3.5/lib/active_support/dependencies.rb:380:in `block in load_file'
+    /home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/activesupport-2.3.5/lib/active_support/dependencies.rb:521:in `new_constants_in'
+    /home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/activesupport-2.3.5/lib/active_support/dependencies.rb:379:in `load_file'
+    /home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/activesupport-2.3.5/lib/active_support/dependencies.rb:259:in `require_or_load'
+    /home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/activesupport-2.3.5/lib/active_support/dependencies.rb:224:in `depend_on'
+    /home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/activesupport-2.3.5/lib/active_support/dependencies.rb:136:in `require_dependency'
+    /home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/actionpack-2.3.5/lib/action_controller/helpers.rb:126:in `block in helper'
+    /home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/actionpack-2.3.5/lib/action_controller/helpers.rb:115:in `each'
+    /home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/actionpack-2.3.5/lib/action_controller/helpers.rb:115:in `helper'
+    /home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/actionpack-2.3.5/lib/action_controller/helpers.rb:120:in `block in helper'
+    /home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/actionpack-2.3.5/lib/action_controller/helpers.rb:115:in `each'
+    /home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/actionpack-2.3.5/lib/action_controller/helpers.rb:115:in `helper'
+    /home/bernd/tmp/cuc-server/app/controllers/application_controller.rb:5:in `<class:ApplicationController>'
+    /home/bernd/tmp/cuc-server/app/controllers/application_controller.rb:4:in `<top (required)>'
+    /home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/activesupport-2.3.5/lib/active_support/dependencies.rb:380:in `load'
+    /home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/activesupport-2.3.5/lib/active_support/dependencies.rb:380:in `block in load_file'
+    /home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/activesupport-2.3.5/lib/active_support/dependencies.rb:521:in `new_constants_in'
+    /home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/activesupport-2.3.5/lib/active_support/dependencies.rb:379:in `load_file'
+    /home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/activesupport-2.3.5/lib/active_support/dependencies.rb:259:in `require_or_load'
+    /home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/activesupport-2.3.5/lib/active_support/dependencies.rb:425:in `load_missing_constant'
+    /home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/activesupport-2.3.5/lib/active_support/dependencies.rb:80:in `const_missing_with_dependencies'
+    /home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/activesupport-2.3.5/lib/active_support/dependencies.rb:92:in `const_missing'
+    /home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/actionpack-2.3.5/lib/action_controller/dispatcher.rb:89:in `rescue in dispatch'
+    /home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/actionpack-2.3.5/lib/action_controller/dispatcher.rb:96:in `dispatch'
+    /home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/actionpack-2.3.5/lib/action_controller/dispatcher.rb:121:in `_call'
+    /home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/actionpack-2.3.5/lib/action_controller/dispatcher.rb:130:in `block in build_middleware_stack'
+    /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:29:in `call'
+    /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:29:in `block in call'
+    /home/bernd/metasploit/trunk/lib/active_record/connection_adapters/abstract/query_cache.rb:34:in `cache'
+    /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:9:in `cache'
+    /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:28:in `call'
+    /home/bernd/metasploit/trunk/lib/active_record/connection_adapters/abstract/connection_pool.rb:361:in `call'
+    /home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/actionpack-2.3.5/lib/action_controller/string_coercion.rb:25:in `call'
+    /home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/rack-1.0.1/lib/rack/head.rb:9:in `call'
+    /home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/rack-1.0.1/lib/rack/methodoverride.rb:24:in `call'
+    /home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/actionpack-2.3.5/lib/action_controller/params_parser.rb:15:in `call'
+    /home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/actionpack-2.3.5/lib/action_controller/session/cookie_store.rb:93:in `call'
+    /home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/actionpack-2.3.5/lib/action_controller/failsafe.rb:26:in `call'
+    /home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/rack-1.0.1/lib/rack/lock.rb:11:in `block in call'
+    <internal:prelude>:8:in `synchronize'
+    /home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/rack-1.0.1/lib/rack/lock.rb:11:in `call'
+    /home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/actionpack-2.3.5/lib/action_controller/dispatcher.rb:114:in `block in call'
+    /home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/actionpack-2.3.5/lib/action_controller/reloader.rb:34:in `run'
+    /home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/actionpack-2.3.5/lib/action_controller/dispatcher.rb:108:in `call'
+    /home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/rails-2.3.5/lib/rails/rack/static.rb:31:in `call'
+    /home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/rack-1.0.1/lib/rack/urlmap.rb:46:in `block in call'
+    /home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/rack-1.0.1/lib/rack/urlmap.rb:40:in `each'
+    /home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/rack-1.0.1/lib/rack/urlmap.rb:40:in `call'
+    /home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/rails-2.3.5/lib/rails/rack/log_tailer.rb:17:in `call'
+    /home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/rack-1.0.1/lib/rack/content_length.rb:13:in `call'
+    /home/bernd/.rvm/gems/ruby-1.9.1-p378/gems/rack-1.0.1/lib/rack/handler/webrick.rb:50:in `service'
+    /home/bernd/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/httpserver.rb:111:in `service'
+    /home/bernd/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/httpserver.rb:70:in `run'
+    /home/bernd/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/server.rb:183:in `block in start_thread'
+  [4;36;1mSQL (0.2ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing HostsController#index (for 127.0.0.1 at 2010-11-03 20:47:17) [GET]
+  [4;36;1mMsf::DBManager::Host Load (0.3ms)[0m   [0;1mSELECT * FROM `hosts` [0m
+Rendering template within layouts/application
+Rendering hosts/index
+Rendered menu/_menu (61.4ms)
+Completed in 73ms (View: 71, DB: 1) | 200 OK [http://localhost/]
+  [4;35;1mSQL (0.1ms)[0m   [0mSET NAMES 'utf8'[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing HostsController#index (for 127.0.0.1 at 2010-11-03 20:47:54) [GET]
+  [4;35;1mMsf::DBManager::Host Load (0.4ms)[0m   [0mSELECT * FROM `hosts` [0m
+Rendering template within layouts/application
+Rendering hosts/index
+Rendered menu/_menu (0.1ms)
+Completed in 4ms (View: 2, DB: 0) | 200 OK [http://localhost/]
+  [4;36;1mSQL (0.2ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing HostsController#index (for 127.0.0.1 at 2010-11-03 20:48:05) [GET]
+  [4;36;1mMsf::DBManager::Host Load (0.3ms)[0m   [0;1mSELECT * FROM `hosts` [0m
+Rendering template within layouts/application
+Rendering hosts/index
+Rendered menu/_menu (0.2ms)
+Completed in 4ms (View: 2, DB: 1) | 200 OK [http://localhost/]
+  [4;35;1mSQL (0.1ms)[0m   [0mSET NAMES 'utf8'[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing HostsController#show (for 127.0.0.1 at 2010-11-03 20:48:07) [GET]
+  Parameters: {"id"=>"1"}
+
+ActionController::UnknownAction (No action responded to show. Actions: index):
+  /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:29:in `call'
+  /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:29:in `block in call'
+  /home/bernd/metasploit/trunk/lib/active_record/connection_adapters/abstract/query_cache.rb:34:in `cache'
+  /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:9:in `cache'
+  /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:28:in `call'
+  /home/bernd/metasploit/trunk/lib/active_record/connection_adapters/abstract/connection_pool.rb:361:in `call'
+  <internal:prelude>:8:in `synchronize'
+  /home/bernd/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/httpserver.rb:111:in `service'
+  /home/bernd/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/httpserver.rb:70:in `run'
+  /home/bernd/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/server.rb:183:in `block in start_thread'
+
+Rendering rescues/layout (not_found)
+  [4;35;1mSQL (0.1ms)[0m   [0mSET NAMES 'utf8'[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing HostsController#show (for 127.0.0.1 at 2010-11-03 20:52:47) [GET]
+  Parameters: {"id"=>"4"}
+
+ActionController::UnknownAction (No action responded to show. Actions: index):
+  /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:29:in `call'
+  /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:29:in `block in call'
+  /home/bernd/metasploit/trunk/lib/active_record/connection_adapters/abstract/query_cache.rb:34:in `cache'
+  /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:9:in `cache'
+  /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:28:in `call'
+  /home/bernd/metasploit/trunk/lib/active_record/connection_adapters/abstract/connection_pool.rb:361:in `call'
+  <internal:prelude>:8:in `synchronize'
+  /home/bernd/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/httpserver.rb:111:in `service'
+  /home/bernd/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/httpserver.rb:70:in `run'
+  /home/bernd/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/server.rb:183:in `block in start_thread'
+
+Rendering rescues/layout (not_found)
+  [4;35;1mSQL (0.1ms)[0m   [0mSET NAMES 'utf8'[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing HostsController#show (for 127.0.0.1 at 2010-11-03 20:59:01) [GET]
+  Parameters: {"id"=>"2"}
+
+ActionController::UnknownAction (No action responded to show. Actions: index):
+  /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:29:in `call'
+  /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:29:in `block in call'
+  /home/bernd/metasploit/trunk/lib/active_record/connection_adapters/abstract/query_cache.rb:34:in `cache'
+  /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:9:in `cache'
+  /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:28:in `call'
+  /home/bernd/metasploit/trunk/lib/active_record/connection_adapters/abstract/connection_pool.rb:361:in `call'
+  <internal:prelude>:8:in `synchronize'
+  /home/bernd/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/httpserver.rb:111:in `service'
+  /home/bernd/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/httpserver.rb:70:in `run'
+  /home/bernd/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/server.rb:183:in `block in start_thread'
+
+Rendering rescues/layout (not_found)
+  [4;35;1mSQL (0.1ms)[0m   [0mSET NAMES 'utf8'[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing HostsController#show (for 127.0.0.1 at 2010-11-03 20:59:23) [GET]
+  Parameters: {"id"=>"2"}
+  [4;35;1mMsf::DBManager::Host Load (14.8ms)[0m   [0mSELECT * FROM `hosts` WHERE (`hosts`.`id` = 2) [0m
+
+ActionView::MissingTemplate (Missing template hosts/show.erb in view path app/views):
+  /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:29:in `call'
+  /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:29:in `block in call'
+  /home/bernd/metasploit/trunk/lib/active_record/connection_adapters/abstract/query_cache.rb:34:in `cache'
+  /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:9:in `cache'
+  /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:28:in `call'
+  /home/bernd/metasploit/trunk/lib/active_record/connection_adapters/abstract/connection_pool.rb:361:in `call'
+  <internal:prelude>:8:in `synchronize'
+  /home/bernd/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/httpserver.rb:111:in `service'
+  /home/bernd/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/httpserver.rb:70:in `run'
+  /home/bernd/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/server.rb:183:in `block in start_thread'
+
+Rendering rescues/layout (internal_server_error)
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing HostsController#show (for 127.0.0.1 at 2010-11-03 21:01:22) [GET]
+  Parameters: {"id"=>"2"}
+  [4;36;1mMsf::DBManager::Host Load (0.3ms)[0m   [0;1mSELECT * FROM `hosts` WHERE (`hosts`.`id` = 2) [0m
+Rendering template within layouts/application
+Rendering hosts/show
+
+ActionView::TemplateError (undefined local variable or method `host' for #<ActionView::Base:0xafc837c>) on line #1 of app/views/hosts/show.html.erb:
+1: <%= render :partial=>"services/services_from_host", :locals=>{:services=>host.services} %>
+
+    app/views/hosts/show.html.erb:1
+    /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:29:in `call'
+    /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:29:in `block in call'
+    /home/bernd/metasploit/trunk/lib/active_record/connection_adapters/abstract/query_cache.rb:34:in `cache'
+    /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:9:in `cache'
+    /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:28:in `call'
+    /home/bernd/metasploit/trunk/lib/active_record/connection_adapters/abstract/connection_pool.rb:361:in `call'
+    <internal:prelude>:8:in `synchronize'
+    /home/bernd/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/httpserver.rb:111:in `service'
+    /home/bernd/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/httpserver.rb:70:in `run'
+    /home/bernd/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/server.rb:183:in `block in start_thread'
+
+Rendered rescues/_trace (61.4ms)
+Rendered rescues/_request_and_response (0.3ms)
+Rendering rescues/layout (internal_server_error)
+  [4;35;1mSQL (0.1ms)[0m   [0mSET NAMES 'utf8'[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing HostsController#show (for 127.0.0.1 at 2010-11-03 21:01:31) [GET]
+  Parameters: {"id"=>"2"}
+  [4;35;1mMsf::DBManager::Host Load (17.3ms)[0m   [0mSELECT * FROM `hosts` WHERE (`hosts`.`id` = 2) [0m
+Rendering template within layouts/application
+Rendering hosts/show
+
+ActionView::TemplateError (Msf::DBManager is not missing constant Service!) on line #1 of app/views/hosts/show.html.erb:
+1: <%= render :partial=>"services/services_from_host", :locals=>{:services=>@host.services} %>
+
+    /home/bernd/metasploit/trunk/lib/active_record/base.rb:2197:in `block in compute_type'
+    /home/bernd/metasploit/trunk/lib/active_record/base.rb:2197:in `class_eval'
+    /home/bernd/metasploit/trunk/lib/active_record/base.rb:2197:in `block in compute_type'
+    /home/bernd/metasploit/trunk/lib/active_record/base.rb:2195:in `compute_type'
+    /home/bernd/metasploit/trunk/lib/active_record/reflection.rb:156:in `klass'
+    /home/bernd/metasploit/trunk/lib/active_record/reflection.rb:187:in `quoted_table_name'
+    /home/bernd/metasploit/trunk/lib/active_record/associations/has_many_association.rb:97:in `construct_sql'
+    /home/bernd/metasploit/trunk/lib/active_record/associations/association_collection.rb:21:in `initialize'
+    /home/bernd/metasploit/trunk/lib/active_record/associations.rb:1300:in `new'
+    /home/bernd/metasploit/trunk/lib/active_record/associations.rb:1300:in `block in collection_reader_method'
+    app/views/hosts/show.html.erb:1
+    /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:29:in `call'
+    /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:29:in `block in call'
+    /home/bernd/metasploit/trunk/lib/active_record/connection_adapters/abstract/query_cache.rb:34:in `cache'
+    /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:9:in `cache'
+    /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:28:in `call'
+    /home/bernd/metasploit/trunk/lib/active_record/connection_adapters/abstract/connection_pool.rb:361:in `call'
+    <internal:prelude>:8:in `synchronize'
+    /home/bernd/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/httpserver.rb:111:in `service'
+    /home/bernd/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/httpserver.rb:70:in `run'
+    /home/bernd/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/server.rb:183:in `block in start_thread'
+
+Rendered rescues/_trace (114.9ms)
+Rendered rescues/_request_and_response (0.3ms)
+Rendering rescues/layout (internal_server_error)
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mMsf::DBManager::Host Columns (0.8ms)[0m   [0;1mSHOW FIELDS FROM `hosts`[0m
+  [4;35;1mMsf::DBManager::Host Load (1.0ms)[0m   [0mSELECT * FROM `hosts` WHERE (`hosts`.`id` = 1) [0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.2ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mSQL (0.5ms)[0m   [0;1mSHOW TABLES[0m
+  [4;35;1mMsf::DBManager::Host Columns (0.7ms)[0m   [0mSHOW FIELDS FROM `hosts`[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mMsf::DBManager::Host Columns (0.7ms)[0m   [0;1mSHOW FIELDS FROM `hosts`[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mSQL (0.4ms)[0m   [0;1mSHOW TABLES[0m
+  [4;35;1mMsf::DBManager::Host Columns (0.7ms)[0m   [0mSHOW FIELDS FROM `hosts`[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mSQL (0.4ms)[0m   [0;1mSHOW TABLES[0m
+  [4;35;1mMsf::DBManager::Host Columns (0.7ms)[0m   [0mSHOW FIELDS FROM `hosts`[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mMsf::DBManager::Host Columns (0.7ms)[0m   [0;1mSHOW FIELDS FROM `hosts`[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mMsf::DBManager::Host Columns (0.8ms)[0m   [0;1mSHOW FIELDS FROM `hosts`[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mMsf::DBManager::Host Columns (0.7ms)[0m   [0;1mSHOW FIELDS FROM `hosts`[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mMsf::DBManager::Host Columns (1.3ms)[0m   [0;1mSHOW FIELDS FROM `hosts`[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mMsf::DBManager::Host Columns (0.7ms)[0m   [0;1mSHOW FIELDS FROM `hosts`[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mSQL (0.4ms)[0m   [0;1mSHOW TABLES[0m
+  [4;35;1mMsf::DBManager::Host Columns (0.7ms)[0m   [0mSHOW FIELDS FROM `hosts`[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mSQL (0.4ms)[0m   [0;1mSHOW TABLES[0m
+  [4;35;1mMsf::DBManager::Host Columns (0.8ms)[0m   [0mSHOW FIELDS FROM `hosts`[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing HostsController#show (for 127.0.0.1 at 2010-11-03 22:10:10) [GET]
+  Parameters: {"id"=>"2"}
+  [4;36;1mMsf::DBManager::Host Columns (1.0ms)[0m   [0;1mSHOW FIELDS FROM `hosts`[0m
+  [4;35;1mMsf::DBManager::Host Load (0.3ms)[0m   [0mSELECT * FROM `hosts` WHERE (`hosts`.`id` = 2) [0m
+Rendering template within layouts/application
+Rendering hosts/show
+  [4;36;1mMsf::DBManager::Service Load (0.3ms)[0m   [0;1mSELECT * FROM `services` WHERE (`services`.host_id = 2) [0m
+  [4;35;1mMsf::DBManager::Service Columns (0.6ms)[0m   [0mSHOW FIELDS FROM `services`[0m
+Rendered services/_services_from_host (4.5ms)
+Rendered menu/_menu (0.7ms)
+Completed in 92ms (View: 87, DB: 2) | 200 OK [http://localhost/hosts/2]
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing HostsController#show (for 127.0.0.1 at 2010-11-03 22:10:10) [GET]
+  Parameters: {"id"=>"2"}
+  [4;36;1mMsf::DBManager::Host Load (0.3ms)[0m   [0;1mSELECT * FROM `hosts` WHERE (`hosts`.`id` = 2) [0m
+Rendering template within layouts/application
+Rendering hosts/show
+  [4;35;1mMsf::DBManager::Service Load (0.2ms)[0m   [0mSELECT * FROM `services` WHERE (`services`.host_id = 2) [0m
+Rendered services/_services_from_host (0.7ms)
+Rendered menu/_menu (0.2ms)
+Completed in 4ms (View: 2, DB: 1) | 200 OK [http://localhost/hosts/2]
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing HostsController#show (for 127.0.0.1 at 2010-11-03 22:10:10) [GET]
+  Parameters: {"id"=>"2"}
+  [4;36;1mMsf::DBManager::Host Load (0.3ms)[0m   [0;1mSELECT * FROM `hosts` WHERE (`hosts`.`id` = 2) [0m
+Rendering template within layouts/application
+Rendering hosts/show
+  [4;35;1mMsf::DBManager::Service Load (0.2ms)[0m   [0mSELECT * FROM `services` WHERE (`services`.host_id = 2) [0m
+Rendered services/_services_from_host (0.5ms)
+Rendered menu/_menu (0.2ms)
+Completed in 5ms (View: 2, DB: 1) | 200 OK [http://localhost/hosts/2]
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing HostsController#show (for 127.0.0.1 at 2010-11-03 22:10:10) [GET]
+  Parameters: {"id"=>"2"}
+  [4;36;1mMsf::DBManager::Host Load (0.3ms)[0m   [0;1mSELECT * FROM `hosts` WHERE (`hosts`.`id` = 2) [0m
+Rendering template within layouts/application
+Rendering hosts/show
+  [4;35;1mMsf::DBManager::Service Load (0.2ms)[0m   [0mSELECT * FROM `services` WHERE (`services`.host_id = 2) [0m
+Rendered services/_services_from_host (0.6ms)
+Rendered menu/_menu (0.2ms)
+Completed in 4ms (View: 2, DB: 1) | 200 OK [http://localhost/hosts/2]
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing HostsController#index (for 127.0.0.1 at 2010-11-03 22:10:13) [GET]
+  [4;36;1mMsf::DBManager::Host Load (0.3ms)[0m   [0;1mSELECT * FROM `hosts` [0m
+Rendering template within layouts/application
+Rendering hosts/index
+Rendered menu/_menu (0.2ms)
+Completed in 14ms (View: 12, DB: 0) | 200 OK [http://localhost/hosts]
+  [4;35;1mSQL (1.9ms)[0m   [0mSET NAMES 'utf8'[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing HostsController#show (for 127.0.0.1 at 2010-11-03 22:10:14) [GET]
+  Parameters: {"id"=>"1"}
+  [4;35;1mMsf::DBManager::Host Load (0.3ms)[0m   [0mSELECT * FROM `hosts` WHERE (`hosts`.`id` = 1) [0m
+Rendering template within layouts/application
+Rendering hosts/show
+  [4;36;1mMsf::DBManager::Service Load (0.3ms)[0m   [0;1mSELECT * FROM `services` WHERE (`services`.host_id = 1) [0m
+Rendered services/_services_from_host (2.9ms)
+Rendered menu/_menu (0.2ms)
+Completed in 6ms (View: 4, DB: 3) | 200 OK [http://localhost/hosts/1]
+  [4;35;1mSQL (0.1ms)[0m   [0mSET NAMES 'utf8'[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing HostsController#show (for 127.0.0.1 at 2010-11-03 22:10:17) [GET]
+  Parameters: {"id"=>"2"}
+  [4;35;1mMsf::DBManager::Host Load (0.3ms)[0m   [0mSELECT * FROM `hosts` WHERE (`hosts`.`id` = 2) [0m
+Rendering template within layouts/application
+Rendering hosts/show
+  [4;36;1mMsf::DBManager::Service Load (0.2ms)[0m   [0;1mSELECT * FROM `services` WHERE (`services`.host_id = 2) [0m
+Rendered services/_services_from_host (0.5ms)
+Rendered menu/_menu (0.2ms)
+Completed in 4ms (View: 2, DB: 1) | 200 OK [http://localhost/hosts/2]
+  [4;35;1mSQL (0.1ms)[0m   [0mSET NAMES 'utf8'[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing HostsController#show (for 127.0.0.1 at 2010-11-03 22:10:44) [GET]
+  Parameters: {"id"=>"1"}
+  [4;35;1mMsf::DBManager::Host Load (0.3ms)[0m   [0mSELECT * FROM `hosts` WHERE (`hosts`.`id` = 1) [0m
+Rendering template within layouts/application
+Rendering hosts/show
+
+ActionView::TemplateError (undefined local variable or method `host' for #<ActionView::Base:0xac6a774>) on line #1 of app/views/hosts/show.html.erb:
+1: <h1>Host <%= @host.name %>(<%= host.address %>)</h1>
+2: <%= render :partial=>"services/services_from_host", :locals=>{:services=>@host.services} %>
+
+    app/views/hosts/show.html.erb:1
+    /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:29:in `call'
+    /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:29:in `block in call'
+    /home/bernd/metasploit/trunk/lib/active_record/connection_adapters/abstract/query_cache.rb:34:in `cache'
+    /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:9:in `cache'
+    /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:28:in `call'
+    /home/bernd/metasploit/trunk/lib/active_record/connection_adapters/abstract/connection_pool.rb:361:in `call'
+    <internal:prelude>:8:in `synchronize'
+    /home/bernd/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/httpserver.rb:111:in `service'
+    /home/bernd/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/httpserver.rb:70:in `run'
+    /home/bernd/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/server.rb:183:in `block in start_thread'
+
+Rendered rescues/_trace (62.7ms)
+Rendered rescues/_request_and_response (1.3ms)
+Rendering rescues/layout (internal_server_error)
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing HostsController#show (for 127.0.0.1 at 2010-11-03 22:10:51) [GET]
+  Parameters: {"id"=>"1"}
+  [4;36;1mMsf::DBManager::Host Load (0.3ms)[0m   [0;1mSELECT * FROM `hosts` WHERE (`hosts`.`id` = 1) [0m
+Rendering template within layouts/application
+Rendering hosts/show
+  [4;35;1mMsf::DBManager::Service Load (0.3ms)[0m   [0mSELECT * FROM `services` WHERE (`services`.host_id = 1) [0m
+Rendered services/_services_from_host (0.8ms)
+Rendered menu/_menu (0.2ms)
+Completed in 11ms (View: 9, DB: 1) | 200 OK [http://localhost/hosts/1]
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing HostsController#show (for 127.0.0.1 at 2010-11-03 22:11:51) [GET]
+  Parameters: {"id"=>"1"}
+  [4;36;1mMsf::DBManager::Host Load (0.4ms)[0m   [0;1mSELECT * FROM `hosts` WHERE (`hosts`.`id` = 1) [0m
+Rendering template within layouts/application
+Rendering hosts/show
+  [4;35;1mMsf::DBManager::Service Load (0.3ms)[0m   [0mSELECT * FROM `services` WHERE (`services`.host_id = 1) [0m
+Rendered services/_services_from_host (1.4ms)
+Rendered menu/_menu (0.2ms)
+Completed in 12ms (View: 9, DB: 1) | 200 OK [http://localhost/hosts/1]
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing HostsController#index (for 127.0.0.1 at 2010-11-03 22:11:55) [GET]
+  [4;36;1mMsf::DBManager::Host Load (0.3ms)[0m   [0;1mSELECT * FROM `hosts` [0m
+Rendering template within layouts/application
+Rendering hosts/index
+Rendered menu/_menu (0.2ms)
+Completed in 41ms (View: 2, DB: 0) | 200 OK [http://localhost/hosts]
+  [4;35;1mSQL (11.5ms)[0m   [0mSET NAMES 'utf8'[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing HostsController#show (for 127.0.0.1 at 2010-11-03 22:11:57) [GET]
+  Parameters: {"id"=>"4"}
+  [4;35;1mMsf::DBManager::Host Load (0.3ms)[0m   [0mSELECT * FROM `hosts` WHERE (`hosts`.`id` = 4) [0m
+Rendering template within layouts/application
+Rendering hosts/show
+  [4;36;1mMsf::DBManager::Service Load (9.9ms)[0m   [0;1mSELECT * FROM `services` WHERE (`services`.host_id = 4) [0m
+Rendered services/_services_from_host (10.4ms)
+Rendered menu/_menu (0.2ms)
+Completed in 14ms (View: 2, DB: 22) | 200 OK [http://localhost/hosts/4]
+  [4;35;1mSQL (0.1ms)[0m   [0mSET NAMES 'utf8'[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing HostsController#index (for 127.0.0.1 at 2010-11-03 22:11:59) [GET]
+  [4;35;1mMsf::DBManager::Host Load (0.3ms)[0m   [0mSELECT * FROM `hosts` [0m
+Rendering template within layouts/application
+Rendering hosts/index
+Rendered menu/_menu (0.1ms)
+Completed in 4ms (View: 2, DB: 0) | 200 OK [http://localhost/hosts]
+  [4;36;1mMsf::DBManager::Host Load (0.6ms)[0m   [0;1mSELECT * FROM `hosts` WHERE (`hosts`.`id` = 4) [0m
+  [4;35;1mMsf::DBManager::Host Load (0.6ms)[0m   [0mSELECT * FROM `hosts` WHERE (`hosts`.`id` = 4) [0m
+  [4;36;1mMsf::DBManager::ExploitedHost Load (0.6ms)[0m   [0;1mSELECT * FROM `exploited_hosts` WHERE (`exploited_hosts`.host_id = 4) [0m
+  [4;35;1mMsf::DBManager::ExploitedHost Columns (1.4ms)[0m   [0mSHOW FIELDS FROM `exploited_hosts`[0m
+  [4;36;1mMsf::DBManager::Host Load (0.6ms)[0m   [0;1mSELECT * FROM `hosts` WHERE (`hosts`.`id` = 3) [0m
+  [4;35;1mMsf::DBManager::ExploitedHost Load (0.6ms)[0m   [0mSELECT * FROM `exploited_hosts` WHERE (`exploited_hosts`.host_id = 3) [0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing HostsController#index (for 127.0.0.1 at 2010-11-03 22:15:28) [GET]
+  [4;36;1mMsf::DBManager::Host Load (0.3ms)[0m   [0;1mSELECT * FROM `hosts` [0m
+Rendering template within layouts/application
+Rendering hosts/index
+Rendered menu/_menu (0.1ms)
+Completed in 10ms (View: 9, DB: 0) | 200 OK [http://localhost/hosts]
+  [4;35;1mSQL (0.1ms)[0m   [0mSET NAMES 'utf8'[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing HostsController#index (for 127.0.0.1 at 2010-11-03 22:17:07) [GET]
+  [4;35;1mMsf::DBManager::Host Load (0.3ms)[0m   [0mSELECT * FROM `hosts` [0m
+Rendering template within layouts/application
+Rendering hosts/index
+
+ActionView::TemplateError (undefined method `exploited?' for #<Msf::DBManager::Host:0xaed01d4>) on line #9 of app/views/hosts/index.html.erb:
+6: <th>Name</th>
+7: </tr>
+8: <% @hosts.each do |host| %>
+9: <% if host.exploited? %>
+10: <tr class="exploited">
+11: <% else %>
+12: <tr>
+
+    /home/bernd/metasploit/trunk/lib/active_record/attribute_methods.rb:255:in `method_missing'
+    app/views/hosts/index.html.erb:9:in `block in _run_erb_app47views47hosts47index46html46erb'
+    app/views/hosts/index.html.erb:8:in `each'
+    app/views/hosts/index.html.erb:8
+    /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:29:in `call'
+    /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:29:in `block in call'
+    /home/bernd/metasploit/trunk/lib/active_record/connection_adapters/abstract/query_cache.rb:34:in `cache'
+    /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:9:in `cache'
+    /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:28:in `call'
+    /home/bernd/metasploit/trunk/lib/active_record/connection_adapters/abstract/connection_pool.rb:361:in `call'
+    <internal:prelude>:8:in `synchronize'
+    /home/bernd/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/httpserver.rb:111:in `service'
+    /home/bernd/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/httpserver.rb:70:in `run'
+    /home/bernd/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/server.rb:183:in `block in start_thread'
+
+Rendered rescues/_trace (64.8ms)
+Rendered rescues/_request_and_response (0.2ms)
+Rendering rescues/layout (internal_server_error)
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing HostsController#index (for 127.0.0.1 at 2010-11-03 22:17:21) [GET]
+  [4;36;1mMsf::DBManager::Host Load (0.3ms)[0m   [0;1mSELECT * FROM `hosts` [0m
+Rendering template within layouts/application
+Rendering hosts/index
+  [4;35;1mMsf::DBManager::Host Columns (0.8ms)[0m   [0mSHOW FIELDS FROM `hosts`[0m
+
+ActionView::TemplateError (undefined method `exploited?' for #<Msf::DBManager::Host:0xb357144>) on line #9 of app/views/hosts/index.html.erb:
+6: <th>Name</th>
+7: </tr>
+8: <% @hosts.each do |host| %>
+9: <% if host.exploited? %>
+10: <tr class="exploited">
+11: <% else %>
+12: <tr>
+
+    /home/bernd/metasploit/trunk/lib/active_record/attribute_methods.rb:255:in `method_missing'
+    app/views/hosts/index.html.erb:9:in `block in _run_erb_app47views47hosts47index46html46erb'
+    app/views/hosts/index.html.erb:8:in `each'
+    app/views/hosts/index.html.erb:8
+    /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:29:in `call'
+    /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:29:in `block in call'
+    /home/bernd/metasploit/trunk/lib/active_record/connection_adapters/abstract/query_cache.rb:34:in `cache'
+    /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:9:in `cache'
+    /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:28:in `call'
+    /home/bernd/metasploit/trunk/lib/active_record/connection_adapters/abstract/connection_pool.rb:361:in `call'
+    <internal:prelude>:8:in `synchronize'
+    /home/bernd/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/httpserver.rb:111:in `service'
+    /home/bernd/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/httpserver.rb:70:in `run'
+    /home/bernd/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/server.rb:183:in `block in start_thread'
+
+Rendered rescues/_trace (98.5ms)
+Rendered rescues/_request_and_response (1.1ms)
+Rendering rescues/layout (internal_server_error)
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mMsf::DBManager::Host Columns (0.7ms)[0m   [0;1mSHOW FIELDS FROM `hosts`[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing HostsController#index (for 127.0.0.1 at 2010-11-03 22:19:42) [GET]
+  [4;36;1mMsf::DBManager::Host Load (0.3ms)[0m   [0;1mSELECT * FROM `hosts` [0m
+Rendering template within layouts/application
+Rendering hosts/index
+
+ActionView::TemplateError (undefined method `exploited?' for #<Msf::DBManager::Host:0xb04ab58>) on line #9 of app/views/hosts/index.html.erb:
+6: <th>Name</th>
+7: </tr>
+8: <% @hosts.each do |host| %>
+9: <% if host.exploited? %>
+10: <tr class="exploited">
+11: <% else %>
+12: <tr>
+
+    /home/bernd/metasploit/trunk/lib/active_record/attribute_methods.rb:255:in `method_missing'
+    app/views/hosts/index.html.erb:9:in `block in _run_erb_app47views47hosts47index46html46erb'
+    app/views/hosts/index.html.erb:8:in `each'
+    app/views/hosts/index.html.erb:8
+    /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:29:in `call'
+    /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:29:in `block in call'
+    /home/bernd/metasploit/trunk/lib/active_record/connection_adapters/abstract/query_cache.rb:34:in `cache'
+    /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:9:in `cache'
+    /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:28:in `call'
+    /home/bernd/metasploit/trunk/lib/active_record/connection_adapters/abstract/connection_pool.rb:361:in `call'
+    <internal:prelude>:8:in `synchronize'
+    /home/bernd/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/httpserver.rb:111:in `service'
+    /home/bernd/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/httpserver.rb:70:in `run'
+    /home/bernd/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/server.rb:183:in `block in start_thread'
+
+Rendered rescues/_trace (67.5ms)
+Rendered rescues/_request_and_response (0.2ms)
+Rendering rescues/layout (internal_server_error)
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing HostsController#index (for 127.0.0.1 at 2010-11-03 22:19:54) [GET]
+  [4;36;1mMsf::DBManager::Host Load (0.3ms)[0m   [0;1mSELECT * FROM `hosts` [0m
+Rendering template within layouts/application
+Rendering hosts/index
+  [4;35;1mMsf::DBManager::Host Columns (0.9ms)[0m   [0mSHOW FIELDS FROM `hosts`[0m
+  [4;36;1mMsf::DBManager::ExploitedHost Columns (0.7ms)[0m   [0;1mSHOW FIELDS FROM `exploited_hosts`[0m
+  [4;35;1mSQL (0.2ms)[0m   [0mSELECT count(*) AS count_all FROM `exploited_hosts` WHERE (`exploited_hosts`.host_id = 1) [0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1mSELECT count(*) AS count_all FROM `exploited_hosts` WHERE (`exploited_hosts`.host_id = 2) [0m
+  [4;35;1mSQL (3.5ms)[0m   [0mSELECT count(*) AS count_all FROM `exploited_hosts` WHERE (`exploited_hosts`.host_id = 3) [0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSELECT count(*) AS count_all FROM `exploited_hosts` WHERE (`exploited_hosts`.host_id = 4) [0m
+Rendered menu/_menu (0.6ms)
+Completed in 72ms (View: 64, DB: 6) | 200 OK [http://localhost/hosts]
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing HostsController#index (for 127.0.0.1 at 2010-11-03 22:20:14) [GET]
+  [4;36;1mMsf::DBManager::Host Load (3.7ms)[0m   [0;1mSELECT * FROM `hosts` [0m
+Rendering template within layouts/application
+Rendering hosts/index
+  [4;35;1mMsf::DBManager::Host Columns (0.8ms)[0m   [0mSHOW FIELDS FROM `hosts`[0m
+
+ActionView::TemplateError (undefined method `exploited?' for #<Msf::DBManager::Host:0xaa64fc4>) on line #9 of app/views/hosts/index.html.erb:
+6: <th>Name</th>
+7: </tr>
+8: <% @hosts.each do |host| %>
+9: <% if host.exploited? %>
+10: <tr class="exploited">
+11: <% else %>
+12: <tr>
+
+    /home/bernd/metasploit/trunk/lib/active_record/attribute_methods.rb:255:in `method_missing'
+    app/views/hosts/index.html.erb:9:in `block in _run_erb_app47views47hosts47index46html46erb'
+    app/views/hosts/index.html.erb:8:in `each'
+    app/views/hosts/index.html.erb:8
+    /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:29:in `call'
+    /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:29:in `block in call'
+    /home/bernd/metasploit/trunk/lib/active_record/connection_adapters/abstract/query_cache.rb:34:in `cache'
+    /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:9:in `cache'
+    /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:28:in `call'
+    /home/bernd/metasploit/trunk/lib/active_record/connection_adapters/abstract/connection_pool.rb:361:in `call'
+    <internal:prelude>:8:in `synchronize'
+    /home/bernd/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/httpserver.rb:111:in `service'
+    /home/bernd/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/httpserver.rb:70:in `run'
+    /home/bernd/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/server.rb:183:in `block in start_thread'
+
+Rendered rescues/_trace (92.3ms)
+Rendered rescues/_request_and_response (1.1ms)
+Rendering rescues/layout (internal_server_error)
+  [4;36;1mSQL (0.3ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing HostsController#index (for 127.0.0.1 at 2010-11-03 22:21:02) [GET]
+  [4;36;1mMsf::DBManager::Host Load (0.5ms)[0m   [0;1mSELECT * FROM `hosts` [0m
+Rendering template within layouts/application
+Rendering hosts/index
+
+ActionView::TemplateError (undefined method `exploited?' for #<Msf::DBManager::Host:0xa3a9c14>) on line #9 of app/views/hosts/index.html.erb:
+6: <th>Name</th>
+7: </tr>
+8: <% @hosts.each do |host| %>
+9: <% if host.exploited? %>
+10: <tr class="exploited">
+11: <% else %>
+12: <tr>
+
+    /home/bernd/metasploit/trunk/lib/active_record/attribute_methods.rb:255:in `method_missing'
+    app/views/hosts/index.html.erb:9:in `block in _run_erb_app47views47hosts47index46html46erb'
+    app/views/hosts/index.html.erb:8:in `each'
+    app/views/hosts/index.html.erb:8
+    /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:29:in `call'
+    /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:29:in `block in call'
+    /home/bernd/metasploit/trunk/lib/active_record/connection_adapters/abstract/query_cache.rb:34:in `cache'
+    /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:9:in `cache'
+    /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:28:in `call'
+    /home/bernd/metasploit/trunk/lib/active_record/connection_adapters/abstract/connection_pool.rb:361:in `call'
+    <internal:prelude>:8:in `synchronize'
+    /home/bernd/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/httpserver.rb:111:in `service'
+    /home/bernd/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/httpserver.rb:70:in `run'
+    /home/bernd/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/server.rb:183:in `block in start_thread'
+
+Rendered rescues/_trace (64.7ms)
+Rendered rescues/_request_and_response (0.3ms)
+Rendering rescues/layout (internal_server_error)
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing HostsController#index (for 127.0.0.1 at 2010-11-03 22:21:14) [GET]
+  [4;36;1mMsf::DBManager::Host Load (0.3ms)[0m   [0;1mSELECT * FROM `hosts` [0m
+Rendering template within layouts/application
+Rendering hosts/index
+  [4;35;1mMsf::DBManager::Host Columns (0.8ms)[0m   [0mSHOW FIELDS FROM `hosts`[0m
+  [4;36;1mMsf::DBManager::ExploitedHost Columns (3.5ms)[0m   [0;1mSHOW FIELDS FROM `exploited_hosts`[0m
+  [4;35;1mSQL (0.2ms)[0m   [0mSELECT count(*) AS count_all FROM `exploited_hosts` WHERE (`exploited_hosts`.host_id = 1) [0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1mSELECT count(*) AS count_all FROM `exploited_hosts` WHERE (`exploited_hosts`.host_id = 2) [0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSELECT count(*) AS count_all FROM `exploited_hosts` WHERE (`exploited_hosts`.host_id = 3) [0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSELECT count(*) AS count_all FROM `exploited_hosts` WHERE (`exploited_hosts`.host_id = 4) [0m
+Rendered menu/_menu (0.7ms)
+Completed in 67ms (View: 59, DB: 5) | 200 OK [http://localhost/hosts]
+  [4;35;1mSQL (17.2ms)[0m   [0mSET NAMES 'utf8'[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing HostsController#show (for 127.0.0.1 at 2010-11-03 22:21:16) [GET]
+  Parameters: {"id"=>"4"}
+  [4;35;1mMsf::DBManager::Host Load (0.3ms)[0m   [0mSELECT * FROM `hosts` WHERE (`hosts`.`id` = 4) [0m
+Rendering template within layouts/application
+Rendering hosts/show
+  [4;36;1mMsf::DBManager::Service Load (0.3ms)[0m   [0;1mSELECT * FROM `services` WHERE (`services`.host_id = 4) [0m
+  [4;35;1mMsf::DBManager::Service Columns (0.6ms)[0m   [0mSHOW FIELDS FROM `services`[0m
+Rendered services/_services_from_host (4.4ms)
+Rendered menu/_menu (0.2ms)
+Completed in 55ms (View: 53, DB: 18) | 200 OK [http://localhost/hosts/4]
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing HostsController#show (for 127.0.0.1 at 2010-11-03 22:22:14) [GET]
+  Parameters: {"id"=>"4"}
+  [4;36;1mMsf::DBManager::Host Load (0.9ms)[0m   [0;1mSELECT * FROM `hosts` WHERE (`hosts`.`id` = 4) [0m
+Rendering template within layouts/application
+Rendering hosts/show
+  [4;35;1mMsf::DBManager::Service Load (0.3ms)[0m   [0mSELECT * FROM `services` WHERE (`services`.host_id = 4) [0m
+
+ActionView::TemplateError (undefined method `exploited?' for #<Msf::DBManager::Service:0xb0972b4>) on line #7 of app/views/services/_services_from_host.html.erb:
+4:   <th>Port</th>
+5: </tr>
+6: <% services.each do |service| %>
+7: <% if service.exploited? %>
+8: <tr class="exploited">
+9: <% else %>
+10: <tr>
+
+    /home/bernd/metasploit/trunk/lib/active_record/attribute_methods.rb:255:in `method_missing'
+    app/views/services/_services_from_host.html.erb:7:in `block in _run_erb_app47views47services47_services_from_host46html46erb_locals_object_services_services_from_host'
+    /home/bernd/metasploit/trunk/lib/active_record/associations/association_collection.rb:369:in `block in method_missing'
+    /home/bernd/metasploit/trunk/lib/active_record/associations/association_proxy.rb:215:in `block in method_missing'
+    /home/bernd/metasploit/trunk/lib/active_record/associations/association_proxy.rb:215:in `each'
+    /home/bernd/metasploit/trunk/lib/active_record/associations/association_proxy.rb:215:in `method_missing'
+    /home/bernd/metasploit/trunk/lib/active_record/associations/association_collection.rb:369:in `method_missing'
+    app/views/services/_services_from_host.html.erb:6
+    app/views/hosts/show.html.erb:2
+    /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:29:in `call'
+    /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:29:in `block in call'
+    /home/bernd/metasploit/trunk/lib/active_record/connection_adapters/abstract/query_cache.rb:34:in `cache'
+    /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:9:in `cache'
+    /home/bernd/metasploit/trunk/lib/active_record/query_cache.rb:28:in `call'
+    /home/bernd/metasploit/trunk/lib/active_record/connection_adapters/abstract/connection_pool.rb:361:in `call'
+    <internal:prelude>:8:in `synchronize'
+    /home/bernd/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/httpserver.rb:111:in `service'
+    /home/bernd/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/httpserver.rb:70:in `run'
+    /home/bernd/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/server.rb:183:in `block in start_thread'
+
+Rendered rescues/_trace (115.9ms)
+Rendered rescues/_request_and_response (1.1ms)
+Rendering rescues/layout (internal_server_error)
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing HostsController#show (for 127.0.0.1 at 2010-11-03 22:22:27) [GET]
+  Parameters: {"id"=>"4"}
+  [4;36;1mMsf::DBManager::Host Columns (0.9ms)[0m   [0;1mSHOW FIELDS FROM `hosts`[0m
+  [4;35;1mMsf::DBManager::Host Load (0.2ms)[0m   [0mSELECT * FROM `hosts` WHERE (`hosts`.`id` = 4) [0m
+Rendering template within layouts/application
+Rendering hosts/show
+  [4;36;1mMsf::DBManager::Service Load (0.3ms)[0m   [0;1mSELECT * FROM `services` WHERE (`services`.host_id = 4) [0m
+  [4;35;1mMsf::DBManager::Service Columns (0.6ms)[0m   [0mSHOW FIELDS FROM `services`[0m
+  [4;36;1mMsf::DBManager::ExploitedHost Columns (0.5ms)[0m   [0;1mSHOW FIELDS FROM `exploited_hosts`[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSELECT count(*) AS count_all FROM `exploited_hosts` WHERE (`exploited_hosts`.service_id = 13) [0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSELECT count(*) AS count_all FROM `exploited_hosts` WHERE (`exploited_hosts`.service_id = 14) [0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSELECT count(*) AS count_all FROM `exploited_hosts` WHERE (`exploited_hosts`.service_id = 15) [0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSELECT count(*) AS count_all FROM `exploited_hosts` WHERE (`exploited_hosts`.service_id = 16) [0m
+Rendered services/_services_from_host (7.8ms)
+Rendered menu/_menu (0.6ms)
+Completed in 74ms (View: 67, DB: 3) | 200 OK [http://localhost/hosts/4]
+  [4;35;1mSQL (0.1ms)[0m   [0mSET NAMES 'utf8'[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing HostsController#index (for 127.0.0.1 at 2010-11-03 22:22:46) [GET]
+  [4;35;1mMsf::DBManager::Host Load (0.3ms)[0m   [0mSELECT * FROM `hosts` [0m
+Rendering template within layouts/application
+Rendering hosts/index
+  [4;36;1mSQL (0.2ms)[0m   [0;1mSELECT count(*) AS count_all FROM `exploited_hosts` WHERE (`exploited_hosts`.host_id = 1) [0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSELECT count(*) AS count_all FROM `exploited_hosts` WHERE (`exploited_hosts`.host_id = 2) [0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSELECT count(*) AS count_all FROM `exploited_hosts` WHERE (`exploited_hosts`.host_id = 3) [0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSELECT count(*) AS count_all FROM `exploited_hosts` WHERE (`exploited_hosts`.host_id = 4) [0m
+Rendered menu/_menu (0.2ms)
+Completed in 14ms (View: 12, DB: 1) | 200 OK [http://localhost/hosts]
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing HostsController#show (for 127.0.0.1 at 2010-11-03 22:22:48) [GET]
+  Parameters: {"id"=>"4"}
+  [4;36;1mMsf::DBManager::Host Load (0.3ms)[0m   [0;1mSELECT * FROM `hosts` WHERE (`hosts`.`id` = 4) [0m
+Rendering template within layouts/application
+Rendering hosts/show
+  [4;35;1mMsf::DBManager::Service Load (0.2ms)[0m   [0mSELECT * FROM `services` WHERE (`services`.host_id = 4) [0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSELECT count(*) AS count_all FROM `exploited_hosts` WHERE (`exploited_hosts`.service_id = 13) [0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSELECT count(*) AS count_all FROM `exploited_hosts` WHERE (`exploited_hosts`.service_id = 14) [0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSELECT count(*) AS count_all FROM `exploited_hosts` WHERE (`exploited_hosts`.service_id = 15) [0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSELECT count(*) AS count_all FROM `exploited_hosts` WHERE (`exploited_hosts`.service_id = 16) [0m
+Rendered services/_services_from_host (2.0ms)
+Rendered menu/_menu (0.2ms)
+Completed in 5ms (View: 3, DB: 1) | 200 OK [http://localhost/hosts/4]
+  [4;36;1mSQL (0.2ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.2ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing HostsController#index (for 127.0.0.1 at 2010-11-03 22:23:56) [GET]
+  [4;36;1mMsf::DBManager::Host Load (0.3ms)[0m   [0;1mSELECT * FROM `hosts` [0m
+Rendering template within layouts/application
+Rendering hosts/index
+  [4;35;1mSQL (0.2ms)[0m   [0mSELECT count(*) AS count_all FROM `exploited_hosts` WHERE (`exploited_hosts`.host_id = 1) [0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSELECT count(*) AS count_all FROM `exploited_hosts` WHERE (`exploited_hosts`.host_id = 2) [0m
+  [4;35;1mSQL (0.2ms)[0m   [0mSELECT count(*) AS count_all FROM `exploited_hosts` WHERE (`exploited_hosts`.host_id = 3) [0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSELECT count(*) AS count_all FROM `exploited_hosts` WHERE (`exploited_hosts`.host_id = 4) [0m
+Rendered menu/_menu (0.1ms)
+Completed in 6ms (View: 3, DB: 1) | 200 OK [http://localhost/hosts]
+  [4;35;1mSQL (0.1ms)[0m   [0mSET NAMES 'utf8'[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing HostsController#show (for 127.0.0.1 at 2010-11-03 22:23:59) [GET]
+  Parameters: {"id"=>"1"}
+  [4;35;1mMsf::DBManager::Host Load (2.5ms)[0m   [0mSELECT * FROM `hosts` WHERE (`hosts`.`id` = 1) [0m
+Rendering template within layouts/application
+Rendering hosts/show
+  [4;36;1mMsf::DBManager::Service Load (0.2ms)[0m   [0;1mSELECT * FROM `services` WHERE (`services`.host_id = 1) [0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSELECT count(*) AS count_all FROM `exploited_hosts` WHERE (`exploited_hosts`.service_id = 1) [0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSELECT count(*) AS count_all FROM `exploited_hosts` WHERE (`exploited_hosts`.service_id = 2) [0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSELECT count(*) AS count_all FROM `exploited_hosts` WHERE (`exploited_hosts`.service_id = 3) [0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSELECT count(*) AS count_all FROM `exploited_hosts` WHERE (`exploited_hosts`.service_id = 4) [0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSELECT count(*) AS count_all FROM `exploited_hosts` WHERE (`exploited_hosts`.service_id = 5) [0m
+Rendered services/_services_from_host (2.5ms)
+Rendered menu/_menu (0.2ms)
+Completed in 8ms (View: 4, DB: 3) | 200 OK [http://localhost/hosts/1]
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing HostsController#index (for 127.0.0.1 at 2010-11-03 22:24:02) [GET]
+  [4;36;1mMsf::DBManager::Host Load (0.3ms)[0m   [0;1mSELECT * FROM `hosts` [0m
+Rendering template within layouts/application
+Rendering hosts/index
+  [4;35;1mSQL (0.2ms)[0m   [0mSELECT count(*) AS count_all FROM `exploited_hosts` WHERE (`exploited_hosts`.host_id = 1) [0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSELECT count(*) AS count_all FROM `exploited_hosts` WHERE (`exploited_hosts`.host_id = 2) [0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSELECT count(*) AS count_all FROM `exploited_hosts` WHERE (`exploited_hosts`.host_id = 3) [0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSELECT count(*) AS count_all FROM `exploited_hosts` WHERE (`exploited_hosts`.host_id = 4) [0m
+Rendered menu/_menu (0.1ms)
+Completed in 5ms (View: 3, DB: 1) | 200 OK [http://localhost/hosts]
+  [4;35;1mSQL (0.1ms)[0m   [0mSET NAMES 'utf8'[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing TasksController#index (for 127.0.0.1 at 2010-11-03 22:24:02) [GET]
+Rendering template within layouts/application
+Rendering tasks/index
+Rendered menu/_menu (0.2ms)
+Completed in 10ms (View: 9, DB: 0) | 200 OK [http://localhost/tasks]
+  [4;35;1mSQL (0.1ms)[0m   [0mSET NAMES 'utf8'[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing HostsController#index (for 127.0.0.1 at 2010-11-03 22:24:03) [GET]
+  [4;35;1mMsf::DBManager::Host Load (0.3ms)[0m   [0mSELECT * FROM `hosts` [0m
+Rendering template within layouts/application
+Rendering hosts/index
+  [4;36;1mSQL (0.2ms)[0m   [0;1mSELECT count(*) AS count_all FROM `exploited_hosts` WHERE (`exploited_hosts`.host_id = 1) [0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSELECT count(*) AS count_all FROM `exploited_hosts` WHERE (`exploited_hosts`.host_id = 2) [0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSELECT count(*) AS count_all FROM `exploited_hosts` WHERE (`exploited_hosts`.host_id = 3) [0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSELECT count(*) AS count_all FROM `exploited_hosts` WHERE (`exploited_hosts`.host_id = 4) [0m
+Rendered menu/_menu (0.1ms)
+Completed in 6ms (View: 3, DB: 1) | 200 OK [http://localhost/hosts]
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing HostsController#show (for 127.0.0.1 at 2010-11-03 22:24:05) [GET]
+  Parameters: {"id"=>"2"}
+  [4;36;1mMsf::DBManager::Host Load (0.3ms)[0m   [0;1mSELECT * FROM `hosts` WHERE (`hosts`.`id` = 2) [0m
+Rendering template within layouts/application
+Rendering hosts/show
+  [4;35;1mMsf::DBManager::Service Load (0.2ms)[0m   [0mSELECT * FROM `services` WHERE (`services`.host_id = 2) [0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSELECT count(*) AS count_all FROM `exploited_hosts` WHERE (`exploited_hosts`.service_id = 6) [0m
+Rendered services/_services_from_host (1.0ms)
+Rendered menu/_menu (0.2ms)
+Completed in 4ms (View: 2, DB: 1) | 200 OK [http://localhost/hosts/2]
+  [4;35;1mSQL (0.1ms)[0m   [0mSET NAMES 'utf8'[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing TasksController#index (for 127.0.0.1 at 2010-11-03 22:24:06) [GET]
+Rendering template within layouts/application
+Rendering tasks/index
+Rendered menu/_menu (0.2ms)
+Completed in 2ms (View: 1, DB: 0) | 200 OK [http://localhost/tasks]
+  [4;35;1mSQL (9.3ms)[0m   [0mSET NAMES 'utf8'[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing HostsController#index (for 127.0.0.1 at 2010-11-03 22:24:07) [GET]
+  [4;35;1mMsf::DBManager::Host Load (0.3ms)[0m   [0mSELECT * FROM `hosts` [0m
+Rendering template within layouts/application
+Rendering hosts/index
+  [4;36;1mSQL (0.2ms)[0m   [0;1mSELECT count(*) AS count_all FROM `exploited_hosts` WHERE (`exploited_hosts`.host_id = 1) [0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSELECT count(*) AS count_all FROM `exploited_hosts` WHERE (`exploited_hosts`.host_id = 2) [0m
+  [4;36;1mSQL (17.2ms)[0m   [0;1mSELECT count(*) AS count_all FROM `exploited_hosts` WHERE (`exploited_hosts`.host_id = 3) [0m
+  [4;35;1mSQL (0.2ms)[0m   [0mSELECT count(*) AS count_all FROM `exploited_hosts` WHERE (`exploited_hosts`.host_id = 4) [0m
+Rendered menu/_menu (0.2ms)
+Completed in 23ms (View: 4, DB: 27) | 200 OK [http://localhost/hosts]

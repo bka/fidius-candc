@@ -1,0 +1,18 @@
+<h1>Hosts</h1>
+
+<table border="1">
+<tr>
+<th>Address</th>
+<th>Name</th>
+</tr>
+<% @hosts.each do |host| %>
+<% if host.exploited? %>
+<tr class="exploited">
+<% else %>
+<tr>
+<% end %>
+  <td><%= host.address %></td>
+  <td><%= link_to host.name, host %></td>
+</tr>
+<% end %>
+</table>
