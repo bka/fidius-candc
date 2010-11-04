@@ -87,6 +87,7 @@ module CommandHandler
     opts['database'] = DB_SETTINGS["database"]
     opts['host'] =  DB_SETTINGS["host"]
     opts['port'] =  DB_SETTINGS["port"]
+    opts['socket'] = DB_SETTINGS["socket"]
 
     # This is an ugly hack for a broken MySQL adapter:
     # http://dev.rubyonrails.org/ticket/3338
