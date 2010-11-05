@@ -18,7 +18,9 @@ module CommandHandler
     puts "done."
     connect_db
     begin
-      @framework.db.exploited_hosts.delete_all
+      @framework.db.exploited_hosts.each do |h|
+        h.delete
+      end
     rescue ::Exception
       puts("An error occurred while deleteing exploited_hosts: #{$!} #{$!.backtrace}")
     end
