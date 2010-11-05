@@ -30,12 +30,7 @@ module CommandHandler
     @framework =  Msf::Simple::Framework.create
     puts "done."
     connect_db
-    puts @framework.db.exploited_hosts.length
-    @framework.db.exploited_hosts.each do |h|
-      puts h.session_uuid
-      h.delete
-    end
-    puts @framework.db.exploited_hosts.length
+    @framework.db.exploited_hosts.delete_all
   end
   
   def notify_readable
