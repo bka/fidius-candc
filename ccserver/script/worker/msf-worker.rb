@@ -1,8 +1,7 @@
 require 'rubygems'
 require 'eventmachine'
-
 require "#{RAILS_ROOT}/script/worker/loader"
-# require "rex"
+require "#{RAILS_ROOT}/script/worker/msf_session_event"
 
 def init_ipc
   system "mkfifo commands" unless File.exists?("commands") and File.pipe?("commands")
@@ -18,7 +17,14 @@ module CommandHandler
     @framework =  Msf::Simple::Framework.create
     puts "done."
     connect_db
-    @framework.db.exploited_hosts.delete_all
+    begin
+      @framework.db.exploited_hosts.delete_all
+    rescue ::Exception
+      puts("An error occurred while deleteing exploited_hosts: #{$!} #{$!.backtrace}")
+    end
+
+    handler = MsfSessionEvent.new
+    @framework.events.add_session_subscriber(handler)
   end
   
   def notify_readable
