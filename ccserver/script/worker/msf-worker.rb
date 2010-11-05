@@ -105,8 +105,12 @@ module CommandHandler
     puts opts
     puts "connecting to database..."
 
-    if (not @framework.db.connect(opts))
-      raise RuntimeError.new("Failed to connect to the database: #{@framework.db.error}. Did you edit the config.yaml?")
+    begin
+      if (not @framework.db.connect(opts))
+        raise RuntimeError.new("Failed to connect to the database: #{@framework.db.error}. Did you edit the config.yaml?")
+      end
+    rescue ::Exception
+      puts("An error occurred while connecting to database: #{$!} #{$!.backtrace}")
     end
 
     puts "connected to database."
