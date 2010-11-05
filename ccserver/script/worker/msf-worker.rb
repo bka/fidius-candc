@@ -11,7 +11,7 @@ raise "could not load database configuration file" unless (DB_SETTINGS = YAML.lo
 PATH_TO_MSF_LIB="#{MSF_SETTINGS.select("/msf_lib").first.value}"
 
 $:.unshift(PATH_TO_MSF_LIB)
-puts MSF_SETTINGS.select("/subnet_manager_path").first.value
+
 require "#{MSF_SETTINGS.select("/subnet_manager_path").first.value}"
 require "msf/base"
 # require "rex"
@@ -30,6 +30,12 @@ module CommandHandler
     @framework =  Msf::Simple::Framework.create
     puts "done."
     connect_db
+    puts @framework.db.exploited_hosts.length
+    @framework.db.exploited_hosts.each do |h|
+      puts h.session_uuid
+      h.delete
+    end
+    puts @framework.db.exploited_hosts.length
   end
   
   def notify_readable
@@ -50,7 +56,7 @@ module CommandHandler
   def parse_command _cmd
     cmd = _cmd.split
     if commands.has_key? cmd[0].to_s
-      send(cmd[0].to_sym, cmd[1..-1])
+      send("cmd_#{cmd[0]}".to_sym, cmd[1..-1])
     else
       raise "Unknown Command"
     end
@@ -59,7 +65,7 @@ module CommandHandler
   def commands
     base = {
         "autopwn" => "Starts Autopwning",
-        "cmd2" => "cmd2"
+        "nmap" => "Starts a Nmap Scan"
       }
     more = {
           "cmd3" => "cmd",
@@ -68,12 +74,14 @@ module CommandHandler
     base.merge(more)
   end
   
-  def autopwn args
+  def cmd_autopwn args
+    manager = SubnetManager.new @framework, args[0]
+    manager.get_sessions
+  end
+  
+  def cmd_nmap args
     manager = SubnetManager.new @framework, args[0]
     manager.run_nmap
-  end
-  def cmd2 args
-    puts "running cmd2 #{args}"
   end
   
   def connect_db
