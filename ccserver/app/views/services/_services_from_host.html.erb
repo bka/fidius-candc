@@ -1,7 +1,10 @@
 <table>
 <tr>
-  <th>Name</th>
+  <th>Service name</th>
   <th>Port</th>
+  <th>Port type</th>
+  <th>Port state</th>
+  <th>Service info</th>
 </tr>
 <% services.each do |service| %>
 <% if service.exploited? %>
@@ -11,5 +14,8 @@
 <% end %>
   <td><%= service.name %></td>
   <td><%= service.port %></td>
+  <td><%= service.proto %></td>
+  <td><%= service.state %></td>
+  <td><%= service.info %></td>
 </tr>
 <% end %>

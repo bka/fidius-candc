@@ -3,7 +3,9 @@
 <table border="1">
 <tr>
 <th>Address</th>
-<th>Name</th>
+<th>OS name</th>
+<th>OS service pack</th>
+<th>Hostname</th>
 </tr>
 <% @hosts.each do |host| %>
 <% if host.exploited? %>
@@ -12,6 +14,8 @@
 <tr>
 <% end %>
   <td><%= host.address %></td>
+  <td><%= host.os_name %></td>
+  <td><%= host.os_sp %></td>
   <td><%= link_to host.name, host %></td>
 </tr>
 <% end %>
