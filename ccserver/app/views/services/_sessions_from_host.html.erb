@@ -1,4 +1,7 @@
 <h2>Sessions</h2>
+<% if sessions.empty? %>
+<p>No sessions available</p>
+<% else %>
 <table border="1">
 <tr>
   <th>Exploit name</th>
@@ -6,12 +9,13 @@
   <th>Exploited at</th>
   <th>Service</th>
 </tr>
-<% exploits.each do |exploit| %>
+<% sessions.each do |session| %>
 <tr>
-  <td><%= exploit.name %></td>
-  <td><%= exploit.payload %></td>
-  <td><%= exploit.created_at %></td>
-  <td><%= exploit.service.name %></td>
+  <td><%= session.name %></td>
+  <td><%= session.payload %></td>
+  <td><%= session.created_at %></td>
+  <td><%= session.service.name %></td>
 </tr>
 <% end %>
 </table>
+<% end %>
