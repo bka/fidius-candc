@@ -56,13 +56,9 @@ module CommandHandler
   def commands
     base = {
         "autopwn" => "Starts Autopwning",
-        "nmap" => "Starts a Nmap Scan"
-      }
-    more = {
-          "cmd3" => "cmd",
-          "cmd4" => "cmd"
-      }
-    base.merge(more)
+        "nmap" => "Starts a Nmap Scan",
+        "session_install" => "Install meterpreter on host"
+    }
   end
   
   def cmd_autopwn args
@@ -73,6 +69,19 @@ module CommandHandler
   def cmd_nmap args
     manager = SubnetManager.new @framework, args[0]
     manager.run_nmap
+  end
+
+  def cmd_session_install args
+    if (session = @framework.sessions.get(args[0]))
+      if (session.type == "meterpreter")
+        puts "Install meterpreter on session."
+        install_meterpreter(session)
+      else
+       puts "Selected session is not a meterpreter session"
+      end
+    else
+      puts "No such session found"
+    end
   end
   
   def connect_db
