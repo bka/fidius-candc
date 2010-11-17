@@ -40,9 +40,13 @@ end
 
 module Msf
   class Plugin::FidiusLogger < Msf::Plugin
+    def self.task_id=(id)
+      $task_id = id
+    end
+
     def self.log_packet(socket,data,caused_by="")
-      puts "log payload #{cauted_by} #{data.size} bytes"
-      PayloadLog.create(:exploit=>caused_by,:payload=>data,:src_addr=>socket.localhost,:dest_addr=>socket.peerhost,:src_port=>socket.localport,:dest_port=>socket.peerport)
+      puts "log payload #{caused_by} #{data.size} bytes"
+      PayloadLog.create(:exploit=>caused_by,:payload=>data,:src_addr=>socket.localhost,:dest_addr=>socket.peerhost,:src_port=>socket.localport,:dest_port=>socket.peerport,:task_id=>$task_id)
     end
 
     def self.inspect_socket(socket)

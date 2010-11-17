@@ -6,7 +6,7 @@ class CreatePayloadLogs < ActiveRecord::Migration
       t.string :src_port
       t.string :dest_port
       t.integer :task_id
-      t.longblob :payload
+      t.column :payload, :longblob
       t.string :exploit
       t.timestamps
     end

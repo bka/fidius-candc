@@ -118,6 +118,13 @@ ActiveRecord::Schema.define(:version => 20101117163827) do
     t.string   "comments",     :limit => 4096
   end
 
+  create_table "imported_creds", :force => true do |t|
+    t.integer "workspace_id",                :default => 1,          :null => false
+    t.string  "user",         :limit => 512
+    t.string  "pass",         :limit => 512
+    t.string  "ptype",        :limit => 16,  :default => "password"
+  end
+
   create_table "loots", :force => true do |t|
     t.integer  "workspace_id",                 :default => 1, :null => false
     t.integer  "host_id"
@@ -150,6 +157,7 @@ ActiveRecord::Schema.define(:version => 20101117163827) do
     t.string   "src_port"
     t.string   "dest_port"
     t.integer  "task_id"
+    t.binary   "payload",    :limit => 2147483647
     t.string   "exploit"
     t.datetime "created_at"
     t.datetime "updated_at"

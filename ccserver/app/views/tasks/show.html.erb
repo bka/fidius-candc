@@ -8,7 +8,7 @@
 </tr>
 <% @task.payload_logs.each do |payload| %>
 <tr>
-  <td><%= payload.exploit %></td>
+  <td><%= link_to payload.exploit,payload %></td>
   <td><%= payload.payload.size %></td>
   <td><%= payload.created_at %></td>
 </tr>  
