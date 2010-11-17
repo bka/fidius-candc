@@ -1,3 +1,22 @@
+<h1>Tasks</h1>
+
+<table border="1">
+<tr>
+<th>Module</th>
+<th>Progress</th>
+<th>Error</th>
+<th>Result</th>
+</tr>
+<% @tasks.each do |task| %>
+<tr>
+  <td><%= link_to task.module,task %></td>
+  <td><%=h task.progress %></td>
+  <td><%=h task.error %></td>
+  <td><%=h task.result %></td>
+</tr>
+<% end %>
+</table>
+
 <% form_tag scan_tasks_url do |f| %>
   <%= text_field_tag :subnet %>
   <%= submit_tag :scan %>

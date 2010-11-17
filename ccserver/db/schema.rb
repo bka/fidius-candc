@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101103185746) do
+ActiveRecord::Schema.define(:version => 20101117163827) do
 
   create_table "attachments", :force => true do |t|
     t.string  "name",         :limit => 512
@@ -142,6 +142,17 @@ ActiveRecord::Schema.define(:version => 20101103185746) do
     t.boolean  "critical"
     t.boolean  "seen"
     t.text     "data",         :limit => 16777215
+  end
+
+  create_table "payload_logs", :force => true do |t|
+    t.string   "src_addr"
+    t.string   "dest_addr"
+    t.string   "src_port"
+    t.string   "dest_port"
+    t.integer  "task_id"
+    t.string   "exploit"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "project_members", :id => false, :force => true do |t|
