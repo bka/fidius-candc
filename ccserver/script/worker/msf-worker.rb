@@ -3,12 +3,6 @@ require 'eventmachine'
 require "#{RAILS_ROOT}/script/worker/loader"
 require "#{RAILS_ROOT}/script/worker/msf_session_event"
 
-def init_ipc
-  system "mkfifo commands" unless File.exists?("commands") and File.pipe?("commands")
-  input = open("commands", "r+") # the r+ means we don't block
-  conn = EM.watch input, CommandHandler
-  conn.notify_readable = true
-end
 
 module CommandHandler
   
@@ -119,5 +113,4 @@ end
 
 EventMachine::run do
   puts "start EM"
-  init_ipc
 end
