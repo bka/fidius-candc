@@ -12,7 +12,7 @@ class TasksController < ApplicationController
     #output = open("commands","w+")
     #output.puts "autopwn #{params[:subnet]}"
     #output.flush
-    #flash[:notice] = "Scan started"
+    flash[:notice] = "Task started"
     redirect_to :controller=>:tasks, :action=>:index
   end
 end

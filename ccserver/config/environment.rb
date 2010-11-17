@@ -21,7 +21,6 @@ Rails::Initializer.run do |config|
   # sachen von msf geladen haben, um nachträglich noch modifizierungen 
   # haben zu können
   Dir.glob(File.join('app','models', '*.rb')) do |rb|
-    puts rb
     require rb  
   end
 

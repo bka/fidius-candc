@@ -4,7 +4,7 @@ require "#{RAILS_ROOT}/script/worker/loader"
 require "#{RAILS_ROOT}/script/worker/msf_session_event"
 
 
-module CommandHandler
+class CommandHandler
   
   def initialize
     puts "Initialize Framework..."
@@ -21,26 +21,16 @@ module CommandHandler
 
     handler = MsfSessionEvent.new
     @framework.events.add_session_subscriber(handler)
-  end
-  
-  def notify_readable
-    while (cmd = @io.readline)
-      parse_command cmd
-    end
-  rescue EOFError
-    detach
-  end
 
-  def unbind
-    EM.next_tick do
-      # socket is detached from the eventloop, but still open
-      data = @io.read
-    end
+    manager = SubnetManager.new @framework, "10.20.20.1"
+    manager.get_sessions
+    #load_plugins
   end
   
   def parse_command _cmd
     cmd = _cmd.split
     if commands.has_key? cmd[0].to_s
+      puts "executing #{cmd[0]}"
       send("cmd_#{cmd[0]}".to_sym, cmd[1..-1])
     else
       raise "Unknown Command"
@@ -56,7 +46,9 @@ module CommandHandler
   end
   
   def cmd_autopwn args
+    puts "msf-workerinstance subnet manager"
     manager = SubnetManager.new @framework, args[0]
+    puts "msf-worker:get sessions"
     manager.get_sessions
   end
   
@@ -109,8 +101,37 @@ module CommandHandler
 
     puts "connected to database."
   end
+
+  def tasks_loop
+    Msf::DBManager::Task.find_new_tasks.each do |task|
+      begin
+        task.progress = 1
+        task.save
+
+        parse_command task.module
+
+        task.progress = 100
+        task.save
+      rescue ::Exception
+        puts("An error occurred while executing task#{task.inspect}: #{$!} #{$!.backtrace}")
+        task.error = $!.inspect
+        task.save
+      end
+    end
+  end
+
+  def load_plugins
+    begin
+      require "#{RAILS_ROOT}/script/worker/msf_payload_loader.rb"
+      @framework.plugins.load("#{RAILS_ROOT}/script/worker/msf_plugins/payload_logger")
+    rescue ::Exception
+      puts("An error occurred while loading plugins: #{$!} #{$!.backtrace}")
+    end
+  end
 end
 
-EventMachine::run do
-  puts "start EM"
-end
+$command_handler = CommandHandler.new
+
+#EM.run do
+#  EventMachine::add_periodic_timer 10, proc{$command_handler.tasks_loop}
+#end
