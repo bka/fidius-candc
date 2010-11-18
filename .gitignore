@@ -1,3 +1,4 @@
-ccserver/log/
+log/
+tmp/
 *.yml
 *~
