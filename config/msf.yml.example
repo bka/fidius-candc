@@ -1,3 +1,4 @@
 msf_path: "path to msf"
 msf_lib: "path to msf/lib"
 subnet_manager_path: "path to /msf-autopwn/lib/subnet_manager.rb"
+drb_url: druby://localhost:25678
