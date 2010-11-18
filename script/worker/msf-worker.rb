@@ -1,17 +1,56 @@
 require 'rubygems'
-require 'eventmachine'
 require "#{RAILS_ROOT}/script/worker/loader"
 require "#{RAILS_ROOT}/script/worker/msf_session_event"
 
-def init_ipc
-  system "mkfifo commands" unless File.exists?("commands") and File.pipe?("commands")
-  input = open("commands", "r+") # the r+ means we don't block
-  conn = EM.watch input, CommandHandler
-  conn.notify_readable = true
-end
+require 'drb'
 
 module CommandHandler
-  
+
+  class CommandReceiver
+
+    def autopwn iprange, async = true
+      manager = SubnetManager.new @framework, iprange
+      if(async)
+        thread = Thread.new do
+          begin      
+            manager.get_sessions
+          rescue ::Exception
+            puts("problem in session_action: #{$!} #{$!.backtrace}")
+          end
+        end
+      else
+        manager.get_sessions
+      end
+    end
+
+    def nmap iprange, async = true
+      manager = SubnetManager.new @framework, iprange
+      if(async)
+        thread = Thread.new do
+          begin      
+            manager.run_nmap
+          rescue ::Exception
+            puts("problem in session_action: #{$!} #{$!.backtrace}")
+          end
+        end
+      else
+        manager.run_nmap
+      end
+    end
+
+    def cmd_session_install sessionID
+      if (session = @framework.sessions.get(sessionID))
+        if (session.type == "meterpreter")
+          return "Install meterpreter on session."
+          install_meterpreter(session)
+        else
+         return "Selected session is not a meterpreter session"
+        end
+      else
+        return "No such session found"
+      end
+    end
+
   def initialize
     puts "Initialize Framework..."
     @framework =  Msf::Simple::Framework.create
@@ -28,62 +67,7 @@ module CommandHandler
     handler = MsfSessionEvent.new
     @framework.events.add_session_subscriber(handler)
   end
-  
-  def notify_readable
-    while (cmd = @io.readline)
-      parse_command cmd
-    end
-  rescue EOFError
-    detach
-  end
 
-  def unbind
-    EM.next_tick do
-      # socket is detached from the eventloop, but still open
-      data = @io.read
-    end
-  end
-  
-  def parse_command _cmd
-    cmd = _cmd.split
-    if commands.has_key? cmd[0].to_s
-      send("cmd_#{cmd[0]}".to_sym, cmd[1..-1])
-    else
-      raise "Unknown Command"
-    end
-  end
-
-  def commands
-    base = {
-        "autopwn" => "Starts Autopwning",
-        "nmap" => "Starts a Nmap Scan",
-        "session_install" => "Install meterpreter on host"
-    }
-  end
-  
-  def cmd_autopwn args
-    manager = SubnetManager.new @framework, args[0]
-    manager.get_sessions
-  end
-  
-  def cmd_nmap args
-    manager = SubnetManager.new @framework, args[0]
-    manager.run_nmap
-  end
-
-  def cmd_session_install args
-    if (session = @framework.sessions.get(args[0]))
-      if (session.type == "meterpreter")
-        puts "Install meterpreter on session."
-        install_meterpreter(session)
-      else
-       puts "Selected session is not a meterpreter session"
-      end
-    else
-      puts "No such session found"
-    end
-  end
-  
   def connect_db
     # set the db driver
     @framework.db.driver = DB_SETTINGS["adapter"]
@@ -116,8 +100,15 @@ module CommandHandler
     puts "connected to database."
   end
 end
-
-EventMachine::run do
-  puts "start EM"
-  init_ipc
 end
+
+if not MSF_SETTINGS.select("/drb_url")
+  puts "please specify drb_url in msf.yml"
+  return
+end
+
+DRb.start_service MSF_SETTINGS.select("/drb_url").first.value, CommandHandler::CommandReceiver.new
+
+puts DRb.uri
+
+DRb.thread.join
