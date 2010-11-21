@@ -21,7 +21,6 @@ Rails::Initializer.run do |config|
   # sachen von msf geladen haben, um nachträglich noch modifizierungen 
   # haben zu können
   Dir.glob(File.join('app','models', '*.rb')) do |rb|
-    puts rb
     require rb  
   end
 
@@ -82,3 +81,11 @@ module ActiveSupport
     alias :load_missing_constant :forgiving_load_missing_constant
   end
 end
+
+# Connection to PreludeDB
+# And Patch postgres quotation bug
+require 'active_record/connection_adapters/postgresql_adapter'
+PRELUDE_DB_CONFIG_NAME = "prelude"
+PRELUDE_DB = YAML::load(open(File.join(RAILS_ROOT,"config/database.yml"),"r"))[PRELUDE_DB_CONFIG_NAME]['database'] unless Object.const_defined?('PRELUDE_DB')
+ActiveRecord::Base.postgresql_connection(YAML::load(open(File.join(RAILS_ROOT,"config/database.yml"),"r"))["prelude"])
+require 'config/initializers/postgres_patch.rb'

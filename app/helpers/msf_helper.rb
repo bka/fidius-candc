@@ -10,6 +10,9 @@ module ActionView
     def msf_db_manager_host_path *args
       host_path(*args)
     end
+    def msf_db_manager_task_path *args
+      task_path(*args)
+    end
   end
 end
 module MsfHelper

