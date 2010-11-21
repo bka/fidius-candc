@@ -1,3 +1,4 @@
+
 def start
   if File.exist?("#{RAILS_ROOT}/tmp/pids/msf-worker")
       begin
@@ -10,6 +11,7 @@ def start
         puts "no process delete pid file and start"
       end
   end
+  puts "ruby script/runner script/worker/msf-worker.rb -e #{RAILS_ENV} &"
   system("ruby script/runner script/worker/msf-worker.rb -e #{RAILS_ENV} &")      
 end
 

@@ -87,5 +87,5 @@ end
 require 'active_record/connection_adapters/postgresql_adapter'
 PRELUDE_DB_CONFIG_NAME = "prelude"
 PRELUDE_DB = YAML::load(open(File.join(RAILS_ROOT,"config/database.yml"),"r"))[PRELUDE_DB_CONFIG_NAME]['database'] unless Object.const_defined?('PRELUDE_DB')
-ActiveRecord::Base.postgresql_connection(YAML::load(open(File.join(RAILS_ROOT,"config/database.yml"),"r"))["prelude"])
+#ActiveRecord::Base.postgresql_connection(YAML::load(open(File.join(RAILS_ROOT,"config/database.yml"),"r"))["prelude"])
 require 'config/initializers/postgres_patch.rb'
