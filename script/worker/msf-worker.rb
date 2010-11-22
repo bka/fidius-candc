@@ -1,6 +1,7 @@
 require 'rubygems'
 require "#{RAILS_ROOT}/script/worker/loader"
 require "#{RAILS_ROOT}/script/worker/msf_session_event"
+require "#{RAILS_ROOT}/script/worker/prelude_event_fetcher.rb"
 require 'drb'
 puts "msf-worker start"
 module CommandHandler
@@ -20,6 +21,7 @@ module CommandHandler
 
       handler = MsfSessionEvent.new
       @framework.events.add_session_subscriber(handler)
+      @prelude_fetcher = PreludeEventFetcher.new
       load_plugins
     end
 
@@ -29,7 +31,7 @@ module CommandHandler
         if(async)
           thread = Thread.new do
             begin      
-              send("cmd_#{cmd[0]}".to_sym, cmd[1..-1])
+              send("cmd_#{cmd[0]}".to_sym, cmd[1..-1], task)
               task.progress = 100
               task.save
             rescue ::Exception
@@ -37,7 +39,7 @@ module CommandHandler
             end
           end
         else
-          send("cmd_#{cmd[0]}".to_sym, cmd[1..-1])
+          send("cmd_#{cmd[0]}".to_sym, cmd[1..-1],task)
           task.progress = 100
           task.save
         end
@@ -54,7 +56,7 @@ module CommandHandler
       }
     end
 
-    def cmd_nmap args
+    def cmd_nmap args, task=nil
       manager = SubnetManager.new @framework, args[0]
       manager.run_nmap
     end
@@ -72,28 +74,32 @@ module CommandHandler
       end
     end
 
-    def cmd_autopwn args
-      autopwn args[0]
+    def cmd_autopwn args, task=nil
+      autopwn args[0], task
     end
 
-    def autopwn iprange
+    def autopwn iprange, task=nil
+      @prelude_fetcher.attack_started
       manager = SubnetManager.new @framework, iprange, 1
       manager.get_sessions
+      @prelude_fetcher.get_events.each do |ev|
+        PreludeLog.create(
+          :task_id => task.id,
+          :payload => ev.payload,
+          :detect_time => ev.detect_time,
+          :dest_ip => ev.dest_ip,
+          :src_ip => ev.source_ip,
+          :text => ev.text,
+          :severity => ev.severity,
+          :analyzer_model => ev.analyzer_model,
+          :ident => ev.id)
+      end
+      
     end
 
     def nmap iprange, async = true
-      manager = SubnetManager.new @framework, iprange
-      if(async)
-        thread = Thread.new do
-          begin      
-            manager.run_nmap
-          rescue ::Exception
-            puts("problem in session_action: #{$!} #{$!.backtrace}")
-          end
-        end
-      else
-        manager.run_nmap
-      end
+      manager = SubnetManager.new @framework, iprange, 1
+      manager.run_nmap
     end
 
     def cmd_session_install sessionID

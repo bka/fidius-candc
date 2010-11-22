@@ -12,9 +12,15 @@ class TasksController < ApplicationController
   end
 
   def scan
-    Msf::DBManager::Task.create(:module=>"autopwn #{params[:subnet]}")
-    get_msf_worker.task_created
-    flash[:notice] = "Task started"
-    redirect_to :controller=>:tasks, :action=>:index
+    begin
+      task = Msf::DBManager::Task.create(:module=>"autopwn #{params[:subnet]}")
+      get_msf_worker.task_created
+      flash[:notice] = "Task started"
+      redirect_to :controller=>:tasks, :action=>:index
+    rescue
+      task.destroy
+      flash[:error] = "Sorry worker is not working. try script/msf-worker start"
+      redirect_to :controller=>:tasks, :action=>:index
+    end
   end
 end

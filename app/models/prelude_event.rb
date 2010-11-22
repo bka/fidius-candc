@@ -64,6 +64,10 @@ class PreludeEvent < ActiveRecord::Base
     return "No Ref"
   end
 
+  def payload
+    return @prelude_alert.payload_data unless @prelude_alert.nil?
+  end
+
   def detect_time
    res = @prelude_alert.detect_time.time
    return res unless @prelude_alert.nil?

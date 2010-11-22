@@ -14,6 +14,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :hosts
   map.resources :tasks, :collection => {:scan => :post}
   map.resources :payload_logs
+  map.resources :prelude_logs
   # Sample resource route with options:
   #   map.resources :products, :member => { :short => :get, :toggle => :post }, :collection => { :sold => :get }
 

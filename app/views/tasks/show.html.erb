@@ -13,4 +13,19 @@
   <td><%= payload.created_at %></td>
 </tr>  
 <% end %>
+
+
+<table border="1">
+<tr>
+<th>Text</th>
+<th>PayloadSize</th>
+<th>DetectTime</th>
+</tr>
+<% @task.prelude_logs.each do |pl| %>
+<tr>
+  <td><%= link_to pl.text,pl %></td>
+  <td><%= pl.payload.size %></td>
+  <td><%= pl.detect_time %></td>
+</tr>  
+<% end %>
 </table>

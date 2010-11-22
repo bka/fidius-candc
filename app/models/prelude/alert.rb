@@ -9,6 +9,7 @@ class Prelude::Alert < Prelude::Connection
 
   has_one :impact, :class_name => 'Prelude::Impact', :foreign_key => :_message_ident, :primary_key => :_ident
 
+  has_one :payload, :class_name => 'Prelude::AdditionalData', :foreign_key => :_message_ident, :primary_key => :_ident, :conditions=>["Prelude_AdditionalData.meaning='payload'"]
 
   set_primary_key :_ident
 
@@ -40,5 +41,9 @@ class Prelude::Alert < Prelude::Connection
 
   def severity
     return impact.severity
+  end
+
+  def payload_data
+    payload.data if payload != nil
   end
 end

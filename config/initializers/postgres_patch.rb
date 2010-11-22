@@ -14,7 +14,6 @@ module ActiveRecord
   module ConnectionAdapters
     class PostgreSQLAdapter < AbstractAdapter
       def quote_table_name(name)
-        puts "QUOTE: #{name}"
         return name
       end
     end
