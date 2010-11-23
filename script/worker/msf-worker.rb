@@ -101,7 +101,7 @@ module FIDIUS
   			next if route.subnet == '0.0.0.0'
   			next if route.netmask == '255.255.255.255'
   			unless sb.route_exists?(route.subnet, route.netmask)
-  				print_status("AutoAddRoute: Routing new subnet #{route.subnet}/#{route.netmask} through session #{session.sid}")
+  				puts "AutoAddRoute: Routing new subnet #{route.subnet}/#{route.netmask} through session #{session.sid}"
   				sb.add_route(route.subnet, route.netmask, session)
   			end
   		end
