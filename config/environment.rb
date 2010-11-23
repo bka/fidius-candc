@@ -86,6 +86,11 @@ end
 # And Patch postgres quotation bug
 require 'active_record/connection_adapters/postgresql_adapter'
 PRELUDE_DB_CONFIG_NAME = "prelude"
-PRELUDE_DB = YAML::load(open(File.join(RAILS_ROOT,"config/database.yml"),"r"))[PRELUDE_DB_CONFIG_NAME]['database'] unless Object.const_defined?('PRELUDE_DB')
+prelude_db_config = YAML::load(open(File.join(RAILS_ROOT,"config/database.yml"),"r"))[PRELUDE_DB_CONFIG_NAME]
+if !prelude_db_config
+  throw Exception.new("There seems to be no prelude database config. Pleas see database.yml.example and reconfigure")
+end
+PRELUDE_DB = prelude_db_config['database'] unless Object.const_defined?('PRELUDE_DB')
 #ActiveRecord::Base.postgresql_connection(YAML::load(open(File.join(RAILS_ROOT,"config/database.yml"),"r"))["prelude"])
 require 'config/initializers/postgres_patch.rb'
+require "#{RAILS_ROOT}/vendor/plugins/ShiftOr/shift_or.rb"
