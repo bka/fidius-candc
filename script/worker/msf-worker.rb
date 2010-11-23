@@ -89,6 +89,23 @@ module FIDIUS
         puts "No such session found."
       end
     end
+    
+    def cmd_add_route_to_session sessionID
+      session = @framework.sessions.get(sessionID)
+      return unless session
+      return unless session.type == 'meterpreter'
+  		sb = Rex::Socket::SwitchBoard.instance
+  		session.net.config.each_route do |route|
+  			# Remove multicast and loopback interfaces
+  			next if route.subnet =~ /^(224\.|127\.)/
+  			next if route.subnet == '0.0.0.0'
+  			next if route.netmask == '255.255.255.255'
+  			unless sb.route_exists?(route.subnet, route.netmask)
+  				print_status("AutoAddRoute: Routing new subnet #{route.subnet}/#{route.netmask} through session #{session.sid}")
+  				sb.add_route(route.subnet, route.netmask, session)
+  			end
+  		end
+    end
 
     def cmd_autopwn args, task = nil
       autopwn args[0], task
