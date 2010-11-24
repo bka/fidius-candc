@@ -1,1 +1,7 @@
-<%= @payload_hex %>
+<h1><%= @payload_log.text %></h1>
+
+<p>
+  <%= @payload_log.payload.size %> bytes send:
+</p>
+
+<pre><%= format_hex_str @payload_hex %></pre>

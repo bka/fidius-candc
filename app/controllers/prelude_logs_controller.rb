@@ -4,7 +4,7 @@ class PreludeLogsController < ApplicationController
   end
 
   def show
-    @log = PreludeLog.find params[:id]
-    @payload_hex = Rex::Text.to_hex(@log.payload).gsub("\n","<br>").gsub("\\x","")
+    @payload_log = PreludeLog.find params[:id]
+    @payload_hex = Rex::Text.to_hex(@payload_log.payload).gsub("\n", '<br />').gsub('\\x', '')
   end
 end
