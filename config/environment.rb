@@ -91,5 +91,5 @@ if !prelude_db_config
   throw Exception.new("There seems to be no prelude database config. Pleas see database.yml.example and reconfigure")
 end
 PRELUDE_DB = prelude_db_config['database'] unless Object.const_defined?('PRELUDE_DB')
-ActiveRecord::Base.postgresql_connection(PRELUDE_DB["prelude"])
+ActiveRecord::Base.postgresql_connection(prelude_db_config)
 require 'config/initializers/postgres_patch.rb'
