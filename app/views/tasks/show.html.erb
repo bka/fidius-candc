@@ -2,30 +2,49 @@
 
 <table border="1">
 <tr>
+<th>Text</th>
+<th>PayloadSize</th>
+<th>DetectTime</th>
+</tr>
+<% PreludeLog.all.each do |pl| %>
+<tr>
+  <td><%= link_to pl.text,pl %></td>
+  <td><%= pl.payload.size %></td>
+  <td><%= pl.detect_time %></td>
+</tr>  
+<tr>
+  <td colspan="3">
+    <table border="1">
+      <tr>
+      <th>Exploit</th>
+      <th>Payloadsize</th>
+      <th>Time</th>
+      </tr>
+      <% pl.get_payloads_logs.each do |pl| %>
+        <% payload = pl[:obj] %>
+        <tr>
+          <td>(<%= payload.id %>)[<%= pl[:index] %>]<%= link_to payload.exploit,payload %></td>
+          <td><%= payload.payload.size %></td>
+          <td><%= payload.created_at %></td>
+        </tr> 
+      <% end %>
+      </table>
+  </td>
+<tr>
+<% end %>
+</table>
+<br><br><br>
+<table border="1">
+<tr>
 <th>Exploit</th>
 <th>Payloadsize</th>
 <th>Time</th>
 </tr>
 <% @task.payload_logs.each do |payload| %>
 <tr>
-  <td><%= link_to payload.exploit,payload %></td>
+  <td>(<%= payload.id %>)<%= link_to payload.exploit,payload %></td>
   <td><%= payload.payload.size %></td>
   <td><%= payload.created_at %></td>
-</tr>  
-<% end %>
-
-
-<table border="1">
-<tr>
-<th>Text</th>
-<th>PayloadSize</th>
-<th>DetectTime</th>
-</tr>
-<% @task.prelude_logs.each do |pl| %>
-<tr>
-  <td><%= link_to pl.text,pl %></td>
-  <td><%= pl.payload.size %></td>
-  <td><%= pl.detect_time %></td>
 </tr>  
 <% end %>
 </table>
