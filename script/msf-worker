@@ -1,9 +1,8 @@
 #!/usr/bin/env ruby
-if ["start","stop","restart"].member?(ARGV[0])
-  if ARGV[1] == ""
-    ARGV[1] = "development"
-  end
-  system("ruby script/runner script/worker/starter.rb #{ARGV[0]} -e #{ARGV[1]}&")
+
+if %w[start stop restart].include? ARGV[0]
+  ARGV[1] = "development" if ARGV[1] == ""
+  system "ruby script/runner script/worker/starter.rb #{ARGV[0]} -e #{ARGV[1]}"
 else
-  puts "usage \"ruby script/workers start|stop|restart [ENVIROMENT]\""
+  puts "Usage:\n\truby script/msf-worker start|stop|restart [ENVIROMENT]"
 end

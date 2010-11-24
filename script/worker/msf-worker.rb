@@ -3,7 +3,9 @@ require "#{RAILS_ROOT}/script/worker/loader"
 require "#{RAILS_ROOT}/script/worker/msf_session_event"
 require "#{RAILS_ROOT}/script/worker/prelude_event_fetcher.rb"
 require 'drb'
+
 puts "msf-worker start"
+
 module CommandHandler
   class CommandReceiver
     def initialize
@@ -181,5 +183,8 @@ end
 DRb.start_service MSF_SETTINGS.select("/drb_url").first.value, CommandHandler::CommandReceiver.new
 
 puts DRb.uri
+File.open(File.join(RAILS_ROOT, 'tmp', 'pids', 'msf-worker'), 'w') do |f|
+  f.puts Process.pid
+end
 
 DRb.thread.join
