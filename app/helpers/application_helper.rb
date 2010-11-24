@@ -7,7 +7,7 @@ module ApplicationHelper
     str.each_char do |c|
       i += 1
       res << c
-      if i%32 == 0
+      if i%64 == 0
         res << "\n"
       elsif i%8 == 0
         res << ' '
