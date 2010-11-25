@@ -1,7 +1,7 @@
-require 'drb'
-
 module DrbHelper
+
   def get_msf_worker
+    require 'drb'
     msf = YAML::load(open(File.join(File.dirname(__FILE__), '..', '..', 'config', 'msf.yml')))
     if not msf['drb_url']
       puts "please specify drb_url in msf.yml"

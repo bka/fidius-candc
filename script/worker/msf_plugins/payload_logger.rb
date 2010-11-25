@@ -48,17 +48,21 @@ module Msf
       $task_id = id
     end
 
+    def self.on_log(&block)
+      $block = block
+    end
+
+    def self.get_my_ip iprange
+      return "10.10.10.10"
+    end
+
     def self.log_packet(socket,data,caused_by="")
       puts "log payload #{caused_by} #{data.size} bytes"
-      PayloadLog.create(
-        :exploit => caused_by,
-        :payload => data,
-        :src_addr => get_my_ip(socket.peerhost.to_s),
-        :dest_addr => socket.peerhost,
-        :src_port => socket.localport,
-        :dest_port => socket.peerport,
-        :task_id => $task_id
-      )
+      begin
+        $block.call caused_by, data, socket
+      rescue
+        puts "ERROR #{$!}:#{$!.backtract}"
+      end
     end
 
     def self.inspect_socket(socket)

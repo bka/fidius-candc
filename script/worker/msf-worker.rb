@@ -158,7 +158,17 @@ module CommandHandler
         begin
           task.progress = 1
           task.save
-          Msf::Plugin::FidiusLogger.task_id = task.id
+          Msf::Plugin::FidiusLogger.on_log do |caused_by,data,socket|
+            PayloadLog.create(
+              :exploit => caused_by,
+              :payload => data,
+              :src_addr => get_my_ip(socket.peerhost),
+              :dest_addr => socket.peerhost,
+              :src_port => socket.localport,
+              :dest_port => socket.peerport,
+              :task_id => task.id
+            )
+          end
           exec_task task
         rescue ::Exception
           puts("An error occurred while executing task#{task.inspect}: #{$!} #{$!.backtrace}")
