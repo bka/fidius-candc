@@ -17,6 +17,14 @@
       <th>DetectTime</th>
       <td><%= pe.detect_time %></td>
     </tr>
+    <tr>
+      <th>Scr</th>
+      <td><%= pe.src_ip %></td>
+    </tr>
+    <tr>
+      <th>Dst</th>
+      <td><%= pe.dest_ip %></td>
+    </tr>
   </table>
 
   <div class="msf_exploit">
@@ -37,6 +45,16 @@
           <th>Time</th>
           <td><%= payload.created_at %></td>
           <td><%= payload.created_at - pe.detect_time %></td>
+        </tr>
+        <tr>
+          <th>Src</th>
+          <td><%= payload.src_addr %></td>
+          <td></td>
+        </tr>
+        <tr>
+          <th>Dst</th>
+          <td><%= payload.dest_addr %></td>
+          <td></td>
         </tr>
       </table>
     <% end %>

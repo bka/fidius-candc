@@ -2,15 +2,16 @@ require 'rubygems'
 require "#{RAILS_ROOT}/script/worker/loader"
 require "#{RAILS_ROOT}/script/worker/msf_session_event"
 require "#{RAILS_ROOT}/script/worker/prelude_event_fetcher.rb"
+require "#{RAILS_ROOT}/script/worker/ip_helper.rb"
 require 'drb'
 
-require 'ipaddr' # used to gain a single address from a ip range
-require 'socket' # used to determine this host's ip
 
 puts "msf-worker start"
 
 module CommandHandler
   class CommandReceiver
+    include FIDIUS
+    
     def initialize
       puts "Initialize Framework..."
       @framework =  Msf::Simple::Framework.create
@@ -100,23 +101,6 @@ module CommandHandler
           :ident => ev.id
         )
       end
-    end
-
-    #
-    # returns the ip address of that interface, which would connect to
-    # an address of the given +iprange+.
-    # 
-    # see also https://coderrr.wordpress.com/2008/05/28/get-your-local-ip-address/
-    #
-    def get_my_ip iprange
-      orig, Socket.do_not_reverse_lookup = Socket.do_not_reverse_lookup, true
-      UDPSocket.open do |s|
-        # udp is stateless, so there is no real connect
-        s.connect IPAddr.new(iprange).to_s, 1
-        s.addr.last
-      end
-    ensure
-      Socket.do_not_reverse_lookup = orig
     end
 
     def nmap iprange, async = true

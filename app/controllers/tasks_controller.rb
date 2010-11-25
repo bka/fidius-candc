@@ -1,5 +1,3 @@
-require 'drb'
-
 class TasksController < ApplicationController
   include DrbHelper
 
@@ -17,9 +15,9 @@ class TasksController < ApplicationController
       get_msf_worker.task_created
       flash[:notice] = "Task started"
       redirect_to :controller => :tasks, :action => :index
-    rescue
+    rescue Exception
       task.destroy
-      flash[:error] = "Sorry worker is not working. try script/msf-worker start"
+      flash[:error] = "Sorry worker is not working. try script/msf-worker start. <pre>#{$!}</pre> <pre>#{$!.backtrace[1..5]}</pre>"
       redirect_to :controller => :tasks, :action => :index
     end
   end

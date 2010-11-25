@@ -1,3 +1,5 @@
+require 'drb'
+
 module DrbHelper
   def get_msf_worker
     msf = YAML::load(open(File.join(File.dirname(__FILE__), '..', '..', 'config', 'msf.yml')))
