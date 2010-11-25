@@ -77,34 +77,35 @@ module FIDIUS
     end
 
     def cmd_session_install args
-      session = @framework.sessions.get(args[0])
-      if session
-        if session.type == "meterpreter"
-          puts "Installing meterpreter..."
-          install_meterpreter(session)
-        else
-          puts "Selected session is not a meterpreter session."
-        end
-      else
-        puts "No such session found."
-      end
-    end
-    
-    def cmd_add_route_to_session sessionID
-      session = @framework.sessions.get(sessionID)
+      session = get_session_by_uuid(@framework.sessions, args[0])
       return unless session
       return unless session.type == 'meterpreter'
-  		sb = Rex::Socket::SwitchBoard.instance
-  		session.net.config.each_route do |route|
-  			# Remove multicast and loopback interfaces
-  			next if route.subnet =~ /^(224\.|127\.)/
-  			next if route.subnet == '0.0.0.0'
-  			next if route.netmask == '255.255.255.255'
-  			unless sb.route_exists?(route.subnet, route.netmask)
-  				puts "AutoAddRoute: Routing new subnet #{route.subnet}/#{route.netmask} through session #{session.sid}"
-  				sb.add_route(route.subnet, route.netmask, session)
-  			end
-  		end
+      install_meterpreter(session)
+    end
+    
+    def cmd_add_route_to_session args, task=nil
+      session = get_session_by_uuid(@framework.sessions, args[0])
+      return unless session
+      return unless session.type == 'meterpreter'
+      sb = Rex::Socket::SwitchBoard.instance
+      session.net.config.each_route do |route|
+        # Remove multicast and loopback interfaces
+        next if route.subnet =~ /^(224\.|127\.)/
+        next if route.subnet == '0.0.0.0'
+        next if route.netmask == '255.255.255.255'
+        unless sb.route_exists?(route.subnet, route.netmask)
+          puts "AutoAddRoute: Routing new subnet #{route.subnet}/#{route.netmask} through session #{session.sid}"
+          sb.add_route(route.subnet, route.netmask, session)
+        end
+      end
+    end
+
+    def get_session_by_uuid sessions, uuid
+      sessions.each_sorted do |s|
+        if ((session = sessions.get(s)))
+          return session if session.uuid == uuid
+        end
+      end
     end
 
     def cmd_autopwn args, task = nil
@@ -154,8 +155,8 @@ module FIDIUS
       Socket.do_not_reverse_lookup = orig
     end
 
-    def cmd_session_install sessionID
-      if (session = @framework.sessions.get(sessionID))
+    def cmd_session_install args
+      if (session = @framework.sessions.get(args[0]))
         if (session.type == "meterpreter")
           return "Install meterpreter on session." # XXX: return? or puts?
           install_meterpreter(session)
