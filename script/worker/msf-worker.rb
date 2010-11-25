@@ -2,16 +2,13 @@ require 'rubygems'
 require "#{RAILS_ROOT}/script/worker/loader"
 require "#{RAILS_ROOT}/script/worker/msf_session_event"
 require "#{RAILS_ROOT}/script/worker/prelude_event_fetcher.rb"
-require "#{RAILS_ROOT}/script/worker/ip_helper.rb"
 require 'drb'
 
 
 puts "msf-worker start"
 
 module CommandHandler
-  class CommandReceiver
-    include FIDIUS
-    
+  class CommandReceiver    
     def initialize
       puts "Initialize Framework..."
       @framework =  Msf::Simple::Framework.create
@@ -87,8 +84,10 @@ module CommandHandler
     def autopwn iprange, task=nil
       @prelude_fetcher.attack_started
       manager = SubnetManager.new @framework, iprange, 1
-      manager.get_sessions
-      @prelude_fetcher.get_events(get_my_ip iprange).each do |ev|
+      s = manager.get_sessions
+      p s
+      my_ip = get_my_ip iprange
+      @prelude_fetcher.get_events(my_ip).each do |ev|
         PreludeLog.create(
           :task_id => task.id,
           :payload => ev.payload,
@@ -101,6 +100,23 @@ module CommandHandler
           :ident => ev.id
         )
       end
+    end
+      
+    #
+    # returns the ip address of that interface, which would connect to
+    # an address of the given +iprange+.
+    # 
+    # see also https://coderrr.wordpress.com/2008/05/28/get-your-local-ip-address/
+    #
+    def get_my_ip iprange
+      orig, Socket.do_not_reverse_lookup = Socket.do_not_reverse_lookup, true
+      UDPSocket.open do |s|
+        # udp is stateless, so there is no real connect
+        s.connect IPAddr.new(iprange).to_s, 1
+        s.addr.last
+      end
+    ensure
+      Socket.do_not_reverse_lookup = orig
     end
 
     def nmap iprange, async = true
@@ -139,7 +155,7 @@ module CommandHandler
       # if (opts['host'].strip.downcase == 'localhost')
       #   opts['host'] = Socket.gethostbyname("localhost")[3].unpack("C*").join(".")
       # end
-      puts opts
+      puts opts.join ' '
       puts "connecting to database..."
 
       begin
@@ -159,10 +175,11 @@ module CommandHandler
           task.progress = 1
           task.save
           Msf::Plugin::FidiusLogger.on_log do |caused_by,data,socket|
+            my_ip = get_my_ip(socket.peerhost)
             PayloadLog.create(
               :exploit => caused_by,
               :payload => data,
-              :src_addr => get_my_ip(socket.peerhost),
+              :src_addr => my_ip,
               :dest_addr => socket.peerhost,
               :src_port => socket.localport,
               :dest_port => socket.peerport,

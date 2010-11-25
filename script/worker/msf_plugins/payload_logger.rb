@@ -1,5 +1,3 @@
-require "#{RAILS_ROOT}/script/worker/ip_helper.rb"
-
 # This extends the PacketDispatcher from Rex
 # with Logging 
 # Original Source is: lib/rex/post/meterpreter/packet_dispatcher.rb
@@ -42,7 +40,6 @@ end
 
 module Msf
   class Plugin::FidiusLogger < Msf::Plugin
-    include FIDIUS
   
     def self.task_id=(id)
       $task_id = id
@@ -50,10 +47,6 @@ module Msf
 
     def self.on_log(&block)
       $block = block
-    end
-
-    def self.get_my_ip iprange
-      return "10.10.10.10"
     end
 
     def self.log_packet(socket,data,caused_by="")
