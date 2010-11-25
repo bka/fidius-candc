@@ -10,7 +10,6 @@
 
 - config/msf.yml
   - msf_path muss in den Trunk von MSF zeigen
-  - msf_lib entspricht msf_path/lib
   - subnet_manager_path muss auf die subnet_manager.rb der MSF-autopwn-Gruppe zeigen
 
 - config/database.yml
