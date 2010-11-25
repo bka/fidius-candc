@@ -93,4 +93,4 @@ end
 PRELUDE_DB = prelude_db_config['database'] unless Object.const_defined?('PRELUDE_DB')
 #ActiveRecord::Base.postgresql_connection(YAML::load(open(File.join(RAILS_ROOT,"config/database.yml"),"r"))["prelude"])
 require 'config/initializers/postgres_patch.rb'
-require "#{RAILS_ROOT}/vendor/plugins/ShiftOr/shift_or.rb"
+# require "#{RAILS_ROOT}/vendor/plugins/ShiftOr/shift_or.rb"
