@@ -22,6 +22,12 @@
           <%= submit_tag :addroutetosession %>
         <% end %>
       </td>
+      <td>
+        <% form_tag arpscannsession_tasks_url do |f| %>
+          <%= hidden_field_tag 'sessionID', session.session_uuid %>
+          <%= submit_tag :arpscannsession %>
+        <% end %>
+      </td>
     </tr>
   <% end %>
   </table>

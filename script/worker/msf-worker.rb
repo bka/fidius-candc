@@ -117,7 +117,21 @@ module FIDIUS
       manager = SubnetManager.new @framework, iprange, 1
       manager.run_nmap
     end
-    
+
+    def cmd_arp_scann_session args, task=nil
+      session = get_session_by_uuid(@framework.sessions, args[0])
+      return unless session
+      return unless session.type == 'meterpreter'
+      session.net.config.each_route do |route|
+        # Remove multicast and loopback interfaces
+        next if route.subnet =~ /^(224\.|127\.)/
+        next if route.subnet == '0.0.0.0'
+        next if route.netmask == '255.255.255.255'
+        mask = IPAddr.new(route.netmask).to_i.to_s(2).count("1")
+        arp_scann(session, "#{route.subnet}/#{mask}")
+      end
+    end
+
     def autopwn iprange, task = nil
       @prelude_fetcher.attack_started
       manager = SubnetManager.new @framework, iprange, 1
@@ -153,6 +167,56 @@ module FIDIUS
       end
     ensure
       Socket.do_not_reverse_lookup = orig
+    end
+
+    def arp_scann(session, cidr)
+      puts("ARP Scanning #{cidr}")
+      ws = session.railgun.ws2_32
+      iphlp = session.railgun.iphlpapi
+      i, a = 0, []
+      iplst,found = [],""
+      ipadd = Rex::Socket::RangeWalker.new(cidr)
+      numip = ipadd.num_ips
+      while (iplst.length < numip)
+        ipa = ipadd.next_ip
+        if (not ipa)
+          break
+        end
+        iplst << ipa
+      end
+      iplst.each do |ip_text|
+        if i < 10
+          a.push(::Thread.new {
+            h = ws.inet_addr(ip_text)
+            ip = h["return"]
+            h = iphlp.SendARP(ip,0,6,6)
+            if h["return"] == session.railgun.const("NO_ERROR")
+              mac = h["pMacAddr"]
+              mac_str = mac[0].ord.to_s(16) + ":" +
+                  mac[1].ord.to_s(16) + ":" +
+                  mac[2].ord.to_s(16) + ":" +
+                  mac[3].ord.to_s(16) + ":" +
+                  mac[4].ord.to_s(16) + ":" +
+                  mac[5].ord.to_s(16)
+              puts "IP: #{ip_text} MAC #{mac_str}"
+              found << "#{ip_text}\n"
+              if session.framework.db.active
+                session.framework.db.report_host(
+                  :workspace => session.framework.db.workspace,
+                  :host => ip_text,
+                  :mac  => mac_str.to_s.strip.upcase
+                )
+              end
+            end
+          })
+        i += 1
+        else
+          sleep(0.05) and a.delete_if {|x| not x.alive?} while not a.empty?
+          i = 0
+        end
+      end
+      a.delete_if {|x| not x.alive?} while not a.empty?
+      return found
     end
 
     def connect_db
