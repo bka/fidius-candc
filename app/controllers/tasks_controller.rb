@@ -21,4 +21,18 @@ class TasksController < ApplicationController
       redirect_to :controller => :tasks, :action => :index
     end
   end
+
+  def addroutetosession
+    begin
+      task = Msf::DBManager::Task.create(:module=>"add_route_to_session #{params[:sessionID]}")
+      get_msf_worker.task_created
+      flash[:notice] = "Task started"
+      redirect_to :controller=>:tasks, :action=>:index
+    rescue
+      task.destroy
+      flash[:error] = "Sorry worker is not working. try script/msf-worker start"
+      redirect_to :controller=>:tasks, :action=>:index
+    end
+  end
+
 end
