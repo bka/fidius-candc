@@ -1,14 +1,21 @@
 require "yaml"
-require 'rubygems'
+require 'rubygems' # XXX: really?
 
-puts "Loading MsfConfig"
-raise "could not load configuration file" unless (MSF_SETTINGS = YAML::parse_file "#{RAILS_ROOT}/config/msf.yml")
-puts "Loading DataBase Config"
-raise "could not load database configuration file" unless (DB_SETTINGS = YAML.load_file("#{RAILS_ROOT}/config/database.yml")[RAILS_ENV])
+# 
+# XXX: too many constants?
+# 
 
-PATH_TO_MSF_LIB="#{MSF_SETTINGS.select("/msf_lib").first.value}"
+puts "Loading MSF config"
+MSF_SETTINGS = YAML::parse_file File.join RAILS_ROOT, 'config', 'msf.yml'
+raise "could not load config/msf.yml" unless MSF_SETTINGS
+
+puts "Loading database config"
+DB_SETTINGS = YAML.load_file(File.join RAILS_ROOT, 'config', 'database.yml')[RAILS_ENV]
+raise "could not load config/database.yml" unless DB_SETTINGS
+
+PATH_TO_MSF_LIB = File.join MSF_SETTINGS.select("/msf_path").first.value, 'lib'
 
 $:.unshift(PATH_TO_MSF_LIB)
 
-require "#{MSF_SETTINGS.select("/subnet_manager_path").first.value}"
+require MSF_SETTINGS.select("/subnet_manager_path").first.value
 require "msf/base"

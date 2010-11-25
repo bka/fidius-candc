@@ -2,51 +2,60 @@
 # with Logging 
 # Original Source is: lib/rex/post/meterpreter/packet_dispatcher.rb
 module Rex
-module Post
-module Meterpreter
-module PacketDispatcher
+  module Post
+    module Meterpreter
+      module PacketDispatcher
 
-	def send_packet(packet, completion_routine = nil, completion_param = nil)
-    Msf::Plugin::FidiusLogger.log_packet(self.sock,packet.to_r,"Meterpreter")
-		if (completion_routine)
-			add_response_waiter(packet, completion_routine, completion_param)
-		end
+	      def send_packet(packet, completion_routine = nil, completion_param = nil)
+          Msf::Plugin::FidiusLogger.log_packet(self.sock,packet.to_r,"Meterpreter")
+		      if (completion_routine)
+			      add_response_waiter(packet, completion_routine, completion_param)
+		      end
 
-		bytes = 0
-		raw   = packet.to_r
+		      bytes = 0
+		      raw   = packet.to_r
 
-		if (raw)
-			begin
-				bytes = self.sock.write(raw)
-			rescue ::Exception => e
-				# Mark the session itself as dead
-				self.alive = false
+		      if (raw)
+			      begin
+				      bytes = self.sock.write(raw)
+			      rescue ::Exception => e
+				      # Mark the session itself as dead
+				      self.alive = false
 				
-				# Indicate that the dispatcher should shut down too
-				@finish = true
+				      # Indicate that the dispatcher should shut down too
+				      @finish = true
 				
-				# Reraise the error to the top-level caller
-				raise e		
-			end
-		end
+				      # Reraise the error to the top-level caller
+				      raise e		
+			      end
+		      end
 
-		return bytes
-	end
+		      return bytes
+	      end
 
-end
-end
-end
+      end
+    end
+  end
 end
 
 module Msf
   class Plugin::FidiusLogger < Msf::Plugin
+  
     def self.task_id=(id)
       $task_id = id
     end
 
+    def self.on_log(&block)
+      $block = block
+    end
+
     def self.log_packet(socket,data,caused_by="")
       puts "log payload #{caused_by} #{data.size} bytes"
-      PayloadLog.create(:exploit=>caused_by,:payload=>data,:src_addr=>socket.localhost,:dest_addr=>socket.peerhost,:src_port=>socket.localport,:dest_port=>socket.peerport,:task_id=>$task_id)
+      begin
+        $block.call caused_by, data, socket
+      rescue
+        puts "ERROR #{$!}:#{$!.backtract}"
+      end
     end
 
     def self.inspect_socket(socket)

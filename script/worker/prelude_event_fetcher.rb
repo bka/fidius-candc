@@ -28,7 +28,3 @@ class PreludeEventFetcher
     return res
   end
 end
-
-#pef = PreludeEventFetch.new
-#pef.attack_start
-#pef.get_events("10.0.0.101").inspect

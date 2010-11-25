@@ -1,31 +1,83 @@
-<h1>Task:<%= @task.module %></h1>
+<h1>Task: <%= @task.module %></h1>
 
-<table border="1">
-<tr>
-<th>Exploit</th>
-<th>Payloadsize</th>
-<th>Time</th>
-</tr>
-<% @task.payload_logs.each do |payload| %>
-<tr>
-  <td><%= link_to payload.exploit,payload %></td>
-  <td><%= payload.payload.size %></td>
-  <td><%= payload.created_at %></td>
-</tr>  
+<h2>Matching Prelude to Metasploit</h2>
+
+<% PreludeLog.all.each do |pe| %>
+<div class="match">
+  <table class="prelude_event">
+    <tr>
+      <th>Event</th>
+      <td><%= link_to pe.text, pe %></td>
+    </tr>
+    <tr>
+      <th>PayloadSize</th>
+      <td><%= pe.payload.size %></td>
+    </tr>
+    <tr>
+      <th>DetectTime</th>
+      <td><%= pe.detect_time %></td>
+    </tr>
+    <tr>
+      <th>Scr</th>
+      <td><%= pe.src_ip %></td>
+    </tr>
+    <tr>
+      <th>Dst</th>
+      <td><%= pe.dest_ip %></td>
+    </tr>
+  </table>
+
+  <div class="msf_exploit">
+    <% pe.get_payloads_logs.each do |pl| %>
+      <% payload = pl[:obj] %>
+      <table>
+        <tr>
+          <th>Exploit</th>
+          <th>(<%= payload.id %>) <%= link_to payload.exploit, payload %></th>
+          <th>diff</th>
+        </tr>
+        <tr>
+          <th>Payloadsize</th>
+          <td><%= payload.payload.size %></td>
+          <td><%= payload.payload.size - pe.payload.size %></td>
+        </tr>
+        <tr>
+          <th>Time</th>
+          <td><%= payload.created_at %></td>
+          <td><%= payload.created_at - pe.detect_time %></td>
+        </tr>
+        <tr>
+          <th>Src</th>
+          <td><%= payload.src_addr %></td>
+          <td></td>
+        </tr>
+        <tr>
+          <th>Dst</th>
+          <td><%= payload.dest_addr %></td>
+          <td></td>
+        </tr>
+      </table>
+    <% end %>
+  </div>
+  <hr class="clear" />
+</div>
 <% end %>
 
+<h2>Metaploit Logging (used exploit with payload size)</h2>
 
-<table border="1">
-<tr>
-<th>Text</th>
-<th>PayloadSize</th>
-<th>DetectTime</th>
-</tr>
-<% @task.prelude_logs.each do |pl| %>
-<tr>
-  <td><%= link_to pl.text,pl %></td>
-  <td><%= pl.payload.size %></td>
-  <td><%= pl.detect_time %></td>
-</tr>  
-<% end %>
+<table>
+  <tr>
+    <th>Id</th>
+    <th>Exploit</th>
+    <th>Payloadsize</th>
+    <th>Time</th>
+  </tr>
+  <% @task.payload_logs.each do |payload| %>
+    <tr>
+      <td><%= payload.id %></td>
+      <td><%= link_to payload.exploit, payload %></td>
+      <td><%= payload.payload.size %></td>
+      <td><%= payload.created_at %></td>
+    </tr>
+  <% end %>
 </table>

@@ -1,7 +1,11 @@
-body { background-color: #999999; color: #333; }
+body {
+  background-color: #fff; color: #333;
+  margin: 0;
+  padding: 1em
+}
 
 body, p, ol, ul, td {
-  font-family: verdana, arial, helvetica, sans-serif;
+  font-family: sans-serif;
   font-size:   13px;
   line-height: 18px;
 }
@@ -20,9 +24,19 @@ pre {
   font-size: 11px;
 }
 
-a { color: #EEE; }
-a:visited { color: #EEE; }
-a:hover { color: #EEE; background-color:#000; }
+a {
+  color: #333;
+  text-decoration: none;
+  border: solid #333;
+  border-width: 0 0 1px;
+}
+th a {
+  color: #fff;
+  border-color: #fff;
+}
+a:hover {
+  border: none;
+}
 
 .fieldWithErrors {
   padding: 2px;
@@ -59,6 +73,51 @@ a:hover { color: #EEE; background-color:#000; }
   font-size: 12px;
   list-style: square;
 }
-.exploited{
-  background-color:green;
+
+table {
+  border-collapse: collapse;
+}
+
+tr.exploited {
+  background-color: #9f9;
+}
+
+td, th {
+  padding: .1em .5em;
+}
+
+tr:nth-child(odd) {
+  background-color: #eee;
+}
+
+th {
+  background: #333;
+  color: #fff;
+  text-align: left;
+}
+
+.match {
+  background: #fcfcfc;
+  -moz-box-shadow: 0 0 5px #333;
+  padding: .5em;
+  border: 5px solid #fff;
+  margin: 2em 0;
+  clear: both;
+}
+
+.match .prelude_event {
+  float: left;
+  max-width: 50%;
+}
+
+.match .msf_exploit {
+  margin-left: 51%;
+}
+
+hr.clear {
+  clear: both;
+  border: none;
+  background: transparent;
+  margin: 0;
+  padding: 0;
 }

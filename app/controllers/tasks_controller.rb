@@ -1,5 +1,3 @@
-require 'drb'
-
 class TasksController < ApplicationController
   include DrbHelper
 
@@ -13,14 +11,14 @@ class TasksController < ApplicationController
 
   def scan
     begin
-      task = Msf::DBManager::Task.create(:module=>"autopwn #{params[:subnet]}")
+      task = Msf::DBManager::Task.create(:module => "autopwn #{params[:subnet]}")
       get_msf_worker.task_created
       flash[:notice] = "Task started"
-      redirect_to :controller=>:tasks, :action=>:index
-    rescue
+      redirect_to :controller => :tasks, :action => :index
+    rescue Exception
       task.destroy
-      flash[:error] = "Sorry worker is not working. try script/msf-worker start"
-      redirect_to :controller=>:tasks, :action=>:index
+      flash[:error] = "Sorry worker is not working. try script/msf-worker start. <pre>#{$!}</pre> <pre>#{$!.backtrace[1..5]}</pre>"
+      redirect_to :controller => :tasks, :action => :index
     end
   end
 end
