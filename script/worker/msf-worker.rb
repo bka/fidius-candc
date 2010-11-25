@@ -155,19 +155,6 @@ module FIDIUS
       Socket.do_not_reverse_lookup = orig
     end
 
-    def cmd_session_install args
-      if (session = @framework.sessions.get(args[0]))
-        if (session.type == "meterpreter")
-          return "Install meterpreter on session." # XXX: return? or puts?
-          install_meterpreter(session)
-        else
-         return "Selected session is not a meterpreter session"
-        end
-      else
-        return "No such session found"
-      end
-    end
-
     def connect_db
       # set the db driver
       @framework.db.driver = DB_SETTINGS["adapter"]
