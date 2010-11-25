@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 if %w[start stop restart].include? ARGV[0]
-  ARGV[1] = "development" if ARGV[1] == ""
+  ARGV[1] ||= 'development'
   system "ruby script/runner script/worker/starter.rb #{ARGV[0]} -e #{ARGV[1]}"
 else
   puts "Usage:\n\truby script/msf-worker start|stop|restart [ENVIROMENT]"
