@@ -233,7 +233,6 @@ module FIDIUS
       return found
     end
 
-<<<<<<< HEAD
     def task_created
       Msf::DBManager::Task.find_new_tasks.each do |task|
         begin
