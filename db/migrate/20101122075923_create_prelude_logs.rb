@@ -2,7 +2,7 @@ class CreatePreludeLogs < ActiveRecord::Migration
   def self.up
     create_table :prelude_logs do |t|
       t.integer :task_id
-      t.column :payload, :longblob
+      t.column :payload, :binary
       t.datetime :detect_time
       t.string :dest_ip
       t.string :src_ip
