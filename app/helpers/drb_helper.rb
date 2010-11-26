@@ -18,4 +18,8 @@ module DrbHelper
     DRbObject.new nil, msf['drb_url']
   end
   
+  def msf_worker cmd
+    system("ruby script/runner script/worker/starter.rb #{cmd} -e #{RAILS_ENV}")
+  end
+  
 end

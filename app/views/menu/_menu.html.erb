@@ -1,4 +1,8 @@
 <ul>
   <li><%= link_to "Hosts", hosts_url %></li>
   <li><%= link_to "Tasks", tasks_url %></li>
+  <li>
+    Worker: <%= link_to "start", start_worker_tasks_url, :method => :post %>,
+    <%= link_to "stop", stop_worker_tasks_url, :method => :post %>
+  </li>
 </ul>

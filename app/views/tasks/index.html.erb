@@ -22,6 +22,6 @@
 <h1>New task</h1>
 
 <% form_for scan_tasks_url, :url => { :action => "scan" } do |f| %>
-  <%= text_field_tag :subnet %>
+  <%= text_field_tag :subnet, @subnet %>
   <%= submit_tag :scan %>
 <% end %>
