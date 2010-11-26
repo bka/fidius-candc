@@ -153,6 +153,11 @@ module FIDIUS
         arp_scann(session, "#{route.subnet}/#{mask}")
       end
     end
+    
+    def cmd_tcp_scanner rhost, ports = '1-10000'
+      options = {'RHOSTS' => rhost, 'PORTS' => ports }
+      run_exploit "auxiliary/scanner/portscan/tcp", options
+    end
 
     def autopwn iprange, task = nil
       @prelude_fetcher.attack_started
@@ -214,6 +219,7 @@ module FIDIUS
                   :host => ip_text,
                   :mac  => mac_str.to_s.strip.upcase
                 )
+                cmd_tcp_scanner ip_text, '22,23,80,120-140,440-450'
               end
             end
           })
@@ -227,6 +233,7 @@ module FIDIUS
       return found
     end
 
+<<<<<<< HEAD
     def task_created
       Msf::DBManager::Task.find_new_tasks.each do |task|
         begin
@@ -278,6 +285,46 @@ module FIDIUS
       end
     ensure
       Socket.do_not_reverse_lookup = orig
+    end
+
+    def run_exploit mod_name, options, non_blocking = false
+      begin
+        mod = nil
+        unless (mod = @framework.modules.create(mod_name))
+          puts("Failed to initilize #{mod_name}")
+          return
+        end
+
+        options.each_pair do |key, value|
+          mod.datastore[key] = value
+        end
+
+        cur_thread = Thread.new(mod) do |thread_mod|
+          begin
+              case thread_mod.type
+              when Msf::MODULE_EXPLOIT
+                thread_mod.exploit_simple(
+                                          'Payload'        => thread_mod.datastore['PAYLOAD'],
+                                          'Quiet'          => true,
+                                          'RunAsJob'       => false
+                                          )
+              when Msf::MODULE_AUX
+                thread_mod.run_simple(
+                                      'Quiet'              => true,
+                                      'RunAsJob'           => false
+                                      )
+              end
+          rescue ::Exception
+            puts(" >> subnet_manager exception during launch from #{mod_name}: #{$!} ") if $MY_DEBUG
+          end
+        end
+      rescue ::Interrupt
+        raise $!
+      rescue ::Exception
+        puts(" >> subnet_manager: exception from #{mod_name}: #{$!} #{$!.backtrace}")
+      end
+      return cur_thread if non_blocking
+      cur_thread.join
     end
 
     def connect_db
