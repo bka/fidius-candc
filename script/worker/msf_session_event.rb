@@ -1,5 +1,3 @@
-require "#{RAILS_ROOT}/script/worker/loader"
-
 class MsfSessionEvent
   include ::Msf::SessionEvent
 

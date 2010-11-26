@@ -1,46 +1,43 @@
+module FIDIUS
+  class Starter
+    PID_FILE = File.join RAILS_ROOT, 'tmp', 'pids', 'msf-worker'
 
-def start
-  if File.exist?("#{RAILS_ROOT}/tmp/pids/msf-worker")
-      begin
-        pid = File.new("#{RAILS_ROOT}/tmp/pids/#{name}","r").read.to_i
-        Process.getpgid pid
-        puts "Msf-Worker already running as Process #{pid}"
-        return
-      rescue
-        File.delete("#{RAILS_ROOT}/tmp/pids/msf-worker")
-        puts "no process delete pid file and start"
+    def self.start
+      if File.exist? PID_FILE
+        begin
+          pid = File.read(PID_FILE).to_i
+          Process.getpgid pid
+          puts "FIDIUS MSF worker already running as Process #{pid}"
+          return
+        rescue
+          File.delete PID_FILE
+          puts "No process. Deleted PID file and starting..."
+        end
       end
+      puts "ruby script/runner script/worker/msf-worker.rb -e #{RAILS_ENV} &"
+      system "ruby script/runner script/worker/msf-worker.rb -e #{RAILS_ENV} &"
+    end
+
+    def self.stop
+      if File.exist? PID_FILE
+        pid = File.read(PID_FILE).to_i
+        Process.kill("TERM", pid)
+        Process.kill("INT", pid)
+        File.delete PID_FILE
+        puts "FIDIUS MSF worker stopped."
+      else
+        puts "No process. FIDIUS MSF worker not running."
+      end
+    end
+
+    def self.restart
+      stop
+      start
+    end
   end
-  puts "ruby script/runner script/worker/msf-worker.rb -e #{RAILS_ENV} &"
-  system("ruby script/runner script/worker/msf-worker.rb -e #{RAILS_ENV} &")      
 end
 
-def stop
-  if File.exist?("#{RAILS_ROOT}/tmp/pids/msf-worker")
-    pid = File.new("#{RAILS_ROOT}/tmp/pids/msf-worker","r").read.to_i
-    Process.kill("INT",pid)
-    puts "Msf-Worker stopped"
-  else
-    puts "No Process Msf-Worker running"
-  end
-end
+# invoked by script/runner, invoked by script/msf-worker.
+# see there for usage.
+FIDIUS::Starter.send ARGV[0].to_sym
 
-def restart
-  stop
-  start
-end
-
-if ["start","stop","restart"].member?(ARGV[0])
-  if ARGV[0] == "start"
-    start
-  end
-  if ARGV[0] == "stop"
-    stop
-  end
-  if ARGV[0] == "restart"
-    restart
-  end
-
-else
-  puts "please use \"ruby script/workers start|stop|restart\""
-end

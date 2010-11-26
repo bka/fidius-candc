@@ -1,22 +1,18 @@
 <h1>Hosts</h1>
 
-<table border="1">
-<tr>
-<th>Address</th>
-<th>OS name</th>
-<th>OS service pack</th>
-<th>Hostname</th>
-</tr>
-<% @hosts.each do |host| %>
-<% if host.exploited? %>
-<tr class="exploited">
-<% else %>
-<tr>
-<% end %>
-  <td><%= host.address %></td>
-  <td><%= host.os_name %></td>
-  <td><%= host.os_sp %></td>
-  <td><%= link_to host.name, host %></td>
-</tr>
-<% end %>
+<table>
+  <tr>
+    <th>Address</th>
+    <th>OS name</th>
+    <th>OS service pack</th>
+    <th>Hostname</th>
+  </tr>
+  <% @hosts.each do |host| %>
+    <tr<%= host.exploited? ? 'class="exploited"' : '' %>>
+      <td><%= host.address %></td>
+      <td><%= host.os_name %></td>
+      <td><%= host.os_sp %></td>
+      <td><%= link_to host.name, host %></td>
+    </tr>
+  <% end %>
 </table>

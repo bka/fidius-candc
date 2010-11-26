@@ -1,21 +1,34 @@
 <h2>Sessions</h2>
+
 <% if sessions.empty? %>
-<p>No sessions available</p>
+  <p>No sessions available</p>
 <% else %>
-<table border="1">
-<tr>
-  <th>Exploit name</th>
-  <th>Payload name</th>
-  <th>Exploited at</th>
-  <th>Service</th>
-</tr>
-<% sessions.each do |session| %>
-<tr>
-  <td><%= session.name %></td>
-  <td><%= session.payload %></td>
-  <td><%= session.created_at %></td>
-  <td><%= session.service.name %></td>
-</tr>
-<% end %>
-</table>
+  <table>
+  <tr>
+    <th>Exploit name</th>
+    <th>Payload name</th>
+    <th>Exploited at</th>
+    <th>Service</th>
+  </tr>
+  <% sessions.each do |session| %>
+    <tr>
+      <td><%= session.name %></td>
+      <td><%= session.payload %></td>
+      <td><%= session.created_at %></td>
+      <td><%= session.service.name %></td>
+      <td>
+        <% form_tag addroutetosession_tasks_url do |f| %>
+          <%= hidden_field_tag 'sessionID', session.session_uuid %>
+          <%= submit_tag :addroutetosession %>
+        <% end %>
+      </td>
+      <td>
+        <% form_tag arpscannsession_tasks_url do |f| %>
+          <%= hidden_field_tag 'sessionID', session.session_uuid %>
+          <%= submit_tag :arpscannsession %>
+        <% end %>
+      </td>
+    </tr>
+  <% end %>
+  </table>
 <% end %>
