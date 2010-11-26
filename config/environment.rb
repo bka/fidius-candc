@@ -7,21 +7,22 @@ RAILS_GEM_VERSION = '2.3.5' unless defined? RAILS_GEM_VERSION
 require File.join(File.dirname(__FILE__), 'boot')
 
 Rails::Initializer.run do |config|
-  # Do initialisation for Metasploit Framework
-  msf = YAML::load(open(File.join(File.dirname(__FILE__), 'msf.yml')))
-  LOCAL_MSF_SVN_CHECKOUT = msf['msf_path']
-  $:.unshift(File.join(LOCAL_MSF_SVN_CHECKOUT,"lib"))
+  # initialization for MSF
+  msf = YAML.load_file(File.join RAILS_ROOT, 'config', 'msf.yml')
+  require 'pp'
+  pp msf
+  $:.unshift(File.join msf['msf_path'], 'lib')
 
-	require 'rubygems'
+	require 'rubygems' # XXX: ???
 	require 'active_record'
 	require 'msf/core/db_objects'
 	require 'msf/core/model'
-  
+
   # nochmal die models reinladen, nachdem wir die grundlegenden
-  # sachen von msf geladen haben, um nachträglich noch modifizierungen 
+  # sachen von msf geladen haben, um nachträglich noch modifizierungen
   # haben zu können
-  Dir.glob(File.join('app','models', '*.rb')) do |rb|
-    require rb  
+  Dir.glob(File.join 'app','models', '*.rb') do |rb|
+    require rb
   end
 
   # Settings in config/environments/* take precedence over those specified here.
@@ -44,6 +45,7 @@ Rails::Initializer.run do |config|
   # Skip frameworks you're not going to use. To use Rails without a database,
   # you must remove the Active Record framework.
   # config.frameworks -= [ :active_record, :active_resource, :action_mailer ]
+  config.frameworks -= [ :action_mailer ]
 
   # Activate observers that should always be running
   # config.active_record.observers = :cacher, :garbage_collector, :forum_observer
@@ -63,9 +65,6 @@ end
 module ActiveSupport
   module Dependencies
     extend self
-    
-    #def load_missing_constant(from_mod, const_name)
-    
     def forgiving_load_missing_constant( from_mod, const_name )
       begin
         old_load_missing_constant(from_mod, const_name)
@@ -82,15 +81,14 @@ module ActiveSupport
   end
 end
 
-# Load Connectiondata for PreludeDB
-# And Patch postgres quotation bug
-require 'active_record/connection_adapters/postgresql_adapter'
-PRELUDE_DB_CONFIG_NAME = "prelude"
-prelude_db_config = YAML::load(open(File.join(RAILS_ROOT,"config/database.yml"),"r"))[PRELUDE_DB_CONFIG_NAME]
-if !prelude_db_config
-  throw Exception.new("There seems to be no prelude database config. Pleas see database.yml.example and reconfigure")
-end
-PRELUDE_DB = prelude_db_config['database'] unless Object.const_defined?('PRELUDE_DB')
+# load connection data for PreludeDB
 
-require 'config/initializers/postgres_patch.rb'
+require 'active_record/connection_adapters/postgresql_adapter'
+
+PRELUDE_DB_CONFIG_NAME = 'prelude'
+prelude_db_config_yaml = YAML.load_file(File.join RAILS_ROOT,"config/database.yml")
+unless prelude_db_config = prelude_db_config_yaml[PRELUDE_DB_CONFIG_NAME]
+  raise Exception.new 'There seems to be no prelude database config. Please see database.yml.example and reconfigure.'
+end
+PRELUDE_DB = prelude_db_config['database']
 
