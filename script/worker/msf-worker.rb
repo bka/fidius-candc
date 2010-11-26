@@ -9,7 +9,7 @@ module FIDIUS
   class MSFWorker
     PID_FILE = File.join RAILS_ROOT, 'tmp', 'pids', 'msf-worker'
 
-    def p *obj
+    def p *obj # :nodoc:
       pp *obj
     end
     
@@ -53,11 +53,12 @@ module FIDIUS
     
     def stop
       puts "Halting..."
-      disconnect_db
-
-      if File.exist? PID_FILE
-        File.delete PID_FILE
+      @framework.sessions.each_pair do |i,session|
+        puts "Killing session #{i}: #{session}"
+        session.kill
       end
+      disconnect_db
+      File.delete PID_FILE if File.exist? PID_FILE
       DRb.stop_service
       puts "Halted."
     end
@@ -69,16 +70,28 @@ module FIDIUS
         if async
           thread = Thread.new do
             begin
+              task.progress = 1
+              task.status = "running asynchron"
+              task.save
               send command.to_sym, cmd, task
               task.progress = 100
+              task.status = "done"
               task.save
             rescue ::Exception
               puts "Failed executing '#{command}, #{cmd.join ', '}' on task ##{task.id}.", $!, *$!.backtrace
+              task.progress = -1
+              task.status = "failed"
+              task.error = $!.to_s
+              task.save
             end
           end
         else
+          task.progress = 1
+          task.status = "running"
+          task.save
           send command.to_sym, cmd, task
           task.progress = 100
+          task.status = "done"
           task.save
         end
       else
@@ -125,12 +138,6 @@ module FIDIUS
 
     def cmd_autopwn args, task = nil
       autopwn args[0], task
-    end
-
-    # XXX: obsolete?
-    def nmap iprange, async = true
-      manager = SubnetManager.new @framework, iprange, 1
-      manager.run_nmap
     end
 
     def cmd_arp_scann_session args, task=nil
@@ -190,6 +197,9 @@ module FIDIUS
             h = iphlp.SendARP(ip,0,6,6)
             if h["return"] == session.railgun.const("NO_ERROR")
               mac = h["pMacAddr"]
+              # XXX: in Ruby, we would do
+              #   mac.map{|m| m.ord.to_s 16 }.join ':' 
+              # and not
               mac_str = mac[0].ord.to_s(16) + ":" +
                   mac[1].ord.to_s(16) + ":" +
                   mac[2].ord.to_s(16) + ":" +
@@ -220,7 +230,7 @@ module FIDIUS
     def task_created
       Msf::DBManager::Task.find_new_tasks.each do |task|
         begin
-          task.progress = 1
+          task.progress = 0
           task.save
           Msf::Plugin::FidiusLogger.on_log do |caused_by, data, socket|
             my_ip = get_my_ip(socket.peerhost)
@@ -237,7 +247,7 @@ module FIDIUS
           exec_task task
         rescue ::Exception
           puts "An error occurred while executing task ##{task.id}", $!, *$!.backtrace
-          task.error = $!.inspect
+          task.error = $!.to_s
           task.save
           raise
         end

@@ -2,11 +2,9 @@ module DrbHelper
 
   def get_msf_worker
     require 'drb'
-    
-    msf = YAML::parse_file File.join RAILS_ROOT, 'config', 'msf.yml'
-    if not msf['drb_url']
-      puts "please specify drb_url in msf.yml"
-      return
+    msf = YAML.load_file File.join(RAILS_ROOT, 'config', 'msf.yml')
+    unless msf['drb_url']
+      raise ArgumentError.new "Please specify drb_url in config/msf.yml"
     end
 
     # start DRb service if it hasn't been started before
@@ -19,4 +17,5 @@ module DrbHelper
     end
     DRbObject.new nil, msf['drb_url']
   end
+  
 end
