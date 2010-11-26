@@ -3,9 +3,16 @@ require "#{RAILS_ROOT}/script/worker/loader"
 require "#{RAILS_ROOT}/script/worker/msf_session_event"
 require "#{RAILS_ROOT}/script/worker/prelude_event_fetcher.rb"
 require 'drb'
+require 'pp'
 
 module FIDIUS
   class MSFWorker
+    PID_FILE = File.join RAILS_ROOT, 'tmp', 'pids', 'msf-worker'
+
+    def p *obj
+      pp *obj
+    end
+    
     def puts *obj # :nodoc:
       if ob = obj.shift
         $stdout.puts "[#{Time.now.strftime '%Y-%m-%d %H:%M:%S'}] FIDIUS MSF worker: #{ob}"
@@ -19,9 +26,14 @@ module FIDIUS
     
     def start
       puts "Starting. Will listen on #{DRb.uri}..."
+      File.open(PID_FILE, 'w') do |f|
+        f.puts Process.pid
+      end
+      
       puts "Initializing MSF..."
       @framework =  Msf::Simple::Framework.create
       puts "Initialized MSF."
+
       connect_db
       begin
         @framework.db.exploited_hosts.each do |h|
@@ -39,6 +51,16 @@ module FIDIUS
       puts "Started."
     end
     
+    def stop
+      puts "Halting..."
+      disconnect_db
+
+      if File.exist? PID_FILE
+        File.delete PID_FILE
+      end
+      DRb.stop_service
+      puts "Halted."
+    end
 
     def exec_task task, async = true
       cmd = task.module.split
@@ -64,27 +86,20 @@ module FIDIUS
       end
     end
 
-    def commands
-      @commands ||= (self.methods - Object.instance_methods).select do |m|
-        m =~ /^cmd_/
-      end
-      @commands
-    end
-
     def cmd_nmap args, task = nil
       manager = SubnetManager.new @framework, args[0]
       manager.run_nmap
     end
 
     def cmd_session_install args
-      session = get_session_by_uuid(@framework.sessions, args[0])
+      session = get_session_by_uuid @framework.sessions, args[0]
       return unless session
       return unless session.type == 'meterpreter'
       install_meterpreter(session)
     end
     
     def cmd_add_route_to_session args, task=nil
-      session = get_session_by_uuid(@framework.sessions, args[0])
+      session = get_session_by_uuid @framework.sessions, args[0]
       return unless session
       return unless session.type == 'meterpreter'
       sb = Rex::Socket::SwitchBoard.instance
@@ -102,7 +117,7 @@ module FIDIUS
 
     def get_session_by_uuid sessions, uuid
       sessions.each_sorted do |s|
-        if ((session = sessions.get(s)))
+        if session = sessions.get(s)
           return session if session.uuid == uuid
         end
       end
@@ -119,7 +134,7 @@ module FIDIUS
     end
 
     def cmd_arp_scann_session args, task=nil
-      session = get_session_by_uuid(@framework.sessions, args[0])
+      session = get_session_by_uuid @framework.sessions, args[0]
       return unless session
       return unless session.type == 'meterpreter'
       session.net.config.each_route do |route|
@@ -150,23 +165,6 @@ module FIDIUS
           :ident => ev.id
         )
       end
-    end
-
-    #
-    # returns the ip address of that interface, which would connect to
-    # an address of the given +iprange+.
-    #
-    # see also https://coderrr.wordpress.com/2008/05/28/get-your-local-ip-address/
-    #
-    def get_my_ip iprange
-      orig, Socket.do_not_reverse_lookup = Socket.do_not_reverse_lookup, true
-      UDPSocket.open do |s|
-        # udp is stateless, so there is no real connect
-        s.connect IPAddr.new(iprange).to_s, 1
-        s.addr.last
-      end
-    ensure
-      Socket.do_not_reverse_lookup = orig
     end
 
     def arp_scann(session, cidr)
@@ -219,38 +217,6 @@ module FIDIUS
       return found
     end
 
-    def connect_db
-      # set the db driver
-      @framework.db.driver = DB_SETTINGS["adapter"]
-      # create the options hash
-      opts = {}
-      opts['adapter'] = DB_SETTINGS["adapter"]
-      opts['username'] = DB_SETTINGS["username"]
-      opts['password'] = DB_SETTINGS["password"]
-      opts['database'] = DB_SETTINGS["database"]
-      opts['host'] =  DB_SETTINGS["host"]
-      opts['port'] =  DB_SETTINGS["port"]
-      opts['socket'] = DB_SETTINGS["socket"]
-
-      # This is an ugly hack for a broken MySQL adapter:
-      # http://dev.rubyonrails.org/ticket/3338
-      # if (opts['host'].strip.downcase == 'localhost')
-      #   opts['host'] = Socket.gethostbyname("localhost")[3].unpack("C*").join(".")
-      # end
-      puts "Connecting to database..."
-
-      begin
-        unless @framework.db.connect(opts)
-          raise RuntimeError.new "Failed to connect to the database: #{@framework.db.error}. Did you edit the config.yaml?"
-        end
-      rescue ::Exception
-        puts "Unable to connect to database."
-        raise
-      end
-
-      puts "Connected to database."
-    end
-
     def task_created
       Msf::DBManager::Task.find_new_tasks.each do |task|
         begin
@@ -277,7 +243,71 @@ module FIDIUS
         end
       end
     end
+  
+  private
 
+    def commands
+      @commands ||= (self.methods - Object.instance_methods).select do |m|
+        m =~ /^cmd_/
+      end
+      @commands
+    end
+
+    #
+    # returns the ip address of that interface, which would connect to
+    # an address of the given +iprange+.
+    #
+    # see also https://coderrr.wordpress.com/2008/05/28/get-your-local-ip-address/
+    #
+    def get_my_ip iprange
+      orig, Socket.do_not_reverse_lookup = Socket.do_not_reverse_lookup, true
+      UDPSocket.open do |s|
+        # udp is stateless, so there is no real connect
+        s.connect IPAddr.new(iprange).to_s, 1
+        s.addr.last
+      end
+    ensure
+      Socket.do_not_reverse_lookup = orig
+    end
+
+    def connect_db
+      # set the db driver
+      @framework.db.driver = DB_SETTINGS["adapter"]
+      # create the options hash
+      opts = {}
+      opts['adapter'] = DB_SETTINGS["adapter"]
+      opts['username'] = DB_SETTINGS["username"]
+      opts['password'] = DB_SETTINGS["password"]
+      opts['database'] = DB_SETTINGS["database"]
+      opts['host'] =  DB_SETTINGS["host"]
+      opts['port'] =  DB_SETTINGS["port"]
+      opts['socket'] = DB_SETTINGS["socket"]
+      
+      # This is an ugly hack for a broken MySQL adapter:
+      # http://dev.rubyonrails.org/ticket/3338
+      # if (opts['host'].strip.downcase == 'localhost')
+      #   opts['host'] = Socket.gethostbyname("localhost")[3].unpack("C*").join(".")
+      # end
+      puts "Connecting to database..."
+
+      begin
+        unless @framework.db.connect(opts)
+          raise RuntimeError.new "Failed to connect to the database: #{@framework.db.error}. Did you edit the config.yaml?"
+        end
+      rescue ::Exception
+        puts "Unable to connect to database."
+        raise
+      end
+
+      puts "Connected to database."
+    end
+    
+    def disconnect_db
+      puts "Disconnecting database..."
+      @framework.db.disconnect
+      puts "Disconnected."
+    end
+  
     def load_plugins
       begin
         require "#{RAILS_ROOT}/script/worker/msf_payload_loader.rb"
@@ -294,12 +324,9 @@ raise ArgumentError.new "No 'drb_url' in config/msf.yml specified." unless drb_u
 
 worker = FIDIUS::MSFWorker.new
 DRb.start_service drb_url.first.value, worker
-File.open(File.join(RAILS_ROOT, 'tmp', 'pids', 'msf-worker'), 'w') do |f|
-  f.puts Process.pid
-end
 worker.start
 
 DRb.thread.join
 
-FIDIUS.puts "Exiting."
+worker.puts "Exiting."
 

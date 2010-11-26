@@ -1,4 +1,7 @@
 module FIDIUS
+  require 'drb'
+  require 'pp'
+
   class Starter
     PID_FILE = File.join RAILS_ROOT, 'tmp', 'pids', 'msf-worker'
 
@@ -19,15 +22,15 @@ module FIDIUS
     end
 
     def self.stop
-      if File.exist? PID_FILE
-        pid = File.read(PID_FILE).to_i
-        Process.kill("TERM", pid)
-        Process.kill("INT", pid)
-        File.delete PID_FILE
-        puts "FIDIUS MSF worker stopped."
-      else
-        puts "No process. FIDIUS MSF worker not running."
+      drb_url = YAML::parse_file(File.join RAILS_ROOT, 'config', 'msf.yml').select("/drb_url").first.value
+      if drb_url
+        drb_url
+        DRb.start_service
+        worker = DRbObject.new nil, drb_url
+        worker.stop
       end
+    rescue DRb::DRbConnError
+      puts "Halted."
     end
 
     def self.restart
