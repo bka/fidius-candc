@@ -92,3 +92,4 @@ unless prelude_db_config = prelude_db_config_yaml[PRELUDE_DB_CONFIG_NAME]
 end
 PRELUDE_DB = prelude_db_config['database']
 
+require 'config/initializers/postgres_patch.rb'
