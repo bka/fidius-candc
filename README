@@ -26,13 +26,14 @@
 2. Datenbanken erstellen/migrieren
 
 - Für den MSF/MySQL-Betrieb
-  - rake db:create
+  - `rake db:create`
 - auf jeden Fall:
-  - rake db:migrate
+  - `rake db:migrate`
 
 3. Rails starten
 
-- script/server start
+- `script/server start`
+  (oder, wenn installiert: `thin start`)
 
 4. Browser öffnen
 

@@ -15,12 +15,16 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :tasks, :collection => {
     :scan => :post,
     :addroutetosession => :post,
-    :arpscannsession => :post,
-    :start_worker => :post,
-    :stop_worker => :post
+    :arpscannsession => :post
   }
   map.resources :payload_logs
   map.resources :prelude_logs
+  map.resources :workers, :collection => {
+    :start => :post,
+    :restart => :put,
+    :stop => :delete
+  }
+  
   # Sample resource route with options:
   #   map.resources :products, :member => { :short => :get, :toggle => :post }, :collection => { :sold => :get }
 

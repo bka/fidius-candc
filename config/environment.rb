@@ -9,8 +9,6 @@ require File.join(File.dirname(__FILE__), 'boot')
 Rails::Initializer.run do |config|
   # initialization for MSF
   msf = YAML.load_file(File.join RAILS_ROOT, 'config', 'msf.yml')
-  require 'pp'
-  pp msf
   $:.unshift(File.join msf['msf_path'], 'lib')
 
 	require 'rubygems' # XXX: ???
