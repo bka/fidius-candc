@@ -2,11 +2,13 @@ require 'rubygems'
 require "#{RAILS_ROOT}/script/worker/loader"
 require "#{RAILS_ROOT}/script/worker/msf_session_event"
 require "#{RAILS_ROOT}/script/worker/prelude_event_fetcher.rb"
+require "#{RAILS_ROOT}/app/helpers/log_matches_helper.rb"
 require 'drb'
 require 'pp'
 
 module FIDIUS
   class MSFWorker
+    include LogMatchesHelper
     PID_FILE = File.join RAILS_ROOT, 'tmp', 'pids', 'msf-worker'
 
     def p *obj # :nodoc:
@@ -176,6 +178,14 @@ module FIDIUS
           :analyzer_model => ev.analyzer_model,
           :ident => ev.id
         )
+      end
+      # after autopwn finished
+      # we have all payload-logs from metasploit
+      # and all prelude logs
+      # now lets match them against each other for the given task_id
+      if task != nil
+        puts "finding matches in payload/prelude logs"
+        calculate_matches_between_payloads_and_prelude_logs(task.id)
       end
     end
 
