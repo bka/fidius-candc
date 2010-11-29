@@ -12,10 +12,18 @@
 <div id="welcome">
   <h1><%= link_to '<span>FIDIUS Command&amp;Control server</span>', root_url %></h1>
   
+  <% [:notice, :error].each do |type| -%>
+    <% if flash[type] -%>
+      <p class="<%=h type  %>"><%=h flash[type]%></p>
+    <% end -%>
+  <% end -%>
+
   <%= yield %>
-  
+
   <%= render :partial => "welcome/menu" %>
 </div>
+
+<%= render :partial => "workers/status" %>
 
 </body>
 </html>

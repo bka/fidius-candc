@@ -9,14 +9,19 @@
 </head>
 <body>
 
-<p style="color: green"><%= flash[:notice] %></p>
-<p style="color: red"><%= flash[:error] %></p>
+<% [:notice, :error].each do |type| -%>
+  <% if flash[type] -%>
+    <p class="<%=h type  %>"><%=h flash[type]%></p>
+  <% end -%>
+<% end -%>
 
 <h1>FIDIUS Command&amp;Control server</h1>
 
 <%= render :partial => "welcome/menu" %>
 
 <%= yield %>
+
+<%= render :partial => "workers/status" %>
 
 </body>
 </html>

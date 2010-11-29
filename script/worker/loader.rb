@@ -5,11 +5,11 @@ require 'rubygems' # XXX: really?
 # XXX: too many constants?
 # 
 
-puts "Loading MSF config"
+puts ">> Loading MSF config"
 MSF_SETTINGS = YAML::parse_file File.join(RAILS_ROOT, 'config', 'msf.yml')
 raise "could not load config/msf.yml" unless MSF_SETTINGS
 
-puts "Loading database config"
+puts ">> Loading database config"
 DB_SETTINGS = YAML.load_file(File.join RAILS_ROOT, 'config', 'database.yml')[RAILS_ENV]
 raise "could not load config/database.yml" unless DB_SETTINGS
 

@@ -9,15 +9,19 @@ body, p, ol, ul, td {
   font-size:   13px;
   line-height: 18px;
 }
-h1{
+
+h1 {
   font-size:   32px;
 }
-h2{
+
+h2 {
   font-size:   18px;
 }
-h3{
+
+h3 {
   font-size:   16px;
 }
+
 pre {
   background-color: #eee;
   padding: 10px;
@@ -30,12 +34,26 @@ a {
   border: solid #333;
   border-width: 0 0 1px;
 }
+
 th a {
   color: #fff;
   border-color: #fff;
 }
-a:hover {
+
+a:hover, a img {
   border: none;
+}
+
+img {
+  vertical-align: text-bottom;
+}
+
+.notice {
+  color: green;
+}
+
+.error {
+  color: red;
 }
 
 .fieldWithErrors {
@@ -159,12 +177,61 @@ hr.clear {
   width: 4em;
 }
 
-#welcome ul {
-  margin: 5em 0 1em;
+ul#navigation {
+  margin: 1em 0;
   padding: 0;
 }
 
-#welcome ul li {
+#welcome ul#navigation {
+  margin: 5em 0 1em;
+}
+
+ul#navigation li {
   display: inline;
   padding: 1em 2em;
+}
+
+#status {
+  position: absolute;
+  top: 0;
+  right: 3em;
+  padding: 0 2px 2px;
+  border: 2px double #fff;
+  border-top: none;
+  background: #000;
+  -moz-border-radius: 0 0 10px 10px;
+  -moz-box-shadow: 0 0 1ex #333;
+}
+
+#status div {
+  background: #333;
+  padding: 1ex;
+  -moz-border-radius: 0 0 9px 9px;
+  color: #fff;
+}
+
+#status a, #status a:hover, #status a img {
+  border: none;
+}
+
+table.log {
+  border: 5px solid white;
+  background: #333;
+  color: #fff;
+  font: 13px/20px monospace;
+  -moz-box-shadow: 0 0 5px #333;
+  padding: 1em;
+  width: 100%;
+}
+
+table.log tr {
+  padding: 0 1em;
+}
+
+table.log tr, table.log td, table.log th {
+  border: none;
+}
+
+table.log tr:nth-child(odd) {
+  background-color: #333;
 }
