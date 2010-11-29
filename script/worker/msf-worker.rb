@@ -9,6 +9,8 @@ module FIDIUS
   class MSFWorker
     PID_FILE = File.join RAILS_ROOT, 'tmp', 'pids', 'msf-worker'
 
+    attr_reader :status
+
     def p *obj # :nodoc:
       pp *obj
     end
@@ -21,10 +23,12 @@ module FIDIUS
     end
 
     def initialize
+      @status = 'initializing'
       puts "Generated new worker object."
     end
     
     def start
+      @status = 'starting'
       puts "Starting. Will listen on #{DRb.uri}..."
       File.open(PID_FILE, 'w') do |f|
         f.puts Process.pid
@@ -49,9 +53,11 @@ module FIDIUS
       @prelude_fetcher = PreludeEventFetcher.new
       load_plugins
       puts "Started."
+      @status = 'running'
     end
     
     def stop
+      @status = 'stopping'
       puts "Halting..."
       @framework.sessions.each_pair do |i,session|
         puts "Killing session #{i}: #{session}"

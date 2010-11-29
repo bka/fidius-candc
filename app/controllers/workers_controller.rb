@@ -2,9 +2,7 @@ class WorkersController < ApplicationController
   include DrbHelper
 
   def index
-    require 'drb'
-
-    @current_server = DRb.current_server rescue DRb.start_service
+    @worker_status = get_msf_worker.status rescue 'not running'
   end
 
   def start
