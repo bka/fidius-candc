@@ -116,7 +116,9 @@ th {
 
 .match {
   background: #fcfcfc;
+  -webkit-box-shadow: 0 0 5px #333;
   -moz-box-shadow: 0 0 5px #333;
+  box-shadow: 0 0 5px #333;
   padding: .5em;
   border: 5px solid #fff;
   margin: 2em 0;
@@ -199,14 +201,22 @@ ul#navigation li {
   border: 2px double #fff;
   border-top: none;
   background: #000;
+  -webkit-border-radius: 0 0 10px 10px;
   -moz-border-radius: 0 0 10px 10px;
+  -ms-border-radius: 0 0 10px 10px;
+  -o-border-radius: 0 0 10px 10px;
+  border-radius: 0 0 10px 10px;
+  -webkit-box-shadow: 0 0 1ex #333;
   -moz-box-shadow: 0 0 1ex #333;
+  box-shadow: 0 0 5px #333;
 }
 
 #status div {
   background: #333;
   padding: 1ex;
+  -webkit-border-radius: 0 0 9px 9px;
   -moz-border-radius: 0 0 9px 9px;
+  border-radius: 0 0 9px 9px;
   color: #fff;
 }
 
@@ -219,7 +229,9 @@ table.log {
   background: #333;
   color: #fff;
   font: 13px/20px monospace;
+  -webkit-box-shadow: 0 0 5px #333;
   -moz-box-shadow: 0 0 5px #333;
+  box-shadow: 0 0 5px #333;
   padding: 1em;
   width: 100%;
 }
