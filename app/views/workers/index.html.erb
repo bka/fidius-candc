@@ -1,0 +1,17 @@
+<h1>MSF worker</h1>
+
+<dl>
+  <dt>Current status</dt>
+  <dd><%= @worker_status %></dd>
+
+  <dt>Actions</dt>
+  <dd>
+    <% if @worker_status == 'not running' %>
+      <%= link_to 'start', start_workers_url, :method => :post %>
+    <% else %>
+      <%= link_to 'restart', restart_workers_url, :method => :put %>,
+      <%= link_to 'stop', stop_workers_url, :confirm => 'Are you sure?', :method => :delete %>
+    <% end %>
+  </dd>
+</dl>
+
