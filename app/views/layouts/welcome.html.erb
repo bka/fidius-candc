@@ -4,19 +4,18 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
   <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
-  <title>Masters: <%= controller.action_name %></title>
+  <title>FIDIUS Command&amp;Control server</title>
   <%= stylesheet_link_tag 'style' %>
 </head>
 <body>
 
-<p style="color: green"><%= flash[:notice] %></p>
-<p style="color: red"><%= flash[:error] %></p>
-
-<h1>FIDIUS Command&amp;Control server</h1>
-
-<%= render :partial => "welcome/menu" %>
-
-<%= yield %>
+<div id="welcome">
+  <h1><%= link_to '<span>FIDIUS Command&amp;Control server</span>', root_url %></h1>
+  
+  <%= yield %>
+  
+  <%= render :partial => "welcome/menu" %>
+</div>
 
 </body>
 </html>

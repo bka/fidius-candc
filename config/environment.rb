@@ -91,3 +91,4 @@ end
 PRELUDE_DB = prelude_db_config['database']
 
 require 'config/initializers/postgres_patch.rb'
+

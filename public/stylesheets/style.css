@@ -121,3 +121,50 @@ hr.clear {
   margin: 0;
   padding: 0;
 }
+
+#welcome, #welcome h1 {
+  margin: 3em auto;
+  text-align: center;
+}
+
+#welcome h1 a span {
+  display: none;
+}
+
+#welcome h1, #welcome h1 a {
+  display: block;
+  width: 423px;
+  height: 175px;
+  border: none;
+  padding: 0;
+}
+
+#welcome h1 a {
+  background: transparent url(/images/fidius.png) center no-repeat;
+}
+
+#welcome h1 a:hover {
+  border: none:
+}
+
+#welcome input {
+  font: 18px/22px sans-serif;
+  width: 15em;
+  margin: 0;
+  padding: .25em;
+  text-align: center;
+}
+
+#welcome input[type="submit"] {
+  width: 4em;
+}
+
+#welcome ul {
+  margin: 5em 0 1em;
+  padding: 0;
+}
+
+#welcome ul li {
+  display: inline;
+  padding: 1em 2em;
+}
