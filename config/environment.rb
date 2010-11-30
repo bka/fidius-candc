@@ -7,6 +7,17 @@ RAILS_GEM_VERSION = '2.3.5' unless defined? RAILS_GEM_VERSION
 require File.join(File.dirname(__FILE__), 'boot')
 
 Rails::Initializer.run do |config|
+  # check configuration and connections
+  require "#{RAILS_ROOT}/app/helpers/config_helper.rb"
+  include ConfigHelper
+  begin
+    check_config
+  rescue
+    puts "Your Config is not valid"
+    puts "Error: #{$!.message}"
+    exit
+  end
+
   # initialization for MSF
   msf = YAML.load_file(File.join RAILS_ROOT, 'config', 'msf.yml')
   $:.unshift(File.join msf['msf_path'], 'lib')
