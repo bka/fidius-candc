@@ -1,42 +1,19 @@
 class Prelude::Alert < Prelude::Connection
-  has_one :detect_time,
-    :class_name => 'Prelude::DetectTime',
-    :foreign_key => :_message_ident,
-    :primary_key => :_ident
+  has_one :detect_time, :class_name => 'Prelude::DetectTime', :foreign_key => :_message_ident, :primary_key => :_ident
 
-  has_one :source_address,
-    :class_name => 'Prelude::Address',
-    :foreign_key => :_message_ident,
-    :primary_key => :_ident,
-    :conditions => [ "Prelude_Address._parent_type = 'S'" ]
-    
-  has_one :dest_address,
-    :class_name => 'Prelude::Address',
-    :foreign_key => :_message_ident,
-    :primary_key => :_ident,
-    :conditions => [ "Prelude_Address._parent_type = 'T'" ]
+  has_one :source_address, :class_name => 'Prelude::Address', :foreign_key => :_message_ident, :primary_key => :_ident, :conditions => [ "Prelude_Address._parent_type = 'S'" ]
+  has_one :dest_address, :class_name => 'Prelude::Address', :foreign_key => :_message_ident, :primary_key => :_ident, :conditions => [ "Prelude_Address._parent_type = 'T'" ]
 
-  has_one :classification,
-    :class_name => 'Prelude::Classification',
-    :foreign_key => :_message_ident,
-    :primary_key => :_ident
-    
-  has_one :analyzer,
-    :class_name => 'Prelude::Analyzer',
-    :foreign_key => :_message_ident,
-    :primary_key => :_ident
+  has_one :source_port, :class_name => 'Prelude::Service', :foreign_key => :_message_ident, :primary_key => :_ident, :conditions => [ "Prelude_Service._parent_type = 'S'" ]
+  has_one :dest_port, :class_name => 'Prelude::Service', :foreign_key => :_message_ident, :primary_key => :_ident, :conditions => [ "Prelude_Service._parent_type = 'T'" ]
 
-  has_one :impact,
-    :class_name => 'Prelude::Impact',
-    :foreign_key => :_message_ident,
-    :primary_key => :_ident
+  has_one :classification, :class_name => 'Prelude::Classification', :foreign_key => :_message_ident, :primary_key => :_ident
+  has_one :analyzer, :class_name => 'Prelude::Analyzer', :foreign_key => :_message_ident, :primary_key => :_ident
 
-  has_one :payload,
-    :class_name => 'Prelude::AdditionalData',
-    :foreign_key => :_message_ident,
-    :primary_key => :_ident,
-    :conditions => ["Prelude_AdditionalData.meaning='payload'"]
+  has_one :impact, :class_name => 'Prelude::Impact', :foreign_key => :_message_ident, :primary_key => :_ident
 
+  has_one :payload, :class_name => 'Prelude::AdditionalData', :foreign_key => :_message_ident, :primary_key => :_ident, :conditions=>["Prelude_AdditionalData.meaning='payload'"]
+  
   set_primary_key :_ident
 
   def self.table_name
@@ -51,12 +28,18 @@ class Prelude::Alert < Prelude::Connection
 	  value[0].to_i;
   end
 
+  #def self.find(*a)
+  #  a = super.find(a)
+  #  puts "FOUND ALERTS:"
+  #  return a
+  #end
+
   def source_ip
     source_address.address
   end
 
   def dest_ip
-    dest_address.address
+     dest_address.address
   end
 
   def severity

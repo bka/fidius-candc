@@ -64,6 +64,16 @@ class PreludeEvent < ActiveRecord::Base
     return "No Ref"
   end
 
+  def source_port
+    return @prelude_alert.source_port.port unless @prelude_alert.nil?
+    return "No Ref"
+  end
+
+  def dest_port
+    return @prelude_alert.dest_port.port unless @prelude_alert.nil?
+    return "No Ref"
+  end
+
   def payload
     return @prelude_alert.payload_data unless @prelude_alert.nil?
   end

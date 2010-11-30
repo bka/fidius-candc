@@ -18,12 +18,16 @@
       <td><%= pe.detect_time %></td>
     </tr>
     <tr>
+      <th>Analyer</th>
+      <td><%= pe.analyzer_model %></td>
+    </tr>
+    <tr>
       <th>Scr</th>
-      <td><%= pe.src_ip %></td>
+      <td><%= pe.src_ip %>:<%= pe.src_port %></td>
     </tr>
     <tr>
       <th>Dst</th>
-      <td><%= pe.dest_ip %></td>
+      <td><%= pe.dest_ip %>:<%= pe.dest_port %></td>
     </tr>
   </table>
 
@@ -48,12 +52,12 @@
         </tr>
         <tr>
           <th>Src</th>
-          <td><%= payload.src_addr %></td>
+          <td><%= payload.src_addr %>:<%= payload.src_port %></td>
           <td></td>
         </tr>
         <tr>
           <th>Dst</th>
-          <td><%= payload.dest_addr %></td>
+          <td><%= payload.dest_addr %>:<%= payload.dest_port %></td>
           <td></td>
         </tr>
       </table>
@@ -65,18 +69,26 @@
 <% end %>
 
 <h2>Metaploit Logging (used exploit with payload size)</h2>
-
+<p><b style="background-color:green;">Exploits which triggert no event</b></p>
 <table>
   <tr>
     <th>Id</th>
     <th>Exploit</th>
+    <th>Src</th>
+    <th>Dest</th>
     <th>Payloadsize</th>
     <th>Time</th>
   </tr>
   <% @task.payload_logs.each do |payload| %>
-    <tr>
+    <% if payload.prelude_log_id == nil %>
+      <tr style="background-color:green;">
+    <% else %>
+      <tr>
+    <% end %>
       <td><%= payload.id %></td>
       <td><%= link_to payload.exploit, payload %></td>
+      <td><%= payload.src_addr %>:<%= payload.src_port %></td>
+      <td><%= payload.dest_addr %>:<%= payload.dest_port %></td>
       <td><%= payload.payload.size %></td>
       <td><%= payload.created_at %></td>
     </tr>
