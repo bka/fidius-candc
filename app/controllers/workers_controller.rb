@@ -3,7 +3,7 @@ class WorkersController < ApplicationController
 
   def index
     @worker_status = get_msf_worker.status rescue 'not running'
-    @logs = WorkerLog.all
+    @logs = WorkerLog.all :order => ['created_at DESC']
   end
 
   def start

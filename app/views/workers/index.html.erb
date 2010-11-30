@@ -2,12 +2,12 @@
 
 <table class="log">
   <tr>
-    <th>Timestamp</th>
-    <th></th>
+    <th class="thin">Timestamp</th>
+    <th>Message</th>
   </tr>
   <% @logs.each do |log| %>
     <tr>
-      <td><%=h log.created_at %></td>
+      <td class="thin"><%=h log.created_at %></td>
       <td><%=h log.message %></td>
     </tr>
   <% end %>

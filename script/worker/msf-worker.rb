@@ -18,6 +18,10 @@ module FIDIUS
     end
     
     def puts *obj # :nodoc:
+      WorkerLog.establish_connection DB_SETTINGS unless WorkerLog.connected?
+      obj.each do |o|
+        WorkerLog.create :message => o
+      end
       if ob = obj.shift
         $stdout.puts "[#{Time.now.strftime '%Y-%m-%d %H:%M:%S'}] FIDIUS MSF worker: #{ob}"
         obj.each {|o| $stdout.puts "\t#{o}" } if obj.size > 0
