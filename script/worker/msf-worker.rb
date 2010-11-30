@@ -196,8 +196,9 @@ module FIDIUS
       # and all prelude logs
       # now lets match them against each other for the given task_id
       if task != nil
-        puts "finding matches in payload/prelude logs"
+        puts "Matching Payloads against Prelude logs..."
         calculate_matches_between_payloads_and_prelude_logs(task.id)
+        puts "Matching done."
       end
     end
 

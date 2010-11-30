@@ -1,7 +1,8 @@
 body {
-  background-color: #fff; color: #333;
+  background: #fff;
+  color: #333;
   margin: 0;
-  padding: 1em
+  padding: 1em;
 }
 
 body, p, ol, ul, td {
@@ -11,15 +12,17 @@ body, p, ol, ul, td {
 }
 
 h1 {
-  font-size:   32px;
+  margin-top: 2em;
+  font-size: 32px;
 }
 
 h2 {
-  font-size:   18px;
+  margin-top: 2em;
+  font-size: 18px;
 }
 
 h3 {
-  font-size:   16px;
+  font-size: 16px;
 }
 
 pre {
@@ -45,15 +48,25 @@ a:hover, a img {
 }
 
 img {
-  vertical-align: text-bottom;
+  vertical-align: middle;
 }
 
 .notice {
-  color: green;
+  padding: 1ex;
+  color: #fff;
+  background: green;
+  -webkit-box-shadow: 0 0 5px green;
+  -moz-box-shadow: 0 0 5px green;
+  box-shadow: 0 0 5px green;
 }
 
 .error {
+  padding: 1ex;
   color: red;
+  background: #fff;
+  -webkit-box-shadow: 0 0 5px red;
+  -moz-box-shadow: 0 0 5px red;
+  box-shadow: 0 0 5px red;
 }
 
 .fieldWithErrors {
@@ -101,7 +114,7 @@ tr.exploited {
 }
 
 td, th {
-  padding: .1em .5em;
+  padding: .25em .5em;
 }
 
 tr:nth-child(odd) {
@@ -115,6 +128,10 @@ th {
 }
 
 .match {
+  clear: both;
+}
+
+.match, table {
   background: #fcfcfc;
   -webkit-box-shadow: 0 0 5px #333;
   -moz-box-shadow: 0 0 5px #333;
@@ -122,7 +139,16 @@ th {
   padding: .5em;
   border: 5px solid #fff;
   margin: 2em 0;
-  clear: both;
+}
+
+.match table {
+  background: transparent;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  padding: 0;
+  border: none;
+  margin: 0;  
 }
 
 .match .prelude_event {
@@ -142,9 +168,28 @@ hr.clear {
   padding: 0;
 }
 
+#header {
+  padding: 1em;
+  background: #eee;
+  border: 5px solid #fff;
+  -webkit-box-shadow: 0 0 1ex #333;
+  -moz-box-shadow: 0 0 1ex #333;
+  box-shadow: 0 0 1ex #333;
+}
+
+#header h1 {
+  margin: .5em 0;
+  font-size: 22px;
+}
+
+#header h1 a {
+  border: none;
+}
+
 #welcome, #welcome h1 {
-  margin: 3em auto;
+  margin: 2em auto;
   text-align: center;
+  width: 680px;
 }
 
 #welcome h1 a span {
@@ -190,7 +235,20 @@ ul#navigation {
 
 ul#navigation li {
   display: inline;
-  padding: 1em 2em;
+  padding: 1em;
+}
+
+#header ul#navigation li a {
+  padding: 1ex 2em;
+  margin: -1em;
+  border: none;
+  font-weight: bold;
+}
+
+#header ul#navigation li a:hover {
+  text-shadow: 0 0 5px #333;
+  color: #fff;
+  font-weight: bold;
 }
 
 #status {
@@ -203,8 +261,6 @@ ul#navigation li {
   background: #000;
   -webkit-border-radius: 0 0 10px 10px;
   -moz-border-radius: 0 0 10px 10px;
-  -ms-border-radius: 0 0 10px 10px;
-  -o-border-radius: 0 0 10px 10px;
   border-radius: 0 0 10px 10px;
   -webkit-box-shadow: 0 0 1ex #333;
   -moz-box-shadow: 0 0 1ex #333;
@@ -214,9 +270,9 @@ ul#navigation li {
 #status div {
   background: #333;
   padding: 1ex;
-  -webkit-border-radius: 0 0 9px 9px;
-  -moz-border-radius: 0 0 9px 9px;
-  border-radius: 0 0 9px 9px;
+  -webkit-border-radius: 0 0 8px 8px;
+  -moz-border-radius: 0 0 8px 8px;
+  border-radius: 0 0 8px 8px;
   color: #fff;
 }
 
@@ -225,18 +281,13 @@ ul#navigation li {
 }
 
 table.log {
-  border: 5px solid white;
-  background: #333;
-  color: #fff;
-  -webkit-box-shadow: 0 0 5px #333;
-  -moz-box-shadow: 0 0 5px #333;
-  box-shadow: 0 0 5px #333;
-  padding: 1em;
   width: 100%;
 }
 
 table.log tr {
+  background-color: #333;
   padding: 0 1em;
+  color: #fff;
 }
 
 table.log tr, table.log td, table.log th {
@@ -253,4 +304,19 @@ table.log tr:nth-child(odd) {
 table.log .thin {
   width: 1%;
   white-space: pre;
+}
+
+.event_triggered {
+  background: green;
+  color: #fff;
+}
+
+tr.event_triggered:nth-child(odd) {
+  background: darkgreen;
+  color: #fff;
+}
+
+.event_triggered a {
+  border-color: #fff;
+  color: #fff;
 }

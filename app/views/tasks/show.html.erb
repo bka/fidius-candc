@@ -69,10 +69,10 @@
 <% end %>
 
 <h2>Metaploit Logging (used exploit with payload size)</h2>
-<p><b style="background-color:green;">Exploits which triggert no event</b></p>
+<p>(<strong class="event_triggered">Exploits which triggert no event</strong>)</p>
 <table>
   <tr>
-    <th>Id</th>
+    <th>ID</th>
     <th>Exploit</th>
     <th>Src</th>
     <th>Dest</th>
@@ -81,7 +81,7 @@
   </tr>
   <% @task.payload_logs.each do |payload| %>
     <% if payload.prelude_log_id == nil %>
-      <tr style="background-color:green;">
+      <tr class="event_triggered">
     <% else %>
       <tr>
     <% end %>

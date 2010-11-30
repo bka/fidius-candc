@@ -24,7 +24,9 @@ ActionController::Routing::Routes.draw do |map|
     :restart => :put,
     :stop => :delete
   }
-  
+  map.credits '/credits', :controller => :welcome, :action => :credits
+  map.license '/license', :controller => :welcome, :action => :license
+    
   # Sample resource route with options:
   #   map.resources :products, :member => { :short => :get, :toggle => :post }, :collection => { :sold => :get }
 
