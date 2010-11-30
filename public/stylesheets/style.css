@@ -228,7 +228,6 @@ table.log {
   border: 5px solid white;
   background: #333;
   color: #fff;
-  font: 13px/20px monospace;
   -webkit-box-shadow: 0 0 5px #333;
   -moz-box-shadow: 0 0 5px #333;
   box-shadow: 0 0 5px #333;
@@ -241,9 +240,17 @@ table.log tr {
 }
 
 table.log tr, table.log td, table.log th {
+  font-size: 12px;
+  line-height: 20px;
+  font-family: monospace;
   border: none;
 }
 
 table.log tr:nth-child(odd) {
   background-color: #333;
+}
+
+table.log .thin {
+  width: 1%;
+  white-space: pre;
 }
