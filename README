@@ -4,7 +4,10 @@
 - Rails 2.3.5
 - rubygem pg 0.9.0
 - rubygem sqlite3-ruby 1.3.2 oder mysql 2.8.1
+- sudo gem install pcaprub
+- tcpdump
 - bestehende Verbindung in die Testlandschaft
+
 
 1. Dateien anpassen:
 
@@ -30,9 +33,9 @@
 - auf jeden Fall:
   - `rake db:migrate`
 
-3. Rails starten
+3. Rails starten (als root leider mittlerweile wegen tcpdump)
 
-- `script/server start`
+- `sudo script/server start`
   (oder, wenn installiert: `thin start`)
 
 4. Browser öffnen

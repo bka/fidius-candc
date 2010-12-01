@@ -3,6 +3,8 @@ require "#{RAILS_ROOT}/script/worker/loader"
 require "#{RAILS_ROOT}/script/worker/msf_session_event"
 require "#{RAILS_ROOT}/script/worker/prelude_event_fetcher.rb"
 require "#{RAILS_ROOT}/app/helpers/log_matches_helper.rb"
+require "#{RAILS_ROOT}/script/worker/tcpdump_wrapper.rb"
+
 require 'drb'
 require 'pp'
 
@@ -58,12 +60,18 @@ module FIDIUS
       @framework.events.add_session_subscriber(handler)
       @prelude_fetcher = PreludeEventFetcher.new
       load_plugins
+
+      # init TcpDumper
+      @tcpdump = TcpDumpWrapper.new("tap0")
+
       puts "Started."
       @status = 'running'
     end
     
     def stop
       @status = 'stopping'
+      @tcpdump.stop
+
       puts "Halting..."
       @framework.sessions.each_pair do |i,session|
         puts "Killing session #{i}: #{session}"
@@ -172,11 +180,37 @@ module FIDIUS
     end
 
     def autopwn iprange, task = nil
-      @prelude_fetcher.attack_started
       manager = SubnetManager.new @framework, iprange, 1
-      s = manager.get_sessions
       my_ip = get_my_ip iprange
+      # tell our prelude fetcher that we want to have all events we generate in
+      # prelude from now on
+      @prelude_fetcher.attack_started
+      # let tcpdump watch our traffic
+      @tcpdump.start
+      manager.run_nmap
+      # now stop sniffing traffic
+      @tcpdump.stop
+      # and read out relevant packets most of them should be
+      # a result of run_nmap
+      @tcpdump.read do |src_ip,src_port,dst_ip,dst_port,payload|
+        # we are interested in traffic, that we generated 
+        if src_ip == my_ip
+            PayloadLog.create(
+              :exploit => "nmap",
+              :payload => payload,
+              :src_addr => src_ip,
+              :dest_addr => dst_ip,
+              :src_port => src_port,
+              :dest_port => dst_port,
+              :task_id => task.id
+            )
+        end
+      end      
+      # we do not want to use nmap for autopwn
+      s = manager.get_sessions(false) 
+
       @prelude_fetcher.get_events(my_ip).each do |ev|
+        puts "save prelude event #{ev.id}"
         PreludeLog.create(
           :task_id => task.id,
           :payload => ev.payload,
@@ -191,6 +225,8 @@ module FIDIUS
           :ident => ev.id
         )
       end
+      puts "saving of events finished"
+
       # after autopwn finished
       # we have all payload-logs from metasploit
       # and all prelude logs
@@ -200,6 +236,7 @@ module FIDIUS
         calculate_matches_between_payloads_and_prelude_logs(task.id)
         puts "Matching done."
       end
+      puts "autopwn finished"
     end
 
     def arp_scann(session, cidr)
