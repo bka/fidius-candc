@@ -11,24 +11,32 @@ class TcpDumpWrapper
     @exec_status = EXEC_STATUS_INIT
     @iface = iface
     @pcap_file = File.join "#{RAILS_ROOT}","tmp","dump.pcap"
-
+    @deactivated = false
     raise Exception.new("TcpDumper can only be used as root.") unless Process.uid == 0
   end
 
   def start
+    return if @deactivated
     raise Exception.new("Can not start until last log was read.") if @exec_status != EXEC_STATUS_INIT 
     system("ruby script/runner script/tcp_dumper start #{@iface} #{@pcap_file}")
     @exec_status = EXEC_STATUS_STARTED
   end
 
   def stop
+    return if @deactivated
     # nicht stoppen vor start
     raise Exception.new("Can not stop until dumping was started.") if @exec_status != EXEC_STATUS_STARTED 
     system("ruby script/runner script/tcp_dumper stop")
     @exec_status = EXEC_STATUS_STOPPED
   end
 
+  def deactivate
+    puts "Deactivate tcpdump"
+    @deactivated = true
+  end
+
   def read(&block)
+    return if @deactivated
     # nicht lesen bevor stop
     raise Exception.new("Can not read until dumping was stopped") if @exec_status != EXEC_STATUS_STOPPED
 

@@ -16,6 +16,8 @@ module ConfigHelper
     raise Exception.new("Invalid msf.yml. Pleas check.") if !msf
     throw_exception_if_empty("msf_path",msf)
     throw_exception_if_empty("subnet_manager_path",msf)
+    throw_exception_if_empty("tcpdump_iface",msf)
+    throw_exception_if_empty("match_prelude_logs",msf)
     #throw_exception_if_empty("cve_db",msf)
 
     throw_exception_if_not_valid_directory("msf_path",msf)
