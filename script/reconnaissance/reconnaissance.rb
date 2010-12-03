@@ -20,6 +20,7 @@ def list_arp_a()
 			c = line.scan(/\S{1,2}\-\S{1,2}\-\S{1,2}\-\S{1,2}\-\S{1,2}\-\S{1,2}/)
 			# Schreiben der gefundenen IP- und MAC-Adressen in die Datenbank
 			if not b.empty? and not c.empty?
+				c.gsub('-',':')
 				if session.framework.db.active
 					session.framework.db.report_host(
 					:workspace => session.framework.db.workspace,
