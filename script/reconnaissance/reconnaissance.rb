@@ -12,13 +12,14 @@ def list_arp_a()
 			# Überprüfen von jeder Zeile die wir von der Windows cmd bekommen. Ip-Adressen auslesen, sowie die MAC-Adresse
 			cmdout << d
 		end
+		begin 
 		# durch die Ausgabe iterieren und nach IP-Adressen und MAC-Adressen suchen
 		cmdout.split("\n").each do |line|
 			# herausfiltern einer IP-Adresse aus einer Zeile
 			b = line.scan(/\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/)
 			# herausfiltern der dazugehörigen MAC-Adresse
 			c = line.scan(/\S{1,2}\-\S{1,2}\-\S{1,2}\-\S{1,2}\-\S{1,2}\-\S{1,2}/)
-			# Schreiben der gefundenen IP- und MAC-Adressen in die Datenbank			
+			# Schreiben der gefundenen IP- und MAC-Adressen in die Datenbank					
 			if not b.empty? and not c.empty?
 				c = c.first.to_s.gsub('-',':')
 				if session.framework.db.active
@@ -30,7 +31,9 @@ def list_arp_a()
 				end
 			end
 		end
-			
+		rescue 
+			puts $!
+		end
 		cmdout = ""
 		r.channel.close
 		r.close
