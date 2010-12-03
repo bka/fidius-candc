@@ -30,7 +30,7 @@ Rails::Initializer.run do |config|
   # nochmal die models reinladen, nachdem wir die grundlegenden
   # sachen von msf geladen haben, um nachträglich noch modifizierungen
   # haben zu können
-  Dir.glob(File.join 'app','models', '*.rb') do |rb|
+  Dir.glob(File.join RAILS_ROOT, 'app','models', '*.rb') do |rb|
     require rb
   end
 
@@ -101,5 +101,5 @@ unless prelude_db_config = prelude_db_config_yaml[PRELUDE_DB_CONFIG_NAME]
 end
 PRELUDE_DB = prelude_db_config['database']
 
-require 'config/initializers/postgres_patch.rb'
+require File.join RAILS_ROOT, 'config', 'initializers', 'postgres_patch.rb'
 
