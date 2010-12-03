@@ -1,7 +1,8 @@
+require 'camof'
+
 #ENV[:BASE] = "/home/nox/apps/"
 
-include "/home/nox/apps/msf3/scripts/meterpreter/winenum.rb"
-#require
+require 'winenum'
 
 # if session.framework.db.active
    #   session.framework.db.report_host(
@@ -23,7 +24,7 @@ infos = {}
 hashes = {}
 infos[:hashes] =  hashes
 
-#module Reconnaissance
+module Reconnaissance
     def gethash() 
         begin
             hash = ''
@@ -40,6 +41,6 @@ infos[:hashes] =  hashes
         end
         puts hashes
     end
-#end
+end
 
 gethash()
