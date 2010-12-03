@@ -63,8 +63,8 @@ module FIDIUS
       load_plugins
 
       # init TcpDumper
-      @tcpdump = TcpDumpWrapper.new("tap0")
-
+      @tcpdump = TcpDumpWrapper.new(MSF_SETTINGS["/tcpdump_iface"])
+      @tcpdump.deactivate if MSF_SETTINGS.select("/match_prelude_logs").first.value == "false"
       puts "Started."
       @status = 'running'
     end
@@ -185,7 +185,7 @@ module FIDIUS
       my_ip = get_my_ip iprange
       # tell our prelude fetcher that we want to have all events we generate in
       # prelude from now on
-      @prelude_fetcher.attack_started
+      @prelude_fetcher.attack_started if MSF_SETTINGS.select("/match_prelude_logs").first.value == "true"
       # let tcpdump watch our traffic
       @tcpdump.start
       manager.run_nmap
@@ -209,33 +209,36 @@ module FIDIUS
       end      
       # we do not want to use nmap for autopwn
       s = manager.get_sessions(false) 
-
-      @prelude_fetcher.get_events(my_ip).each do |ev|
-        puts "save prelude event #{ev.id}"
-        PreludeLog.create(
-          :task_id => task.id,
-          :payload => ev.payload,
-          :detect_time => ev.detect_time,
-          :dest_ip => ev.dest_ip,
-          :dest_port => ev.dest_port,
-          :src_ip => ev.source_ip,
-          :src_port => ev.source_port,
-          :text => ev.text,
-          :severity => ev.severity,
-          :analyzer_model => ev.analyzer_model,
-          :ident => ev.id
-        )
+      if MSF_SETTINGS.select("/match_prelude_logs").first.value == "true"
+        @prelude_fetcher.get_events(my_ip).each do |ev|
+          puts "save prelude event #{ev.id}"
+          PreludeLog.create(
+            :task_id => task.id,
+            :payload => ev.payload,
+            :detect_time => ev.detect_time,
+            :dest_ip => ev.dest_ip,
+            :dest_port => ev.dest_port,
+            :src_ip => ev.source_ip,
+            :src_port => ev.source_port,
+            :text => ev.text,
+            :severity => ev.severity,
+            :analyzer_model => ev.analyzer_model,
+            :ident => ev.id
+          )
+        end
+        puts "saving of events finished"
       end
-      puts "saving of events finished"
 
       # after autopwn finished
       # we have all payload-logs from metasploit
       # and all prelude logs
       # now lets match them against each other for the given task_id
       if task
-        puts "Matching Payloads against Prelude logs..."
-        calculate_matches_between_payloads_and_prelude_logs(task.id)
-        puts "Matching done."
+        if MSF_SETTINGS.select("/match_prelude_logs").first.value == "true"
+          puts "Matching Payloads against Prelude logs..."
+          calculate_matches_between_payloads_and_prelude_logs(task.id)
+          puts "Matching done."
+        end
       end
       puts "autopwn finished"
     end
@@ -299,17 +302,19 @@ module FIDIUS
         begin
           task.progress = 0
           task.save
-          Msf::Plugin::FidiusLogger.on_log do |caused_by, data, socket|
-            my_ip = get_my_ip(socket.peerhost)
-            PayloadLog.create(
-              :exploit => caused_by,
-              :payload => data,
-              :src_addr => my_ip,
-              :dest_addr => socket.peerhost,
-              :src_port => socket.localport,
-              :dest_port => socket.peerport,
-              :task_id => task.id
-            )
+          if MSF_SETTINGS.select("/match_prelude_logs").first.value == "true"
+            Msf::Plugin::FidiusLogger.on_log do |caused_by, data, socket|
+              my_ip = get_my_ip(socket.peerhost)
+              PayloadLog.create(
+                :exploit => caused_by,
+                :payload => data,
+                :src_addr => my_ip,
+                :dest_addr => socket.peerhost,
+                :src_port => socket.localport,
+                :dest_port => socket.peerport,
+                :task_id => task.id
+              )
+            end
           end
           exec_task task
         rescue ::Exception
