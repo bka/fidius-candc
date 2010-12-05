@@ -4,6 +4,7 @@ require "#{RAILS_ROOT}/script/worker/msf_session_event"
 require "#{RAILS_ROOT}/script/worker/prelude_event_fetcher.rb"
 require "#{RAILS_ROOT}/app/helpers/log_matches_helper.rb"
 require "#{RAILS_ROOT}/script/worker/tcpdump_wrapper.rb"
+require 'socket'
 
 require 'drb'
 require 'pp'
@@ -192,18 +193,18 @@ module FIDIUS
       @tcpdump.stop
       # and read out relevant packets most of them should be
       # a result of run_nmap
-      @tcpdump.read do |src_ip,src_port,dst_ip,dst_port,payload|
+      @tcpdump.read do |src_ip, src_port, dst_ip, dst_port, payload|
         # we are interested in traffic, that we generated 
         if src_ip == my_ip
-            PayloadLog.create(
-              :exploit => "nmap",
-              :payload => payload,
-              :src_addr => src_ip,
-              :dest_addr => dst_ip,
-              :src_port => src_port,
-              :dest_port => dst_port,
-              :task_id => task.id
-            )
+          PayloadLog.create(
+            :exploit => "nmap",
+            :payload => payload,
+            :src_addr => src_ip,
+            :dest_addr => dst_ip,
+            :src_port => src_port,
+            :dest_port => dst_port,
+            :task_id => task.id
+          )
         end
       end      
       # we do not want to use nmap for autopwn
@@ -232,7 +233,7 @@ module FIDIUS
       # we have all payload-logs from metasploit
       # and all prelude logs
       # now lets match them against each other for the given task_id
-      if task != nil
+      if task
         if MSF_SETTINGS.select("/match_prelude_logs").first.value == "true"
           puts "Matching Payloads against Prelude logs..."
           calculate_matches_between_payloads_and_prelude_logs(task.id)
@@ -365,19 +366,19 @@ module FIDIUS
 
         cur_thread = Thread.new(mod) do |thread_mod|
           begin
-              case thread_mod.type
-              when Msf::MODULE_EXPLOIT
-                thread_mod.exploit_simple(
-                                          'Payload'        => thread_mod.datastore['PAYLOAD'],
-                                          'Quiet'          => true,
-                                          'RunAsJob'       => false
-                                          )
-              when Msf::MODULE_AUX
-                thread_mod.run_simple(
-                                      'Quiet'              => true,
-                                      'RunAsJob'           => false
-                                      )
-              end
+            case thread_mod.type
+            when Msf::MODULE_EXPLOIT
+              thread_mod.exploit_simple(
+                'Payload'  => thread_mod.datastore['PAYLOAD'],
+                'Quiet'    => true,
+                'RunAsJob' => false
+              )
+            when Msf::MODULE_AUX
+              thread_mod.run_simple(
+                'Quiet'    => true,
+                'RunAsJob' => false
+              )
+            end
           rescue ::Exception
             puts(" >> subnet_manager exception during launch from #{mod_name}: #{$!} ") if $MY_DEBUG
           end
