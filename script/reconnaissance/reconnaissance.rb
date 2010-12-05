@@ -1,5 +1,7 @@
+require 'pp'
+
 # Function for running arp -a on the owned host
-def list_arp_a()
+def save_arp_a
   a =[]
   @client.response_timeout=120
   cmd = "arp -a"
@@ -36,4 +38,15 @@ def list_arp_a()
   a.delete_if {|x| not x.alive?} while not a.empty?
 end
 
-list_arp_a()
+def get_host_infos
+  sysinfo = client.sys.config.sysinfo
+  hostdata = Hash.new
+  hostdata[:os] = sysinfo['OS']
+  hostdata[:Computer] = sysinfo['Computer']
+  hostdata[:Arch] = sysinfo['Architecture']
+  hostdata[:Language] = sysinfo['System Language']
+  return hostdata
+end
+
+save_arp_a
+pp get_host_infos
