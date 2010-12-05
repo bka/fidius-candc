@@ -50,11 +50,11 @@ module Msf
     end
 
     def self.log_packet(socket,data,caused_by="")
-      puts "log payload #{caused_by} #{data.size} bytes"
       begin
+        #PUT HERE IS RESPONSIBLE FOR NO SESSION ? $stdout.puts "log payload #{caused_by} #{data.size} bytes"
         $block.call caused_by, data, socket
       rescue
-        puts "ERROR #{$!}:#{$!.backtract}"
+        #PUT HERE IS RESPONSIBLE FOR NO SESSION ? $stdout.puts "ERROR #{$!}:#{$!.backtract}"
       end
     end
 
