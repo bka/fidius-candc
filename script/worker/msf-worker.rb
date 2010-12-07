@@ -171,7 +171,13 @@ module FIDIUS
         next if route.subnet == '0.0.0.0'
         next if route.netmask == '255.255.255.255'
         mask = IPAddr.new(route.netmask).to_i.to_s(2).count("1")
-        arp_scann(session, "#{route.subnet}/#{mask}")
+        discovered_hosts = arp_scann(session, "#{route.subnet}/#{mask}")
+        discovered_hosts.each do |hostaddress| 
+          puts hostaddress
+          host = Msf::DBManager::Host.find_by_address hostaddress
+          pivot_exploited_host = Msf::DBManager::ExploitedHost.find_by_session_uuid args[0]
+          host.pivot_host_id = pivot_host_id.host_id if host and pivot_host_id
+        end
       end
     end
     
