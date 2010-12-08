@@ -8,7 +8,6 @@ require 'pp'
 # Function for running arp -a on the owned host
 def get_arp_a_infos
   hosts = Array.new
-  index = 0
   cmd = 'arp -a'
   r, cmdout = '', ''  
   r = @client.sys.process.execute(cmd, nil, {'Hidden' => true, 'Channelized' => true})
@@ -17,26 +16,25 @@ def get_arp_a_infos
   end 
   cmdout.split("\n").each do |line|
     # extract ip-adresses
-    b = line.scan /\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/
+    ip = line.scan /\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/
     # extract MAC-adresses
-    c = line.scan /\S{1,2}\-\S{1,2}\-\S{1,2}\-\S{1,2}\-\S{1,2}\-\S{1,2}/
+    mac = line.scan /\S{1,2}\-\S{1,2}\-\S{1,2}\-\S{1,2}\-\S{1,2}\-\S{1,2}/
     # write found ip- and mac adress in database           
-    if not b.empty? and not c.empty?
-      c = c.first.to_s.gsub('-',':')
-      hosts[index] = {
+    if not ip.empty? and not mac.empty?
+      mac = mac.first.to_s.gsub('-',':')
+      hosts << {
         :workspace => session.framework.db.workspace,
-        :host => b.first.to_s,
-        :mac  => c
+        :host => ip.first.to_s,
+        :mac  => mac
       }
-    index += 1
     end
   end
   r.channel.close
   r.close
-  hosts
+  return hosts
 end
 
-# TODO Parsen ist nicht Sprachunabhängig
+# Function for running ipconfig -all on the owned host
 def get_host_infos
   hostdata = Hash.new
   hostdata[:workspace] = session.framework.db.workspace
@@ -45,23 +43,36 @@ def get_host_infos
   while d = r.channel.read
     cmdout << d
   end 
+	
+  ips = Array.new
+  macs = Array.new
   
   cmdout.split("\n").each do |line|
-    if line.include? "Physikalische Adresse"
-      hostdata[:mac] = (line.split(":")[1]).strip
-    end
-    if line.include? "IP-Adresse"
-      hostdata[:host] = (line.split(":")[1]).strip
-    end
+	# extract ip-adresses
+	ip = (line.scan /\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/)
+	if ip[0] != nil
+	  ips << ip
+	end
+	# extract MAC-adresses
+	mac = (line.scan /\S{1,2}\-\S{1,2}\-\S{1,2}\-\S{1,2}\-\S{1,2}\-\S{1,2}/)
+	if mac[0] != nil
+	  mac[0] = mac[0].gsub('-',':')
+	  macs << mac
+	end	
   end
-    
+  # write all information about the host in the database
   sysinfo = client.sys.config.sysinfo
-  hostdata[:os_name]       = sysinfo['OS']
-  hostdata[:name] = sysinfo['Computer']
-  hostdata[:arch]     = sysinfo['Architecture']
-  hostdata[:os_lang] = sysinfo['System Language']
+  
+  hostdata[:os_name]   = (sysinfo['OS'].split'(')[0].strip
+  hostdata[:os_flavor] = ((sysinfo['OS'].split'(')[1].split',')[0].strip  
+  hostdata[:host]      = ips[0][0]
+  hostdata[:mac]       = macs[0][0]
+  hostdata[:os_sp]     = (((sysinfo['OS'].split'(')[1].split',')[1].split')')[0].strip
+  hostdata[:name]      = sysinfo['Computer']
+  hostdata[:arch]      = sysinfo['Architecture']
+  hostdata[:os_lang]   = sysinfo['System Language']
    
-  hostdata
+  return hostdata
 end
 
 def write_db host
