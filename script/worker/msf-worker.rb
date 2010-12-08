@@ -158,7 +158,15 @@ module FIDIUS
     end
 
     def cmd_autopwn args, task = nil
-      autopwn args[0], task
+      lhost = nil
+      Rex::Socket::SwitchBoard.each do | route | 
+        route.comm.net.config.each_route do | ipaddr | 
+          if (IPAddr.new "#{ipaddr.subnet}/#{ipaddr.netmask}").include? IPAddr.new args[0]
+            lhost = ipaddr.gateway
+          end
+        end
+      end
+      autopwn args[0], lhost, task
     end
 
     def cmd_arp_scann_session args, task=nil
@@ -186,8 +194,8 @@ module FIDIUS
       run_exploit "auxiliary/scanner/portscan/tcp", options
     end
 
-    def autopwn iprange, task = nil
-      manager = SubnetManager.new @framework, iprange, 1
+    def autopwn iprange, lhost, task = nil
+      manager = SubnetManager.new @framework, iprange, 1, nil, lhost
       my_ip = get_my_ip iprange
       # tell our prelude fetcher that we want to have all events we generate in
       # prelude from now on
