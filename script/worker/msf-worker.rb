@@ -57,7 +57,7 @@ module FIDIUS
         raise
       end
 
-      handler = MsfSessionEvent.new
+      handler = FIDIUS::Session::MsfSessionEvent.new
       @framework.events.add_session_subscriber(handler)
       @prelude_fetcher = PreludeEventFetcher.new
       load_plugins
@@ -129,7 +129,7 @@ module FIDIUS
       session = get_session_by_uuid @framework.sessions, args[0]
       return unless session
       return unless session.type == 'meterpreter'
-      install_meterpreter(session)
+      FIDIUS::Session::install_meterpreter(session)
     end
     
     def cmd_add_route_to_session args, task=nil
