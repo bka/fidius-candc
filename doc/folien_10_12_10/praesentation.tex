@@ -1,0 +1,70 @@
+
+\documentclass[authorinfoot]{fidius-p}
+\usepackage{listings}
+\usepackage{fancyvrb}
+% \usepackage{tabularx}
+\author{BK \and DM}
+% \title[short title]{long title}
+% optional: \subtitle[short subtitle]{long subtitle}
+\title{C\&C - Server}
+\subtitle{Zwischenpräsentation}
+\date{10.12.2010}
+
+\setcounter{tocdepth}{1}
+
+\setbeamertemplate{bibliography item}[text]
+
+\setbeamertemplate{bibliography entry title}{}
+\setbeamertemplate{bibliography entry location}{}
+\setbeamertemplate{bibliography entry note}{}
+
+\bibliographystyle{is-plain}
+
+\begin{document}
+
+\frame{\titlepage}
+\frame{\tableofcontents}
+
+\section{Ergebnisse}
+
+\begin{frame}[fragile,containsverbatim]
+  \frametitle{Ergebnisse}
+  \begin{lstlisting}
+    (Date.new(2010,12,10)-Date.new(2010,11,12)).to_i
+     => 28
+  \end{lstlisting}
+  \begin{itemize}
+   \item Oberfläche verschönert (CSS)
+   \item Integration des Msf-Workers in GUI
+   \item Anbindung an Prelude (ActiveRecord)
+   \item Msf-Plugin, um Payload von Exploits zu loggen
+   \item TCPDump, um Payload von NMap zu loggen
+   \item Ergebnisdarstellung in GUI
+  \end{itemize}
+
+\end{frame}
+
+
+\section{Ausblick}
+\secframe{Ausblick}{
+  \begin{itemize}
+   \item Integration von CVE
+   \item Hosts und Pivots visualisieren
+   \item Auf Florians Testlandschaft laufen lassen
+   \item Gewonnene Information verwenden, um z.B. "'leiser"' anzugreifen
+  \end{itemize}
+}
+
+
+\section{Retrospektive}
+\secframe{Retrospektive}{
+  \begin{itemize}
+   \item Einstieg in Git nicht ganz leicht
+   \item Redmine wieder geweckt
+   \item Eindruck: kleinere Teams dynamischer und schaffen mehr !?
+  \end{itemize}
+
+}
+
+\end{document}
+
