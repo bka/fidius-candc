@@ -8,8 +8,9 @@
     <th>Hostname</th>
   </tr>
   <% @hosts.each do |host| %>
+	<%pivot_host = @hosts.select {|e| e.id == host.pivot_host_id} if host.pivot_host_id != nil%>
     <tr<%= host.exploited? ? 'class="exploited"' : '' %>>
-      <td><%= host.address %></td>
+      <td><%="#{pivot_host[0].address} --> " if host.pivot_host_id != nil %><%= host.address %></td>
       <td><%= host.os_name %></td>
       <td><%= host.os_sp %></td>
       <td><%= link_to host.name, host %></td>
