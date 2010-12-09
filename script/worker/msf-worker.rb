@@ -172,10 +172,10 @@ module FIDIUS
         mask = IPAddr.new(route.netmask).to_i.to_s(2).count("1")
         discovered_hosts = arp_scann(session, "#{route.subnet}/#{mask}")
         discovered_hosts.each do |hostaddress| 
-          puts hostaddress
           host = Msf::DBManager::Host.find_by_address hostaddress
           pivot_exploited_host = Msf::DBManager::ExploitedHost.find_by_session_uuid args[0]
-          host.pivot_host_id = pivot_host_id.host_id if host and pivot_host_id
+          host.pivot_host_id = pivot_exploited_host.host_id if host != nil and pivot_exploited_host != nil
+          host.save
         end
       end
     end
@@ -253,7 +253,8 @@ module FIDIUS
       ws = session.railgun.ws2_32
       iphlp = session.railgun.iphlpapi
       i, a = 0, []
-      iplst,found = [],""
+      iplst = []
+      found = []
       ipadd = Rex::Socket::RangeWalker.new(cidr)
       numip = ipadd.num_ips
       while (iplst.length < numip)
@@ -281,7 +282,7 @@ module FIDIUS
                   mac[4].ord.to_s(16) + ":" +
                   mac[5].ord.to_s(16)
               puts "IP: #{ip_text} MAC #{mac_str}"
-              found << "#{ip_text}\n"
+              found << "#{ip_text}"
               if session.framework.db.active
                 session.framework.db.report_host(
                   :workspace => session.framework.db.workspace,
