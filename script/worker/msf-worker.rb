@@ -131,8 +131,24 @@ module FIDIUS
       return unless session.type == 'meterpreter'
       FIDIUS::Session::install_meterpreter(session)
     end
+
+    def cmd_exec_reconnaissance args, task=nil
+      begin
+        puts "exec reconnaissance"
+        
+        session = get_session_by_uuid @framework.sessions, args[0]
+        puts "session: #{session}"
+        script_path = File.join "#{RAILS_ROOT}", "script","reconnaissance", "reconnaissance.rb"
+        session.execute_file(script_path,"")
+        puts "exec finish"
+      rescue
+        puts $!
+      end
+      puts "fertig"
+    end
     
     def cmd_add_route_to_session args, task=nil
+      puts "add_route_to_session"
       session = get_session_by_uuid @framework.sessions, args[0]
       return unless session
       return unless session.type == 'meterpreter'

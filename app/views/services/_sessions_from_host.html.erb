@@ -28,7 +28,14 @@
           <%= submit_tag :arpscannsession %>
         <% end %>
       </td>
-    </tr>
+      <td>
+        <% form_tag execreconnaissance_tasks_url do |f| %>
+          <%= hidden_field_tag 'sessionID', session.session_uuid %>
+          <%= submit_tag :execreconnaissance %>
+        <% end %>
+      </td>
+ 
+   </tr>
   <% end %>
   </table>
 <% end %>

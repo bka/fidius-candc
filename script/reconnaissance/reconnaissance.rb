@@ -1,5 +1,5 @@
 require 'pp'
-
+puts "start script"
 #dmke:
 # Weitere Kleinigkeiten:
 # * Zeile 20 match auch auf 999.999.999.999
@@ -76,9 +76,12 @@ def get_host_infos
 end
 
 def write_db host
+  puts "write to db"
   if session.framework.db.active
+    puts "DB active"
     session.framework.db.report_host host
   end
+
 end
 
 get_arp_a_infos.each do |host|

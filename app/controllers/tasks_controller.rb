@@ -38,6 +38,19 @@ class TasksController < ApplicationController
     end
   end
 
+  def execreconnaissance
+    begin
+      task = Msf::DBManager::Task.create(:module => "exec_reconnaissance #{params[:sessionID]}")
+      get_msf_worker.task_created
+      flash[:notice] = "Task started"
+      redirect_to :tasks
+    rescue
+      task.destroy
+      flash[:error] = "Sorry, worker is not working. Try <code>ruby script/msf-worker start</code>."
+      redirect_to :tasks
+    end
+  end
+
   def arpscannsession
     begin
       task = Msf::DBManager::Task.create(:module => "arp_scann_session #{params[:sessionID]}")
