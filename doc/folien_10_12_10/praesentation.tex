@@ -1,24 +1,26 @@
-
 \documentclass[authorinfoot]{fidius-p}
 \usepackage{listings}
-\usepackage{fancyvrb}
-% \usepackage{tabularx}
+\lstset{
+  language=Ruby,
+  upquote=true,
+  tabsize=4,
+  basicstyle=\ttfamily\fontsize{8}{14}\selectfont,
+  keywordstyle=\bfseries\color{Strong Blue},
+  morekeywords={Date},
+  commentstyle=\itshape\color{Grey 4},
+  stringstyle=\color{Red},
+  backgroundcolor=\color{Beige!50},
+  columns=fixed,
+  showstringspaces=false,
+  framexleftmargin=1em,
+  framexrightmargin=1em
+}
 \author{BK \and DM}
-% \title[short title]{long title}
-% optional: \subtitle[short subtitle]{long subtitle}
-\title{C\&C - Server}
+\title{C\&C-Server}
 \subtitle{Zwischenpräsentation}
 \date{10.12.2010}
 
 \setcounter{tocdepth}{1}
-
-\setbeamertemplate{bibliography item}[text]
-
-\setbeamertemplate{bibliography entry title}{}
-\setbeamertemplate{bibliography entry location}{}
-\setbeamertemplate{bibliography entry note}{}
-
-\bibliographystyle{is-plain}
 
 \begin{document}
 
@@ -26,44 +28,73 @@
 \frame{\tableofcontents}
 
 \section{Ergebnisse}
-
+\subsection{Ergebnisse}
 \begin{frame}[fragile,containsverbatim]
   \frametitle{Ergebnisse}
-  \begin{lstlisting}
-    (Date.new(2010,12,10)-Date.new(2010,11,12)).to_i
-     => 28
+  \begin{lstlisting}[gobble=4]
+    (Date.new(2010,12,10) - Date.new(2010,11,12)).to_i   #=> 28
   \end{lstlisting}
   \begin{itemize}
-   \item Oberfläche verschönert (CSS)
-   \item Integration des Msf-Workers in GUI
-   \item Anbindung an Prelude (ActiveRecord)
-   \item Msf-Plugin, um Payload von Exploits zu loggen
-   \item TCPDump, um Payload von NMap zu loggen
-   \item Ergebnisdarstellung in GUI
+    \item Oberfläche verschönert (CSS)
+    \item Integration des MSF-Workers in GUI
+    \item Anbindung an Prelude-Manager (ActiveRecord)
+    \item MSF-Plugin, um Payload von Exploits auf Paketebene zu loggen
+    \item Verwendung von TCPDump + libpcap, um Payload von NMap zu loggen/verarbeiten
+    \item Ergebnisdarstellung in GUI
+    \vspace*{1em}
+    \pause
+    \item offene Tickets \textit{(nackte Zahlen)}:
+    \begin{itemize}
+      \item Fehler: 4/7
+      \begin{itemize}
+        \item seit letztem Freitag in Bearbeitung\dots
+      \end{itemize}
+      \item Feature: 5/6
+      \begin{itemize}
+        \item davon 2 Reconnaisance
+      \end{itemize}
+      \item ToDo: 8/24
+      \begin{itemize}
+        \item 3 Plumbing
+        \item 1 Meta-ToDo (gruppenübergreifend mit Autopwn)
+      \end{itemize}
+    \end{itemize}
   \end{itemize}
-
 \end{frame}
-
 
 \section{Ausblick}
 \secframe{Ausblick}{
   \begin{itemize}
-   \item Integration von CVE
-   \item Hosts und Pivots visualisieren
-   \item Auf Florians Testlandschaft laufen lassen
-   \item Gewonnene Information verwenden, um z.B. "'leiser"' anzugreifen
+    \item MSF-Worker stärker modularisieren
+    \vspace*{1ex}
+    \item Integration der CVE-DB
+    \vspace*{1ex}
+    \item Hosts und Pivots visualisieren
+    \vspace*{1ex}
+    \item Anpassungen an die FIDeS-Testlandschaft
+    \vspace*{1ex}
+    \item gewonnene Information verwenden, um z.B. »leiser« anzugreifen
   \end{itemize}
 }
-
 
 \section{Retrospektive}
 \secframe{Retrospektive}{
   \begin{itemize}
-   \item Einstieg in Git nicht ganz leicht
-   \item Redmine wieder geweckt
-   \item Eindruck: kleinere Teams dynamischer und schaffen mehr !?
+    \item Einstieg in war Git nicht \textit{ganz} leicht
+    \begin{itemize}
+      \item in Branch gesteckte Arbeit nach Merge verschwunden\dots
+      \item mehr Git-Repos erstellen und diese in der Mailingliste ankündigen\\
+      (s.a. \url{https://gist.github.com/2ebb88f4e3442832ac50})
+    \end{itemize}
+    \vspace*{1ex}
+    \item Redmine wieder intensiver in Benutzung
+    \vspace*{1ex}
+    \item Eindruck: kleinere Teams dynamischer und schaffen mehr \textit{!?}
+    \begin{itemize}
+      \item Absprachen einfacher + Terminfindung leichter
+      \item niemand kann sich \textit{verstecken}
+    \end{itemize}
   \end{itemize}
-
 }
 
 \end{document}
