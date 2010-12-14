@@ -29,15 +29,15 @@ def read_firewall_config session
     read_state.channel.close
     read_state.close 1
     unless result[:error]
+        result[:firewall_state] = "unknown"
         config.split("\n").each do |o|
+          p o
           if (o.include? "Betriebsmodus")
             state = ""
             if o.include? "Inaktiv"
                 state = "inactive"
             elsif o.include? "Aktiv"
-                state = "active"
-            else 
-                state = "unknown"
+                state = "active"                
             end
             result[:firewall_state] = state
           end
@@ -59,11 +59,13 @@ def open_port session, port, rule_name = "WindowsUpdate"
     print_status("Opening Port ...")
     open_port = session.sys.process.execute("cmd.exe /c netsh firewall add portopening TCP #{port} #{rule_name}", nil, {'Hidden' => 'true','Channelized' => true})
     print_status("Wait for Response ...")
+    result = {}
     while(d = open_port.channel.read)
 		if d =~ /The requested operation requires elevation./
-			print_error("\tUAC or Insufficient permissions prevented the disabling of Firewall")
+			result[:error] = "Couldn't Open port'"
 		end
 	end
 	open_port.channel.close
 	open_port.close 1#Was auch immer der Parameter macht
+	result
 end
