@@ -23,7 +23,7 @@ module Session
     begin
       session.load_stdapi
       add_route_to_session session
-      install_meterpreter session
+#      install_meterpreter session
     rescue ::Exception
       puts "problem in session_action: #{$!} #{$!.backtrace}"
     end

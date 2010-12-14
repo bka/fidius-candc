@@ -130,7 +130,7 @@ module FIDIUS
       manager.run_nmap
     end
 
-    def cmd_session_install args
+    def cmd_session_install args, task=nil
       session = get_session_by_uuid @framework.sessions, args[0]
       return unless session
       return unless session.type == 'meterpreter'

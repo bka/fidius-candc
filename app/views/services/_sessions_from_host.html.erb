@@ -34,8 +34,13 @@
           <%= submit_tag :pry %>
         <% end %>
       </td>
- 
-   </tr>
+      <td>
+        <% form_tag installpersistence_tasks_url do |f| %>
+          <%= hidden_field_tag 'sessionID', session.session_uuid %>
+          <%= submit_tag :installpersistence %>
+        <% end %>
+      </td>
+    </tr>
   <% end %>
   </table>
 <% end %>
