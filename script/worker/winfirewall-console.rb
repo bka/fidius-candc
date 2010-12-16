@@ -8,20 +8,9 @@ winfirewall_api_path = "#{ENV[:BASE]}/msf3/scripts/meterpreter/winfirewall-api.r
 dynamic_require winfirewall_api_path
 
 def console_show_open_port_entries session
-   	print_status("Getting new Open Port Entrys ...")
-	read_state = session.sys.process.execute("cmd.exe /c netsh firewall show portopening", nil, {'Hidden' => 'true','Channelized' => true})
-    config = ""
-    while(d = read_state.channel.read)
-    	if d =~ /The requested operation requires elevation./
-    		print_error("\tUAC or Insufficient permissions prevented the disabling of Firewall")
-    	else
-    	    config << d
-    	end
-    end	
-    read_state.channel.close
-    read_state.close 1
+    config = execute_cmd_with_channel "netsh firewall show portopening"
     
-    config.split("\n").each do |o|
+    config[:channel].split("\n").each do |o|
       print_status o
     end 
 end
@@ -53,12 +42,9 @@ def console_open_firewall_port(port, session)
     if config[:tcp] && (config[:tcp].include? port)
         print_status("Port is already open")
         raise Rex::Script::Completed
-    end
-	
-	open_port session, port
-	
+    end	
+	open_port session, port	
 	console_show_open_port_entries session
-
 end
 
 port = nil
@@ -81,4 +67,3 @@ else
     print_status "-d Disables the Windows Firewall"
     print_status "-s Show Open Ports"
 end
-
