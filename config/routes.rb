@@ -17,7 +17,8 @@ ActionController::Routing::Routes.draw do |map|
     :addroutetosession => :post,
     :arpscannsession => :post,
     :execreconnaissance => :post,
-    :installpersistence => :post
+    :installpersistence => :post,
+    :startbrowserautopwn => :post
   }
   map.resources :payload_logs
   map.resources :prelude_logs
@@ -27,6 +28,7 @@ ActionController::Routing::Routes.draw do |map|
     :stop => :delete
   }
   map.credits '/credits', :controller => :welcome, :action => :credits
+  map.browser_autopwn '/browser_autopwn', :controller => :welcome, :action => :browser_autopwn
   map.license '/license', :controller => :welcome, :action => :license
     
   # Sample resource route with options:

