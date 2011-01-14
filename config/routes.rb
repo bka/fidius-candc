@@ -14,18 +14,19 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :hosts, :collection => {
     :graph => :get,
     :svg_graph => :get,
-
+    :clear => :get
   },:member => {
     :info => :get,
   }
     
-
+  map.resources :terminals, :collection => {:send_cmd => :post}, :member=>{:meterpreter=>:get}
 
   map.resources :tasks, :collection => {
     :scan => :post,
     :addroutetosession => :post,
     :arpscannsession => :post,
-    :execreconnaissance => :post
+    :execreconnaissance => :post,
+    :clean => :get
   }
   map.resources :payload_logs
   map.resources :prelude_logs
@@ -56,7 +57,7 @@ ActionController::Routing::Routes.draw do |map|
   #   end
 
   # You can have the root of your site routed with map.root -- just remember to delete public/index.html.
-  map.root :controller => :welcome
+  map.root :controller => :hosts
 
   # See how all your routes lay out with "rake routes"
 

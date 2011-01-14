@@ -57,6 +57,8 @@ module FIDIUS
         raise
       end
 
+      @console = Msf::Ui::Web::WebConsole.new(@framework,1)
+
       handler = FIDIUS::Session::MsfSessionEvent.new
       @framework.events.add_session_subscriber(handler)
       @prelude_fetcher = PreludeEventFetcher.new
@@ -118,6 +120,22 @@ module FIDIUS
       else
         raise "Unknown command: #{command}."
       end
+    end
+
+    def cmd_send_to_terminal cmd
+      @console.execute(cmd)
+      result = @console.read+@console.prompt
+      return result
+    end
+
+    def cmd_send_to_msfsession cmd, session_uuid
+      input = Rex::Ui::Text::Input::Readline.new
+      output = Rex::Ui::Text::Output::Buffer.new
+      
+      session = get_session_by_uuid @framework.sessions, session_uuid
+      session.init_ui(input,output)
+      session.run_cmd(cmd)
+      return session.console.output.dump_buffer
     end
 
     def cmd_nmap args, task = nil

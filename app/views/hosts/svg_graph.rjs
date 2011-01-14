@@ -121,17 +121,21 @@ var el;
         }
 
 
-i = 0
+x = 0
+y = 0
+hosts_per_line = 3
 @hosts.each do |host|
-  if host.exploited?
-    image = "windowsxp_hacked.png"
-  else
-    image = "windowsxp.png"
-  end
+  image = host.image
+  pos_x = 160*x
+  pos_y = 160*y+50 
 
-  page << "r.image(\"http://localhost:3000/images/graph/#{image}\",#{160*i}, 50, 80, 80,#{host.id}),"
-  page << "r.text(#{160*i}+40, 50+90, \"#{host.address}\",#{host.id}),"
-  i = i+1
+  page << "r.image(\"http://localhost:3000/images/graph/#{image}\",#{pos_x}, #{pos_y}, 80, 80,#{host.id}),"
+  page << "r.text(#{pos_x}+40, #{pos_y}+90, \"#{host.address}\",#{host.id}),"
+  x = x+1
+  if(x%3==0)
+    y = y+1
+    x = 0
+  end 
 end
 
 page << %{      

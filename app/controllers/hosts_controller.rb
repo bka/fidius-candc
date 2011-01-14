@@ -12,16 +12,28 @@ class HostsController < ApplicationController
 
   end
 
+  def clear
+    Msf::DBManager::Host.destroy_all
+    redirect_to :hosts
+  end
+
   def info
     @host = Msf::DBManager::Host.find params[:id]
 
     a = render_to_string :partial=>"hosts/host_info", :layout => "blank"
+    b = render_to_string :partial=>"hosts/host_commands", :layout => "blank"
     render :update do |page|
-      page.replace_html "context-menu", a
+      page.replace_html "context-menu", a+b
     end       
   end
 
   def svg_graph
     @hosts = Msf::DBManager::Host.all
+  end
+
+  def destroy
+    @host = Msf::DBManager::Host.find params[:id]
+    @host.destroy
+    redirect_to :hosts
   end
 end
