@@ -63,8 +63,10 @@ module FIDIUS
       load_plugins
 
       # init TcpDumper
-      @tcpdump = TcpDumpWrapper.new(MSF_SETTINGS["/tcpdump_iface"])
-      @tcpdump.deactivate if MSF_SETTINGS.select("/match_prelude_logs").first.value == "false"
+      if (MSF_SETTINGS.select("/match_prelude_logs").first.value == "true")
+        @tcpdump = TcpDumpWrapper.new(MSF_SETTINGS["/tcpdump_iface"])
+        @tcpdump.deactivate if MSF_SETTINGS.select("/match_prelude_logs").first.value == "false"
+      end
       puts "Started."
       @status = 'running'
     end
@@ -206,26 +208,30 @@ module FIDIUS
       my_ip = get_my_ip iprange
       # tell our prelude fetcher that we want to have all events we generate in
       # prelude from now on
-      @prelude_fetcher.attack_started if MSF_SETTINGS.select("/match_prelude_logs").first.value == "true"
-      # let tcpdump watch our traffic
-      @tcpdump.start
+      if MSF_SETTINGS.select("/match_prelude_logs").first.value == "true"
+        @prelude_fetcher.attack_started
+        # let tcpdump watch our traffic
+        @tcpdump.start
+      end
       manager.run_nmap
       # now stop sniffing traffic
-      @tcpdump.stop
-      # and read out relevant packets most of them should be
-      # a result of run_nmap
-      @tcpdump.read do |src_ip, src_port, dst_ip, dst_port, payload|
-        # we are interested in traffic, that we generated 
-        if src_ip == my_ip
-          PayloadLog.create(
-            :exploit => "nmap",
-            :payload => payload,
-            :src_addr => src_ip,
-            :dest_addr => dst_ip,
-            :src_port => src_port,
-            :dest_port => dst_port,
-            :task_id => task.id
-          )
+      if MSF_SETTINGS.select("/match_prelude_logs").first.value == "true"
+        @tcpdump.stop
+        # and read out relevant packets most of them should be
+        # a result of run_nmap
+        @tcpdump.read do |src_ip, src_port, dst_ip, dst_port, payload|
+          # we are interested in traffic, that we generated 
+          if src_ip == my_ip
+            PayloadLog.create(
+              :exploit => "nmap",
+              :payload => payload,
+              :src_addr => src_ip,
+              :dest_addr => dst_ip,
+              :src_port => src_port,
+              :dest_port => dst_port,
+              :task_id => task.id
+            )
+          end
         end
       end      
       # we do not want to use nmap for autopwn
