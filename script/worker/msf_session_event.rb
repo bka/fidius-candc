@@ -7,6 +7,7 @@ module Session
 
     def on_session_open(session)
       puts("on_session_open #{session}")
+      FIDIUS::Session::add_session_to_db session
       FIDIUS::Session::session_action session
     end
 
@@ -16,6 +17,47 @@ module Session
 
     def on_session_command(session, command)
       puts("on_session_command #{session} #{command}")
+    end
+  end
+
+  def self.add_session_to_db session
+    if session.framework.db.active
+      session.framework.db.sync
+
+      address = get_lhost session
+
+      # Since we got a session, we know the host is vulnerable to something.
+      # If the exploit used was multi/handler, though, we don't know what
+      # it's vulnerable to, so it isn't really useful to save it.
+      if not session.via_exploit or session.via_exploit == "exploit/multi/handler"
+        wspace = session.framework.db.find_workspace(session.workspace)
+        host = wspace.hosts.find_by_address(address)
+        return unless host
+        port = session.exploit_datastore["RPORT"]
+        service = (port ? host.services.find_by_port(port) : nil)
+        mod = session.framework.modules.create(session.via_exploit)
+        vuln_info = {
+          :host => host.address,
+          :name => session.via_exploit,
+          :refs => mod.references,
+          :workspace => wspace
+        }
+        session.framework.db.report_vuln(vuln_info)
+        # Exploit info is like vuln info, except it's /just/ for storing
+        # successful exploits in an unserialized way. Yes, there is
+        # duplication, but it makes exporting a score card about a
+        # million times easier. TODO: See if vuln/exploit can get fixed up
+        # to one useful table.
+        exploit_info = {
+          :name => session.via_exploit,
+          :payload => session.via_payload,
+          :workspace => wspace,
+          :host => host,
+          :service => service,
+          :session_uuid => session.uuid
+        }
+        ret = session.framework.db.report_exploit(exploit_info)
+      end
     end
   end
 
@@ -53,10 +95,27 @@ module Session
     end
   end
 
+
+  def self.get_lhost session
+    address = nil
+
+    if session.respond_to? :peerhost and session.peerhost.to_s.length > 0
+      address = session.peerhost
+    elsif session.respond_to? :tunnel_peer and session.tunnel_peer.to_s.length > 0
+      address = session.tunnel_peer[0, session.tunnel_peer.rindex(":") || session.tunnel_peer.length ]
+    elsif session.respond_to? :target_host and session.target_host.to_s.length > 0
+      address = session.target_host
+    else
+      elog("Session with no peerhost/tunnel_peer")
+      dlog("#{session.inspect}", LEV_3)
+      return
+    end
+  end
+
   def self.get_rhost session
-    if session.respond_to? :target_host and session.target_host
+    if session.respond_to? :target_host and session.target_host.to_s.length > 0
       return session.target_host
-    elsif session.respond_to? :tunnel_local and session.tunnel_local
+    elsif session.respond_to? :tunnel_local and session.tunnel_local.to_s.length > 0
       return session.tunnel_local[0, session.tunnel_local.rindex(":") || session.tunnel_local.length ]
     else
       puts("Session with no target_host or tunnel_local")
