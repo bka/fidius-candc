@@ -189,7 +189,7 @@ module FIDIUS
         next if route.subnet =~ /^(224\.|127\.)/
         next if route.subnet == '0.0.0.0'
         next if route.netmask == '255.255.255.255'
-        next if (IPAddr.new "#{route.subnet}/#{route.netmask}").include? IPAddr.new session.target_host
+        next if (IPAddr.new "#{route.subnet}/#{route.netmask}").include? IPAddr.new( FIDIUS::Session::get_lhost session)
         mask = IPAddr.new(route.netmask).to_i.to_s(2).count("1")
         discovered_hosts = arp_scann(session, "#{route.subnet}/#{mask}")
         discovered_hosts.each do |hostaddress| 
