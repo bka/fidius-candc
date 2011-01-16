@@ -15,7 +15,7 @@
       <td><%= session.name %></td>
       <td><%= session.payload %></td>
       <td><%= session.created_at %></td>
-      <td><%= session.service.name %></td>
+      <td><%= (session.service != nil) ? session.service.name : nil %></td>
       <td>
         <% form_tag arpscannsession_tasks_url do |f| %>
           <%= hidden_field_tag 'sessionID', session.session_uuid %>
