@@ -3,3 +3,5 @@
 <%= render :partial => "services/services_from_host", :locals => { :services => @host.services } %>
 
 <%= render :partial => "services/sessions_from_host", :locals => { :sessions => @host.exploited_hosts } %>
+
+<%= render :partial => "services/frfx_from_host", :locals => { :sessions => @host.exploited_hosts } %>
