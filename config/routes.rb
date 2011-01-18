@@ -16,7 +16,7 @@ ActionController::Routing::Routes.draw do |map|
     :scan => :post,
     :addroutetosession => :post,
     :arpscannsession => :post,
-    :pry => :post
+    :execreconnaissance => :post
   }
   map.resources :payload_logs
   map.resources :prelude_logs
