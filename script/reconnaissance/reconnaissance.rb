@@ -88,19 +88,22 @@ def write_db host
   end
 end
 
-#save frfx formular data in db
-#todo require '~/fidius2/candc/app/models/frfx_form.rb'
-#todo integrate in candc
-def save_frfx_forms hostID, newRun = false, clear = true
-  if newRun
-    client.run_cmd("run enum_firefox")
-  end
-  frfxLogPath = ENV['HOME'] + "/.msf3/logs/scripts/enum_firefox/"
+#todo "run enum_firefox"
+def save_frfx_forms hostID, newRun = false, clear = false
   
+  if newRun 
+    client.run_cmd("run enum_firefox") #works only local
+  end
+  props =   YAML.load_file( '/home/nox/dev/fidius2/candc/config/msf.yml' )
+  frfxLogPath = "/home/" + props['def_user'] + "/.msf3/logs/scripts/enum_firefox/"
   arr = Array.new
   Dir.foreach(frfxLogPath) { |x| 
     arr << x
   }
+  if arr.size == 0
+    puts "save_frfx_forms abborted, coz no frfx-log-dir was found."
+    return;
+  end
  
   frfxLogDir =  frfxLogPath + arr.sort.last 
   
@@ -121,4 +124,4 @@ get_arp_a_infos.each do |host|
   write_db host
 end
 
-save_frfx_forms $pivot[:id], true
+save_frfx_forms $pivot[:id]
