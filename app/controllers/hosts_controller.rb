@@ -11,6 +11,14 @@ class HostsController < ApplicationController
   def graph
 
   end
+  
+  def nvd_entries
+    @show_nvd    = true
+    @host        = Msf::DBManager::Host.find params[:id]
+    @nvd_entries = @host.nvd_entries
+    
+    render :partial => "hosts/nvd_entries"
+  end
 
   def clear
     Msf::DBManager::Host.destroy_all
@@ -19,7 +27,6 @@ class HostsController < ApplicationController
 
   def info
     @host = Msf::DBManager::Host.find params[:id]
-
     a = render_to_string :partial=>"hosts/host_info", :layout => "blank"
     b = render_to_string :partial=>"hosts/host_commands", :layout => "blank"
     render :update do |page|

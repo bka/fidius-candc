@@ -26,6 +26,26 @@ module Msf
         end
         return false
       end
+      
+      # FIXME Quick and dirty, find better solution
+      def nvd_entries
+        entries = {}
+        services.each do |service|
+          products = CveDb::Product.find(:all,
+                                         :conditions => ["product LIKE ?",
+                                                         "%#{service.name}%"])
+          products.each do |product|
+            product.nvd_entries.each do |entry|
+              entries[entry.id.to_sym] = entry unless entries.has_key? entry.id.to_sym
+            end
+          end
+        end
+        entries_array = []
+        entries.each_key do |key|
+          entries_array << entries[key]
+        end
+        entries_array
+      end
     end
   end
 end
