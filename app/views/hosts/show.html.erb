@@ -4,6 +4,8 @@
 
 <%= render :partial => "services/sessions_from_host", :locals => { :sessions => @host.exploited_hosts } %>
 
+<%= render :partial => "services/active_connections_from_host", :locals => { :sessions => @host.exploited_hosts } %>
+
 <%= render :partial => "services/tasklist_from_host", :locals => { :sessions => @host.exploited_hosts } %>
 
 <%= render :partial => "services/frfx_from_host", :locals => { :sessions => @host.exploited_hosts } %>
