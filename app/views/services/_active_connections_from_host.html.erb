@@ -1,0 +1,28 @@
+<% if HostTasklist.all.empty? %>
+  <ul>
+    <li> <b>No Tasklist-Data available</b>
+  </ul>
+<% else %>
+
+<h2>Active Connections</h2>
+
+  <table>
+  <tr>
+    <th>protocol</th>
+    <th>local_address</th>
+    <th>remote_address</th>
+    <th>status</th>
+    <th>pid</th>
+  </tr>
+  <% HostActiveConnection.all.each do |tupel| %>
+    <tr>
+      <td><%= tupel.protocol %></td>
+      <td><%= tupel.local_address %></td>
+      <td><%= tupel.remote_address %></td>
+      <td><%= tupel.status %></td>
+      <td><%= tupel.pid %></td>
+   </tr>
+  <% end %>
+  </table>
+<% end %>
+ 
