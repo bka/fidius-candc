@@ -208,7 +208,6 @@ def get_active_connections clear = true
   #to not overcrowd the database
   if clear                     
     HostActiveConnection.delete_all
-    HostActiveConnection.delete_all
   end
   r, cmdout = '', '' 
   r = @client.sys.process.execute('netstat /nao', nil, {'Hidden' => true, 'Channelized' => true})
@@ -249,13 +248,13 @@ end
 # Has to be the first Function cause $Pivot is set
 get_arp_a_infos
 
-#get_host_infos
+get_host_infos
 
-#get_hashdump_information
+get_hashdump_information
 
-#get_frfx_forms $pivot[:id]
+get_frfx_forms $pivot[:id]
 
-#get_tasklist $pivot[:id]
+get_tasklist $pivot[:id]
 
 get_active_connections
 
