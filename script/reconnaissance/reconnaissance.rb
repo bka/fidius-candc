@@ -203,15 +203,60 @@ def get_tasklist hostID, clear = true
   end
 end 
 
+#proccesses result of 'netstat /nao' and saves it in the db
+def get_active_connections clear = true
+  #to not overcrowd the database
+  if clear                     
+    HostActiveConnection.delete_all
+    HostActiveConnection.delete_all
+  end
+  r, cmdout = '', '' 
+  r = @client.sys.process.execute('netstat /nao', nil, {'Hidden' => true, 'Channelized' => true})
+    
+  while d = r.channel.read #process d immediately doesn't work for some reason (maybe threads?)
+    cmdout << d
+  end
+      
+  lines = cmdout.split("\n")
+  i = 4
+  actPid = -1
+  while i < lines.size
+    lineArray = lines[i].split
+    if lineArray.size != 5 and lineArray.size != 4
+      puts "in get_active_connections something unexpected happened"
+      return
+    end
+    if lineArray.size == 5
+      status = ''
+      if lineArray[3].start_with? "ABH"
+        status = 'ABHÖREN'
+      else
+        status = lineArray[3]
+      end
+      HostActiveConnection.new(:host_id=>$pivot[:id],:protocol=>lineArray[0],
+                               :local_address=>lineArray[1],:remote_address=>lineArray[2],
+                               :status=>status,:pid=>lineArray[4]).save
+    end
+    if lineArray.size == 4
+      HostActiveConnection.new(:host_id=>$pivot[:id],:protocol=>lineArray[0],
+                               :local_address=>lineArray[1], :remote_address=>lineArray[2], 
+                               :pid=>lineArray[3]).save
+    end
+    i += 1
+  end
+end
+
 # Has to be the first Function cause $Pivot is set
 get_arp_a_infos
 
-get_host_infos
+#get_host_infos
 
-get_hashdump_information
+#get_hashdump_information
 
-get_frfx_forms $pivot[:id]
+#get_frfx_forms $pivot[:id]
 
-get_tasklist $pivot[:id]
+#get_tasklist $pivot[:id]
+
+get_active_connections
 
 
