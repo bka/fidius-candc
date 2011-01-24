@@ -245,6 +245,65 @@ def get_active_connections clear = true
   end
 end
 
+def get_interfaces clear = true
+  #to not overcrowd the database
+  if clear                     
+    HostInterface.delete_all
+  end
+  r, cmdout = '', '' 
+  r = @client.sys.process.execute('ipconfig /all', nil, {'Hidden' => true, 'Channelized' => true})
+  while d = r.channel.read
+    cmdout << d
+  end
+
+  # Filters unimportant lines and orders them
+ 
+  m1 = /^\S.*:/
+  min = Integer(cmdout.index(m1))
+  whole =  cmdout[min,cmdout.size-min]
+  
+  names  = whole.grep m1
+  tmp = whole.split m1
+  keysValues = tmp[1,tmp.size] # first element is useless
+ 
+  i = 0
+  names.each do |name|
+    tmp = keysValues[i].split(/^\s+.+:/)#.grep /^.*\S+.*$/
+    values = tmp[1,tmp.size]
+    values.each do |value| 
+      if value =~ /.*\S+.*/ # to not strip whitespace beacuse of strange result ('"')
+        value.strip! 
+      end
+    end
+    
+    tupel = Hash.new
+    
+    #print name.strip.gsub(":", "") + "-* " + values.size.to_s + "\n"
+    if  values.size >= 7
+      tupel.merge!( {:host_id=>$pivot[:id],
+                     :name=>name.strip.gsub(":", ""),
+                     :dns_suffix=>values[0],
+                     :description=>values[1],                 
+                     :mac=>values[2],
+                     :DHCPActive=> values[3] =~ /Ja|Yes|yes|/ ? true : false,
+                     :AutoconfigActive=>values[4] =~ /Ja|Yes|yes|/ ? true : false,
+                     :address=>values[5],
+                     :subnetmask=>values[6]})
+    end
+    if values.size >= 8
+      tupel.merge!({:defGateway=>values[7]})
+    end
+    if values.size >= 9
+      tupel.merge!({:DHCPServer=>values[8]})
+    end
+    if values.size >= 10 and values[9] =~ /\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/
+      tupel.merge!({:DNSServer=>values[9]})
+    end
+    HostInterface.new(tupel).save
+    i += 1
+  end
+end
+
 # Has to be the first Function cause $Pivot is set
 get_arp_a_infos
 
@@ -258,4 +317,5 @@ get_tasklist $pivot[:id]
 
 get_active_connections
 
+get_interfaces
 
