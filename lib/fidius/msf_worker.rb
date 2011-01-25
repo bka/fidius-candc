@@ -123,7 +123,7 @@ module FIDIUS
 
     def stop
       @status = 'stopping'
-#      @tcpdump.stop
+#      @tcpdump.stop if @tcpdump
 
       puts "Halting..."
       @framework.sessions.each_pair do |i,session|

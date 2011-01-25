@@ -95,12 +95,16 @@ module FIDIUS::MsfWorker::CommandPool
     run_multihandler payload, lport, lhost
   end
 
+  FIDIUS::MsfWorker.register_command :stop_multihandler do |jid|
+    @framework.jobs.stop_job jid
+  end
+
   FIDIUS::MsfWorker.register_command :get_running_multihandler do
     handlers = []
     @framework.jobs.each do |key, value|
       if value.name == "Exploit: multi/handler"
         ctx_datastore = value.ctx[0].datastore
-        handlers <<  {:payload =>ctx_datastore["PAYLOAD"], :lport =>ctx_datastore["LPORT"], :lhost => ctx_datastore["LHOST"], :start_time => value.start_time}
+        handlers <<  {:jid => key, :payload =>ctx_datastore["PAYLOAD"], :lport =>ctx_datastore["LPORT"], :lhost => ctx_datastore["LHOST"], :start_time => value.start_time}
       end
     end
     handlers

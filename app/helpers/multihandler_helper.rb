@@ -1,2 +1,0 @@
-module MultihandlerHelper
-end
