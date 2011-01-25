@@ -19,7 +19,7 @@ module DrbHelper
   end
   
   def msf_worker cmd
-    system("ruby script/runner script/worker/starter.rb #{cmd} -e #{RAILS_ENV}")
+    system("ruby script/runner lib/fidius/starter #{cmd} -e #{RAILS_ENV}")
   end
   
 end

