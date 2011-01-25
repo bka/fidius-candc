@@ -18,3 +18,5 @@ $:.unshift(PATH_TO_MSF_LIB)
 
 require MSF_SETTINGS.select("/subnet_manager_path").first.value
 require "msf/base"
+require "msf/ui/console/driver"
+require 'msf/ui/web'

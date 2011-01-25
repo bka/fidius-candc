@@ -320,3 +320,13 @@ tr.event_triggered:nth-child(odd) {
   border-color: #fff;
   color: #fff;
 }
+
+#termDiv{
+  width:100%;
+}
+#termDiv table{
+  width:100%;
+  padding:0px;
+  border:0px;
+  background-color:white;
+}
