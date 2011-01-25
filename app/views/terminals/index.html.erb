@@ -1,0 +1,112 @@
+<script language="JavaScript" type="text/javascript" src="javascripts/termlib/termlib.js"></script>
+
+<script type="text/javascript">
+<!--
+
+// *** request sample ***
+// mass:werk, N.Landsteiner 2007
+
+var term;
+
+var help = [
+	'Console'
+];
+
+function termOpen() {
+	if ((!term) || (term.closed)) {
+		term = new Terminal(
+			{
+				termDiv: 'termDiv',
+				greeting: help.join('\n'),
+				handler: termHandler,
+				exitHandler: termExitHandler
+			}
+		);
+		term.open();
+		
+		// dimm UI text
+		var mainPane = (document.getElementById)?
+			document.getElementById('mainPane') : document.all.mainPane;
+		if (mainPane) mainPane.className = 'lh15 dimmed';
+	}
+}
+
+function termExitHandler() {
+	// reset the UI
+	var mainPane = (document.getElementById)?
+		document.getElementById('mainPane') : document.all.mainPane;
+	if (mainPane) mainPane.className = 'lh15';
+}
+
+function pasteCommand(text) {
+	// insert given text into the command line and execute
+	var termRef = TermGlobals.activeTerm;
+	if ((!termRef) || (termRef.closed)) {
+		alert('Please open the terminal first.');
+		return;
+	}
+	if ((TermGlobals.keylock) || (termRef.lock)) return;
+	termRef.cursorOff();
+	termRef._clearLine();
+	for (var i=0; i<text.length; i++) {
+		TermGlobals.keyHandler({which: text.charCodeAt(i), _remapped:true});
+	}
+	TermGlobals.keyHandler({which: termKey.CR, _remapped:true});
+}
+
+function termHandler() {
+	this.newLine();
+	
+	this.lineBuffer = this.lineBuffer.replace(/^\s+/, '');
+	var argv = this.lineBuffer.split(/\s+/);
+	var cmd = argv;
+    new Ajax.Request('/terminals/send_cmd<%= @session_param %>', {asynchronous:false, evalScripts:true, method:'post',parameters: 'cmd='+this.lineBuffer,
+    on404:function(request){alert('Not found...? Wrong URL...?')},
+    onFailure:function(request){alert('HTTP Error ' + request.status + '!')}
+    });   
+  
+	this.prompt();
+}
+
+function myServerCallback() {
+	var response=this.socket;
+	if (response.success) {
+		var func=null;
+		try {
+			func=eval(response.responseText);
+		}
+		catch (e) {
+		}
+		if (typeof func=='function') {
+			try {
+				func.apply(this);
+			}
+			catch(e) {
+				this.write('An error occured within the imported function: '+e);
+			}
+		}
+		else {
+			this.write('Server Response:\n' + response.responseText);
+		}
+		this.newLine();
+		this.write('Response Statistics:');
+		this.newLine();
+		this.write('  Content-Type: ' + response.headers.contentType);
+		this.newLine();
+		this.write('  Content-Length: ' + response.headers.contentLength);
+	}
+	else {
+		var s='Request failed: ' + response.status + ' ' + response.statusText;
+		if (response.errno) s +=  '\n' + response.errstring;
+		this.write(s);
+	}
+	this.prompt();
+}
+
+document.observe('dom:loaded', function(){
+  termOpen();
+});
+
+//-->
+</script>
+<div id="termDiv"></div>

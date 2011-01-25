@@ -20,7 +20,9 @@ module FIDIUS
       $:.unshift(File.join MSF_SETTINGS['msf_path'], 'lib')
       require MSF_SETTINGS["subnet_manager_path"]
       require 'msf/base'
-      require "fidius/session/msf_session_event"
+      require 'msf/ui/console/driver'
+      require 'msf/ui/web'
+      require 'fidius/session/msf_session_event'
 
       require 'fidius/msf_worker/auxillaries/prelude_event_fetcher'
       require 'fidius/msf_worker/auxillaries/tcpdump_wrapper'
@@ -86,6 +88,8 @@ module FIDIUS
         puts "An error occurred while deleting exploited hosts."
         raise
       end
+
+      @console = Msf::Ui::Web::WebConsole.new(@framework,1)
 
       handler = FIDIUS::Session::MsfSessionEvent.new
       @framework.events.add_session_subscriber(handler)
@@ -153,6 +157,22 @@ module FIDIUS
       else
         raise "Unknown command: #{command}."
       end
+    end
+
+    def cmd_send_to_terminal cmd
+      @console.execute(cmd)
+      result = @console.read+@console.prompt
+      return result
+    end
+
+    def cmd_send_to_msfsession cmd, session_uuid
+      input = Rex::Ui::Text::Input::Readline.new
+      output = Rex::Ui::Text::Output::Buffer.new
+      
+      session = get_session_by_uuid @framework.sessions, session_uuid
+      session.init_ui(input,output)
+      session.run_cmd(cmd)
+      return session.console.output.dump_buffer
     end
 
     def arp_scann(session, cidr)
@@ -240,14 +260,6 @@ module FIDIUS
     end
 
   private
-
-    def commands
-      @commands ||= (self.methods - Object.instance_methods).select do |m|
-        m =~ /^cmd_/
-      end
-      @commands
-    end
-
     #
     # returns the ip address of that interface, which would connect to
     # an address of the given +iprange+.
