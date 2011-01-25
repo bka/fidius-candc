@@ -5,5 +5,5 @@ tmp/**/*
 !tmp/**/.gitignore
 *.yml
 *~
-**/.yardoc
-
+lib/fidius/.yardoc
+lib/fidius/doc

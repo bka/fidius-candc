@@ -1,4 +1,4 @@
-class HostInterface < ActiveRecord::Migration
+class CreateHostInterface < ActiveRecord::Migration
   def self.up
     create_table :host_interfaces do |t|
       t.integer :host_id
