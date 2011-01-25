@@ -1,4 +1,5 @@
 <tr>
   <td><%= nvd_entry.cve %></td>
+  <td><%= nvd_entry.mscve.name if nvd_entry.mscve %></td>
   <td><%= nvd_entry.summary %></td>
 </tr>
