@@ -2,7 +2,6 @@
   <table>
     <tr>
       <th>CVE</th>
-      <th>MSSBN</th>
       <th>Description</th>
     </tr>
     <%= render :partial => 'nvd_entry', :collection => @nvd_entries %>
@@ -12,3 +11,6 @@
       :update => "nvd_entries", :method => :get %>
 <% end %>
 <br />
+<div id="centerBox">
+  <%= render :partial => 'nvd_entry_info', :collection => @nvd_entries %>
+</div>

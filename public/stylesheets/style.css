@@ -209,7 +209,7 @@ hr.clear {
 }
 
 #welcome h1 a:hover {
-  border: none:
+  border: none;
 }
 
 #welcome input {
@@ -330,3 +330,11 @@ tr.event_triggered:nth-child(odd) {
   border:0px;
   background-color:white;
 }
+
+div#centerBox {
+  position:fixed; 
+  top:10%; 
+  left:50%; 
+  width:60%;
+  margin-left:-30%;
+} 

@@ -6,7 +6,7 @@
 <%= link_to "Alle Hosts löschen", clear_hosts_url %>
 <hr>
 <div id="holder" style="border: 1px solid #000;width:600px;height:600px;float:left;"></div>
-<div id="context-menu" "style="border: 1px solid #000;width:400px;height:600px;float:left;"></div>        
+<div id="context-menu" "style="border: 1px solid #000;width:800px;height:600px;float:left;"></div>        
 <script>
 window.onload = function () {
     new Ajax.Request('/hosts/svg_graph', {asynchronous:false, evalScripts:true, method:'get',
