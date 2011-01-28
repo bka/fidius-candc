@@ -47,6 +47,10 @@ a:hover, a img {
   border: none;
 }
 
+td.no-border a {
+  border:none;
+}
+
 img {
   vertical-align: middle;
 }

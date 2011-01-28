@@ -108,8 +108,8 @@ module FIDIUS
       @prelude_fetcher = FIDIUS::MsfWorker::Auxillaries::PreludeEventFetcher.new
       load_plugins
 
-      puts "Starting tcp reverse handler"
-      run_exploit "exploit/multi/handler", {'LHOST' => '0.0.0.0', 'LPORT' => '5555', 'payload' => 'windows/meterpreter/reverse_tcp'}, true
+      run_multihandler 'windows/meterpreter/reverse_tcp', 5555
+      run_multihandler 'windows/meterpreter/reverse_https', 5556
 
       # init TcpDumper
 #      if MSF_SETTINGS["match_prelude_logs"] == "true"
@@ -118,11 +118,12 @@ module FIDIUS
 #      end
       puts "Started."
       @status = 'running'
+      
     end
 
     def stop
       @status = 'stopping'
-#      @tcpdump.stop
+#      @tcpdump.stop if @tcpdump
 
       puts "Halting..."
       @framework.sessions.each_pair do |i,session|
@@ -243,20 +244,16 @@ module FIDIUS
           puts("Failed to initilize #{mod_name}")
           return
         end
-
         options.each_pair do |key, value|
           mod.datastore[key] = value
         end
-
+        mod.datastore['Quiet'] ||= true
+        mod.datastore['RunAsJob'] ||= false
         cur_thread = Thread.new(mod) do |thread_mod|
           begin
             case thread_mod.type
             when Msf::MODULE_EXPLOIT
-              thread_mod.exploit_simple(
-                'Payload'  => thread_mod.datastore['PAYLOAD'],
-                'Quiet'    => true,
-                'RunAsJob' => false
-              )
+              thread_mod.exploit_simple(mod.datastore)
             when Msf::MODULE_AUX
               thread_mod.run_simple(
                 'Quiet'    => true,
@@ -318,6 +315,7 @@ module FIDIUS
       begin
         require "fidius/msf_plugin/msf_payload_loader.rb"
         @framework.plugins.load("fidius/msf_plugin/payload_logger")
+        @framework.plugins.load("fidius/msf_plugin/multihandler_manager.rb")
       rescue ::Exception
         puts "An error occurred while loading plugins", $!, *$!.backtrace
       end

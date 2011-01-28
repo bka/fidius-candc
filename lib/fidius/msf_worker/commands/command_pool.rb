@@ -82,6 +82,35 @@ module FIDIUS::MsfWorker::CommandPool
     options = {'LHOST' => args[0], 'SRVHOST' => args[0], 'URIPATH' => '/' }
     run_exploit "server/browser_autopwn", options
   end
+
+  # Not documentated yet.
+  #
+  # Call sequence:
+  #   cmd_start_multihandler(:args => [], :task => nil)
+  #
+  # @param [Array] args  Arguments.
+  # @param [Task] task  A Task ActiveRecord.
+  FIDIUS::MsfWorker.register_command :start_multihandler do |payload, lport, lhost|
+    puts "Starting MultiHandler: #{payload} on #{lhost}:#{lport}"
+    run_multihandler payload, lport, lhost
+  end
+
+  FIDIUS::MsfWorker.register_command :stop_multihandler do |jid|
+    @framework.stop_multihandler jid
+  end
+
+  FIDIUS::MsfWorker.register_command :get_running_multihandler do
+    @framework.get_running_multihandler
+  end
+
+  FIDIUS::MsfWorker.register_command :get_payloads do
+    @framework.payloads
+  end
+
+  def run_multihandler payload, lport, lhost='0.0.0.0'
+    run_exploit "exploit/multi/handler", {'LHOST' => lhost, 'LPORT' => lport, 'payload' => payload, 'RunAsJob' => true}, true
+  end
+
 end
 
 class FIDIUS::MsfWorker
