@@ -38,6 +38,7 @@ ActionController::Routing::Routes.draw do |map|
     :restart => :put,
     :stop => :delete
   }
+  map.home '/home', :controller => :welcome, :action => :index
   map.credits '/credits', :controller => :welcome, :action => :credits
   map.browser_autopwn '/browser_autopwn', :controller => :welcome, :action => :browser_autopwn
   map.license '/license', :controller => :welcome, :action => :license

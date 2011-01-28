@@ -46,12 +46,24 @@ module FIDIUS
 
     attr_reader :status
 
-    # :nodoc:
+    # Pretty-prints the given objects.
+    # @param [Object] obj  Anything.
+    # @return [void]
     def p *obj
       pp *obj
     end
 
-    # :nodoc:
+    # Overrides +Kernel.puts+ to do two things:
+    #
+    # 1. prefix the output with the current timestamp (using +$stdout.puts+)
+    # 2. log the output into the database
+    #
+    # In future, this method may be replaced with a "real" log4r
+    # instance or something similar. The database logging feature might
+    # also be disabled.
+    #
+    # @param [Object] obj  Anything.
+    # @return [void]
     def puts *obj
       WorkerLog.establish_connection DB_SETTINGS unless WorkerLog.connected?
       obj.each do |o|
@@ -123,6 +135,53 @@ module FIDIUS
       puts "Halted."
     end
 
+    def cmd_send_to_terminal cmd
+      @console.execute(cmd)
+      result = @console.read+@console.prompt
+      return result
+    end
+
+    def cmd_send_to_msfsession cmd, session_uuid
+      input = Rex::Ui::Text::Input::Readline.new
+      output = Rex::Ui::Text::Output::Buffer.new
+      
+      session = get_session_by_uuid @framework.sessions, session_uuid
+      session.init_ui(input,output)
+      session.run_cmd(cmd)
+      return session.console.output.dump_buffer
+    end
+
+    def task_created
+      Msf::DBManager::Task.find_new_tasks.each do |task|
+        begin
+          task.progress = 0
+          task.save
+          if MSF_SETTINGS["match_prelude_logs"] == "true"
+            Msf::Plugin::FidiusLogger.on_log do |caused_by, data, socket|
+              my_ip = get_my_ip(socket.peerhost)
+              PayloadLog.create(
+                :exploit => caused_by,
+                :payload => data,
+                :src_addr => my_ip,
+                :dest_addr => socket.peerhost,
+                :src_port => socket.localport,
+                :dest_port => socket.peerport,
+                :task_id => task.id
+              )
+            end
+          end
+          exec_task task
+        rescue ::Exception
+          puts "An error occurred while executing task ##{task.id}", $!, *$!.backtrace
+          task.error = $!.to_s
+          task.save
+          raise
+        end
+      end
+    end
+
+  private
+  
     def exec_task task, async = true
       cmd_args = task.module.split
       command = "cmd_#{cmd_args.shift}".to_sym
@@ -158,114 +217,14 @@ module FIDIUS
         raise "Unknown command: #{command}."
       end
     end
-
-    def cmd_send_to_terminal cmd
-      @console.execute(cmd)
-      result = @console.read+@console.prompt
-      return result
-    end
-
-    def cmd_send_to_msfsession cmd, session_uuid
-      input = Rex::Ui::Text::Input::Readline.new
-      output = Rex::Ui::Text::Output::Buffer.new
-      
-      session = get_session_by_uuid @framework.sessions, session_uuid
-      session.init_ui(input,output)
-      session.run_cmd(cmd)
-      return session.console.output.dump_buffer
-    end
-
-    def arp_scann(session, cidr)
-      puts("ARP Scanning #{cidr}")
-      ws = session.railgun.ws2_32
-      iphlp = session.railgun.iphlpapi
-      i, a = 0, []
-      iplst = []
-      found = []
-      ipadd = Rex::Socket::RangeWalker.new(cidr)
-      numip = ipadd.num_ips
-      while (iplst.length < numip)
-        ipa = ipadd.next_ip
-        if (not ipa)
-          break
-        end
-        iplst << ipa
-      end
-      iplst.each do |ip_text|
-        if i < 10
-          a.push(::Thread.new {
-            h = ws.inet_addr(ip_text)
-            ip = h["return"]
-            h = iphlp.SendARP(ip,0,6,6)
-            if h["return"] == session.railgun.const("NO_ERROR")
-              mac = h["pMacAddr"]
-              # XXX: in Ruby, we would do
-              #   mac.map{|m| m.ord.to_s 16 }.join ':'
-              # and not
-              mac_str = mac[0].ord.to_s(16) + ":" +
-                  mac[1].ord.to_s(16) + ":" +
-                  mac[2].ord.to_s(16) + ":" +
-                  mac[3].ord.to_s(16) + ":" +
-                  mac[4].ord.to_s(16) + ":" +
-                  mac[5].ord.to_s(16)
-              puts "IP: #{ip_text} MAC #{mac_str}"
-              found << "#{ip_text}"
-              if session.framework.db.active
-                session.framework.db.report_host(
-                  :workspace => session.framework.db.workspace,
-                  :host => ip_text,
-                  :mac  => mac_str.to_s.strip.upcase
-                )
-                cmd_tcp_scanner ip_text, '22,23,80,120-140,440-450'
-              end
-            end
-          })
-        i += 1
-        else
-          sleep(0.05) and a.delete_if {|x| not x.alive?} while not a.empty?
-          i = 0
-        end
-      end
-      a.delete_if {|x| not x.alive?} while not a.empty?
-      return found
-    end
-
-    def task_created
-      Msf::DBManager::Task.find_new_tasks.each do |task|
-        begin
-          task.progress = 0
-          task.save
-          if MSF_SETTINGS["match_prelude_logs"] == "true"
-            Msf::Plugin::FidiusLogger.on_log do |caused_by, data, socket|
-              my_ip = get_my_ip(socket.peerhost)
-              PayloadLog.create(
-                :exploit => caused_by,
-                :payload => data,
-                :src_addr => my_ip,
-                :dest_addr => socket.peerhost,
-                :src_port => socket.localport,
-                :dest_port => socket.peerport,
-                :task_id => task.id
-              )
-            end
-          end
-          exec_task task
-        rescue ::Exception
-          puts "An error occurred while executing task ##{task.id}", $!, *$!.backtrace
-          task.error = $!.to_s
-          task.save
-          raise
-        end
-      end
-    end
-
-  private
-    #
-    # returns the ip address of that interface, which would connect to
+  
+    # Returns the IP address of that interface, which would connect to
     # an address of the given +iprange+.
     #
-    # see also https://coderrr.wordpress.com/2008/05/28/get-your-local-ip-address/
-    #
+    # @param [String] iprange An IP address (like +127.0.0.1+) or a
+    #                 CIDR range (like +192.168.1.0/24+)
+    # @return [String] An IP address.
+    # @see https://coderrr.wordpress.com/2008/05/28/get-your-local-ip-address/
     def get_my_ip iprange
       orig, Socket.do_not_reverse_lookup = Socket.do_not_reverse_lookup, true
       UDPSocket.open do |s|

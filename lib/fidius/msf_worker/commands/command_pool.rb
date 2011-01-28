@@ -58,62 +58,6 @@ module FIDIUS::MsfWorker::CommandPool
   # Not documentated yet.
   #
   # Call sequence:
-  #   cmd_add_route_to_session(:args => [], :task => nil)
-  #
-  # @param [Array] args  Arguments.
-  # @param [Task] task  A Task ActiveRecord.
-  FIDIUS::MsfWorker.register_command :add_route_to_session do |options|
-    args = options[:args]
-    task = options[:task]
-    puts "add_route_to_session"
-    session = get_session_by_uuid @framework.sessions, args[0]
-    return unless session
-    return unless session.type == 'meterpreter'
-    FIDIUS::Session::add_route_to_session(session)
-  end
-
-  # Returns the session from the +sessions+ array with the UUID +uuid+.
-  def get_session_by_uuid sessions, uuid
-    sessions.each_sorted do |s|
-      if session = sessions.get(s)
-        return session if session.uuid == uuid
-      end
-    end
-  end
-
-  # Not documentated yet.
-  #
-  # Call sequence:
-  #   cmd_arp_scann_session(:args => [], :task => nil)
-  #
-  # @param [Array] args  Arguments.
-  # @param [Task] task  A Task ActiveRecord.
-  FIDIUS::MsfWorker.register_command :arp_scann_session do |options|
-    args = options[:args]
-    task = options[:task]
-    session = get_session_by_uuid @framework.sessions, args[0]
-    return unless session
-    return unless session.type == 'meterpreter'
-    session.net.config.each_route do |route|
-      # Remove multicast and loopback interfaces
-      next if route.subnet =~ /^(224\.|127\.)/
-      next if route.subnet == '0.0.0.0'
-      next if route.netmask == '255.255.255.255'
-      next if (IPAddr.new "#{route.subnet}/#{route.netmask}").include? IPAddr.new( FIDIUS::Session::get_lhost session)
-      mask = IPAddr.new(route.netmask).to_i.to_s(2).count("1")
-      discovered_hosts = arp_scann(session, "#{route.subnet}/#{mask}")
-      discovered_hosts.each do |hostaddress| 
-        host = Msf::DBManager::Host.find_by_address hostaddress
-        pivot_exploited_host = Msf::DBManager::ExploitedHost.find_by_session_uuid args[0]
-        host.pivot_host_id = pivot_exploited_host.host_id if host != nil and pivot_exploited_host != nil
-        host.save
-      end
-    end
-  end
-  
-  # Not documentated yet.
-  #
-  # Call sequence:
   #   cmd_tcp_scanner(:rhost => "", :ports => '1-10000')
   #
   # @param [String] rhost  Msf3 RHOST value.

@@ -2,7 +2,7 @@ class FIDIUS::MsfWorker
   # Loads the predefined commands using register_command.
   # @return nil
   def load_commands
-    ['command_pool', 'autopwn'].each do |f|
+    ['command_pool', 'autopwn', 'arp_scan'].each do |f|
       require "fidius/msf_worker/commands/#{f}"
     end
     nil
