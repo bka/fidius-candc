@@ -22,7 +22,7 @@ module FIDIUS::MsfWorker::Autopwn
 
 private
   def autopwn iprange, lhost, task = nil
-    manager = SubnetManager.new @framework, iprange, 1, nil, lhost
+    manager = FIDIUS::MsfPlugin::AutoPwn.new @framework, iprange, 1, nil, lhost
     my_ip = get_my_ip iprange
     # tell our prelude fetcher that we want to have all events we generate in
     # prelude from now on

@@ -17,8 +17,8 @@ module FIDIUS
       raise ArgumentError, "could not load config/msf.yml" unless MSF_SETTINGS
       raise ArgumentError, "could not load config/database.yml" unless DB_SETTINGS
 
+      require 'fidius-autopwn'
       $:.unshift(File.join MSF_SETTINGS['msf_path'], 'lib')
-      require MSF_SETTINGS["subnet_manager_path"]
       require 'msf/base'
       require 'msf/ui/console/driver'
       require 'msf/ui/web'
@@ -316,8 +316,8 @@ module FIDIUS
 
     def load_plugins
       begin
-        require "fidius/msf_plugins/msf_payload_loader.rb"
-        @framework.plugins.load("fidius/msf_plugins/payload_logger")
+        require "fidius/msf_plugin/msf_payload_loader.rb"
+        @framework.plugins.load("fidius/msf_plugin/payload_logger")
       rescue ::Exception
         puts "An error occurred while loading plugins", $!, *$!.backtrace
       end
