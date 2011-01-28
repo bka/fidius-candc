@@ -12,7 +12,6 @@ class MultihandlersController < ApplicationController
   end
   
   def stop
-    p params
     @worker = get_msf_worker
     @worker.cmd_stop_multihandler params[:jid]
     redirect_to multihandlers_url  
