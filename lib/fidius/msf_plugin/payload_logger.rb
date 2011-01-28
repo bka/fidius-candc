@@ -63,7 +63,7 @@ class Msf::Plugin::FidiusLogger < Msf::Plugin
 	  end
 
 	  def on_socket_created(comm, sock, param)
-		  sock.extend(FIDIUS::MsfPlugins::SocketTracer)
+		  sock.extend(FIDIUS::MsfPlugin::SocketTracer)
 		  sock.context = param.context
 		  sock.params = param
 		  sock.initlog
@@ -92,7 +92,7 @@ end
 
 # This module extends the captured socket instance
 # Copied from plugins/socket_logger.rb
-module FIDIUS::MsfPlugins::SocketTracer
+module FIDIUS::MsfPlugin::SocketTracer
   @@last_id = 0
 
   attr_accessor :context, :params
