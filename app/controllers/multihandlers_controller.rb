@@ -7,7 +7,7 @@ class MultihandlersController < ApplicationController
   
   def create
     @worker = get_msf_worker
-    @worker.cmd_start_multihandler params[:payload], params[:port], params[:interface] rescue nil
+    @worker.cmd_start_multihandler params[:payload][:payload], params[:port], params[:interface] #TODO: rescue nil
     redirect_to multihandlers_url  
   end
   

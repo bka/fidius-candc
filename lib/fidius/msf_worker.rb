@@ -244,7 +244,6 @@ module FIDIUS
           puts("Failed to initilize #{mod_name}")
           return
         end
-
         options.each_pair do |key, value|
           mod.datastore[key] = value
         end
