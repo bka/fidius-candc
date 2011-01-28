@@ -132,7 +132,7 @@ module FIDIUS
     def self.get_lhost session
       address = nil
       if session.respond_to? :tunnel_local and session.tunnel_local.to_s.length > 0
-        return session.tunnel_local[0, session.tunnel_local.rindex(":") || session.tunnel_local.length ]
+        return session.tunnel_local[(session.tunnel_local.rindex("-") || - 1) + 1 ..( session.tunnel_local.rindex(":") || session.tunnel_local.length + 1) - 1 ]
       else
         puts("Session with no local_host or tunnel_local")
       end
