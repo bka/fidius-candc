@@ -316,6 +316,7 @@ module FIDIUS
       begin
         require "fidius/msf_plugins/msf_payload_loader.rb"
         @framework.plugins.load("fidius/msf_plugins/payload_logger")
+        @framework.plugins.load("fidius/msf_plugins/multihandler_manager.rb")
       rescue ::Exception
         puts "An error occurred while loading plugins", $!, *$!.backtrace
       end

@@ -39,7 +39,8 @@ ActionController::Routing::Routes.draw do |map|
     :stop => :delete
   }
   map.resources :multihandlers, :collection => {
-    :stop => :delete
+    :stop => :delete,
+    :auto_complete_for_payload_payload => :get
   }
   map.home '/home', :controller => :welcome, :action => :index
   map.credits '/credits', :controller => :welcome, :action => :credits
