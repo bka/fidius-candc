@@ -2,6 +2,7 @@ class MultihandlersController < ApplicationController
 
   def index
     @worker = get_msf_worker
+    @interfaces = get_interfaces
     @multihandlers = @worker.cmd_get_running_multihandler rescue nil
   end
   
@@ -28,5 +29,12 @@ def auto_complete_for_payload_payload()
   end
   render :inline => "<%= auto_complete_without_model @items, 'payload' %>" 
 end 
-
+  private
+  
+   def get_interfaces
+    cmd = IO.popen('which ifconfig'){ |f| f.readlines[0] }
+    raise RuntimeError.new("ifconfig not in PATH") unless !cmd.nil?
+    @ifconfig = IO.popen("/sbin/ifconfig -a"){ |f| f.readlines.join }
+    r = @ifconfig.scan(/inet Adresse:((?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?))/).flatten
+  end
 end
