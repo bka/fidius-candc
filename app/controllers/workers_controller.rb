@@ -1,5 +1,4 @@
 class WorkersController < ApplicationController
-  include DrbHelper
 
   def index
     @worker_status = get_msf_worker.status rescue 'not running'

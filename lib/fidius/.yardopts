@@ -1,7 +1,9 @@
 --load ./yard_register_command_handler.rb
 --title "FIDIUS MSF Worker"
 --exclude yard_register_command_handler.rb
+--private
 commands.rb
-auxillaries/**/*.rb
-commands/**/*.rb
+msf_worker/**/*.rb
+msf_plugins/**/*.rb
+session/**/*.rb
 

@@ -15,13 +15,11 @@ module ConfigHelper
     msf = YAML::load(open(File.join(RAILS_ROOT,'config', 'msf.yml')))
     raise Exception.new("Invalid msf.yml. Pleas check.") if !msf
     throw_exception_if_empty("msf_path",msf)
-    throw_exception_if_empty("subnet_manager_path",msf)
     throw_exception_if_empty("tcpdump_iface",msf)
     throw_exception_if_empty("match_prelude_logs",msf)
     #throw_exception_if_empty("cve_db",msf)
 
     throw_exception_if_not_valid_directory("msf_path",msf)
-    throw_exception_if_not_valid_file("subnet_manager_path",msf)
     #throw_exception_if_not_valid_directory("cve_db",msf)
     throw_exception_if_empty("drb_url",msf)
   end

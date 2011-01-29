@@ -4,7 +4,6 @@ def disable_firewall session, mode="DISABLE", exception = nil
 end
 
 def read_firewall_config session
-    print_status("Getting Firewall Status")
     result = execute_cmd_with_channel "netsh firewall show state"
     unless result[:error]
         result[:firewall_state] = "unknown"
@@ -12,9 +11,9 @@ def read_firewall_config session
           if (o.include? "Betriebsmodus")
             state = ""
             if o.include? "Inaktiv"
-                state = "inactive"
+                state = "DISABLE"
             elsif o.include? "Aktiv"
-                state = "active"                
+                state = "ENABLE"                
             end
             result[:firewall_state] = state
           end
@@ -33,16 +32,13 @@ def read_firewall_config session
 end
 
 def open_port session, port, rule_name = "WindowsUpdate"
-    print_status("Opening Port ...")
     cmd = "netsh firewall add portopening TCP #{port} #{rule_name}"
     execute_cmd_with_channel cmd
 end
 
 #todo
 def execute_cmd_with_channel cmd_string
-  print_status "executing: #{cmd_string}"
   open_port = session.sys.process.execute("cmd.exe /c #{cmd_string}", nil, {'Hidden' => 'true','Channelized' => true})
-  print_status("Wait for Response ...")
   result = {}
   result[:channel] = ""
   while(d = open_port.channel.read)

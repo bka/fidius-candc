@@ -89,8 +89,8 @@ private
                 :host => ip_text,
                 :mac  => mac_str.to_s.strip.upcase
               )
-              cmd_tcp_scanner ip_text, '22,23,80,120-140,440-450'
             end
+            cmd_tcp_scanner(:rhost => ip_text, :ports => '20-25,80,120-140,440-450')
           end
         })
       i += 1
