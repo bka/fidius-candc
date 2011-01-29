@@ -27,16 +27,23 @@ module Msf
         return false
       end
       
-      # FIXME Quick and dirty, find better solution
+      # FIXME The search for NVD entries is quite ugly and should be done
+      # a bit better. The performance is ok nevertheless. (About 5 seconds,
+      # searching through 45.000 NVD entries)
       def nvd_entries
         entries = {}
         services.each do |service|
-          products = CveDb::Product.find(:all,
-                                         :conditions => ["product LIKE ?",
-                                                         "%#{service.name}%"])
-          products.each do |product|
-            product.nvd_entries.each do |entry|
-              entries[entry.id.to_sym] = entry unless entries.has_key? entry.id.to_sym
+          # Only search for products where we have informations about the
+          # version, otherwise there will be too many NVD entries (depending
+          # on the nvd database).
+          if service.info
+            products = CveDb::Product.find(:all,
+                        :conditions => ["product IN (?) AND version IN (?)",
+                                        service.products, service.versions])
+            products.each do |product|
+              product.nvd_entries.each do |entry|
+                entries[entry.id.to_sym] = entry unless entries.has_key? entry.id.to_sym
+              end
             end
           end
         end
@@ -46,6 +53,7 @@ module Msf
         end
         entries_array
       end
+      
     end
   end
 end
