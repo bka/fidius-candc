@@ -207,8 +207,7 @@ def get_frfx_forms newRun = false, clear = true
     @client.run_cmd("enum_firefox") #works only local
   end
   
-  #config = "config/msf.yml"
-  config =  "/home/nox/dev/fidius2/candc3/config/msf.yml"
+  config = "config/msf.yml"
   
   if !File.exists? config
     puts "No config file found."
