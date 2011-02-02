@@ -18,7 +18,13 @@
   <% form_tag(multihandlers_url, :method => :post) do %>
     <table>
       <tr>
-        <td> Interface </td><td> <%= text_field_tag 'interface' %></td>
+        <td> Interface </td><td>
+          <% if @interfaces.empty? %>
+             <%= text_field_tag 'interface' %>
+          <% else %>
+            <%= select_tag('interface', options_for_select(@interfaces)) %>
+          <% end %>
+        </td>
       </tr>
       <tr>
         <td>Port </td><td> <%= text_field_tag 'port' %></td>
