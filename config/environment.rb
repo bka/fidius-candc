@@ -5,15 +5,19 @@ RAILS_GEM_VERSION = '2.3.5' unless defined? RAILS_GEM_VERSION
 
 # Bootstrap the Rails environment, frameworks, and default configuration
 require File.join(File.dirname(__FILE__), 'boot')
+
 if ENV["RAILS_ENV"] == "test"
-  class Rails::Configuration
-    def default_eager_load_paths
-          %w(
-            app/metal
-            app/models
-            app/controllers
-            app/helpers
-          ).map { |dir| "#{root_path}/#{dir}" }.select { |dir| File.directory?(dir) && dir =! "prelude" }
+  class Rails::Initializer  
+    def load_application_classes
+      return if $rails_rake_task
+      if configuration.cache_classes
+        configuration.eager_load_paths.each do |load_path|
+          matcher = /\A#{Regexp.escape(load_path)}(.*)\.rb\Z/
+          Dir.glob("#{load_path}/**/*.rb").delete_if { |dir| dir.include? "/prelude/"}.sort.each do |file|
+            require_dependency file.sub(matcher, '\1')
+          end
+        end
+      end
     end
   end
 end
