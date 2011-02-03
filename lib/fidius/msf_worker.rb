@@ -108,8 +108,8 @@ module FIDIUS
       @prelude_fetcher = FIDIUS::MsfWorker::Auxillaries::PreludeEventFetcher.new
       load_plugins
 
-      run_multihandler 'windows/meterpreter/reverse_tcp', 5555
-      run_multihandler 'windows/meterpreter/reverse_https', 5556
+      @framework.start_multihandler 'payload' => 'windows/meterpreter/reverse_tcp', 'lport' => 5555, 'lhost' => '0.0.0.0'
+      @framework.start_multihandler 'payload' => 'windows/meterpreter/reverse_https', 'lport' => 5556, 'lhost' => '0.0.0.0'
 
       # init TcpDumper
 #      if MSF_SETTINGS["match_prelude_logs"] == "true"
@@ -316,6 +316,7 @@ module FIDIUS
         require "fidius/msf_plugin/msf_payload_loader.rb"
         @framework.plugins.load("fidius/msf_plugin/payload_logger")
         @framework.plugins.load("fidius/msf_plugin/multihandler_manager.rb")
+        puts "Loaded MultiHandlerManager-Plugin"
       rescue ::Exception
         puts "An error occurred while loading plugins", $!, *$!.backtrace
       end

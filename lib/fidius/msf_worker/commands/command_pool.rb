@@ -83,10 +83,6 @@ module FIDIUS::MsfWorker::CommandPool
     run_exploit "server/browser_autopwn", options
   end
 
-  def run_multihandler payload, lport, lhost='0.0.0.0'
-    run_exploit "exploit/multi/handler", {'LHOST' => lhost, 'LPORT' => lport, 'payload' => payload, 'RunAsJob' => true}, true
-  end
-
 end
 
 class FIDIUS::MsfWorker

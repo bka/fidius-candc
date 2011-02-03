@@ -5,8 +5,8 @@ module FIDIUS::MsfWorker::Multihandler
   end
   
   FIDIUS::MsfWorker.register_command :start_multihandler do |options|
-    puts "Starting MultiHandler: #{options[:payload]} on #{options[:lhost]}:#{options[:lport]}"
-    run_multihandler options[:payload], options[:lport], options[:lhost]
+    puts "Starting MultiHandler: #{options['payload']} on #{options['lhost']}:#{options['lport']}"
+    @framework.start_multihandler options
   end
 
   FIDIUS::MsfWorker.register_command :get_running_multihandler do
