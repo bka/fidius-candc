@@ -24,7 +24,7 @@
   <tr>
     <td>
       <% sessions.each do |session| %>
-      <td><%= session.service.name %></td>
+      <td><%= (session.service != nil) ? session.service.name : nil %></td>
       <td>
         <%= link_to "Meterpreter-Shell", terminals_url(:session_id=>session.session_uuid) %>
       </td>
