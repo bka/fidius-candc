@@ -21,9 +21,8 @@
 <h2>Jobs</h2>
 
 <table>
-  <tr>
-    <td>
-      <% sessions.each do |session| %>
+  <% sessions.each do |session| %>
+    <tr>
       <td><%= (session.service != nil) ? session.service.name : nil %></td>
       <td>
         <%= link_to "Meterpreter-Shell", terminals_url(:session_id=>session.session_uuid) %>
@@ -39,25 +38,21 @@
           <%= hidden_field_tag 'sessionID', session.session_uuid %>
           <%= submit_tag :arpscannsession %>
         <% end %>
-      <% end %>
-    </td>
-    <td>
-      <% sessions.each do |session| %>
+      </td>
+      <td>
         <% form_tag installpersistence_tasks_url do |f| %>
           <%= hidden_field_tag 'sessionID', session.session_uuid %>
           <%= submit_tag :installpersistence %>
         <% end %>
-      <% end %>
-    </td>
-    <td>
-      <% sessions.each do |session| %>
+      </td>
+      <td>
         <% form_tag execreconnaissance_tasks_url do |f| %>
           <%= hidden_field_tag 'sessionID', session.session_uuid %>
           <%= submit_tag :pry %>
         <% end %>
-      <% end %>
-    </td>
-  </tr>
+      </td>
+    </tr>
+  <% end %>
 </table>
 
 <% end %>
