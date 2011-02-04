@@ -30,6 +30,7 @@ ActionController::Routing::Routes.draw do |map|
     :execreconnaissance => :post,
     :installpersistence => :post,
     :startbrowserautopwn => :post,
+    :startfileautopwn => :post,
     :clean => :get
   }
   map.resources :payload_logs

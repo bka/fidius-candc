@@ -1,5 +1,13 @@
-
+<p>Enter the IP address the browser autopwn should be started.<br/>
+The website with browser autopwn will be available at http://<your IP address>:8080/</p>
 <% form_tag startbrowserautopwn_tasks_url do |f| %>
   <%= text_field_tag :address %>
   <%= submit_tag :'Start Browser autopwn' %>
+<% end %>
+
+<p>Enter the IP address the file autopwn should be bind to.<br/>
+The file autopwn will build a web page at http://<your IP address>:8080/file with loots of links to funny documents.</p>
+<% form_tag startfileautopwn_tasks_url do |f| %>
+  <%= text_field_tag :address %>
+  <%= submit_tag :'Start File autopwn' %>
 <% end %>
