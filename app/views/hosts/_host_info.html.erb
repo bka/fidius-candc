@@ -3,8 +3,13 @@
 <hr>
 <%= render :partial => "services/services_from_host", :locals => { :services => @host.services } %>
 
+<div>
+  <%= link_to "Details", details_host(@host) %>
+</div>
+
 <%= render :partial => "services/sessions_from_host", :locals => { :sessions => @host.exploited_hosts } %>
 
 <div id="nvd_entries">
   <%= render :partial => "nvd_entries" %>
 </div>
+
