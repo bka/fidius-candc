@@ -17,7 +17,8 @@ ActionController::Routing::Routes.draw do |map|
     :clear => :get
   },:member => {
     :info => :get,
-    :nvd_entries => :get
+    :nvd_entries => :get,
+    :details => :get
   }
     
   map.resources :terminals, :collection => {:send_cmd => :post}, :member=>{:meterpreter=>:get}
