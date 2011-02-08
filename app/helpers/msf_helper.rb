@@ -13,6 +13,11 @@ module ActionView
     def msf_db_manager_task_path *args
       task_path(*args)
     end
+    
+    #quick and dirty
+    def details_host(host)
+      "/hosts/#{host.id}/details"
+    end
   end
 end
 module MsfHelper
