@@ -43,4 +43,8 @@ class HostsController < ApplicationController
     @host.destroy
     redirect_to :hosts
   end
+  
+  def details
+    @host = Msf::DBManager::Host.find params[:id]
+  end
 end
