@@ -4,18 +4,18 @@ The website with browser autopwn will be available at http://&lt;your IP address
   <% if @interfaces.empty?%>
     <%= text_field_tag :address %>
   <% else %>
-    <%= select_tag('adress', options_for_select(@interfaces)) %>
+    <%= select_tag('address', options_for_select(@interfaces)) %>
   <% end %>
   <%= submit_tag :'Start Browser autopwn' %>
 <% end %>
 
 <p>Enter the IP address the file autopwn should be bind to.<br/>
 The file autopwn will build a web page at http://&lt;your IP address&gt;:8080/file with loots of links to funny documents.</p>
-<% form_tag startfileautopwn_browser_autopwn_url do |f| %>
+<% form_tag startfileautopwn_browser_autopwn_url do |x| %>
   <% if @interfaces.empty?%>
     <%= text_field_tag :address %>
   <% else %>
-    <%= select_tag('adress', options_for_select(@interfaces)) %>
+    <%= select_tag('address', options_for_select(@interfaces)) %>
   <% end %>
   <%= submit_tag :'Start File autopwn' %>
 <% end %>
