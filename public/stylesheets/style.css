@@ -342,3 +342,15 @@ div#centerBox {
   width:60%;
   margin-left:-30%;
 } 
+
+.divTable {
+  display: table;
+}
+
+.rowContent {
+  display: table-row;
+}
+
+.cell {
+  display: table-cell;
+}
