@@ -9,9 +9,8 @@ module FIDIUS
       REGEXP_IP = /\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/
       REGEXP_MAC = /\S{1,2}\-\S{1,2}\-\S{1,2}\-\S{1,2}\-\S{1,2}\-\S{1,2}/
 
-      attr_reader ownedHost
-
       def initialize
+        @ownedHost = nil
         run_all
       end
       
