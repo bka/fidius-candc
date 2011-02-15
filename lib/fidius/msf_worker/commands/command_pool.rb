@@ -42,17 +42,12 @@ module FIDIUS::MsfWorker::CommandPool
     args = options[:args]
     task = options[:task]
     begin
-      puts "exec reconnaissance"
-      
       session = get_session_by_uuid @framework.sessions, args[0]
-      puts "session: #{session}"
-      script_path = File.join "#{RAILS_ROOT}", "script","reconnaissance", "reconnaissance.rb"
-      session.execute_file(script_path,args)
-      puts "exec finish"
+      script_path = File.join RAILS_ROOT, "script", "reconnaissance", "reconnaissance.rb"
+      session.execute_file(script_path, args)
     rescue
       puts $!
     end
-    puts "fertig"
   end
   
   # Not documentated yet.

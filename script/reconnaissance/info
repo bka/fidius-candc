@@ -1,8 +1,0 @@
-reconnect.rc
-
-  ./msfconsole -r /home/yourname/path/reconnect.rc
-
-reconnaissance.rb, camouflagee.rb
-
-  ln -s /home/yourname/path/migrateToExplorerExe.rb /home/yourName/pathToMsf/scripts/meterpreter/
-  ln -s /home/yourname/path/reconnaissance.rb /home/yourName/pathToMsf/scripts/meterpreter/
