@@ -1,7 +1,7 @@
 # @deprecated This module will be splitted into serveral (useful)
 #             submodules.
 module FIDIUS::MsfWorker::CommandPool
-  # Will run the SubnetManager.
+  # Will run the autopwn'ing.
   #
   # Call sequence:
   #   cmd_nmap(:args => [], :task => nil)
@@ -11,7 +11,7 @@ module FIDIUS::MsfWorker::CommandPool
   FIDIUS::MsfWorker.register_command :nmap do |options|
     args = options[:args]
     task = options[:task]
-    manager = SubnetManager.new @framework, args[0]
+    manager = FIDIUS::MsfPlugin::AutoPwn.new @framework, args[0]
     manager.run_nmap
   end
 
@@ -43,7 +43,7 @@ module FIDIUS::MsfWorker::CommandPool
     task = options[:task]
     begin
       session = get_session_by_uuid @framework.sessions, args[0]
-      script_path = File.join RAILS_ROOT, "script", "reconnaissance", "reconnaissance.rb"
+      script_path = File.join 'fidius', 'reconnaissance', 'reconnaissance'
       session.execute_file(script_path, args)
     rescue
       puts $!

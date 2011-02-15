@@ -1,7 +1,6 @@
 #!/usr/bin/env script/runner
 
 require 'drb'
-require 'pp'
 require 'fidius/msf_worker'
 
 module FIDIUS
