@@ -1,8 +1,0 @@
-<tr>
-  <td> <%= multihandler[:jid] %> </td>
-  <td> <%= multihandler[:payload] %> </td>
-  <td> <%= multihandler[:lhost] %> </td>
-  <td> <%= multihandler[:lport] %> </td>
-  <td> <%= multihandler[:start_time].strftime("%d.%m.%Y %H:%S") %> </td>
-  <td class="no-border">  <%= link_to image_tag('stop.png', :alt => 'stop'), stop_multihandlers_url(:jid=>multihandler[:jid]), :confirm => 'Are you sure?', :method => :delete %> </td>
-</tr>
