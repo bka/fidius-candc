@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Service:</b>
+  <%= @host.service_id %>
+</p>
+
+<p>
+  <b>Name:</b>
+  <%= @host.name %>
+</p>
+
+<p>
+  <b>Ip:</b>
+  <%= @host.ip %>
+</p>
+
+
+<%= link_to 'Edit', edit_host_path(@host) %> |
+<%= link_to 'Back', hosts_path %>

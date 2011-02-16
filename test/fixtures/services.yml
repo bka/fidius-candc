@@ -1,0 +1,11 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  name: MyString
+  port: 1
+  proto: MyString
+
+two:
+  name: MyString
+  port: 1
+  proto: MyString
