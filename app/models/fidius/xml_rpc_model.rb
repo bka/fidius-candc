@@ -17,21 +17,40 @@ class FIDIUS::XmlRpcModel < ActiveRecord::Base
     return XMLRPC::Client.new(host,"/",port)
   end
 
-  def self.find(*args)
-    rpc = self.connect
-    puts self.name
-    xml = rpc.call("model.host.find",1)
-    doc=REXML::Document.new(xml)
+  def self.find_by_sql(query)
 
-    self.name
-    doc.root.each_element('//host') do |tag|
-      object = Host.new
-      tag.each_element do |e|
-        key = e.name
-        value = e.children.first
-        eval("object.#{key} = #{value}")
-      end
-      puts object.inspect
+  end
+
+  def self.first
+
+  end
+
+  def self.last
+
+  end
+
+  def self.find(*args)
+    # TODO: find :all
+    # TODO: more generic, not only hosts
+    rpc = self.connect
+    model_name = self.name
+    begin
+      xml = rpc.call("model.host.find",args)
+        doc=REXML::Document.new(xml)
+        doc.root.each_element('//host') do |tag|
+          object = nil
+          eval("object = #{model_name}.new")
+          tag.each_element do |e|
+            key = e.name
+            value = e.children.first
+            eval("object.#{key} = #{value}")
+          end
+          puts object.inspect
+        end
+    rescue XMLRPC::FaultException=>e
+      puts "ERROR: *"
+      puts "CODE: #{e.faultCode}"
+      puts "FAULT: #{e.faultString}"
     end
     nil
   end
