@@ -1,4 +1,4 @@
-class Service < ActiveRecord::Base
+class Service < FIDIUS::XmlRpcModel
   def self.columns
     @columns ||= []
   end

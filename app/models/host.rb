@@ -1,4 +1,4 @@
-class Host < ActiveRecord::Base
+class Host < FIDIUS::XmlRpcModel
   def self.columns
     @columns ||= []
   end
