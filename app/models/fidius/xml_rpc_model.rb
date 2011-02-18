@@ -34,25 +34,28 @@ class FIDIUS::XmlRpcModel < ActiveRecord::Base
     # TODO: more generic, not only hosts
     rpc = self.connect
     model_name = self.name
+    objects = []
     begin
-      xml = rpc.call("model.host.find",args)
-        doc=REXML::Document.new(xml)
-        doc.root.each_element('//host') do |tag|
-          object = nil
-          eval("object = #{model_name}.new")
-          tag.each_element do |e|
-            key = e.name
-            value = e.children.first
-            eval("object.#{key} = #{value}")
-          end
-          puts object.inspect
+      xml = rpc.call("model.#{model_name.downcase}.find", args)
+      doc = REXML::Document.new(xml)
+      doc.root.each_element('//host') do |tag|
+        object = nil
+        eval("object = #{model_name}.new")
+        tag.each_element do |e|
+          key = e.name
+          value = e.children.first
+          eval("object.#{key} = #{value}")
         end
-    rescue XMLRPC::FaultException=>e
+        puts object.inspect
+        objects << object
+      end
+    rescue XMLRPC::FaultException => e
       puts "ERROR: *"
       puts "CODE: #{e.faultCode}"
       puts "FAULT: #{e.faultString}"
+      raise
     end
-    nil
+    objects
   end
   
   def self.all(*args)
