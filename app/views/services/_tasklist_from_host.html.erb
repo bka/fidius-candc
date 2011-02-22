@@ -1,0 +1,34 @@
+<% if HostTasklist.all.empty? %>
+  <ul>
+    <li> <b>No Tasklist-Data available</b>
+  </ul>
+<% else %>
+
+<h2>Tasklist-Data</h2>
+
+  <table>
+  <tr>
+    <th>Pid</th>
+    <th>Name</th>
+    <th>Services</th>
+  </tr>
+  <% HostTasklist.all.each do |tupel| %>
+    <tr>
+      <td style="vertical-align:top"><%= tupel.name %></td>
+      <td style="vertical-align:top"><%= tupel.pid %></td>
+      <% 
+        z = ''
+        a = HostTaskService.find(:all, :conditions => { :pid => tupel.pid })
+        a.each do |b|
+          z << b.service << ', '
+        end
+        if z.size > 0 
+          z = z[0,z.size - 2] # deletes last character 
+        end
+      %>
+      <td style="width:300px"><%= z %></td>
+   </tr>
+  <% end %>
+  </table>
+<% end %>
+ 

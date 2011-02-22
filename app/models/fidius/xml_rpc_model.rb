@@ -29,11 +29,11 @@ class FIDIUS::XmlRpcModel < ActiveRecord::Base
   end
 
   def self.first
-    find(:first).first
+    find(:first)
   end
 
   def self.last
-    find(:last).first
+    find(:last)
   end
 
   def self.find(*args)
@@ -42,7 +42,9 @@ class FIDIUS::XmlRpcModel < ActiveRecord::Base
   end
   
   def self.all(*args)
-    find(:all, *args)
+    res = find(:all, *args)
+    return [res] if !res.respond_to?("size")
+    res
   end
 
   def self.call_rpc(method, *args)
@@ -88,6 +90,7 @@ class FIDIUS::XmlRpcModel < ActiveRecord::Base
       end
       res << object
     end
+    return res[0] if res.size == 1
     return res
   end
 
@@ -117,5 +120,8 @@ class FIDIUS::XMLRpcRelation < ActiveRecord::Relation
   end
   def to_a
     @records = @klass.find(:all,*@find_options)
+    puts "result: #{@records}"
+    return [@records] if !@records.respond_to?("size")
+    @records
   end
 end

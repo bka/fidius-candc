@@ -1,43 +1,41 @@
 class HostsController < ApplicationController
   def index
     @hosts = Host.all
+    redirect_to :action=>:graph
   end
 
   def show
-    @host = Host.find(params[:id])
+    @host = Host.find params[:id]
   end
 
-  def new
-    @host = Host.new
+  def graph
+
+  end
+  
+  def nvd_entries
+    @show_nvd    = true
+    @host        = Host.find params[:id]
+    @nvd_entries = @host.nvd_entries
+    
+    render :partial => "hosts/nvd_entries"
   end
 
-  def edit
-    @host = Host.find(params[:id])
+  def clear
+    raise "destroy all hosts is not implemented"
+    redirect_to :hosts
   end
 
-  def create
-    @host = Host.new(params[:host])
-
-    if @host.save
-      redirect_to(@host, :notice => 'Host was successfully created.')
-    else
-      render :action => "new"
-    end
+  def info
+    @host = Host.find params[:id]
+    a = render_to_string :partial=>"hosts/host_info", :layout => "blank"
+    b = render_to_string :partial=>"hosts/host_commands", :layout => "blank"
+    render :update do |page|
+      page.replace_html "context-menu", a+b
+    end       
   end
 
-  def update
-    @host = Host.find(params[:id])
-
-    if @host.update_attributes(params[:host])
-      redirect_to(@host, :notice => 'Host was successfully updated.')
-    else
-      render :action => "edit"
-    end
+  def svg_graph
+    @hosts = Host.all
   end
 
-  def destroy
-    @host = Host.find(params[:id])
-    @host.destroy
-    redirect_to(hosts_url)
-  end
 end

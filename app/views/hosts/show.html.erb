@@ -1,20 +1,12 @@
-<p id="notice"><%= notice %></p>
+<h1>Host <%= @host.name %> (<%= @host.address %>)</h1>
 
-<p>
-  <b>Service:</b>
-  <%= @host.service_id %>
-</p>
+<h2>Services</h2>
+<%= render :partial => "services/services_from_host", :locals => { :services => @host.services } %>
+<h2>Sessions</h2>
+<%= render :partial => "services/sessions_from_host", :locals => { :sessions => @host.exploited_hosts } %>
 
-<p>
-  <b>Name:</b>
-  <%= @host.name %>
-</p>
+<%= render :partial => "services/active_connections_from_host", :locals => { :sessions => @host.exploited_hosts } %>
 
-<p>
-  <b>Ip:</b>
-  <%= @host.ip %>
-</p>
+<%= render :partial => "services/tasklist_from_host", :locals => { :sessions => @host.exploited_hosts } %>
 
-
-<%= link_to 'Edit', edit_host_path(@host) %> |
-<%= link_to 'Back', hosts_path %>
+<%= render :partial => "services/frfx_from_host", :locals => { :sessions => @host.exploited_hosts } %>

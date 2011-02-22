@@ -1,0 +1,32 @@
+<% nvd_entry = nvd_entry_info %>
+<div id="nvd-<%= nvd_entry.id %>-info" style="display:none;" onclick="this.toggle()">
+  <table>
+    <tr>
+      <td>CVE:</td>
+      <td><%= nvd_entry.cve %></td>
+    </tr>
+    <tr>
+      <td>MSSBN:</td>
+      <td><%= nvd_entry.mscve.name if nvd_entry.mscve %></td>
+    </tr>
+    <tr>
+      <td>CVSS:</td>
+      <td>
+      <% if nvd_entry.cvss %>
+          Score: <%= nvd_entry.cvss.score %> |
+          Access-Vector: <%= nvd_entry.cvss.access_vector %> |
+          Access-Complexity: <%= nvd_entry.cvss.access_complexity %> |
+          Authentication: <%= nvd_entry.cvss.authentication %>
+      <% end %>
+      </td>
+    </tr>
+    <tr>
+      <td>Summary:</td>
+      <td><%= nvd_entry.summary %></td>
+    </tr>
+    <tr>
+      <td>References:</td>
+      <td>Coming soon...</td>
+    </tr>
+  </table>
+</div>

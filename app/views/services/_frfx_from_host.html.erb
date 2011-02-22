@@ -1,0 +1,23 @@
+<% if FrfxForm.all.empty? %>
+  <ul>
+    <li> <b>No Firefox-Form-Data available</b>
+  </ul>
+<% else %>
+
+<h2>Firefox-Formular-Data</h2>
+
+  <table>
+  <tr>
+    <th>Formular name</th>
+    <th>Value</th>
+    <th>Updated at</th>
+  </tr>
+  <% FrfxForm.all.each do |tupel| %>
+    <tr>
+      <td><%= tupel.form_name %></td>
+      <td><%= tupel.value %></td>
+      <td><%= tupel.updated_at%></td>
+   </tr>
+  <% end %>
+  </table>
+<% end %>

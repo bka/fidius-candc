@@ -1,27 +1,19 @@
-<h1>Listing hosts</h1>
+<h1>Hosts</h1>
 
 <table>
   <tr>
-    <th>Service</th>
-    <th>Name</th>
-    <th>Ip</th>
-    <th></th>
-    <th></th>
-    <th></th>
+    <th>Address</th>
+    <th>OS name</th>
+    <th>OS service pack</th>
+    <th>Hostname</th>
   </tr>
-
-<% @hosts.each do |host| %>
-  <tr>
-    <td><%= host.service_id %></td>
-    <td><%= host.name %></td>
-    <td><%= host.ip %></td>
-    <td><%= link_to 'Show', host %></td>
-    <td><%= link_to 'Edit', edit_host_path(host) %></td>
-    <td><%= link_to 'Destroy', host, :confirm => 'Are you sure?', :method => :delete %></td>
-  </tr>
-<% end %>
+  <% @hosts.each do |host| %>
+	<%pivot_host = @hosts.select {|e| e.id == host.pivot_host_id} if host.pivot_host_id != nil%>
+    <tr<%= host.exploited? ? 'class="exploited"' : '' %>>
+      <td><%="#{pivot_host[0].address} --> " if host.pivot_host_id != nil %><%= host.address %></td>
+      <td><%= host.os_name %></td>
+      <td><%= host.os_sp %></td>
+      <td><%= link_to host.name, host %></td>
+    </tr>
+  <% end %>
 </table>
-
-<br />
-
-<%= link_to 'New Host', new_host_path %>
