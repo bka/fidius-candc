@@ -1,4 +1,3 @@
-require 'fidius/xml_rpc_model'
 class Host < FIDIUS::XmlRpcModel
 
   column :id, :integer

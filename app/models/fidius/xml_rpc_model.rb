@@ -61,22 +61,26 @@ class FIDIUS::XmlRpcModel < ActiveRecord::Base
     nil
   end
 
-  # TODO: generalize this for all models ??
-  def self.avaliable_models
-    ["host","service"]
+  def self.available_models
+    # find all models in app/models 
+    path = "#{RAILS_ROOT}/app/models/"
+    Dir.foreach(path).select do |file|
+      !File.directory?(path+file)
+    end.map do |filename|
+      filename.gsub(".rb","")
+    end
   end
 
   def self.xml_query_string
     # build string like '//host | //fidius-asset-host'
     res = Array.new
-    avaliable_models.each do |model|
+    available_models.each do |model|
       res << "//#{model} | //fidius-asset-#{model} | //fidius-#{model}"
     end
     res.join("|")
   end
 
   def self.parse_xml(xml)
-    #puts xml
     res = Array.new
     doc=REXML::Document.new(xml)
     doc.root.each_element(xml_query_string) do |tag|
@@ -124,7 +128,6 @@ class FIDIUS::XMLRpcRelation < ActiveRecord::Relation
   end
   def to_a
     @records = @klass.find(:all,*@find_options)
-    puts "result: #{@records}"
     return [@records] if !@records.respond_to?("size")
     @records
   end
