@@ -27,6 +27,10 @@ class Host < FIDIUS::XmlRpcModel
     nil
   end
 
+  def os_sp
+    "SP2"
+  end
+
   def image
     image = "unknownpc.png"
     image = "unknownpc_hacked.png" if exploited?

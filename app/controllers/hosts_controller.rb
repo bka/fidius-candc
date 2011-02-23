@@ -27,8 +27,8 @@ class HostsController < ApplicationController
 
   def info
     @host = Host.find params[:id]
-    a = render_to_string :partial=>"hosts/host_info", :layout => "blank"
-    b = render_to_string :partial=>"hosts/host_commands", :layout => "blank"
+    a = render_to_string :partial=>"hosts/host_info", :layout => false
+    b = render_to_string :partial=>"hosts/host_commands", :layout => false
     render :update do |page|
       page.replace_html "context-menu", a+b
     end       

@@ -55,6 +55,10 @@ CommandAndControl::Application.routes.draw do
       get 'svg_graph'
       get 'clear'
     end
+    member do
+      get 'nvd_entries'
+      get 'info'
+    end
   end
 
   resources :tasks do

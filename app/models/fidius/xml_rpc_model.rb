@@ -50,7 +50,11 @@ class FIDIUS::XmlRpcModel < ActiveRecord::Base
   def self.call_rpc(method, *args)
     begin
       rpc = self.connect
-      return parse_xml rpc.call(method,args)
+      result = parse_xml rpc.call(method,args)
+      # important close this connection
+      # server can only handle a limited amount of open connections
+      rpc.close
+      return result
     rescue XMLRPC::FaultException=>e
       raise "#{e.faultString}(#{e.faultCode})"
     end
@@ -123,5 +127,15 @@ class FIDIUS::XMLRpcRelation < ActiveRecord::Relation
     puts "result: #{@records}"
     return [@records] if !@records.respond_to?("size")
     @records
+  end
+end
+
+module XMLRPC
+  class Client
+    # need access to http object for closing the http-socket
+    # cleanup our crap and leave no open connections
+    def close
+      @http.finish
+    end
   end
 end
