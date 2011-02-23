@@ -1,12 +1,9 @@
-<h2>Scan&Attack:</h2>
-<% form_for :tasks, :url => scan_tasks_url do |f| %>
-  <%= text_field_tag :subnet %>
-  <%= submit_tag 'fidius me' %>
-<% end %>
-<%= link_to "Alle Hosts löschen", clear_hosts_url %>
-<hr>
-<div id="holder" style="border: 1px solid #000;width:600px;height:600px;float:left;"></div>
-<div id="context-menu" "style="border: 1px solid #000;width:800px;height:600px;float:left;"></div>        
+<div class="shadow_border" style="padding-top:150px;">
+<div id="holder" style="position:relative;width:600px;height:600px;float:left;"></div>
+<div id="context-menu" "style="position:relative;border: 1px solid #000;float:left;"></div>        
+<div style="clear:both"></div>
+</div>
+
 <script>
 window.onload = function () {
     new Ajax.Request('/hosts/svg_graph', {asynchronous:false, evalScripts:true, method:'get',
@@ -14,3 +11,4 @@ window.onload = function () {
     onFailure:function(request){alert('HTTP Error ' + request.status + '!')}}); 
 };
 </script>
+

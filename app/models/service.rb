@@ -4,17 +4,13 @@ class Service < FIDIUS::XmlRpcModel
   column :port, :integer
   column :proto, :string
   column :host_id, :integer
+  column :exploited, :boolean
+  column :state, :string
+  column :info, :string
+
   belongs_to :host
 
   def exploited?
-    true
-  end
-
-  def state
-    "open"
-  end
-
-  def info
-    "info"
+    exploited
   end
 end

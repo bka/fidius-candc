@@ -114,6 +114,14 @@ class FIDIUS::XmlRpcModel < ActiveRecord::Base
     raise "Not Implemented"
   end
 
+  def delete(*args)
+    raise "Not Implemented"
+  end
+
+  def destroy(*args)
+    raise "Not Implemented"
+  end
+
   # overwrite to trick AssociationCollection.load_target 
   def new_record?
     false

@@ -1,12 +1,29 @@
-<!DOCTYPE html>
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-  <title>CommandAndControl</title>
+  <title>
+    FIDIUS Command&amp;Control server
+    :: <%= controller.controller_name.titleize %>
+    :: <%= controller.action_name.titleize %>
+  </title>
   <%= stylesheet_link_tag :all %>
   <%= javascript_include_tag :all %>
   <%= csrf_meta_tag %>
 </head>
 <body>
+<div id="header" class="shadow_border">
+  <h1><%= link_to image_tag('fidius-head.png') + ' Command&Control server', :root %></h1>
+  <%= render :partial => "welcome/menu" %>
+</div>
+
+<% [:notice, :error].each do |type| -%>
+  <% if flash[type] -%>
+    <p class="<%=h type  %>"><%=h flash[type]%></p>
+  <% end -%>
+<% end -%>
+
 
 <%= yield %>
 
