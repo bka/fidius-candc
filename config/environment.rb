@@ -5,4 +5,4 @@ require File.expand_path('../application', __FILE__)
 CommandAndControl::Application.initialize!
 
 # unfortunately json-addon has to be loaded after activesupport
-require File.join("#{RAILS_ROOT}","config","initializers","json_symbol_addon.rb")
+require File.join("#{::Rails.root.to_s}","config","initializers","json_symbol_addon.rb")

@@ -3,32 +3,28 @@ class Host < FIDIUS::XmlRpcModel
   column :id, :integer
   column :name, :string
   column :ip, :string
+  column :exploited, :boolean
+  column :os_name, :string
+  column :os_sp, :string
 
   has_many :services
 
   def address
-    "address"
+    ip
   end
 
   def exploited?
-    true
+    exploited
   end
 
   def exploited_hosts
     []
   end
 
-  def os_name
-    "windows"
-  end
-
   def pivot_host_id
     nil
   end
 
-  def os_sp
-    "SP2"
-  end
 
   def image
     image = "unknownpc.png"
