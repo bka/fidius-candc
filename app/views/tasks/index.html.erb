@@ -1,0 +1,27 @@
+<h1>Tasks</h1>
+<%= link_to "Clean", clean_tasks_url %>
+<table>
+  <tr>
+    <th>Module</th>
+    <th>Status</th>
+    <th>Progress</th>
+    <th>Error</th>
+    <th>Result</th>
+  </tr>
+  <% @tasks.each do |task| %>
+    <tr>
+      <td><%= link_to task.module, task %></td>
+      <td><%=h task.status %></td>
+      <td><%=h task.progress %></td>
+      <td><%=h task.error %></td>
+      <td><%=h task.result %></td>
+    </tr>
+  <% end %>
+</table>
+
+<h1>New task</h1>
+
+<% form_for scan_tasks_url, :url => { :action => "scan" } do |f| %>
+  <%= text_field_tag :subnet, @subnet %>
+  <%= submit_tag :scan %>
+<% end %>

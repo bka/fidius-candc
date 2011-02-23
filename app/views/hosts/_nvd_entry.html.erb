@@ -1,0 +1,5 @@
+<tr>
+  <td><%= nvd_entry.cve %></td>
+  <td><%= truncate nvd_entry.summary, 70 %></td>
+  <td><%= link_to_function "Show more", "$('nvd-#{nvd_entry.id}-info').toggle()" %>
+</tr>

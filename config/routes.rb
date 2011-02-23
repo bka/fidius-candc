@@ -1,6 +1,6 @@
 CommandAndControl::Application.routes.draw do
-  resources :services
-  resources :hosts
+  #resources :services
+  #resources :hosts
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
@@ -49,6 +49,28 @@ CommandAndControl::Application.routes.draw do
   #     resources :products
   #   end
 
+  resources :hosts do
+    collection do 
+      get 'graph'
+      get 'svg_graph'
+      get 'clear'
+    end
+    member do
+      get 'nvd_entries'
+      get 'info'
+    end
+  end
+
+  resources :tasks do
+    collection do
+      post 'scan'
+      post 'addroutetosession'
+      post 'execreconnaissance'
+      post 'installpersistence'
+      post 'startbrowserautopwn'
+      get 'clean'
+    end
+  end
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
   root :to => "hosts#index"

@@ -1,0 +1,32 @@
+<% running = get_msf_worker.status rescue nil %>
+<h1> Running Multi/Handler </h1>
+<table>
+<tr>
+  <th> Job Id </th>
+  <th> Payload </th>
+  <th> Interface </th>
+  <th> Port </th>
+  <th> Start Time </th>
+</tr>
+<%= render :partial => "multihandler", :collection => @multihandlers %>
+</table>
+
+<h1> New Multi/Handler </h1>
+<% if running.nil? %>
+  <h3> No Multi/Handler running </h2>
+<% else %>  
+  <% form_tag(multihandlers_url, :method => :post) do %>
+    <table>
+      <tr>
+        <td> Interface </td><td> <%= text_field_tag 'interface' %></td>
+      </tr>
+      <tr>
+        <td>Port </td><td> <%= text_field_tag 'port' %></td>
+      </tr>
+      <tr>
+        <td>Payload </td><td> <%= text_field_with_auto_complete 'payload', :payload, {}, {:method => :get} %></td>
+       </tr>
+     </table>
+     <%= submit_tag "Create Multi/Handler" %>
+<% end %>
+<% end %>

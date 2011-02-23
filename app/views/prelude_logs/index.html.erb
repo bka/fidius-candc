@@ -1,0 +1,28 @@
+<table border="1">
+  <tr>
+    <td>Task</td>
+    <td>PayloadSize</td>
+    <td>Count</td>
+    <% @texts.each do |txt| %>
+      <td><%= txt %></td>
+    <% end %>
+  </tr>
+
+  <% @tasks.each do |t| %>
+    <tr>
+      <td><%= t %></td>
+      <td><%= ExploitTask.find_by_task_id(t).payload_size_sum %>(<%= ExploitTask.find_by_task_id(t).payload_packet_count %>)</td>
+      <% cnt = 0 %>
+      <% @texts.each do |txt| %>
+        <% cnt = cnt + PreludeLog.find_all_by_task_id_and_text(t,txt).size %>
+      <% end %>
+      <td><%= cnt %></td>
+
+
+      <% @texts.each do |txt| %>
+        <td><%= PreludeLog.find_all_by_task_id_and_text(t,txt).size %></td>
+      <% end %>
+    <tr>
+  <% end %>
+
+</table>

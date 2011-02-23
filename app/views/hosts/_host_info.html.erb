@@ -1,0 +1,10 @@
+<h1><%= @host.address %></h1>
+<%= @host.os_name %><%= @host.os_sp %>
+<hr>
+<%= render :partial => "services/services_from_host", :locals => { :services => @host.services } %>
+
+<%= render :partial => "services/sessions_from_host", :locals => { :sessions => @host.exploited_hosts } %>
+
+<div id="nvd_entries">
+  <%= render :partial => "nvd_entries" %>
+</div>
