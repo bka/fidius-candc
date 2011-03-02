@@ -73,6 +73,14 @@ CommandAndControl::Application.routes.draw do
     end
   end
 
+  resources :actions do
+    collection do 
+      get 'scan'
+      get 'next_target'
+      get 'clean_hosts'
+    end
+  end
+
   resources :events do
     collection do
       get :fetch_next_event

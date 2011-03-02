@@ -60,6 +60,46 @@ class FIDIUS::XmlRpcModel < ActiveRecord::Base
     end
     nil
   end
+  # TODO REFACTOR THIS
+  def self.exec_action_scan
+    puts "exec_actions_scan"
+    begin
+      rpc = self.connect
+      result = rpc.call("action.scan","DOESNMATTER")
+      rpc.close
+    rescue XMLRPC::FaultException=>e
+      raise "#{e.faultString}(#{e.faultCode})"
+    end
+    nil    
+  end
+
+
+  # TODO REFACTOR THIS
+  def self.exec_decision_next
+    begin
+      rpc = self.connect
+      rpc.call("decision.nn.train","DOESNTMATTER")
+      result = rpc.call("decision.nn.next","DOESNMATTER")
+      puts "NEXT_TARGET = #{result}"
+      rpc.close
+      return result
+    rescue XMLRPC::FaultException=>e
+      raise "#{e.faultString}(#{e.faultCode})"
+    end
+    nil    
+  end
+
+  # TODO REFACTOR THIS
+  def self.exec_clean_hosts
+    begin
+      rpc = self.connect
+      rpc.call("model.clean_hosts","DOESNTMATTER")
+      rpc.close
+    rescue XMLRPC::FaultException=>e
+      raise "#{e.faultString}(#{e.faultCode})"
+    end
+    nil    
+  end
 
   def self.available_models
     # find all models in app/models 
