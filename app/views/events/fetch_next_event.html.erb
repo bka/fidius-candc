@@ -1,0 +1,7 @@
+<div id="message">
+<p><b><%= @title %></b></p>
+<%= @message %>
+
+<%= button_to_remote "Find ich gut", :url => {:controller=>"events",:action=>"user_response",:response=>"confirm"},:method=>"get" %>
+<%= button_to_remote "Find ich kacke", :url => {:controller=>"events",:action=>"user_response",:response=>"fail"},:method=>"get" %>
+</div>
