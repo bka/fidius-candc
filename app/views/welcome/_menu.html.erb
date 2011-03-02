@@ -1,22 +1,79 @@
-<ul class="menulist">
-  <li>
-    <%= link_to "View", hosts_url %>
-    <ul>
-      <li><%= link_to "Circle", hosts_url %></li>
-      <li><%= link_to "Hierarchy", hosts_url %></li>
-    </ul>
-  </li>
-  <li>
-    <%= link_to "Actions", hosts_url %>
-    <ul>
-      <li><%= link_to "Reconnaissance", hosts_url %></li>
-      <li><%= link_to "Scan", hosts_url %></li>
-      <li><%= link_to "FidiusMe", hosts_url %></li>
-      <li><%= link_to "Import", hosts_url %></li>
-    </ul>
-  </li>
-  <li><%= link_to "Jobs(5)", hosts_url %></li>
-  <li><%= link_to "Events(2)", hosts_url %></li>
-  <li><%= link_to "MsfConsole", hosts_url %></li>
-  <li><%= link_to "Credits", hosts_url %></li>
-</ul>
+<div style="background-color:#000;background: url(/images/topnav_bg.gif) repeat-x;">
+<ul class="topnav">  
+    <li><a href="#">View</a>
+        <ul class="subnav">  
+            <li><a href="#">Circle</a></li>  
+             <li><a href="#">Hierarchy</a></li>  
+         </ul>  
+      </li>  
+    <li>  
+        <a href="#">Actions</a>  
+        <ul class="subnav">  
+            <li><a href="#">Reconnaissance</a></li>  
+             <li><a href="#">Scan</a></li>  
+             <li><a href="#">FidiusMe</a></li>  
+             <li><a href="#">Import</a></li>  
+         </ul>  
+     </li>  
+     <li><a href="#" onclick="$('#dialog2').dialog('open');">Jobs(5)</a></li>
+     <li><a href="#">Events(2)</a></li>  
+     <li><a href="#">MsfConsole</a></li>  
+     <li><a href="#">Credits</a></li>  
+ </ul> 
+<div style="clear:both;"></div>
+</div>
+
+<div id="dialog2" title="Basic dialog">
+<table width="100%">
+  <tr>
+    <th>ID</th>
+    <th>Name</th>
+    <th>Port</th>
+    <th>Progress</th>
+    <th>Start</th>
+  </tr>
+<% 10.times do |i| %>
+  <tr>
+    <td>id</td>
+    <td>Autopwn</td>
+    <td>2312</td>
+    <td><div id="progressbar<%= i %>"></div></td>
+    <td><%= Time.now %></td>
+  </tr>
+<% end %>
+</table>
+</div>
+<script>
+$(document).ready(function(){
+
+	$("ul.subnav").parent().append("<span></span>"); //Only shows drop down trigger when js is enabled (Adds empty span tag after ul.subnav*)
+
+	$("ul.topnav li span").click(function() { //When trigger is clicked...
+
+		//Following events are applied to the subnav itself (moving subnav up and down)
+		$(this).parent().find("ul.subnav").slideDown('fast').show(); //Drop down the subnav on click
+
+		$(this).parent().hover(function() {
+		}, function(){
+			$(this).parent().find("ul.subnav").slideUp('slow'); //When the mouse hovers out of the subnav, move it back up
+		});
+
+		//Following events are applied to the trigger (Hover events for the trigger)
+		}).hover(function() {
+			$(this).addClass("subhover"); //On hover over, add class "subhover"
+		}, function(){	//On Hover Out
+			$(this).removeClass("subhover"); //On hover out, remove class "subhover"
+	});
+
+});
+
+$( "#dialog2" ).dialog({ autoOpen: false, width:800});
+<% 10.times do |i| %>
+$( "#progressbar<%= i %>" ).progressbar({
+			value: <%= i*5 %>
+		});
+<% end %>
+</script>
+
+
+

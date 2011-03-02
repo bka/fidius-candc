@@ -54,6 +54,7 @@ CommandAndControl::Application.routes.draw do
       get 'graph'
       get 'svg_graph'
       get 'clear'
+      get 'status'
     end
     member do
       get 'nvd_entries'
@@ -69,6 +70,13 @@ CommandAndControl::Application.routes.draw do
       post 'installpersistence'
       post 'startbrowserautopwn'
       get 'clean'
+    end
+  end
+
+  resources :events do
+    collection do
+      get :fetch_next_event
+      get :user_response
     end
   end
   # You can have the root of your site routed with "root"

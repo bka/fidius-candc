@@ -29,13 +29,20 @@ class HostsController < ApplicationController
     @host = Host.find params[:id]
     a = render_to_string :partial=>"hosts/host_info", :layout => false
     b = render_to_string :partial=>"hosts/host_commands", :layout => false
+    #  page.replace_html "context-menu", a+b
     render :update do |page|
-      page.replace_html "context-menu", a+b
+      page <<%{
+        $('#context-menu').html("#{escape_javascript(a+b)}")
+      }
     end       
   end
 
   def svg_graph
     @hosts = Host.all
+  end
+
+  def status
+    render :text => "KI sagt"
   end
 
 end

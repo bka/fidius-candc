@@ -67,9 +67,10 @@ function find_text(array, element){
 }
 
 function host_selected(id){
-    new Ajax.Request('/hosts/'+id+'/info', {asynchronous:false, evalScripts:true, method:'get',
-    on404:function(request){alert('Not found...? Wrong URL...?')},
-    onFailure:function(request){alert('HTTP Error ' + request.status + '!')}});   
+  jQuery.ajax('/hosts/'+id+'/info');
+    //new Ajax.Request('/hosts/'+id+'/info', {asynchronous:false, evalScripts:true, method:'get',
+    //on404:function(request){alert('Not found...? Wrong URL...?')},
+    //onFailure:function(request){alert('HTTP Error ' + request.status + '!')}});   
 }
 
 function find_host_by_id(shapes,id){

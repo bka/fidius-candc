@@ -7,8 +7,7 @@
     <%= render :partial => 'nvd_entry', :collection => @nvd_entries %>
   </table>
 <% else %>
-  <%= button_to 'Search NVD-Entries', :url => { :action => :nvd_entries },
-      :update => "nvd_entries", :method => :get,:remote=>true %>
+  'Search NVD-Entries'
 <% end %>
 <br />
 <div id="centerBox">

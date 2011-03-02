@@ -9,14 +9,27 @@
     :: <%= controller.action_name.titleize %>
   </title>
   <%= stylesheet_link_tag :all %>
-  <%= javascript_include_tag :all %>
+  <%= javascript_include_tag "jquery" %>
+  <%= javascript_include_tag "jquery-ui" %>
+  <%= javascript_include_tag "rails" %>
+  <%= javascript_include_tag "raphael-min" %>
+  <%= javascript_include_tag "jquery.ui.stars.min" %>
+
   <%= csrf_meta_tag %>
+  <script>
+  //new Ajax.PeriodicalUpdater('items', '/events/fetch_next_event', {
+  //  method: 'get', frequency: 3, decay: 2
+  //});
+
+  </script>
 </head>
 <body>
+
 <div id="header" class="shadow_border">
   <h1><%= link_to image_tag('fidius-head.png') + ' Command&Control server', :root %></h1>
-  <%= render :partial => "welcome/menu" %>
 </div>
+
+<%= render :partial => "welcome/menu" %>
 
 <% [:notice, :error].each do |type| -%>
   <% if flash[type] -%>

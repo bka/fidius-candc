@@ -1,6 +1,7 @@
 class Host < FIDIUS::XmlRpcModel
 
   column :id, :integer
+  column :pivot_host_id, :integer
   column :name, :string
   column :ip, :string
   column :exploited, :boolean
@@ -20,11 +21,6 @@ class Host < FIDIUS::XmlRpcModel
   def exploited_hosts
     []
   end
-
-  def pivot_host_id
-    nil
-  end
-
 
   def image
     image = "unknownpc.png"

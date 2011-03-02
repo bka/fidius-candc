@@ -12,7 +12,6 @@ body, p, ol, ul, td {
 }
 
 h1 {
-  margin-top: 2em;
   font-size: 32px;
 }
 
@@ -34,8 +33,6 @@ pre {
 a {
   color: #333;
   text-decoration: none;
-  border: solid #333;
-  border-width: 0 0 1px;
 }
 
 th a {
@@ -178,10 +175,12 @@ hr.clear {
   -webkit-box-shadow: 0 0 1ex #333;
   -moz-box-shadow: 0 0 1ex #333;
   box-shadow: 0 0 1ex #333;
+
 }
 
 #header {
-  padding: 1em;
+  padding:-5px;
+  margin:0px;
 }
 
 #header h1 {
@@ -398,6 +397,8 @@ ul.menulist ul a {
   padding: 1ex 2ex;
 }
 #holder{
-  background: #ccc;
-  border: 1px solid #333;
 }
+.ui-widget{
+  border:1px solid red;
+}
+

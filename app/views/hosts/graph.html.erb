@@ -1,14 +1,32 @@
-<div class="shadow_border" style="padding-top:150px;">
-<div id="holder" style="position:relative;width:600px;height:600px;float:left;"></div>
-<div id="context-menu" "style="position:relative;border: 1px solid #000;float:left;"></div>        
+<script>
+	$(function() {
+		$( "#dialog" ).dialog();
+	});
+	$(function() {
+    $( "a", ".dialog_actions" ).button();
+		$( "a", ".dialog_actions" ).click(function() { alert("deine mudder"); });
+	});
+</script>
+
+<div id="dialog" title="Basic dialog">
+	<p>Simple question. How should I proceed?</p>
+  <div class="dialog_actions">
+    <a href="#">Yes</a>
+    <a href="#">No</a>
+  </div>
+</div>
+
+
+
+<div style="width:100%;background: #ccc;border: 1px solid #333;">
+<div id="holder" style="position:relative;width:50%;height:600px;float:left;z-index:0;"></div>
+<div id="context-menu" "style="position:relative;float:right;width:40%;height:600px;margin-bottom:10px;margin-right:10px"></div>        
 <div style="clear:both"></div>
 </div>
 
 <script>
 window.onload = function () {
-    new Ajax.Request('/hosts/svg_graph', {asynchronous:false, evalScripts:true, method:'get',
-    on404:function(request){alert('Not found...? Wrong URL...?')},
-    onFailure:function(request){alert('HTTP Error ' + request.status + '!')}}); 
+    jQuery.ajax('/hosts/svg_graph');
 };
 </script>
 
