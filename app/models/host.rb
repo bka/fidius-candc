@@ -23,7 +23,7 @@ class Host < FIDIUS::XmlRpcModel
   end
 
   def image
-    image = "unknownpc.png"
+    image = "windowsxp_hacked.png"
     image = "unknownpc_hacked.png" if exploited?
 
     if is_windows?

@@ -1,6 +1,5 @@
 class HostsController < ApplicationController
   def index
-    @hosts = Host.all
     redirect_to :action=>:graph
   end
 
