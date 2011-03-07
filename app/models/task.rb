@@ -1,13 +1,8 @@
-class Task < ActiveRecord::Base
-  def self.columns
-    @columns ||= []
-  end
- 
-  def self.column(name, sql_type = nil, default = nil, null = true)
-    columns << ActiveRecord::ConnectionAdapters::Column.new(name.to_s, default, sql_type.to_s, null)
-  end
-
-  def self.all
-    []
-  end
+class Task < FIDIUS::XmlRpcModel
+  column :name, :string
+  column :error, :string
+  column :progress, :integer
+  column :created_at, :datetime
+  column :updated_at, :datetime
+  column :completed, :boolean
 end

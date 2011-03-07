@@ -1,6 +1,8 @@
 require 'xmlrpc/client'
-
+require 'app/models/fidius/rpc_commands'
 class FIDIUS::XmlRpcModel < ActiveRecord::Base
+  include FIDIUS::RpcCommands
+
   def self.columns
     @columns ||= []
   end
@@ -38,7 +40,7 @@ class FIDIUS::XmlRpcModel < ActiveRecord::Base
 
   def self.find(*args)
     model_name = self.name
-    call_rpc "model.find",model_name,args.to_json
+    parse_xml call_rpc "model.find",model_name,args.to_json
   end
   
   def self.all(*args)
@@ -46,73 +48,6 @@ class FIDIUS::XmlRpcModel < ActiveRecord::Base
     return [res] if !res.respond_to?("size")
     res
   end
-
-  def self.call_rpc(method, *args)
-    begin
-      rpc = self.connect
-      result = parse_xml rpc.call(method,args)
-      # important close this connection
-      # server can only handle a limited amount of open connections
-      rpc.close
-      return result
-    rescue XMLRPC::FaultException=>e
-      raise "#{e.faultString}(#{e.faultCode})"
-    end
-    nil
-  end
-  # TODO REFACTOR THIS
-  def self.exec_action_scan(iprange)
-    puts "exec_actions_scan"
-    begin
-      rpc = self.connect
-      result = rpc.call("action.scan",iprange)
-      rpc.close
-    rescue XMLRPC::FaultException=>e
-      raise "#{e.faultString}(#{e.faultCode})"
-    end
-    nil    
-  end
-
-
-  # TODO REFACTOR THIS
-  def self.exec_decision_next
-    begin
-      rpc = self.connect
-      rpc.call("decision.nn.train","DOESNTMATTER")
-      result = rpc.call("decision.nn.next","DOESNMATTER")
-      puts "NEXT_TARGET = #{result}"
-      rpc.close
-      return result
-    rescue XMLRPC::FaultException=>e
-      raise "#{e.faultString}(#{e.faultCode})"
-    end
-    nil    
-  end
-
-  # TODO REFACTOR THIS
-  def self.exec_clean_hosts
-    begin
-      rpc = self.connect
-      rpc.call("model.clean_hosts","DOESNTMATTER")
-      rpc.close
-    rescue XMLRPC::FaultException=>e
-      raise "#{e.faultString}(#{e.faultCode})"
-    end
-    nil    
-  end
-
-  # TODO REFACTOR THIS
-  def self.exec_rate_host(host_id, rating)
-    begin
-      rpc = self.connect
-      rpc.call("action.rate_host",host_id,rating)
-      rpc.close
-    rescue XMLRPC::FaultException=>e
-      raise "#{e.faultString}(#{e.faultCode})"
-    end
-    nil    
-  end
-
 
   def self.available_models
     # find all models in app/models 
@@ -179,6 +114,23 @@ class FIDIUS::XmlRpcModel < ActiveRecord::Base
   def new_record?
     false
   end
+
+  private
+    def self.rpc_request(*args)
+      begin
+        rpc = self.connect
+        res = rpc.call(*args)
+        rpc.close
+        return res
+      rescue XMLRPC::FaultException=>e
+        raise "#{e.faultString}(#{e.faultCode})"
+      end
+      nil
+    end
+
+    def self.call_rpc(method, *args)
+      rpc_request(method,args)
+    end
 end
 # Prevent ActiveRecord from loading via SQL-statements.
 # Use our own Relation-Model

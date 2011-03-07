@@ -22,4 +22,18 @@ class ActionsController < ApplicationController
     FIDIUS::XmlRpcModel.exec_clean_hosts
     render :text=>"ok"
   end
+
+  def update_all
+    # reload objects like tasks or host graph, but only if needed
+    if FIDIUS::XmlRpcModel.exec_data_changed? == "true"
+      render :update do |page|
+        page <<%{
+          jQuery.ajax('/tasks');
+          jQuery.ajax('/hosts/svg_graph');
+        }
+      end
+    else
+      render :text => "nothing to update"
+    end
+  end
 end

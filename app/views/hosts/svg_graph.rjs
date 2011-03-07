@@ -68,15 +68,15 @@ function find_text(array, element){
 
 function host_selected(id){
   jQuery.ajax('/hosts/'+id+'/info');
-    //new Ajax.Request('/hosts/'+id+'/info', {asynchronous:false, evalScripts:true, method:'get',
-    //on404:function(request){alert('Not found...? Wrong URL...?')},
-    //onFailure:function(request){alert('HTTP Error ' + request.status + '!')}});   
-   //
 }
 
 function mark_host(id){
   host = find_host_by_id(shapes,id);
-  host_marker.attr({cx: host.attr("x")+40, cy: host.attr("y")+40,"fill-opacity": 0.5})
+  if(host == -1){
+    alert("Host"+id+" does not exist.");
+  }else{
+    host_marker.attr({cx: host.attr("x")+40, cy: host.attr("y")+40,"fill-opacity": 0.5})
+  }
 }
 
 function find_host_by_id(shapes,id){

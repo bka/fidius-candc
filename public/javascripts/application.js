@@ -8,10 +8,26 @@ $(document).ready(function(){
   });
 
   $(document).ajaxSend(function(e,jqXHR,options) {
-    $('#loading_indicator').show();
+    // do not show loading indicator on priodical update
+    if(options.url != "/actions/update_all"){
+      $('#loading_indicator').show();
+    }
   });
-  $(document).ajaxStop(function() {
-    $('#loading_indicator').hide();
+  $(document).ajaxComplete(function(e,jqXHR,options) {
+    // do not show loading indicator on priodical update
+    if(options.url != "/actions/update_all"){
+      $('#loading_indicator').hide();
+      update_all();
+    }
   });
 
 });
+
+function open_tasks(){
+  jQuery.ajax('/tasks');
+  $('#tasks_dialog').dialog('open');
+}
+
+function update_all(){
+  jQuery.ajax('/actions/update_all');
+}

@@ -18,14 +18,15 @@
 
   <%= csrf_meta_tag %>
   <script>
-  //new Ajax.PeriodicalUpdater('items', '/events/fetch_next_event', {
-  //  method: 'get', frequency: 3, decay: 2
-  //});
+  var refreshId = setInterval(function() {
+    update_all();
+  },10000);
 
   </script>
 </head>
 <body>
 <%= render :partial => "dialogs/scan_dialog" %>
+<%= render :partial => "dialogs/tasks_dialog" %>
 <div id="header" class="shadow_border">
   <h1><%= link_to image_tag('fidius-head.png') + ' Command&Control server', :root %></h1>
 </div>

@@ -75,6 +75,7 @@ CommandAndControl::Application.routes.draw do
 
   resources :actions do
     collection do 
+      get 'update_all'
       post 'scan'
       post 'rate_host'
       get 'next_target'

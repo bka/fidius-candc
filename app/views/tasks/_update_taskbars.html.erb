@@ -1,0 +1,6 @@
+<% @tasks.each do |task| %>
+  $( "#progressbar<%= task.id %>" ).progressbar({
+			  value: <%= task.progress %>
+  });
+<% end %>
+$('#task_count').html("Tasks(<%= @tasks.size %>)");
