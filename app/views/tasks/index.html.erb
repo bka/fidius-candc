@@ -3,7 +3,8 @@
     <th>ID</th>
     <th>Name</th>
     <th>Progress</th>
-    <th>Start</th>
+    <th>Started at</th>
+    <th>PreludeEvents</th>
     <th>&nbsp;</th>
   </tr>
 <% @tasks.each do |task| %>
@@ -12,6 +13,7 @@
     <td><%= task.name %></td>
     <td><div id="progressbar<%= task.id %>"></div></td>
     <td><%= l task.created_at %></td>
+    <td><%=h link_to_dialog "6", prelude_events_path %></td>
     <td><a id="close_task_<%= task.id %>" href="#" role="button"><span class="ui-icon ui-icon-closethick">close</span></a></td>
   </tr>
 <% end %>

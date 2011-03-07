@@ -1,14 +1,16 @@
-class Event < FIDIUS::XmlRpcModel
+class UserDialog < FIDIUS::XmlRpcModel
+  DIALOG_TYPE_STANDARD=1
+  DIALOG_TYPE_YES_NO = 2
 
-  column :id, :integer
   column :title, :string
   column :message, :string
-  column :response, :integer
+  column :dialog_type, :integer
   column :created_at, :datetime
   column :updated_at, :datetime
+
   def self.fetch_next
     begin
-      return Event.find :first, :order=>"created_at"
+      return UserDialog.find :first, :order=>"created_at"
     rescue
       puts $!.inspect
       # TODO

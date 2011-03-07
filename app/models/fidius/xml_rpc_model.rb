@@ -63,7 +63,7 @@ class FIDIUS::XmlRpcModel < ActiveRecord::Base
     # build string like '//host | //fidius-asset-host'
     res = Array.new
     available_models.each do |model|
-      res << "//#{model} | //fidius-asset-#{model} | //fidius-#{model}"
+      res << "//#{model.gsub("_","-")} | //#{model} | //fidius-asset-#{model} | //fidius-#{model}"
     end
     res.join("|")
   end

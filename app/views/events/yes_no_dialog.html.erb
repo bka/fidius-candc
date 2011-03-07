@@ -1,0 +1,17 @@
+<div id="event-dialog" title="<%= @dialog.title %>">
+  <%= @dialog.message %>
+  <div class="dialog_actions">
+    <a href="#" id="yes_option">Yes</a>
+    <a href="#" id="no_option">No</a>
+  </div>
+</div>
+
+<script>
+	$(function() {
+    $("#yes_option").button();
+		$("#yes_option").click(function() { $("#event-dialog").dialog('close'); });
+    $("#no_option").button();
+		$("#no_option").click(function() { $("#event-dialog").dialog('close'); });
+	});
+  $("#event-dialog").dialog({ width:800,close: function(event, ui){closed_event_dialog();}});
+</script>

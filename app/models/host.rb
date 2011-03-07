@@ -25,16 +25,23 @@ class Host < FIDIUS::XmlRpcModel
   end
 
   def image
-    image = "windowsxp_hacked.png"
+    image = "unknownpc.png"
     image = "unknownpc_hacked.png" if exploited?
 
     if is_windows?
       image = "windowsxp.png"
       image = "windowsxp_hacked.png" if exploited?
     end
+    if is_prelude?
+      image = "prelude.png"
+    end
     return image
   end
   
+  def is_prelude?
+    return true if os_name.to_s.downcase == "prelude"
+  end
+
   def is_windows?
     return true if os_name.to_s.downcase["windows"] != nil
     return true if name.to_s.downcase["windows"] != nil

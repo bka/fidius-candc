@@ -1,7 +1,15 @@
-<div id="dialog" title="Basic dialog">
+<div id="yes_no_dialog" title="Basic dialog">
 	<p>Simple question. How should I proceed?</p>
   <div class="dialog_actions">
     <a href="#">Yes</a>
     <a href="#">No</a>
   </div>
 </div>
+
+<script>
+	$(function() {
+    $( "a", ".dialog_actions" ).button();
+		$( "a", ".dialog_actions" ).click(function() { alert("deine mudder"); });
+	});
+  $("#event-dialog").dialog({ width:800,close: function(event, ui){closed_event_dialog();}});
+</script>

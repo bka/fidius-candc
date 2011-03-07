@@ -5,7 +5,7 @@ class TasksController < ApplicationController
     t = render_to_string :template=>"tasks/index", :layout=>false
     render :update do |page|
       page <<%{
-        $('#tasks_dialog').html("#{escape_javascript(t)}");
+        $('#standard_dialog').html("#{escape_javascript(t)}");
       }
     end
   end

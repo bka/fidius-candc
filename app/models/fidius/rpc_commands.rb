@@ -5,8 +5,16 @@ module FIDIUS::RpcCommands
         rpc_request("action.scan",iprange)  
       end
 
+      def exec_dialog_closed
+        rpc_request("meta.dialog_closed")
+      end
+
       def exec_data_changed?
         rpc_request("meta.data_changed?")
+      end
+
+      def exec_attack_host(host_id)
+        rpc_request("action.attack_host",host_id)
       end
 
       def exec_decision_next

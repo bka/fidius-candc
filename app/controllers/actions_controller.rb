@@ -23,6 +23,16 @@ class ActionsController < ApplicationController
     render :text=>"ok"
   end
 
+  def attack_host
+    FIDIUS::XmlRpcModel.exec_attack_host(params[:host_id])
+    render :text=>"ok"
+  end
+
+  def dialog_closed
+    FIDIUS::XmlRpcModel.exec_dialog_closed
+    render :text=>"ok"
+  end
+
   def update_all
     # reload objects like tasks or host graph, but only if needed
     if FIDIUS::XmlRpcModel.exec_data_changed? == "true"
@@ -30,6 +40,7 @@ class ActionsController < ApplicationController
         page <<%{
           jQuery.ajax('/tasks');
           jQuery.ajax('/hosts/svg_graph');
+          jQuery.ajax('/events/fetch_next_event');
         }
       end
     else

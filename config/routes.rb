@@ -73,9 +73,15 @@ CommandAndControl::Application.routes.draw do
     end
   end
 
+  resources :prelude_events do
+
+  end
+
   resources :actions do
     collection do 
       get 'update_all'
+      get 'dialog_closed'
+      get 'attack_host'
       post 'scan'
       post 'rate_host'
       get 'next_target'

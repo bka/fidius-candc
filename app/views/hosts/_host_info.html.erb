@@ -25,7 +25,7 @@
     <%= render :partial => "services/services_from_host", :locals => { :services => @host.services } %>
 
     <div class="actions_for_host">
-      <a href="#" class="ui-button">Autoattack</a>
+      <a href="#" class="ui-button" id="autoattack_host">Autoattack</a>
       <a href="#" class="ui-button">Reconnaissance</a>
       <a href="#" class="ui-button">Remove</a>
     </div>
@@ -69,8 +69,10 @@
 </script>
 <script>
 	$(function() {
-    $( "a", ".actions_for_host" ).button();
-		$( "a", ".actions_for_host" ).click(function() { alert("deine mudder"); });
+
+
+    $("#autoattack_host").button();
+		$("#autoattack_host").click(function() { attack_host(<%= @host.id %>) });
 	});
 	</script>
 
