@@ -75,7 +75,8 @@ CommandAndControl::Application.routes.draw do
 
   resources :actions do
     collection do 
-      get 'scan'
+      post 'scan'
+      post 'rate_host'
       get 'next_target'
       get 'clean_hosts'
     end
@@ -87,6 +88,7 @@ CommandAndControl::Application.routes.draw do
       get :user_response
     end
   end
+
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
   root :to => "hosts#graph"

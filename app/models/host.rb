@@ -7,6 +7,8 @@ class Host < FIDIUS::XmlRpcModel
   column :exploited, :boolean
   column :os_name, :string
   column :os_sp, :string
+  column :rating, :integer
+  column :reachable_through_host_id, :integer
 
   has_many :services
 

@@ -8,24 +8,18 @@
 		<li><a href="#tabs-4">Interact</a></li>
 	</ul>
 	<div id="tabs-1">
-    <p>
-    <form>
-        Rating: <span id="stars-cap"></span>
+    <p><span id="stars-cap"></span>
         <div id="stars-wrapper2">
-            <select name="selrate">
-                <option value="1">Very poor</option>
-                <option value="2">Not that bad</option>
-                <option value="3">Average</option>
-                <option value="4" selected="selected">Good</option>
-                <option value="5">Perfect</option>
-                <option value="6">Perfect</option>
-                <option value="7">Perfect</option>
-                <option value="8">Perfect</option>
-                <option value="9">Perfect</option>
-                <option value="10">Perfect</option>
-           </select>
+            <select id="host_rating_selectbox" name="rating">
+              <% 10.times do |i|%>
+                <% if i == @host.rating %>
+                  <option value="<%= i %>" selected><%= i %></option>
+                <% else %>
+                  <option value="<%= i %>"><%= i %></option>
+                <% end %>
+              <% end %>
+             </select>
        </div>
-   </form>
     </p>
     <br style="clear:both">
     <%= render :partial => "services/services_from_host", :locals => { :services => @host.services } %>
@@ -67,7 +61,10 @@
 </script>
 <script>
     $("#stars-wrapper2").stars({
-        inputType: "select"
+        inputType: "select",
+        callback: function(ui, type, value){
+          jQuery.ajax('actions/rate_host',{type:'POST',data:"host_id=<%= @host.id %>&rating="+value});          
+        }
     });
 </script>
 <script>

@@ -164,7 +164,7 @@ page << %{
 }
 
 @hosts.each do |host|
-  if host.pivot_host_id != nil
-    page << "connections.push(r.connection(find_host_by_id(shapes,#{host.id}),find_host_by_id(shapes,#{host.pivot_host_id}), \"#000\"));"
+  if host.reachable_through_host_id != nil
+    page << "connections.push(r.connection(find_host_by_id(shapes,#{host.id}),find_host_by_id(shapes,#{host.reachable_through_host_id}), \"#000\"));"
   end
 end

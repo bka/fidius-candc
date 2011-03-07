@@ -1,6 +1,6 @@
 <script>
 	$(function() {
-		$( "#dialog" ).dialog();
+		//$( "#dialog" ).dialog();
 	});
 	$(function() {
     $( "a", ".dialog_actions" ).button();
@@ -8,25 +8,22 @@
 	});
 </script>
 
-<div id="dialog" title="Basic dialog">
-	<p>Simple question. How should I proceed?</p>
-  <div class="dialog_actions">
-    <a href="#">Yes</a>
-    <a href="#">No</a>
-  </div>
-</div>
 
 
+<img id="loading_indicator" src="/images/ajax-loading.gif" width="100" style="z-index:99;position:absolute;margin-left:200px;margin-top:200px;display:none;">
 
 <div style="width:100%;background: #ccc;border: 1px solid #333;">
-<div id="holder" style="position:relative;width:50%;height:600px;float:left;z-index:0;"></div>
+<div id="holder" style="position:relative;width:50%;height:600px;float:left;z-index:0;">
+</div>
 <div id="context-menu" "style="position:relative;float:right;width:40%;height:600px;margin-bottom:10px;margin-right:10px"></div>        
 <div style="clear:both"></div>
 </div>
 
 <script>
 window.onload = function () {
-    jQuery.ajax('/hosts/svg_graph');
+    //alert($('loading_indicator'));
+    //$('#loading_indicator').show();
+    jQuery.ajax('/hosts/svg_graph',{beforeSend:function(){$('#loading_indicator').show();},success:function(){ $('#loading_indicator').hide(); }});
 };
 </script>
 
