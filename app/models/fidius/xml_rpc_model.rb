@@ -12,6 +12,7 @@ class FIDIUS::XmlRpcModel < ActiveRecord::Base
   end
 
   def self.connect
+    # TODO: put this in a config-file
     host = "127.0.0.1"
     port = "8080"
     ssl = false
