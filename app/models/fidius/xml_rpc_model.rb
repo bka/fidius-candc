@@ -1,5 +1,6 @@
 require 'xmlrpc/client'
-require 'app/models/fidius/rpc_commands'
+require 'fidius/rpc_commands'
+
 class FIDIUS::XmlRpcModel < ActiveRecord::Base
   include FIDIUS::RpcCommands
 
