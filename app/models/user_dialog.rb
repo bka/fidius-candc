@@ -12,7 +12,7 @@ class UserDialog < FIDIUS::XmlRpcModel
     begin
       return UserDialog.find :first, :order=>"created_at"
     rescue
-      puts $!.inspect
+      puts $!.inspect, $!.backtrace
       # TODO
       # maybe we should check here if it is an object not found exception
     end
