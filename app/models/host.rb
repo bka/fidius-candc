@@ -52,4 +52,35 @@ class Host < FIDIUS::XmlRpcModel
     end
     return false
   end
+  
+  # -------------   CVE-DB Stuff ------------- #
+  
+  # FIXME The search for NVD entries is quite ugly and should be done
+  # a bit better. The performance is ok nevertheless. (About 5 seconds,
+  # searching through 45.000 NVD entries)
+  def nvd_entries
+    entries = {}
+    services.each do |service|
+      # Only search for products where we have informations about the
+      # version, otherwise there will be too many NVD entries (depending
+      # on the nvd database).
+      if service.info
+        products = FIDIUS::CveDb::Product.find(:all,
+                    :conditions => ["product IN (?) AND version IN (?)",
+                                    service.products, service.versions])
+        products.each do |product|
+          product.nvd_entries.each do |entry|
+            entries[entry.id] = entry unless entries.has_key? entry.id
+          end
+        end
+      end
+    end
+    entries_array = []
+    entries.each_key do |key|
+      entries_array << entries[key]
+    end
+    entries_array
+  end
+  
+  
 end

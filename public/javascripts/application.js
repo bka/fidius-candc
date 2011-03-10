@@ -47,3 +47,7 @@ function closed_event_dialog(){
 function attack_host(host_id){
   jQuery.ajax('/actions/attack_host',{data:"host_id="+host_id});
 }
+
+function nvd_entries(host_id){
+  jQuery.ajax("/hosts/"+host_id+"/nvd_entries");
+}

@@ -16,7 +16,11 @@ class HostsController < ApplicationController
     @host        = Host.find params[:id]
     @nvd_entries = @host.nvd_entries
     
-    render :partial => "hosts/nvd_entries"
+    render :update do |page|
+      page <<%{
+        $('#nvd-entries').replaceWith("#{escape_javascript(render(:partial =>'hosts/nvd_entries'))}")
+      }
+    end
   end
 
   def clear
