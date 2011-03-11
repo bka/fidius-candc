@@ -67,9 +67,16 @@ function find_text(array, element){
 }
 
 function host_selected(id){
-    new Ajax.Request('/hosts/'+id+'/info', {asynchronous:false, evalScripts:true, method:'get',
-    on404:function(request){alert('Not found...? Wrong URL...?')},
-    onFailure:function(request){alert('HTTP Error ' + request.status + '!')}});   
+  jQuery.ajax('/hosts/'+id+'/info');
+}
+
+function mark_host(id){
+  host = find_host_by_id(shapes,id);
+  if(host == -1){
+    alert("Host"+id+" does not exist.");
+  }else{
+    host_marker.attr({cx: host.attr("x")+40, cy: host.attr("y")+40,"fill-opacity": 0.5})
+  }
 }
 
 function find_host_by_id(shapes,id){
@@ -83,6 +90,7 @@ function find_host_by_id(shapes,id){
 }
 
 var el;
+var host_marker;
 
     Raphael.el.setID = function (id) {
       this.attrs.id = id;
@@ -101,6 +109,8 @@ var el;
             var textatt = {x: att.x+40, y: att.y+90};
             this.attr(att);
             text.attr(textatt);
+
+
             this.toFront();
             for (var i = connections.length; i--;) {
                 r.connection(connections[i]);
@@ -116,8 +126,9 @@ var el;
         r = Raphael("holder", 800, 600),
         connections = [],
 
+        host_marker = r.circle(-100, -100, 55).attr({fill: "red",stroke: "red", "fill-opacity": 1});
 
-        shapes = [  
+        var shapes = [  
         }
 
 
@@ -131,6 +142,8 @@ hosts_per_line = 3
 
   page << "r.image(\"http://localhost:3000/images/graph/#{image}\",#{pos_x}, #{pos_y}, 80, 80,#{host.id}),"
   page << "r.text(#{pos_x}+40, #{pos_y}+90, \"#{host.address}\",#{host.id}),"
+
+
   x = x+1
   if(x%3==0)
     y = y+1
@@ -141,6 +154,9 @@ end
 page << %{      
                 ];
 
+
+
+    
     for (var i = 0, ii = shapes.length; i < ii; i++) {
         shapes[i].attr({fill: "#000", stroke: "#000", "fill-opacity": 0, "stroke-width": 1, cursor: "move"});
         shapes[i].drag(move, dragger, up,null,null,null,onclick);
@@ -148,7 +164,7 @@ page << %{
 }
 
 @hosts.each do |host|
-  if host.pivot_host_id != nil
-    page << "connections.push(r.connection(find_host_by_id(shapes,#{host.id}),find_host_by_id(shapes,#{host.pivot_host_id}), \"#000\"));"
+  if host.reachable_through_host_id != nil
+    page << "connections.push(r.connection(find_host_by_id(shapes,#{host.id}),find_host_by_id(shapes,#{host.reachable_through_host_id}), \"#000\"));"
   end
 end

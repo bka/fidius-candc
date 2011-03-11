@@ -2,6 +2,12 @@ class TasksController < ApplicationController
 
   def index
     @tasks = Task.all
+    t = render_to_string :template=>"tasks/index", :layout=>false
+    render :update do |page|
+      page <<%{
+        $('#standard_dialog').html("#{escape_javascript(t)}");
+      }
+    end
   end
 
   def show

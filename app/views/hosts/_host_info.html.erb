@@ -1,15 +1,79 @@
-<ul class="menulist">
-  <li><%= link_to "Info", hosts_url %></li> 
-  <li><%= link_to "Actions", hosts_url %></li>
-  <li><%= link_to "Interact", hosts_url %></li>
-</ul>
-<h1><%= @host.address %></h1>
-<%= @host.os_name %><%= @host.os_sp %>
-<hr>
-<%= render :partial => "services/services_from_host", :locals => { :services => @host.services } %>
+<div id="tabs<%= @host.id %>" style="width:100%;height:100%;">
+  <h1><%= @host.address %></h1>
+  <%= @host.os_name %><%= @host.os_sp %>
+	<ul>
+		<li><a href="#tabs-1">Info</a></li>
+		<li><a href="#tabs-2">NVD</a></li>
+		<li><a href="#tabs-3">Log</a></li>
+		<li><a href="#tabs-4">Interact</a></li>
+	</ul>
+	<div id="tabs-1">
+    <p><span id="stars-cap"></span>
+        <div id="stars-wrapper2">
+            <select id="host_rating_selectbox" name="rating">
+              <% 10.times do |i|%>
+                <% if i == @host.rating %>
+                  <option value="<%= i %>" selected><%= i %></option>
+                <% else %>
+                  <option value="<%= i %>"><%= i %></option>
+                <% end %>
+              <% end %>
+             </select>
+       </div>
+    </p>
+    <br style="clear:both">
+    <%= render :partial => "services/services_from_host", :locals => { :services => @host.services } %>
 
-<%= render :partial => "services/sessions_from_host", :locals => { :sessions => @host.exploited_hosts } %>
+    <div class="actions_for_host">
+      <a href="#" class="ui-button" id="autoattack_host">Autoattack</a>
+      <a href="#" class="ui-button">Reconnaissance</a>
+      <a href="#" class="ui-button">Remove</a>
+    </div>
+	</div>
+	<div id="tabs-2">
+    <%= render :partial => "nvd_entries" %>
+	</div>
+	<div id="tabs-3">
+    <table>
+      <tr>
+        <th>Event</th>
+        <th>Time</th>
+      </tr>
+      <tr>
+        <td>Exploit:windows/smb/ms08_067_netapi</td>
+        <td><%= Time.now %></td>
+      </tr>
+      <tr>
+        <td>Session opened (windows/meterpreter)</td>
+        <td><%= Time.now %></td>
+      </tr>
 
-<div id="nvd_entries">
-  <%= render :partial => "nvd_entries" %>
+    </table>
+	</div>
+	<div id="tabs-4">
+    <%= render :partial => "services/sessions_from_host", :locals => { :sessions => @host.exploited_hosts } %>
+	</div>
 </div>
+<script>
+	$(function() {
+		$( "#tabs<%= @host.id %>" ).tabs();
+	});
+</script>
+<script>
+    $("#stars-wrapper2").stars({
+        inputType: "select",
+        callback: function(ui, type, value){
+          jQuery.ajax('actions/rate_host',{type:'POST',data:"host_id=<%= @host.id %>&rating="+value});          
+        }
+    });
+</script>
+<script>
+	$(function() {
+
+
+    $("#autoattack_host").button();
+		$("#autoattack_host").click(function() { attack_host(<%= @host.id %>) });
+	});
+	</script>
+
+

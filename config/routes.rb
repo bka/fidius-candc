@@ -54,6 +54,7 @@ CommandAndControl::Application.routes.draw do
       get 'graph'
       get 'svg_graph'
       get 'clear'
+      get 'status'
     end
     member do
       get 'nvd_entries'
@@ -71,9 +72,33 @@ CommandAndControl::Application.routes.draw do
       get 'clean'
     end
   end
+
+  resources :prelude_events do
+
+  end
+
+  resources :actions do
+    collection do 
+      get 'update_all'
+      get 'dialog_closed'
+      get 'attack_host'
+      post 'scan'
+      post 'rate_host'
+      get 'next_target'
+      get 'clean_hosts'
+    end
+  end
+
+  resources :events do
+    collection do
+      get :fetch_next_event
+      get :user_response
+    end
+  end
+
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  root :to => "hosts#index"
+  root :to => "hosts#graph"
 
   # See how all your routes lay out with "rake routes"
 

@@ -1,6 +1,9 @@
 require 'xmlrpc/client'
+require 'fidius/rpc_commands'
 
 class FIDIUS::XmlRpcModel < ActiveRecord::Base
+  include FIDIUS::RpcCommands
+
   def self.columns
     @columns ||= []
   end
@@ -10,6 +13,7 @@ class FIDIUS::XmlRpcModel < ActiveRecord::Base
   end
 
   def self.connect
+    # TODO: put this in a config-file
     host = "127.0.0.1"
     port = "8080"
     ssl = false
@@ -38,27 +42,13 @@ class FIDIUS::XmlRpcModel < ActiveRecord::Base
 
   def self.find(*args)
     model_name = self.name
-    call_rpc "model.find",model_name,args.to_json
+    parse_xml call_rpc "model.find",model_name,args.to_json
   end
   
   def self.all(*args)
     res = find(:all, *args)
     return [res] if !res.respond_to?("size")
     res
-  end
-
-  def self.call_rpc(method, *args)
-    begin
-      rpc = self.connect
-      result = parse_xml rpc.call(method,args)
-      # important close this connection
-      # server can only handle a limited amount of open connections
-      rpc.close
-      return result
-    rescue XMLRPC::FaultException=>e
-      raise "#{e.faultString}(#{e.faultCode})"
-    end
-    objects
   end
 
   def self.available_models
@@ -75,7 +65,7 @@ class FIDIUS::XmlRpcModel < ActiveRecord::Base
     # build string like '//host | //fidius-asset-host'
     res = Array.new
     available_models.each do |model|
-      res << "//#{model} | //fidius-asset-#{model} | //fidius-#{model}"
+      res << "//#{model.gsub("_","-")} | //#{model} | //fidius-asset-#{model} | //fidius-#{model}"
     end
     res.join("|")
   end
@@ -126,6 +116,23 @@ class FIDIUS::XmlRpcModel < ActiveRecord::Base
   def new_record?
     false
   end
+
+  private
+    def self.rpc_request(*args)
+      begin
+        rpc = self.connect
+        res = rpc.call(*args)
+        rpc.close
+        return res
+      rescue XMLRPC::FaultException=>e
+        raise "#{e.faultString}(#{e.faultCode})"
+      end
+      nil
+    end
+
+    def self.call_rpc(method, *args)
+      rpc_request(method,args)
+    end
 end
 # Prevent ActiveRecord from loading via SQL-statements.
 # Use our own Relation-Model

@@ -5,7 +5,6 @@
 #
 # maybe candc should load it from there?
 #
-##
 # These changes are necessary to extend json encoding & decoding
 # for ruby-symbols. Tricky parts are symbols in Arrays or Hashes.
 
@@ -55,14 +54,18 @@ class Hash
   # {":a"=>1,":b"=>2}.symbolize_keys_if_needed
   # => {:a=>1, :b=>2}
   def symbolize_keys_if_needed
+    to_add = Hash.new
     self.each do |k,v|
       if v.respond_to?("symbolize_keys_if_needed")
         v.symbolize_keys_if_needed
       end
       if k[0] == ":"
         self.delete(k)
-        self[k[1..-1].to_sym] = v
+        to_add[k[1..-1].to_sym] = v
       end
+    end
+    to_add.each do |k,v|
+      self[k]=v
     end
   end
 end

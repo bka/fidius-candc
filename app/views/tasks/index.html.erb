@@ -1,27 +1,33 @@
-<h1>Tasks</h1>
-<%= link_to "Clean", clean_tasks_url %>
-<table>
+<table width="100%">
   <tr>
-    <th>Module</th>
-    <th>Status</th>
+    <th>ID</th>
+    <th>Name</th>
     <th>Progress</th>
-    <th>Error</th>
-    <th>Result</th>
+    <th>Started at</th>
+    <th>PreludeEvents</th>
+    <th>&nbsp;</th>
   </tr>
-  <% @tasks.each do |task| %>
-    <tr>
-      <td><%= link_to task.module, task %></td>
-      <td><%=h task.status %></td>
-      <td><%=h task.progress %></td>
-      <td><%=h task.error %></td>
-      <td><%=h task.result %></td>
-    </tr>
-  <% end %>
-</table>
-
-<h1>New task</h1>
-
-<% form_for scan_tasks_url, :url => { :action => "scan" } do |f| %>
-  <%= text_field_tag :subnet, @subnet %>
-  <%= submit_tag :scan %>
+<% @tasks.each do |task| %>
+  <tr id="task_row_<%= task.id %>">
+    <td><%= task.id %></td>
+    <td><%= task.name %></td>
+    <td><div id="progressbar<%= task.id %>"></div></td>
+    <td><%= l task.created_at %></td>
+    <td><%=h link_to_dialog "6", prelude_events_path %></td>
+    <td><a id="close_task_<%= task.id %>" href="#" role="button"><span class="ui-icon ui-icon-closethick">close</span></a></td>
+  </tr>
 <% end %>
+</table>
+<script>
+  <%= render :partial=>"tasks/update_taskbars" %>
+  <% @tasks.each do |task| %>
+	  $(function() {
+      $("#close_task_<%= task.id %>").button();
+		  $("#close_task_<%= task.id %>").click(function() {
+        if(parseInt($('#progressbar<%= task.id %>').progressbar( "option", "value" )) == 100){
+          $('#task_row_<%= task.id %>').fadeOut();
+        }
+      });
+	  });
+  <% end %>
+</script>
