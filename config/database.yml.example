@@ -22,11 +22,8 @@ production:
   timeout: 5000
 
 cve_db:
-  adapter: postgresql
-  encoding: unicode
-  database: fidiuswww3
+  adapter: sqlite3
+  database: db/development.sqlite3
   pool: 5
-  username: fidiuswww3
-  password: fidiuswww3
-  min_messages: warning
-                          
+  timeout: 5000
+

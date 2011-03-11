@@ -10,7 +10,6 @@ gem 'jquery-rails', '>= 0.2.6'
 gem 'sqlite3-ruby', :require => 'sqlite3'
 
 gem 'fidius-cvedb'
-gem 'mysql2'
 
 # testcoverage
 gem "simplecov", :require => false, :group => :test
