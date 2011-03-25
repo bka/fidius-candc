@@ -11,9 +11,6 @@ cd /path/to/architecture/config
 cp fidius.yml.example fidius.yml
 $EDITOR fidius.yml
 
-cp database.yml.example database.yml
-$EDITOR database.yml
-
 # Setup Database for Architecture
 
 cd /path/to/architecture
@@ -28,6 +25,7 @@ cp database.yml.example database.yml
 # remove gem 'fidius-cvedb' from your Gemfile
 # NO OTHER DATABASES NEEDED !
 $EDITOR database.yml
+run bundle install
 
 # start architecture
 cd /path/to/architecture/bin
