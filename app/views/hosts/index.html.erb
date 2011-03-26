@@ -2,18 +2,20 @@
 
 <table>
   <tr>
-    <th>Address</th>
+    <th>Name</th>
     <th>OS name</th>
     <th>OS service pack</th>
     <th>Hostname</th>
+    <th>Addresses</th>
   </tr>
   <% @hosts.each do |host| %>
 	<%pivot_host = @hosts.select {|e| e.id == host.pivot_host_id} if host.pivot_host_id != nil%>
     <tr<%= host.exploited? ? 'class="exploited"' : '' %>>
-      <td><%="#{pivot_host[0].address} --> " if host.pivot_host_id != nil %><%= host.address %></td>
+      <td><%="#{pivot_host[0].name} --> " if host.pivot_host_id != nil %><%= host.name %></td>
       <td><%= host.os_name %></td>
       <td><%= host.os_sp %></td>
       <td><%= link_to host.name, host %></td>
+      <td><% host.interface.each do |interface| %><%= interface.ip %><% end %></td>
     </tr>
   <% end %>
 </table>

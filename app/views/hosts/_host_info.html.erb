@@ -1,5 +1,5 @@
 <div id="tabs<%= @host.id %>" style="width:100%;height:100%;">
-  <h1><%= @host.address %></h1>
+  <h1><%= @host.name %></h1>
   <%= @host.os_name %><%= @host.os_sp %>
 	<ul>
 		<li><a href="#tabs-1">Info</a></li>
@@ -22,7 +22,10 @@
        </div>
     </p>
     <br style="clear:both">
-    <%= render :partial => "services/services_from_host", :locals => { :services => @host.services } %>
+    <% @host.interfaces2.each do |interface| %>
+      <h2><%= interface.ip %></h2>
+      <%= render :partial => "services/services_from_host", :locals => { :services => interface.services2 } %>
+   <% end %>
 
     <div class="actions_for_host">
       <a href="#" class="ui-button" id="autoattack_host">Autoattack</a>
@@ -68,11 +71,11 @@
     });
 </script>
 <script>
-	$(function() {
+	$(function(interface) {
 
 
     $("#autoattack_host").button();
-		$("#autoattack_host").click(function() { attack_host(<%= @host.id %>) });
+		$("#autoattack_host").click(function() { attack_host(<%= @host.interfaces2[0].id %>) });
 	});
 	</script>
 

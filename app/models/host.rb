@@ -1,19 +1,28 @@
 class Host < FIDIUS::XmlRpcModel
 
   column :id, :integer
-  column :pivot_host_id, :integer
   column :name, :string
-  column :ip, :string
+  column :rating, :integer
   column :exploited, :boolean
   column :os_name, :string
   column :os_sp, :string
-  column :rating, :integer
-  column :reachable_through_host_id, :integer
+  column :pivot_host_id, :integer
+  column :arch, :string
+  column :localhost, :boolean
+  column :attackable, :boolean
+  column :ids, :boolean
 
-  has_many :services
+  has_many :interfaces
+  has_many :sessions
 
-  def address
-    ip
+  #XXX: remove this method and fix the real bug
+  def interfaces2
+    interfaces.select {|i| i.host_id == id }
+  end
+
+  #XXX: remove this method and fix the real bug
+  def sessions2
+    sessions.select {|s| s.host_id == id }
   end
 
   def exploited?
@@ -39,48 +48,11 @@ class Host < FIDIUS::XmlRpcModel
   end
   
   def is_prelude?
-    return true if os_name.to_s.downcase == "prelude"
+    ids
   end
 
   def is_windows?
-    return true if os_name.to_s.downcase["windows"] != nil
-    return true if name.to_s.downcase["windows"] != nil
-    return true if os_sp.to_s.downcase["windows"] != nil
-    services.each do |s|
-      return true if s.info.to_s.downcase["windows"] != nil
-      return true if s.name.to_s.downcase["windows"] != nil
-    end
-    return false
+    return os_name.to_s.downcase == "windows"
   end
-  
-  # -------------   CVE-DB Stuff ------------- #
-  
-  # FIXME The search for NVD entries is quite ugly and should be done
-  # a bit better. The performance is ok nevertheless. (About 5 seconds,
-  # searching through 45.000 NVD entries)
-  def nvd_entries
-    entries = {}
-    services.each do |service|
-      # Only search for products where we have informations about the
-      # version, otherwise there will be too many NVD entries (depending
-      # on the nvd database).
-      if service.info
-        products = FIDIUS::CveDb::Product.find(:all,
-                    :conditions => ["product IN (?) AND version IN (?)",
-                                    service.products, service.versions])
-        products.each do |product|
-          product.nvd_entries.each do |entry|
-            entries[entry.id] = entry unless entries.has_key? entry.id
-          end
-        end
-      end
-    end
-    entries_array = []
-    entries.each_key do |key|
-      entries_array << entries[key]
-    end
-    entries_array
-  end
-  
-  
+
 end

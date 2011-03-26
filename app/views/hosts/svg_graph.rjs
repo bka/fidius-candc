@@ -141,7 +141,7 @@ hosts_per_line = 3
   pos_y = 160*y+50 
 
   page << "r.image(\"http://localhost:3000/images/graph/#{image}\",#{pos_x}, #{pos_y}, 80, 80,#{host.id}),"
-  page << "r.text(#{pos_x}+40, #{pos_y}+90, \"#{host.address}\",#{host.id}),"
+  page << "r.text(#{pos_x}+40, #{pos_y}+90, \"#{host.name}\",#{host.id}),"
 
 
   x = x+1
@@ -164,7 +164,7 @@ page << %{
 }
 
 @hosts.each do |host|
-  if host.reachable_through_host_id != nil
-    page << "connections.push(r.connection(find_host_by_id(shapes,#{host.id}),find_host_by_id(shapes,#{host.reachable_through_host_id}), \"#000\"));"
+  if host.pivot_host_id != nil
+    page << "connections.push(r.connection(find_host_by_id(shapes,#{host.id}),find_host_by_id(shapes,#{host.pivot_host_id}), \"#000\"));"
   end
 end

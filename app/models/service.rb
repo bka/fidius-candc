@@ -3,18 +3,18 @@ class Service < FIDIUS::XmlRpcModel
   column :name, :string
   column :port, :integer
   column :proto, :string
-  column :host_id, :integer
-  column :exploited, :boolean
+  column :interface_id, :integer
   column :state, :string
   column :info, :string
 
-  belongs_to :host
+  belongs_to :interface
 
   def exploited?
-    exploited
+    interface.host.sessions2.each do |session|
+      return true if session.service_id == id
+    end
   end
-  
-  
+
   # ---------------  CVE-DB Stuff --------------- #
   
   # Contains words which may be included in the service.info but are
