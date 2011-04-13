@@ -48,4 +48,15 @@ class HostsController < ApplicationController
     render :text => "KI sagt"
   end
 
+  def exploits
+    @exploits = EvasionDB::AttackModule.all
+    @host = Host.find params[:id]
+    t = render_to_string :template=>"hosts/exploits", :layout=>false
+    render :update do |page|
+      page <<%{
+        $('#standard_dialog').html("#{escape_javascript(t)}");
+      }
+    end
+  end
+
 end

@@ -1,17 +1,79 @@
 <img id="loading_indicator" src="/images/ajax-loading.gif" width="100" style="z-index:99;position:absolute;margin-left:200px;margin-top:200px;display:none;">
 
-<div style="width:100%;background: #ccc;border: 1px solid #333;">
+
+
+<div style="width:100%;border: 1px solid #333;">
 <div id="holder" style="position:relative;width:50%;height:600px;float:left;z-index:0;">
 </div>
-<div id="context-menu" "style="position:relative;float:right;width:40%;height:600px;margin-bottom:10px;margin-right:10px"></div>        
+<div id="context-menu" "style="position:relative;float:right;width:40%;margin-bottom:10px;margin-right:10px"></div>        
 <div style="clear:both"></div>
 </div>
 
 <script>
+
+var miserables = {
+  nodes:[],
+  links:[]
+};
+
+var w = 800,
+    h = 600,
+    x = pv.Scale.linear().range(0, w),
+    y = pv.Scale.linear().range(0, h);
+
+var vis = new pv.Panel()
+    .canvas("holder")
+    .margin(10)
+    .lineWidth(3)
+    .event("mousedown", pv.Behavior.pan())
+    .event("mousewheel", pv.Behavior.zoom())
+    .strokeStyle("red");
+
+var layout = vis.add(pv.Layout.Force)
+      .nodes(miserables.nodes)
+      .links(miserables.links)
+      .bound(true)
+      .chargeConstant(-80)
+      .dragConstant(0.06)
+      .springConstant(0.05)
+      .chargeMaxDistance(600)
+      .springLength(350)
+      .iterations(500); 
+layout.node.add(pv.Panel)
+    .lineWidth(3)
+    .width(80)
+    .height(80)
+    .lineWidth(0)
+    .event("mousedown", pv.Behavior.drag())
+    .event("drag", layout)
+    .event("click", function(d) jQuery.ajax('/hosts/'+d.hostID+'/info'))
+    .add(pv.Image)
+    .cursor("pointer")
+    .lineWidth(function(d) d.isRoot? 3:0)
+    .strokeStyle("blue")
+    .width(80)
+    .height(80)
+
+    .left(-40)
+    .top(-40)
+    .url(function(d) d.hostImage? d.hostImage:"/images/graph/unknownpc.png")
+    .add(pv.Label)
+    .text(function(d) d.nodeName)
+    .textAlign("center")
+    .left(20)
+    .top(100)
+;
+
+layout.link.add(pv.Line)
+  .lineWidth(5);
+vis.render();
+
+    layout.reset();
+    vis.render();
+
+
 window.onload = function () {
-    //alert($('loading_indicator'));
-    //$('#loading_indicator').show();
-    jQuery.ajax('/hosts/svg_graph',{beforeSend:function(){$('#loading_indicator').show();},success:function(){ $('#loading_indicator').hide(); }});
+  jQuery.ajax('/hosts/svg_graph',{beforeSend:function(){$('#loading_indicator').show();},success:function(){ $('#loading_indicator').hide(); }});
 };
 </script>
 

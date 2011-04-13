@@ -28,9 +28,9 @@
    <% end %>
 
     <div class="actions_for_host">
-      <a href="#" class="ui-button" id="autoattack_host">Autoattack</a>
-      <a href="#" class="ui-button">Reconnaissance</a>
-      <a href="#" class="ui-button">Remove</a>
+      <a class="ui-button" id="exploit_host">Exploit</a>
+      <a class="ui-button">Reconnaissance</a>
+      <a class="ui-button">Remove</a>
     </div>
 	</div>
 	<div id="tabs-2">
@@ -73,9 +73,8 @@
 <script>
 	$(function(interface) {
 
-
-    $("#autoattack_host").button();
-		$("#autoattack_host").click(function() { attack_host(<%= @host.interfaces2[0].id %>) });
+    $(".ui-button").button();
+		$("#exploit_host").click(function() { attack_host(<%= @host.interfaces2[0].id %>) });
 	});
 	</script>
 
