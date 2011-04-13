@@ -29,10 +29,11 @@ run bundle install
 
 # start architecture
 cd /path/to/architecture/bin
-# xml-rpc-server
-ruby xmlserver
 # msfdrbd
 ruby msfdrbd
+# xml-rpc-server
+ruby xmlserver
+
 
 # start candc
 cd /path/to/candc
