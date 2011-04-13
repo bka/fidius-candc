@@ -59,6 +59,13 @@ CommandAndControl::Application.routes.draw do
     member do
       get 'nvd_entries'
       get 'info'
+      get 'exploits'
+    end
+  end
+
+  resources :exploits do
+    member do
+      get 'pick'
     end
   end
 

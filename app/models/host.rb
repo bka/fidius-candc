@@ -52,7 +52,16 @@ class Host < FIDIUS::XmlRpcModel
   end
 
   def is_windows?
-    return os_name.to_s.downcase == "windows"
+    return true if os_name.to_s.downcase["windows"] != nil
+    return true if name.to_s.downcase["windows"] != nil
+    return true if os_sp.to_s.downcase["windows"] != nil
+    self.interfaces.each do |i|
+      i.services.each do |s|
+        return true if s.info.to_s.downcase["windows"] != nil
+        return true if s.name.to_s.downcase["windows"] != nil
+      end
+    end
+    return false
   end
 
 end

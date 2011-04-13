@@ -25,7 +25,14 @@ class FIDIUS::XmlRpcModel < ActiveRecord::Base
   # this finder is called via association_proxy to find associated model
   # use own relation to use self.find
   def self.construct_finder_arel(options = {}, scope = nil)
-    FIDIUS::XMLRpcRelation.new(self,Arel::Table.new("DOES NOT MATTER"),options)
+    # ar calls this method multiple times so we have to collect all options
+    # and store them in a single relation
+    if @rel
+      @rel.add_options(options)
+    else
+      @rel = FIDIUS::XMLRpcRelation.new(self,Arel::Table.new("DOES NOT MATTER"),options)
+    end
+    @rel
   end
 
   def self.find_by_sql(sql)
@@ -41,7 +48,12 @@ class FIDIUS::XmlRpcModel < ActiveRecord::Base
   end
 
   def self.find(*args)
-    model_name = self.name
+    if self.respond_to?("query_name")
+      model_name = self.query_name
+    else
+      model_name = self.name
+    end
+    puts "find #{model_name} with #{args.inspect}"
     parse_xml call_rpc "model.find",model_name,args.to_json
   end
   
@@ -53,40 +65,55 @@ class FIDIUS::XmlRpcModel < ActiveRecord::Base
 
   def self.available_models
     # find all models in app/models 
-    path = "#{RAILS_ROOT}/app/models/"
-    Dir.foreach(path).select do |file|
-      !File.directory?(path+file)
-    end.map do |filename|
-      filename.gsub(".rb","")
+    res = []
+    p = ["#{RAILS_ROOT}/app/models/", "#{RAILS_ROOT}/app/models/evasion_db"]
+    p.each do |path|
+      res << Dir.foreach(path).select do |file|
+        !File.directory?(path+file)
+      end.map do |filename|
+        filename.gsub(".rb","")
+      end
     end
+    res = res.flatten
+    res.delete(".")
+    res.delete("..")
+    return res
   end
 
   def self.xml_query_string
     # build string like '//host | //fidius-asset-host'
     res = Array.new
     available_models.each do |model|
-      res << "//#{model.gsub("_","-")} | //#{model} | //fidius-asset-#{model} | //fidius-#{model}"
+      res << "//#{model.gsub("_","-")} | //#{model} | //fidius-asset-#{model} | //fidius-#{model} | // fidius-evasion-db-knowledge-#{model}"
     end
     res.join("|")
   end
 
   def self.parse_xml(xml)
+    puts "parsing #{xml}"
     res = Array.new
     doc=REXML::Document.new(xml)
+    puts "xml_ #{xml_query_string}"
     doc.root.each_element(xml_query_string) do |tag|
       object = nil
+      has_attr = false
       eval("object = #{model_name}.new")
       tag.each_element do |e|
         key = e.name
         key = key.gsub("-","_") # assoziations are returned like: host-id
         value = e.children.first
+        # skip methods not found
+        next if !object.respond_to?(key)
         if value
           eval("object.#{key} = '#{value}'")
         else
           eval("object.#{key} = nil")
         end
+        has_attr = true
       end
-      res << object
+      puts "res << #{object}"
+      # avoid empty objects in array, strange bug ...
+      res << object if has_attr
     end
     return res[0] if res.size == 1
     return res
@@ -117,6 +144,14 @@ class FIDIUS::XmlRpcModel < ActiveRecord::Base
     false
   end
 
+  def self.table_name
+    "#{self.name.to_s.tableize}"
+  end
+
+  #def self.has_many(objects)
+  #  
+  #end
+
   private
     def self.rpc_request(*args)
       begin
@@ -134,15 +169,31 @@ class FIDIUS::XmlRpcModel < ActiveRecord::Base
       rpc_request(method,args)
     end
 end
+
+
 # Prevent ActiveRecord from loading via SQL-statements.
 # Use our own Relation-Model
 class FIDIUS::XMLRpcRelation < ActiveRecord::Relation
   def initialize(klass, table,options)
     super(klass,table)
+    puts "merge options with #{options}"
+    @cur_klass = klass
     @find_options = options
   end
+
+  def add_options(options)
+    puts "merge options with #{options}"
+    @find_options = @find_options.merge(options)
+  end
+
   def to_a
-    @records = @klass.find(:all,*@find_options)
+    # avoid mysql syntax error in core
+    @find_options[:conditions] = @find_options[:conditions].gsub("\"","")
+    puts "BLA YOUR CLASS IS #{@cur_klass}"
+    # replace namespaces like evasion_db/attack_options
+    @find_options[:conditions] = @find_options[:conditions].gsub(@cur_klass.to_s.tableize,@cur_klass.to_s.tableize.split("/").last)    
+    puts "options look like this: #{@find_options}"
+    @records = @klass.find(:all,@find_options)
     return [@records] if !@records.respond_to?("size")
     @records
   end
