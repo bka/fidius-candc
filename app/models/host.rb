@@ -3,7 +3,6 @@ class Host < FIDIUS::XmlRpcModel
   column :id, :integer
   column :name, :string
   column :rating, :integer
-  column :exploited, :boolean
   column :os_name, :string
   column :os_sp, :string
   column :pivot_host_id, :integer
@@ -26,7 +25,7 @@ class Host < FIDIUS::XmlRpcModel
   end
 
   def exploited?
-    exploited
+    !sessions2.empty?
   end
 
   def exploited_hosts
