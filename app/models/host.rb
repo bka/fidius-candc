@@ -10,6 +10,7 @@ class Host < FIDIUS::XmlRpcModel
   column :localhost, :boolean
   column :attackable, :boolean
   column :ids, :boolean
+  column :webserver, :string
 
   has_many :interfaces
   has_many :sessions
