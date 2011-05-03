@@ -45,9 +45,37 @@ function closed_event_dialog(){
 }
 
 function attack_host(host_id){
+  link_to_dialog('/hosts/'+host_id+'/exploits');
+}
+
+function autoexploit_host(host_id){
   jQuery.ajax('/actions/attack_host',{data:"host_id="+host_id});
 }
 
 function nvd_entries(host_id){
   jQuery.ajax("/hosts/"+host_id+"/nvd_entries");
+}
+
+function pick_exploit(id){
+  jQuery.ajax("/exploits/"+id+"/pick");
+}
+
+var storePos = [];
+function save_layout(){
+  storePos = [];
+  for(i=0;i<layout.nodes().length;i++){
+    node = layout.nodes()[i];
+    storePos[node.hostID] = {x:node.x,y:node.y};
+  }
+}
+
+function restore_layout(){
+  for(i=0;i<layout.nodes().length;i++){
+    node = layout.nodes()[i];
+    if(storePos[node.hostID]){
+      layout.nodes()[i].x = storePos[node.hostID].x;
+      layout.nodes()[i].y = storePos[node.hostID].y;
+    }
+  }
+  vis.render();
 }

@@ -33,12 +33,13 @@ var layout = vis.add(pv.Layout.Force)
       .nodes(miserables.nodes)
       .links(miserables.links)
       .bound(true)
-      .chargeConstant(-80)
-      .dragConstant(0.06)
+      .dragConstant(0)
       .springConstant(0.05)
       .chargeMaxDistance(600)
       .springLength(350)
-      .iterations(500); 
+      .iterations(50); 
+
+  
 layout.node.add(pv.Panel)
     .lineWidth(3)
     .width(80)
@@ -53,7 +54,6 @@ layout.node.add(pv.Panel)
     .strokeStyle("blue")
     .width(80)
     .height(80)
-
     .left(-40)
     .top(-40)
     .url(function(d) d.hostImage? d.hostImage:"/images/graph/unknownpc.png")
@@ -61,19 +61,14 @@ layout.node.add(pv.Panel)
     .text(function(d) d.nodeName)
     .textAlign("center")
     .left(20)
-    .top(100)
-;
+    .top(100);
 
-layout.link.add(pv.Line)
-  .lineWidth(5);
+layout.link.add(pv.Line).lineWidth(5);
 vis.render();
-
-    layout.reset();
-    vis.render();
-
+layout.reset();
+vis.render();
 
 window.onload = function () {
   jQuery.ajax('/hosts/svg_graph',{beforeSend:function(){$('#loading_indicator').show();},success:function(){ $('#loading_indicator').hide(); }});
 };
 </script>
-
