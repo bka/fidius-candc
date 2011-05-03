@@ -51,6 +51,12 @@ class Host < FIDIUS::XmlRpcModel
     ids
   end
 
+  def name_for_graphview
+    return name if name
+    return interfaces2.first.ip if interfaces2.size>0
+    return "UNKNOWN"
+  end
+
   def is_windows?
     return true if os_name.to_s.downcase["windows"] != nil
     return true if name.to_s.downcase["windows"] != nil

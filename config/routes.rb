@@ -93,6 +93,8 @@ CommandAndControl::Application.routes.draw do
       post 'rate_host'
       get 'next_target'
       get 'clean_hosts'
+      post 'start_file_autopwn'
+      post 'start_browser_autopwn'
     end
   end
 

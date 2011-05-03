@@ -30,7 +30,13 @@ module FIDIUS::RpcCommands
         rpc_request("action.rate_host",host_id,rating)
       end
 
+      def exec_start_browser_autopwn(lhost)
+        rpc_request("action.browser_autopwn.start",lhost)
+      end
 
+      def exec_start_file_autopwn(lhost)
+        rpc_request("action.file_autopwn.start",lhost)
+      end
         
     end #class self
   end #class FIDIUS::XmlRpcModel

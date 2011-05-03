@@ -1,0 +1,11 @@
+<div id="browser-autopwn-dialog">
+	<p>Please enter LHOST for BrowserAutopwn.</p>
+  <% form_tag "actions/start_browser_autopwn",:remote=>true,:onsubmit=>"$('#browser-autopwn-dialog').dialog('close');" do |form| %>
+    <%= text_field :tf,:lhost %>
+    <%= submit_tag %>
+  <% end %>
+</div>
+
+<script>
+  $("#browser-autopwn-dialog").dialog({ autoOpen: false, width:800});
+</script>

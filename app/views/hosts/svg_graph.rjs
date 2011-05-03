@@ -3,7 +3,7 @@ page << "miserables = {nodes:["
 links = ""
 #i = 0
 @hosts.each do |host|
-  page << "{hostID:#{host.id},nodeName:\"#{host.name}\", group:1,hostImage:\"/images/graph/#{host.image}\",isRoot:#{host.localhost}},"
+  page << "{hostID:#{host.id},nodeName:\"#{host.name_for_graphview}\", group:1,hostImage:\"/images/graph/#{host.image}\",isRoot:#{host.localhost}},"
 end
 
 page << "],links:["
