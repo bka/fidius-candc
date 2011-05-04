@@ -33,6 +33,16 @@ class ActionsController < ApplicationController
     render :text=>"ok"
   end
 
+  def start_file_autopwn
+    FIDIUS::XmlRpcModel.exec_start_file_autopwn(params[:tf][:lhost])
+    render :text=>"ok"
+  end
+
+  def start_browser_autopwn
+    FIDIUS::XmlRpcModel.exec_start_browser_autopwn(params[:tf][:lhost])
+    render :text=>"ok"
+  end
+
   def update_all
     # reload objects like tasks or host graph, but only if needed
     if FIDIUS::XmlRpcModel.exec_data_changed? == "true"

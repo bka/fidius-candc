@@ -10,6 +10,7 @@ class Host < FIDIUS::XmlRpcModel
   column :localhost, :boolean
   column :attackable, :boolean
   column :ids, :boolean
+  column :webserver, :string
 
   has_many :interfaces
   has_many :sessions
@@ -48,6 +49,12 @@ class Host < FIDIUS::XmlRpcModel
   
   def is_prelude?
     ids
+  end
+
+  def name_for_graphview
+    return name if name
+    return interfaces2.first.ip if interfaces2.size>0
+    return "UNKNOWN"
   end
 
   def is_windows?

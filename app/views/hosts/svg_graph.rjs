@@ -3,15 +3,10 @@ page << "miserables = {nodes:["
 links = ""
 #i = 0
 @hosts.each do |host|
-  page << "{hostID:#{host.id},nodeName:\"#{host.name}\", group:1,hostImage:\"/images/graph/#{host.image}\",isRoot:#{host.localhost}},"
-  #if host.pivot_host_id != nil
-  #  links << "{source:#{host.pivot_host_id}, target:#{i}, value:0.10}," 
-  #  i += 1
-  #end
+  page << "{hostID:#{host.id},nodeName:\"#{host.name_for_graphview}\", group:1,hostImage:\"/images/graph/#{host.image}\",isRoot:#{host.localhost}},"
 end
 
 page << "],links:["
-#page << links
 i = 0
 @hosts.each do |host|
   if host.pivot_host_id != nil
@@ -34,9 +29,12 @@ end
 page << "]};"
 
 page << %{
+save_layout();
 layout.nodes(miserables.nodes);
 layout.links(miserables.links);
 
 layout.reset();
 vis.render();
+restore_layout();
 }
+

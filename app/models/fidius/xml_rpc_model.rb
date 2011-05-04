@@ -53,7 +53,6 @@ class FIDIUS::XmlRpcModel < ActiveRecord::Base
     else
       model_name = self.name
     end
-    puts "find #{model_name} with #{args.inspect}"
     parse_xml call_rpc "model.find",model_name,args.to_json
   end
   
@@ -90,10 +89,8 @@ class FIDIUS::XmlRpcModel < ActiveRecord::Base
   end
 
   def self.parse_xml(xml)
-    puts "parsing #{xml}"
     res = Array.new
     doc=REXML::Document.new(xml)
-    puts "xml_ #{xml_query_string}"
     doc.root.each_element(xml_query_string) do |tag|
       object = nil
       has_attr = false
@@ -111,7 +108,6 @@ class FIDIUS::XmlRpcModel < ActiveRecord::Base
         end
         has_attr = true
       end
-      puts "res << #{object}"
       # avoid empty objects in array, strange bug ...
       res << object if has_attr
     end
@@ -176,23 +172,19 @@ end
 class FIDIUS::XMLRpcRelation < ActiveRecord::Relation
   def initialize(klass, table,options)
     super(klass,table)
-    puts "merge options with #{options}"
     @cur_klass = klass
     @find_options = options
   end
 
   def add_options(options)
-    puts "merge options with #{options}"
     @find_options = @find_options.merge(options)
   end
 
   def to_a
     # avoid mysql syntax error in core
     @find_options[:conditions] = @find_options[:conditions].gsub("\"","")
-    puts "BLA YOUR CLASS IS #{@cur_klass}"
     # replace namespaces like evasion_db/attack_options
     @find_options[:conditions] = @find_options[:conditions].gsub(@cur_klass.to_s.tableize,@cur_klass.to_s.tableize.split("/").last)    
-    puts "options look like this: #{@find_options}"
     @records = @klass.find(:all,@find_options)
     return [@records] if !@records.respond_to?("size")
     @records

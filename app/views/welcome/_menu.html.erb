@@ -13,6 +13,8 @@
              <li><a href="#" onclick="jQuery.ajax('/actions/clean_hosts');">Clean Hosts</a></li>  
              <li><a href="#" onclick="$('#scan-dialog').dialog('open'); ">Scan</a></li>  
              <li><a href="#" onclick="jQuery.ajax('/actions/next_target',{success:function(data){mark_host(data);}});">Next Target</a></li>  
+             <li><a href="#" onclick="$('#browser-autopwn-dialog').dialog('open');">Start BrowserAutopwn</a></li>  
+             <li><a href="#" onclick="$('#file-autopwn-dialog').dialog('open');">Start FileAutopwn</a></li>  
              <li><a href="#">Import</a></li>  
          </ul>  
      </li>  

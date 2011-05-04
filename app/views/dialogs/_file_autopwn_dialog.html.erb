@@ -1,0 +1,11 @@
+<div id="file-autopwn-dialog">
+	<p>Please enter LHOST for FileAutopwn.</p>
+  <% form_tag "actions/start_file_autopwn",:remote=>true,:onsubmit=>"$('#file-autopwn-dialog').dialog('close');" do |form| %>
+    <%= text_field :tf,:lhost %>
+    <%= submit_tag %>
+  <% end %>
+</div>
+
+<script>
+  $("#file-autopwn-dialog").dialog({ autoOpen: false, width:800});
+</script>
