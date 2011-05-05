@@ -49,7 +49,12 @@ class HostsController < ApplicationController
   end
 
   def exploits
-    @exploits = EvasionDB::AttackModule.all
+    begin
+      @exploits = EvasionDB::AttackModule.all
+    rescue
+      # handle if no exploits found
+      @exploits = []
+    end
     @host = Host.find params[:id]
     t = render_to_string :template=>"hosts/exploits", :layout=>false
     render :update do |page|
