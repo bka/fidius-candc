@@ -8,6 +8,7 @@
 		<li><a href="#tabs-4">Interact</a></li>
 	</ul>
 	<div id="tabs-1">
+    <% if !@host.localhost %>
     <p><span id="stars-cap"></span>
         <div id="stars-wrapper2">
             <select id="host_rating_selectbox" name="rating">
@@ -21,6 +22,7 @@
              </select>
        </div>
     </p>
+    <% end %>
     <br style="clear:both">
     <% @host.interfaces2.each do |interface| %>
       <h2><%= interface.ip %></h2>
@@ -28,9 +30,12 @@
    <% end %>
 
     <div class="actions_for_host">
-      <a class="ui-button" id="exploit_host">Exploit</a>
-      <a class="ui-button">Reconnaissance</a>
-      <a class="ui-button">Remove</a>
+      <% if !@host.localhost %>
+        <a class="ui-button" id="exploit_host">Exploit</a>
+      <% end %>
+      <% if @host.exploited? %>
+        <a class="ui-button" id="reconnaissance">Reconnaissance</a>
+      <% end %>
     </div>
 	</div>
 	<div id="tabs-2">
@@ -74,7 +79,11 @@
 	$(function(interface) {
 
     $(".ui-button").button();
-		$("#exploit_host").click(function() { attack_host(<%= @host.interfaces2[0].id %>) });
+    <% if !@host.localhost %>
+  		$("#exploit_host").click(function() { attack_host(<%= @host.id %>) });
+    <% end %>
+
+ 		$("#reconnaissance").click(function() { reconnaissance_from_host(<%= @host.id %>) });
 	});
 	</script>
 

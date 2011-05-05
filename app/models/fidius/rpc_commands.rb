@@ -17,6 +17,10 @@ module FIDIUS::RpcCommands
         rpc_request("action.attack_host",host_id)
       end
 
+      def exec_reconnaissance_from_host(host_id)
+        rpc_request("action.reconnaissance",host_id)
+      end
+
       def exec_decision_next
         rpc_request("decision.nn.train","DOESNTMATTER")
         rpc_request("decision.nn.next","DOESNMATTER")

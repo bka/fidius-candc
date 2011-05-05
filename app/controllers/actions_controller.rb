@@ -28,6 +28,11 @@ class ActionsController < ApplicationController
     render :text=>"ok"
   end
 
+  def reconnaissance
+    FIDIUS::XmlRpcModel.exec_reconnaissance_from_host(params[:host_id])
+    render :text=>"ok"
+  end
+
   def dialog_closed
     FIDIUS::XmlRpcModel.exec_dialog_closed
     render :text=>"ok"

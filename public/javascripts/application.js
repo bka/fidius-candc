@@ -52,6 +52,10 @@ function autoexploit_host(host_id){
   jQuery.ajax('/actions/attack_host',{data:"host_id="+host_id});
 }
 
+function reconnaissance_from_host(host_id){
+  jQuery.ajax('/actions/reconnaissance',{data:"host_id="+host_id});
+}
+
 function nvd_entries(host_id){
   jQuery.ajax("/hosts/"+host_id+"/nvd_entries");
 }
