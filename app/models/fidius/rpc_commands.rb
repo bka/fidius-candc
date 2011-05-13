@@ -35,11 +35,19 @@ module FIDIUS::RpcCommands
       end
 
       def exec_start_browser_autopwn(lhost)
-        rpc_request("action.browser_autopwn.start",lhost)
+        rpc_request("action.browser_autopwn_start",lhost)
       end
 
       def exec_start_file_autopwn(lhost)
-        rpc_request("action.file_autopwn.start",lhost)
+        rpc_request("action.file_autopwn_start",lhost)
+      end
+
+      def exec_remove_finished_tasks
+        rpc_request("meta.remove_finished_tasks")
+      end
+
+      def exec_kill_task(task_id)
+        rpc_request("meta.kill_task", task_id)
       end
         
     end #class self

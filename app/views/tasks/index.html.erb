@@ -1,10 +1,11 @@
+<%= link_to "Remove Finished", remove_finished_tasks_actions_path %>
 <table width="100%">
   <tr>
     <th>ID</th>
     <th>Name</th>
     <th>Progress</th>
     <th>Started at</th>
-    <th>PreludeEvents</th>
+    <th>State</th>
     <th>&nbsp;</th>
   </tr>
 <% @tasks.each do |task| %>
@@ -13,7 +14,11 @@
     <td><%= task.name %></td>
     <td><div id="progressbar<%= task.id %>"></div></td>
     <td><%= l task.created_at %></td>
-    <td><%=h link_to_dialog "6", prelude_events_path %></td>
+    <td>
+      <% if task.error.to_s != "" %>
+        <%= link_to task.error[0..20],error_task_path(task), :remote=>true %>
+      <% end %>
+    </td>
     <td><a id="close_task_<%= task.id %>" href="#" role="button"><span class="ui-icon ui-icon-closethick">close</span></a></td>
   </tr>
 <% end %>
@@ -22,8 +27,10 @@
   <%= render :partial=>"tasks/update_taskbars" %>
   <% @tasks.each do |task| %>
 	  $(function() {
+
       $("#close_task_<%= task.id %>").button();
 		  $("#close_task_<%= task.id %>").click(function() {
+        jQuery.ajax("/actions/kill_task?id=<%= task.id %>");
         if(parseInt($('#progressbar<%= task.id %>').progressbar( "option", "value" )) == 100){
           $('#task_row_<%= task.id %>').fadeOut();
         }

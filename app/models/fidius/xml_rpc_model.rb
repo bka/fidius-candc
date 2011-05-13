@@ -155,8 +155,21 @@ class FIDIUS::XmlRpcModel < ActiveRecord::Base
         res = rpc.call(*args)
         rpc.close
         return res
-      rescue XMLRPC::FaultException=>e
-        raise "#{e.faultString}(#{e.faultCode})"
+      rescue
+        begin
+          m = $!.message
+          message = m[0,m.index("[")]
+          t = m[m.index("[")+1,m.index("]")-1].gsub("\"","")
+          trace = t.split(",")
+          puts "Error: #{message}"
+          puts "\t"+$!.backtrace.join("\n\t")
+          puts ("#"*40)
+          puts ("#"*10)+" Servers Stacktrace "+("#"*10)
+          puts ("#"*40)
+          puts "\t"+trace.join("\n\t")
+        rescue
+          puts $!.inspect
+        end
       end
       nil
     end

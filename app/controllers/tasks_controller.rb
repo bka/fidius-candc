@@ -48,4 +48,14 @@ class TasksController < ApplicationController
     #params[:address]
     raise "Not Implemented"
   end
+
+  def error
+    @task = Task.find(params[:id])
+    render :update do |page|
+      page <<%{
+        $('#standard_dialog').html("#{escape_javascript(@task.error)}");
+      }
+    end
+
+  end
 end

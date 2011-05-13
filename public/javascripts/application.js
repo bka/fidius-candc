@@ -33,6 +33,7 @@ function open_tasks(){
 
 function link_to_dialog(path){
   jQuery.ajax(path);
+  $('#standard_dialog').html("");
   $('#standard_dialog').dialog('open');
 }
 

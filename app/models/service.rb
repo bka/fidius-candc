@@ -13,6 +13,7 @@ class Service < FIDIUS::XmlRpcModel
     interface.host.sessions2.each do |session|
       return true if session.service_id == id
     end
+    false
   end
 
   # ---------------  CVE-DB Stuff --------------- #

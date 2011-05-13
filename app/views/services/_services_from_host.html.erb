@@ -5,14 +5,30 @@
     <th>Port type</th>
     <th>Port state</th>
     <th>Service info</th>
+    <th>&nbsp;</th>
   </tr>
   <% services.each do |service| %>
-    <tr<%= service.exploited? ? 'class="exploited"' : '' %>>
-      <td><%= service.name %></td>
+    <% if service.exploited? %>
+      <tr class="exploited">
+    <% else %>
+      <tr>
+    <% end %>
+      <td>
+        <% if service.exploited?%>
+          (Exploited)
+        <% end %>
+        <%= service.name %>
+      </td>
       <td><%= service.port %></td>
       <td><%= service.proto %></td>
       <td><%= service.state %></td>
       <td><%= service.info %></td>
+      <td>
+      <% if !service.interface.host.localhost && !service.exploited? %>
+        <a class="ui-button" class="exploit_service">Exploit</a>
+      <% end %>
+      </td>
     </tr>
   <% end %>
 </table>
+

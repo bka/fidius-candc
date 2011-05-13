@@ -41,6 +41,12 @@ class Host < FIDIUS::XmlRpcModel
       image = "windowsxp.png"
       image = "windowsxp_hacked.png" if exploited?
     end
+    if is_linux?
+      image = "linux.png"
+      image = "linux_hacked.png" if exploited?
+
+    end
+
     if is_prelude?
       image = "prelude.png"
     end
@@ -55,6 +61,10 @@ class Host < FIDIUS::XmlRpcModel
     return name if name
     return interfaces2.first.ip if interfaces2.size>0
     return "UNKNOWN"
+  end
+
+  def is_linux?
+    return true if os_name.to_s.downcase["ubuntu"] != nil
   end
 
   def is_windows?

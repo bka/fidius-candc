@@ -78,6 +78,9 @@ CommandAndControl::Application.routes.draw do
       post 'startbrowserautopwn'
       get 'clean'
     end
+    member do
+      get 'error'
+    end
   end
 
   resources :prelude_events do
@@ -86,6 +89,8 @@ CommandAndControl::Application.routes.draw do
 
   resources :actions do
     collection do 
+      get 'kill_task'
+      get 'remove_finished_tasks'
       get 'update_all'
       get 'dialog_closed'
       get 'attack_host'

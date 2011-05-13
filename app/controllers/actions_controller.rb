@@ -18,6 +18,11 @@ class ActionsController < ApplicationController
     end
   end
 
+  def remove_finished_tasks
+    FIDIUS::XmlRpcModel.exec_remove_finished_tasks
+    render :text=>"ok"
+  end
+
   def clean_hosts
     FIDIUS::XmlRpcModel.exec_clean_hosts
     render :text=>"ok"
@@ -45,6 +50,12 @@ class ActionsController < ApplicationController
 
   def start_browser_autopwn
     FIDIUS::XmlRpcModel.exec_start_browser_autopwn(params[:tf][:lhost])
+    render :text=>"ok"
+  end
+
+  def kill_task
+    task_id = params[:id].to_i
+    FIDIUS::XmlRpcModel.exec_kill_task(task_id)
     render :text=>"ok"
   end
 
