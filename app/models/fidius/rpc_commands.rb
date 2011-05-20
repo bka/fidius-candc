@@ -49,6 +49,14 @@ module FIDIUS::RpcCommands
       def exec_kill_task(task_id)
         rpc_request("meta.kill_task", task_id)
       end
+
+      def console_exec_command(cmd)
+        return "JO WURST #{rand(5023423)}"
+      end
+
+      def meterpreter_exec_command(cmd,session_id)
+        return "JO Metepreter #{rand(5023423)}"
+      end
         
     end #class self
   end #class FIDIUS::XmlRpcModel

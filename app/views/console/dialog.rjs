@@ -1,0 +1,4 @@
+page <<%{
+  $('#console_dialog').html("<div id='termDiv'></div>");
+  termOpen();
+}

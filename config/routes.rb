@@ -48,6 +48,19 @@ CommandAndControl::Application.routes.draw do
   #     # (app/controllers/admin/products_controller.rb)
   #     resources :products
   #   end
+  resources :knowledge do
+
+  end
+  resources :idmef_events do
+
+  end
+
+  resources :console do
+    collection do
+      post 'input'
+      get 'dialog'
+    end
+  end
 
   resources :hosts do
     collection do 
@@ -60,6 +73,8 @@ CommandAndControl::Application.routes.draw do
       get 'nvd_entries'
       get 'info'
       get 'exploits'
+      get 'idmef_events'
+      get 'processes'
     end
   end
 

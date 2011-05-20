@@ -8,6 +8,5 @@ class Session < FIDIUS::XmlRpcModel
   column :created_at, :timestamp
   column :updated_at, :timestamp
 
-  belongs_to :host
-
+  belongs_to :service
 end

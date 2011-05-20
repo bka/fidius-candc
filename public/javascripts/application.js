@@ -31,6 +31,15 @@ function open_tasks(){
   link_to_dialog('/tasks');
 }
 
+function open_console(path){
+	if ((!term) || (term.closed)) {
+
+    $('#console_dialog').html("");
+    jQuery.ajax("/console/dialog",{asnyc:false});
+    $('#console_dialog').dialog('open');
+  }
+}
+
 function link_to_dialog(path){
   jQuery.ajax(path);
   $('#standard_dialog').html("");

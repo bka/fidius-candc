@@ -1,0 +1,49 @@
+
+<div id="exploit_picker">
+<p><%= select :exploit,:id, @exploits.collect {|e| [ e.name, e.id ] }, {:include_blank => false}, {:onchange=>"pick_exploit(this.value);"} %></p>
+<em id="exploit_name">Microsoft RPC DCOM Interface Overflow</em>
+<div id="exploit_description" class="scrollpane" style="height:100px;"></div>
+<em>Options</em>
+			<div id="exploit_options" class="scrollpane"></div>
+
+<em>IDMEF-Events</em>
+<div id="idmef_events" class="scrollpane"></div>
+</div>
+
+
+
+
+
+<script>
+    $(".ui-button").button();
+		$("#pick_exploit").click(function() { $("#exploit_buttons").fadeOut("slow");$("#exploit_picker").fadeIn("slow"); });
+    pick_exploit($('#exploit_id').val());
+</script>
+
+
+
+
+
+
+
+
+
+
+		<style type="text/css" id="page-css">
+			/* Styles specific to this particular page */
+			.scrollpane
+			{
+				width: 100%;
+				height: 200px;
+				overflow-y: auto;
+        overflow-x: hidden;
+        border:1px solid red;
+			}
+			.horizontal-only
+			{
+				height: auto;
+				max-height: 200px;
+			}
+		</style>
+
+

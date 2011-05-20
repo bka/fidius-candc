@@ -1,11 +1,15 @@
 <div id="tabs<%= @host.id %>" style="width:100%;height:100%;">
   <h1><%= @host.name %></h1>
   <%= @host.os_name %><%= @host.os_sp %>
+
 	<ul>
 		<li><a href="#tabs-1">Info</a></li>
 		<li><a href="#tabs-2">NVD</a></li>
 		<li><a href="#tabs-3">Log</a></li>
-		<li><a href="#tabs-4">Interact</a></li>
+    <% if @host.exploited? %>
+  		<li><a href="/hosts/<%= @host.id %>/processes">Processes</a></li>
+  		<li><a href="/hosts/<%= @host.id %>/idmef_events">IDMEF</a></li>
+    <% end %>
 	</ul>
 	<div id="tabs-1">
     <% if !@host.localhost %>
@@ -23,6 +27,30 @@
        </div>
     </p>
     <% end %>
+    <% if @host.exploited? %>
+      <table width="100%">
+      <tr>
+        <td>Computer</td>
+        <td>FIDIUS-69B8F53A</td>
+      </tr>
+      <tr>
+        <td>OS</td>
+        <td>Windows XP (Build 2600, Service Pack 2).</td>
+      </tr>
+      <tr>
+        <td>Architecture</td>
+        <td>x86</td>
+      </tr>
+      <tr>
+        <td>System Language</td>
+        <td>de_DE</td>
+      </tr>
+      <tr>
+        <td>Meterpreter</td>
+        <td>x86/win32</td>
+      </tr>
+    </table>
+    <% end %>
     <br style="clear:both">
     <% @host.interfaces2.each do |interface| %>
       <h2><%= interface.ip %></h2>
@@ -32,6 +60,7 @@
     <div class="actions_for_host">
       <% if !@host.localhost %>
         <a class="ui-button" id="exploit_host">Exploit</a>
+        <a class="ui-button" id="send_false_positive">False Positive</a>
       <% end %>
       <% if @host.exploited? %>
         <a class="ui-button" id="reconnaissance">Reconnaissance</a>
@@ -59,8 +88,7 @@
     </table>
 	</div>
 	<div id="tabs-4">
-    <%= render :partial => "services/sessions_from_host", :locals => { :sessions => @host.exploited_hosts } %>
-	</div>
+  </div>
 </div>
 <script>
 	$(function() {

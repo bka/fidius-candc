@@ -5,7 +5,7 @@
 <div style="width:100%;border: 1px solid #333;">
 <div id="holder" style="position:relative;width:50%;height:600px;float:left;z-index:0;">
 </div>
-<div id="context-menu" style="position:relative;float:right;width:40%;margin-bottom:10px;margin-right:10px"></div>        
+<div id="context-menu" style="position:relative;float:right;width:45%;margin-bottom:10px;margin-right:10px"></div>        
 <div style="clear:both"></div>
 </div>
 
@@ -61,7 +61,7 @@ layout.node.add(pv.Panel)
     .text(function(d) d.nodeName)
     .textAlign("center")
     .left(5)
-    .top(60);
+    .top(60).add(pv.Dot).top(-10).left(-3).radius(50).strokeStyle("red").lineWidth(function(d) d.marked? 1:0);
 
 layout.link.add(pv.Line).lineWidth(5);
 vis.render();

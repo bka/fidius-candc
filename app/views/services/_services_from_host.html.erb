@@ -14,7 +14,7 @@
       <tr>
     <% end %>
       <td>
-        <% if service.exploited?%>
+        <% if service.exploited? %>
           (Exploited)
         <% end %>
         <%= service.name %>
@@ -26,9 +26,17 @@
       <td>
       <% if !service.interface.host.localhost && !service.exploited? %>
         <a class="ui-button" class="exploit_service">Exploit</a>
+      <% else %>
+        <a class="ui-button" id="meterpreter-shell">Meterpreter-Shell</a>
+        <a class="ui-button" id="install-persistence">Persistence</a>
       <% end %>
       </td>
     </tr>
   <% end %>
 </table>
-
+<script>
+	$(function() {
+    $("#meterpreter-shell").click(function() { open_console(); });
+    $("#install-persistence").click(function() { $("#install-persistence").attr('disabled', 'disabled' ).addClass( 'ui-state-disabled' ); });
+  });
+</script>

@@ -15,6 +15,8 @@ class Host < FIDIUS::XmlRpcModel
   has_many :interfaces
   has_many :sessions
 
+  attr_accessor :marked
+
   #XXX: remove this method and fix the real bug
   def interfaces2
     interfaces.select {|i| i.host_id == id }
@@ -78,6 +80,30 @@ class Host < FIDIUS::XmlRpcModel
       end
     end
     return false
+  end
+
+  def marked?
+    return @marked == true
+  end
+
+  def processes
+    [{:pid=>4,:name=>"System",:arch=>"x86",:session=>0,:user=>"NT-AUTORITAT SYSTEM",:path=>""},
+{:pid=>348,:name=>"smss.exe",:arch=>"x86",:session=>0,:user=>"NT-AUTORITAT SYSTEM",:path=>" SystemRoot System32 Smss.exe"},
+{:pid=>536,:name=>"csrss.exe",:arch=>"x86",:session=>0,:user=>"NT-AUTORITAT SYSTEM",:path=>"??C:\\WINDOWS System32\\csrss.exe"},
+{:pid=>560,:name=>"winlogon.exe",:arch=>"x86",:session=>0,:user=>"NT-AUTORITAT SYSTEM",:path=>"\\??\\C:\\WINDOWS System32\\winlogon.exe"},
+{:pid=>856,:name=>"services.exe",:arch=>"x86",:session=>0,:user=>"NT-AUTORITAT SYSTEM",:path=>"C:\WINDOWS System32 Services.exe"},
+{:pid=>868,:name=>"lsass.exe",:arch=>"x86",:session=>0,:user=>"NT-AUTORITAT SYSTEM",:path=>"C:\\WINDOWS System32\\lsass.exe"},
+{:pid=>1032,:name=>"svchost.exe",:arch=>"x86",:session=>0,:user=>"NT-AUTORITAT SYSTEM",:path=>"C:\\WINDOWS System32 Svchost.exe"},
+{:pid=>1100,:name=>"svchost.exe",:arch=>"x86",:session=>0,:user=>"NT-AUTORITAT NETZWERKDIENST",:path=>"C:\\WINDOWS System32 Svchost.exe"},
+{:pid=>1312,:name=>"svchost.exe",:arch=>"x86",:session=>0,:user=>"NT-AUTORITAT SYSTEM",:path=>"C:\WINDOWS System32 Svchost.exe"},
+{:pid=>1364,:name=>"svchost.exe",:arch=>"x86",:session=>0,:user=>"NT-AUTORITAT NETZWERKDIENST",:path=>"C:\\WINDOWS System32 Svchost.exe"},
+{:pid=>1428,:name=>"svchost.exe",:arch=>"x86",:session=>0,:user=>"NT-AUTORITAT LOKALER DIENST",:path=>"C:\\WINDOWS System32 Svchost.exe"},
+{:pid=>1792,:name=>"spoolsv.exe",:arch=>"x86",:session=>0,:user=>"NT-AUTORITAT SYSTEM",:path=>"C:\\WINDOWS System32 Spoolsv.exe"},
+{:pid=>1936,:name=>"FreeFTPDService.exe",arch=>"x86",:user=>"NT-AUTORITAT SYSTEM",:path=>"C:\\Programme\\freeFTPd\\FreeFTPdService.exe"},
+{:pid=>1148,:name=>"alg.exe",:arch=>"x86",:session=>0,:user=>"NT-AUTORITAT LOKALER DIENST",:path=>"C:\\WINDOWS System32\\alg.exe"},
+{:pid=>1652,:name=>"logon.scr",:arch=>"x86",:session=>0,:user=>"NT-AUTORITAT SYSTEM",:path=>"C:\\WINDOWS System32\\logon.scr"},
+]
+
   end
 
 end

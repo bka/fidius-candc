@@ -12,7 +12,10 @@ class ActionsController < ApplicationController
 
   def next_target
     begin
-      render :text=>FIDIUS::XmlRpcModel.exec_decision_next
+      @hosts = Host.all
+      @hosts[4].marked=true
+      render :template=>"hosts/svg_graph",:layout=>false
+      #render :text=>FIDIUS::XmlRpcModel.exec_decision_next
     rescue
       render :status=>500,:text=>$!.to_s+"\n"+$!.backtrace[0..7].to_s
     end

@@ -1,0 +1,32 @@
+<div style="width:100%;height:300px;overflow:scroll;">
+<table width="100%" class="tablesorter sortable">
+<thead>
+<tr>
+  <th>PID</th>
+  <th>Name</th>
+  <th>Arch</th>
+  <th>Session</th>
+  <th>User</th>
+  <th>Path</th>
+</tr>
+</thead>
+<tbody>
+<% @host.processes.each do |process| %>
+<tr>
+  <td><%= process[:pid] %></td>
+  <td><%= process[:name] %></td>
+  <td><%= process[:arch] %></td>
+  <td><%= process[:session] %></td>
+  <td><%= process[:user] %></td>
+  <td><%= process[:path] %></td>
+</tr>
+
+<% end %>
+</tbody>
+</table>
+</div>
+<script>
+$(function() {
+  $(".tablesorter").tablesorter(); 
+}); 
+</script>
