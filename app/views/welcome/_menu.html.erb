@@ -1,26 +1,21 @@
 <div style="background-color:#000;background: url(/images/topnav_bg.gif) repeat-x;">
 <ul class="topnav">  
-    <li><a href="#">View</a>
-        <ul class="subnav">  
-            <li><a href="#">Circle</a></li>  
-             <li><a href="#">Hierarchy</a></li>  
-         </ul>  
-      </li>  
     <li>  
         <a href="#">Actions</a>  
         <ul class="subnav">  
             <li><a href="#">Reconnaissance</a></li>  
              <li><a href="#" onclick="jQuery.ajax('/actions/clean_hosts');">Clean Hosts</a></li>  
              <li><a href="#" onclick="$('#scan-dialog').dialog('open'); ">Scan</a></li>  
-             <li><a href="#" onclick="jQuery.ajax('/actions/next_target',{success:function(data){mark_host(data);}});">Next Target</a></li>  
+             <li><a href="#" onclick="jQuery.ajax('/actions/next_target');">Next Target</a></li>  
              <li><a href="#" onclick="$('#browser-autopwn-dialog').dialog('open');">Start BrowserAutopwn</a></li>  
              <li><a href="#" onclick="$('#file-autopwn-dialog').dialog('open');">Start FileAutopwn</a></li>  
              <li><a href="#">Import</a></li>  
          </ul>  
      </li>  
      <li><a href="#" onclick="open_tasks();" id="task_count">Tasks</a></li>
-     <li><a href="#" onclick="jQuery.ajax('/events/fetch_next_event');">Events(2)</a></li>  
-     <li><a href="#">MsfConsole</a></li>  
+     <li><a href="#" onclick="link_to_dialog('/idmef_events');">IDMEF</a></li>  
+     <li><a href="#" onclick="link_to_dialog('/knowledge')">Knowledge</a></li>  
+     <li><a href="#" onclick="open_console();">MsfConsole</a></li>  
      <li><a href="#">Credits</a></li>  
  </ul> 
 <div style="clear:both;"></div>

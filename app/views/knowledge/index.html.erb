@@ -1,10 +1,6 @@
-<div id="exploit_buttons">
-<a class="ui-button" id="autoexploit_host">Autoexploit</a>
-<a class="ui-button" id="pick_exploit">Pick Exploit</a>
-</div>
 
-<div id="exploit_picker" style="display:none">
-<p><%= select :exploit,:id, @exploits.collect {|e| [ e.name, e.id ] }, {:include_blank => false}, {:onchange=>"pick_exploit(this.value);"} %><a class="ui-button" id="run_exploit">Run</a></p>
+<div id="exploit_picker">
+<p><%= select :exploit,:id, @exploits.collect {|e| [ e.name, e.id ] }, {:include_blank => false}, {:onchange=>"pick_exploit(this.value);"} %></p>
 <em id="exploit_name">Microsoft RPC DCOM Interface Overflow</em>
 <div id="exploit_description" class="scrollpane" style="height:100px;"></div>
 <em>Options</em>
@@ -20,7 +16,6 @@
 
 <script>
     $(".ui-button").button();
-		$("#autoexploit_host").click(function() { autoexploit_host(<%= @host.id %>) });
 		$("#pick_exploit").click(function() { $("#exploit_buttons").fadeOut("slow");$("#exploit_picker").fadeIn("slow"); });
     pick_exploit($('#exploit_id').val());
 </script>

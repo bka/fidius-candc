@@ -48,6 +48,19 @@ CommandAndControl::Application.routes.draw do
   #     # (app/controllers/admin/products_controller.rb)
   #     resources :products
   #   end
+  resources :knowledge do
+
+  end
+  resources :idmef_events do
+
+  end
+
+  resources :console do
+    collection do
+      post 'input'
+      get 'dialog'
+    end
+  end
 
   resources :hosts do
     collection do 
@@ -60,6 +73,8 @@ CommandAndControl::Application.routes.draw do
       get 'nvd_entries'
       get 'info'
       get 'exploits'
+      get 'idmef_events'
+      get 'processes'
     end
   end
 
@@ -78,6 +93,9 @@ CommandAndControl::Application.routes.draw do
       post 'startbrowserautopwn'
       get 'clean'
     end
+    member do
+      get 'error'
+    end
   end
 
   resources :prelude_events do
@@ -86,9 +104,12 @@ CommandAndControl::Application.routes.draw do
 
   resources :actions do
     collection do 
+      get 'kill_task'
+      get 'remove_finished_tasks'
       get 'update_all'
       get 'dialog_closed'
       get 'attack_host'
+      get 'reconnaissance'
       post 'scan'
       post 'rate_host'
       get 'next_target'

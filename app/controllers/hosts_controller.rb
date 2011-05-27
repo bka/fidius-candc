@@ -35,7 +35,7 @@ class HostsController < ApplicationController
     #  page.replace_html "context-menu", a+b
     render :update do |page|
       page <<%{
-        $('#context-menu').html("#{escape_javascript(a+b)}")
+        $('#context-menu').html("#{escape_javascript(a+b)}");
       }
     end       
   end
@@ -49,7 +49,12 @@ class HostsController < ApplicationController
   end
 
   def exploits
-    @exploits = EvasionDB::AttackModule.all
+    begin
+      @exploits = EvasionDB::AttackModule.all
+    rescue
+      # handle if no exploits found
+      @exploits = []
+    end
     @host = Host.find params[:id]
     t = render_to_string :template=>"hosts/exploits", :layout=>false
     render :update do |page|
@@ -57,6 +62,17 @@ class HostsController < ApplicationController
         $('#standard_dialog').html("#{escape_javascript(t)}");
       }
     end
+  end
+
+  def idmef_events
+    h = EvasionDB::AttackModule.first
+    @idmef_events = h.idmef_events
+    render :template => "hosts/idmef_events", :layout=>false
+  end
+
+  def processes
+    @host = Host.find params[:id]
+    render :template => "hosts/processes", :layout=>false
   end
 
 end

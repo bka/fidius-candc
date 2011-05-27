@@ -12,10 +12,18 @@ class ActionsController < ApplicationController
 
   def next_target
     begin
-      render :text=>FIDIUS::XmlRpcModel.exec_decision_next
+      @hosts = Host.all
+      @hosts[4].marked=true
+      render :template=>"hosts/svg_graph",:layout=>false
+      #render :text=>FIDIUS::XmlRpcModel.exec_decision_next
     rescue
       render :status=>500,:text=>$!.to_s+"\n"+$!.backtrace[0..7].to_s
     end
+  end
+
+  def remove_finished_tasks
+    FIDIUS::XmlRpcModel.exec_remove_finished_tasks
+    render :text=>"ok"
   end
 
   def clean_hosts
@@ -25,6 +33,11 @@ class ActionsController < ApplicationController
 
   def attack_host
     FIDIUS::XmlRpcModel.exec_attack_host(params[:host_id])
+    render :text=>"ok"
+  end
+
+  def reconnaissance
+    FIDIUS::XmlRpcModel.exec_reconnaissance_from_host(params[:host_id])
     render :text=>"ok"
   end
 
@@ -40,6 +53,12 @@ class ActionsController < ApplicationController
 
   def start_browser_autopwn
     FIDIUS::XmlRpcModel.exec_start_browser_autopwn(params[:tf][:lhost])
+    render :text=>"ok"
+  end
+
+  def kill_task
+    task_id = params[:id].to_i
+    FIDIUS::XmlRpcModel.exec_kill_task(task_id)
     render :text=>"ok"
   end
 

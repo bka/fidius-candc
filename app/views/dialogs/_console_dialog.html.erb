@@ -1,0 +1,4 @@
+<div id="console_dialog" title="MsfConsole"></div>
+<script>
+  $("#console_dialog").dialog({ autoOpen: false, width:800,close: function(ev, ui) { term.close();$(this).hide(); }});
+</script>

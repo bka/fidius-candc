@@ -18,6 +18,13 @@
   <%= javascript_include_tag "mwheelIntent" %>
   <%= javascript_include_tag "jquery.jscrollpane.min" %>
   <%= javascript_include_tag "application" %>
+  <%= javascript_include_tag "jquery.tablesorter.min" %>
+
+
+  <%= javascript_include_tag "termlib/termlib.js" %>
+  <%= javascript_include_tag "termhandler" %>
+  <%= stylesheet_link_tag "/javascripts/termlib/term_styles.css" %>
+
 
   <%= csrf_meta_tag %>
   <script>
@@ -33,6 +40,7 @@
 <%= render :partial => "dialogs/file_autopwn_dialog" %>
 <%= render :partial => "dialogs/tasks_dialog" %>
 <%= render :partial => "dialogs/standard_dialog" %>
+<%= render :partial => "dialogs/console_dialog" %>
 <div id="event_dialog_placeholder"></div>
 
 <div id="header" class="shadow_border">

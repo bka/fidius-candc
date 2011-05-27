@@ -31,8 +31,18 @@ function open_tasks(){
   link_to_dialog('/tasks');
 }
 
+function open_console(path){
+	if ((!term) || (term.closed)) {
+
+    $('#console_dialog').html("");
+    jQuery.ajax("/console/dialog",{asnyc:false});
+    $('#console_dialog').dialog('open');
+  }
+}
+
 function link_to_dialog(path){
   jQuery.ajax(path);
+  $('#standard_dialog').html("");
   $('#standard_dialog').dialog('open');
 }
 
@@ -50,6 +60,10 @@ function attack_host(host_id){
 
 function autoexploit_host(host_id){
   jQuery.ajax('/actions/attack_host',{data:"host_id="+host_id});
+}
+
+function reconnaissance_from_host(host_id){
+  jQuery.ajax('/actions/reconnaissance',{data:"host_id="+host_id});
 }
 
 function nvd_entries(host_id){

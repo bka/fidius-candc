@@ -26,35 +26,11 @@
       <% sessions.each do |session| %>
       <td><%= session.service.name %></td>
       <td>
-        <%= link_to "Meterpreter-Shell", terminals_url(:session_id=>session.session_uuid) %>
+
       </td>
       <td>
-        <% form_tag addroutetosession_tasks_url do |f| %>
-          <%= hidden_field_tag 'sessionID', session.session_uuid %>
-          <%= submit_tag :addroutetosession %>
-        <% end %>
       </td>
       <td>
-        <% form_tag arpscannsession_tasks_url do |f| %>
-          <%= hidden_field_tag 'sessionID', session.session_uuid %>
-          <%= submit_tag :arpscannsession %>
-        <% end %>
-      <% end %>
-    </td>
-    <td>
-      <% sessions.each do |session| %>
-        <% form_tag installpersistence_tasks_url do |f| %>
-          <%= hidden_field_tag 'sessionID', session.session_uuid %>
-          <%= submit_tag :installpersistence %>
-        <% end %>
-      <% end %>
-    </td>
-    <td>
-      <% sessions.each do |session| %>
-        <% form_tag execreconnaissance_tasks_url do |f| %>
-          <%= hidden_field_tag 'sessionID', session.session_uuid %>
-          <%= submit_tag :pry %>
-        <% end %>
       <% end %>
     </td>
   </tr>
