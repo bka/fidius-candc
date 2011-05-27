@@ -4,6 +4,7 @@ class UserDialog < FIDIUS::XmlRpcModel
 
   column :title, :string
   column :message, :string
+  column :host_id, :integer
   column :dialog_type, :integer
   column :created_at, :datetime
   column :updated_at, :datetime

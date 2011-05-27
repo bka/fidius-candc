@@ -157,8 +157,9 @@ class FIDIUS::XmlRpcModel < ActiveRecord::Base
         return res
       rescue
         begin
+          original_error = $!
           m = $!.message
-          message = m[0,m.index("[")]
+          message = m[0,m.index("[").to_i]
           t = m[m.index("[")+1,m.index("]")-1].gsub("\"","")
           trace = t.split(",")
           puts "Error: #{message}"
@@ -168,7 +169,7 @@ class FIDIUS::XmlRpcModel < ActiveRecord::Base
           puts ("#"*40)
           puts "\t"+trace.join("\n\t")
         rescue
-          puts $!.inspect
+          puts "EE: "+original_error.message+"\n\n"+original_error.backtrace.join("\n")
         end
       end
       nil

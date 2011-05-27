@@ -1,0 +1,28 @@
+<table width="100%" class="tablesorter sortable">
+<thead>
+<tr>
+  <th>Action</th>
+  <th>Source</th>
+  <th>Dest</th>
+  <th>Time</th>
+  <th>Events</th>
+</tr>
+</thead>
+<tbody>
+<% @action_logs.each do |log| %>
+<tr>
+  <td><a href="#" onclick="link_to_dialog('/hosts/1/idmef_events');"><%= log.title %></a></td>
+  <td>10.20.20.1:70</td>
+  <td>10.0.0.5:80</td>
+  <td><%= l log.time %></td>
+  <td><%= log.idmef_count %></td>
+</tr>
+<% end %>
+</tbody>
+</table>
+
+<script>
+$(function() {
+  $(".tablesorter").tablesorter(); 
+}); 
+</script>

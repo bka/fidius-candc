@@ -67,7 +67,24 @@ class HostsController < ApplicationController
   def idmef_events
     h = EvasionDB::AttackModule.first
     @idmef_events = h.idmef_events
-    render :template => "hosts/idmef_events", :layout=>false
+
+    t = render_to_string :partial=>"idmef_events/idmef_events_full", :layout=>false, :locals=>{:idmef_events=>@idmef_events}
+    render :update do |page|
+      page <<%{
+        $('#standard_dialog').html("#{escape_javascript(t)}");
+      }
+    end    
+  end
+
+  def idmef_event_groups
+    h = EvasionDB::AttackModule.first
+    @idmef_events = h.idmef_events
+    @idmef_event_groups = []
+    @idmef_event_groups << IdmefEventGroup.new(:title=>"Exploit Windows",:time=>Time.now,:idmef_count=>4)
+    @idmef_event_groups << IdmefEventGroup.new(:title=>"Nmap Scan",:time=>Time.now,:idmef_count=>1)
+
+
+    render :template => "hosts/idmef_event_groups", :layout=>false
   end
 
   def processes

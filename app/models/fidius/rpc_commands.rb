@@ -9,6 +9,14 @@ module FIDIUS::RpcCommands
         rpc_request("meta.dialog_closed")
       end
 
+      def exec_dialog_yes
+        rpc_request("meta.dialog_yes")
+      end
+
+      def exec_dialog_no
+        rpc_request("meta.dialog_no")
+      end
+
       def exec_data_changed?
         rpc_request("meta.data_changed?")
       end
@@ -50,8 +58,24 @@ module FIDIUS::RpcCommands
         rpc_request("meta.kill_task", task_id)
       end
 
+      def exec_next_action
+        rpc_request("meta.next_action")
+      end
+
+      def exec_new_pentest
+        rpc_request("meta.new_pentest")
+      end
+
       def console_exec_command(cmd)
         return "JO WURST #{rand(5023423)}"
+      end
+
+      def exec_start_ki
+        rpc_request("meta.set_active",true)
+      end
+
+      def exec_stop_ki
+        rpc_request("meta.set_active",false)
       end
 
       def meterpreter_exec_command(cmd,session_id)

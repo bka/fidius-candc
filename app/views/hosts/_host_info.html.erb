@@ -5,10 +5,9 @@
 	<ul>
 		<li><a href="#tabs-1">Info</a></li>
 		<li><a href="#tabs-2">NVD</a></li>
-		<li><a href="#tabs-3">Log</a></li>
+		<li><a href="/hosts/<%= @host.id %>/idmef_event_groups">IDMEF</a></li>
     <% if @host.exploited? %>
   		<li><a href="/hosts/<%= @host.id %>/processes">Processes</a></li>
-  		<li><a href="/hosts/<%= @host.id %>/idmef_events">IDMEF</a></li>
     <% end %>
 	</ul>
 	<div id="tabs-1">
@@ -54,41 +53,30 @@
     <br style="clear:both">
     <% @host.interfaces2.each do |interface| %>
       <h2><%= interface.ip %></h2>
-      <%= render :partial => "services/services_from_host", :locals => { :services => interface.services2 } %>
+      <%= render :partial => "services/services_from_host", :locals => { :services => interface.services2,:host=>@host } %>
    <% end %>
 
     <div class="actions_for_host">
       <% if !@host.localhost %>
-        <a class="ui-button" id="exploit_host">Exploit</a>
+        <% if !@host.exploited? %>
+          <a class="ui-button" id="exploit_host">Exploit</a>
+        <% end %>
         <a class="ui-button" id="send_false_positive">False Positive</a>
       <% end %>
-      <% if @host.exploited? %>
+      <br>
+      <% if @host.exploited? || @host.localhost %>
         <a class="ui-button" id="reconnaissance">Reconnaissance</a>
+      <% end %>
+      <% if @host.exploited? %>
+        <a class="ui-button" id="meterpreter-shell">Meterpreter-Shell</a>
+        <a class="ui-button" id="install-persistence">Persistence</a>
+        <a class="ui-button" id="booby-trapping">Booby-Trapping</a>
       <% end %>
     </div>
 	</div>
 	<div id="tabs-2">
     <%= render :partial => "nvd_entries" %>
 	</div>
-	<div id="tabs-3">
-    <table>
-      <tr>
-        <th>Event</th>
-        <th>Time</th>
-      </tr>
-      <tr>
-        <td>Exploit:windows/smb/ms08_067_netapi</td>
-        <td><%= Time.now %></td>
-      </tr>
-      <tr>
-        <td>Session opened (windows/meterpreter)</td>
-        <td><%= Time.now %></td>
-      </tr>
-
-    </table>
-	</div>
-	<div id="tabs-4">
-  </div>
 </div>
 <script>
 	$(function() {
