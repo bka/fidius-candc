@@ -1,15 +1,16 @@
 <div id="yes_no_dialog" title="Basic dialog">
 	<p>Simple question. How should I proceed?</p>
   <div class="dialog_actions">
-    <a href="#">Yes</a>
-    <a href="#">No</a>
+    <a href="#" id="yes_button">Yes</a>
+    <a href="#" id="no_button">No</a>
   </div>
 </div>
 
 <script>
 	$(function() {
     $( "a", ".dialog_actions" ).button();
-		$( "a", ".dialog_actions" ).click(function() { alert("deine mudder"); });
+		$( "#yes_button" ).click(function() { alert("YES");jQuery.ajax('/actions/clicked_yes');$("#event-dialog").dialog('close'); });
+		$( "#no_button" ).click(function() {  alert("NO");jQuery.ajax('/actions/clicked_no');$("#event-dialog").dialog('close'); });
 	});
   $("#event-dialog").dialog({ width:800,close: function(event, ui){closed_event_dialog();}});
 </script>

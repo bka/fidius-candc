@@ -48,6 +48,9 @@ CommandAndControl::Application.routes.draw do
   #     # (app/controllers/admin/products_controller.rb)
   #     resources :products
   #   end
+  resources :action_logs do
+
+  end
   resources :knowledge do
 
   end
@@ -74,6 +77,7 @@ CommandAndControl::Application.routes.draw do
       get 'info'
       get 'exploits'
       get 'idmef_events'
+      get 'idmef_event_groups'
       get 'processes'
     end
   end
@@ -113,9 +117,15 @@ CommandAndControl::Application.routes.draw do
       post 'scan'
       post 'rate_host'
       get 'next_target'
+      get 'next_action'
+      get 'clicked_yes'
+      get 'clicked_no'
       get 'clean_hosts'
       post 'start_file_autopwn'
       post 'start_browser_autopwn'
+      get 'new_pentest'
+      get 'start_ki'
+      get 'stop_ki'
     end
   end
 

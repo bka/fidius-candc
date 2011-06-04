@@ -10,12 +10,20 @@ class ActionsController < ApplicationController
     render :text=>"ok"
   end
 
+  def next_action
+    FIDIUS::XmlRpcModel.exec_next_action    
+    render :text=>"ok"
+  end
+
   def next_target
     begin
       @hosts = Host.all
-      @hosts[4].marked=true
-      render :template=>"hosts/svg_graph",:layout=>false
-      #render :text=>FIDIUS::XmlRpcModel.exec_decision_next
+      rand = rand(@hosts.size)
+      render :update do |page|
+        page <<%{
+          mark_host(#{rand});
+        }
+      end
     rescue
       render :status=>500,:text=>$!.to_s+"\n"+$!.backtrace[0..7].to_s
     end
@@ -46,6 +54,16 @@ class ActionsController < ApplicationController
     render :text=>"ok"
   end
 
+  def clicked_yes
+    FIDIUS::XmlRpcModel.exec_dialog_yes
+    render :text=>"ok"
+  end
+
+  def clicked_no
+    FIDIUS::XmlRpcModel.exec_dialog_no
+    render :text=>"ok"
+  end
+
   def start_file_autopwn
     FIDIUS::XmlRpcModel.exec_start_file_autopwn(params[:tf][:lhost])
     render :text=>"ok"
@@ -59,6 +77,21 @@ class ActionsController < ApplicationController
   def kill_task
     task_id = params[:id].to_i
     FIDIUS::XmlRpcModel.exec_kill_task(task_id)
+    render :text=>"ok"
+  end
+
+  def start_ki
+    FIDIUS::XmlRpcModel.exec_start_ki
+    render :text=>"ok"
+  end
+
+  def stop_ki
+    FIDIUS::XmlRpcModel.exec_stop_ki
+    render :text=>"ok"
+  end
+
+  def new_pentest
+    FIDIUS::XmlRpcModel.exec_new_pentest
     render :text=>"ok"
   end
 

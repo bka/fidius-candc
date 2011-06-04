@@ -79,7 +79,40 @@ function save_layout(){
   storePos = [];
   for(i=0;i<layout.nodes().length;i++){
     node = layout.nodes()[i];
-    storePos[node.hostID] = {x:node.x,y:node.y};
+    storePos[node.hostID] = {x:node.x,y:node.y,marked:node.marked};
+  }
+}
+
+function toggle_ki(navi_el){
+  navi_el = $(navi_el);
+
+  title = navi_el.html();
+  if(title == "Start"){
+    title = "Stop";
+    jQuery.ajax('/actions/start_ki');  
+  }else{
+    title = "Start";
+    jQuery.ajax('/actions/stop_ki');  
+  }
+  navi_el.html(title);
+}
+
+function mark_host(hostID){
+  if(hostID != -1){
+    for(i=0;i<layout.nodes().length;i++){
+      node = layout.nodes()[i];
+      node.marked=false;
+    }
+    for(i=0;i<layout.nodes().length;i++){
+      node = layout.nodes()[i];
+      if(hostID == node.hostID){
+        node.marked=true;
+      }
+    }
+    save_layout();
+    layout.reset();
+    vis.render();
+    restore_layout();
   }
 }
 
@@ -89,6 +122,7 @@ function restore_layout(){
     if(storePos[node.hostID]){
       layout.nodes()[i].x = storePos[node.hostID].x;
       layout.nodes()[i].y = storePos[node.hostID].y;
+      layout.nodes()[i].marked = storePos[node.hostID].marked;
     }
   }
   vis.render();
