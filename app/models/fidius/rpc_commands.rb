@@ -49,6 +49,10 @@ module FIDIUS::RpcCommands
       def exec_kill_task(task_id)
         rpc_request("meta.kill_task", task_id)
       end
+      
+      def exec_single_exploit(host_id, exploit_id)
+        rpc_request("action.single_exploit", host_id, exploit_id)
+      end      
 
       def console_exec_command(cmd)
         return "JO WURST #{rand(5023423)}"
