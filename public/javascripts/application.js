@@ -76,6 +76,10 @@ function pick_exploit(id){
   jQuery.ajax("/exploits/"+id+"/pick");
 }
 
+function run_single_exploit(host_id, exploit_id){
+  jQuery.ajax('/actions/single_exploit',{data:{'host_id':host_id, 'exploit_id':exploit_id}});
+}
+
 var storePos = [];
 function save_layout(){
   storePos = [];

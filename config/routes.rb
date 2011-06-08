@@ -124,6 +124,7 @@ CommandAndControl::Application.routes.draw do
       get 'clean_hosts'
       post 'start_file_autopwn'
       post 'start_browser_autopwn'
+      get 'single_exploit'
       get 'new_pentest'
       get 'start_ki'
       get 'stop_ki'

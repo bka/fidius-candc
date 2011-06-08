@@ -84,6 +84,13 @@ class ActionsController < ApplicationController
     FIDIUS::XmlRpcModel.exec_kill_task(task_id)
     render :text=>"ok"
   end
+  
+  def single_exploit    
+    host = params["host_id"]
+    exploit = params["exploit_id"]
+    FIDIUS::XmlRpcModel.exec_single_exploit(host, exploit)
+    render :text=>"ok"
+  end
 
   def start_ki
     FIDIUS::XmlRpcModel.exec_start_ki
