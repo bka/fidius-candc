@@ -61,7 +61,9 @@ function attack_host(host_id){
 function autoexploit_host(host_id){
   jQuery.ajax('/actions/attack_host',{data:"host_id="+host_id});
 }
-
+function exploit_service(service_id){
+  jQuery.ajax('/actions/attack_service',{data:"service_id="+service_id});
+}
 function reconnaissance_from_host(host_id){
   jQuery.ajax('/actions/reconnaissance',{data:"host_id="+host_id});
 }

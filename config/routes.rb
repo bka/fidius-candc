@@ -113,6 +113,7 @@ CommandAndControl::Application.routes.draw do
       get 'update_all'
       get 'dialog_closed'
       get 'attack_host'
+      get 'attack_service'
       get 'reconnaissance'
       post 'scan'
       post 'rate_host'

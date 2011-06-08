@@ -44,6 +44,11 @@ class ActionsController < ApplicationController
     render :text=>"ok"
   end
 
+  def attack_service
+    FIDIUS::XmlRpcModel.exec_attack_service(params[:service_id])
+    render :text=>"ok"
+  end
+
   def reconnaissance
     FIDIUS::XmlRpcModel.exec_reconnaissance_from_host(params[:host_id])
     render :text=>"ok"
