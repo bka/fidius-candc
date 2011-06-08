@@ -24,11 +24,8 @@
       <td><%= service.state %></td>
       <td><%= service.info %></td>
       <td>
-      <% if !service.interface.host.localhost && !service.exploited? %>
-        <a class="ui-button" class="exploit_service">Exploit</a>
-      <% else %>
-        <a class="ui-button" id="meterpreter-shell">Meterpreter-Shell</a>
-        <a class="ui-button" id="install-persistence">Persistence</a>
+      <% if !service.interface.host.localhost && !host.exploited? %>
+          <a class="ui-button" class="exploit_service">Exploit</a>
       <% end %>
       </td>
     </tr>
