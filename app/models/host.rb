@@ -11,6 +11,9 @@ class Host < FIDIUS::XmlRpcModel
   column :attackable, :boolean
   column :ids, :boolean
   column :webserver, :string
+  column :discovered, :boolean
+  column :os_info, :string
+  column :lang, :string
 
   has_many :interfaces
   has_many :sessions

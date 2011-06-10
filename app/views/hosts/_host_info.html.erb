@@ -30,23 +30,19 @@
       <table width="100%">
       <tr>
         <td>Computer</td>
-        <td>FIDIUS-69B8F53A</td>
+        <td><%= @host.name %></td>
       </tr>
       <tr>
         <td>OS</td>
-        <td>Windows XP (Build 2600, Service Pack 2).</td>
+        <td><%= @host.os_info %></td>
       </tr>
       <tr>
         <td>Architecture</td>
-        <td>x86</td>
+        <td><%= @host.arch %></td>
       </tr>
       <tr>
         <td>System Language</td>
-        <td>de_DE</td>
-      </tr>
-      <tr>
-        <td>Meterpreter</td>
-        <td>x86/win32</td>
+        <td><%= @host.lang %></td>
       </tr>
     </table>
     <% end %>
