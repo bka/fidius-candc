@@ -19,6 +19,7 @@ class Host < FIDIUS::XmlRpcModel
   has_many :sessions
 
   attr_accessor :marked
+  attr_accessible :id
 
   #XXX: remove this method and fix the real bug
   def interfaces2

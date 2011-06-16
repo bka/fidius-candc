@@ -7,7 +7,7 @@ class ServiceTest < ActiveSupport::TestCase
     s = Service.first
     assert "http", s.name
     assert "http", s.proto
-    assert 80, s.port
+    assert_equal 80, s.port
     assert "open", s.state
     assert s.exploited?
 
