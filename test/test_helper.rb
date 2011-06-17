@@ -1,5 +1,7 @@
 require 'rexml/document'
 require 'simplecov'
+require 'simplecov-rcov'
+SimpleCov.formatter = SimpleCov::Formatter::RcovFormatter
 SimpleCov.start 'rails'
 
 ENV["RAILS_ENV"] = "test"

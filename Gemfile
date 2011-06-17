@@ -14,7 +14,8 @@ gem 'fidius-cvedb'
 
 # testcoverage
 gem "simplecov", :require => false, :group => :test
-gem 'amfranz-ci_reporter', '~>1.6.2', :require => false, :group => :test
-gem 'test-unit', '~>2.3.0', :require => false, :group => :test
+gem 'simplecov-rcov', :require => false, :group => :test
+gem 'amfranz-ci_reporter', :require => false, :group => :test
+gem 'test-unit', :require => false, :group => :test
 
 gem "fidius-common", :require => 'fidius-common/json_symbol_addon'
