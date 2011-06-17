@@ -17,6 +17,7 @@ class Host < FIDIUS::XmlRpcModel
 
   has_many :interfaces
   has_many :sessions
+  has_many :services, :through => :interfaces
 
   attr_accessor :marked
 
@@ -107,6 +108,35 @@ class Host < FIDIUS::XmlRpcModel
 {:pid=>1652,:name=>"logon.scr",:arch=>"x86",:session=>0,:user=>"NT-AUTORITAT SYSTEM",:path=>"C:\\WINDOWS System32\\logon.scr"},
 ]
 
+  end
+  
+  # ---------------  CVE-DB Stuff --------------- #
+  
+  def nvd_entries
+    entries = {}
+    services.each do |service|
+      if service.info
+        # If we don't have version informations we only search for the product
+        # names. (which unfortunately will result in many cve entries)
+        if service.versions.empty?
+          conditions  = ["product IN (?)", service.products]
+        else
+          conditions  = ["product IN (?) AND version IN (?)", service.products,
+                         service.versions]
+        end
+        products = FIDIUS::CveDb::Product.find(:all, :conditions => conditions)
+        products.each do |product|
+          product.nvd_entries.each do |entry|
+            entries[entry.id] = entry unless entries.has_key? entry.id
+          end
+        end
+      end
+    end
+    entries_array = []
+    entries.each_key do |key|
+      entries_array << entries[key]
+    end
+    entries_array
   end
 
 end

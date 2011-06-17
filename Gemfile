@@ -10,7 +10,7 @@ gem 'mysql2', '~>0.2.6'
 
 gem 'jquery-rails', '>= 0.2.6'
 
-#gem 'fidius-cvedb'
+gem 'fidius-cvedb'
 
 # testcoverage
 gem "simplecov", :require => false, :group => :test
