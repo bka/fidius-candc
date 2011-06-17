@@ -19,8 +19,11 @@ class Host < FIDIUS::XmlRpcModel
   has_many :sessions
 
   attr_accessor :marked
-  attr_accessible :id
 
+  #needed for tests with rpc-models
+  if ENV['RAILS_ENV'] == "test"
+    attr_accessible :id, :os_name, :os_sp, :name, :rating, :pivot_host_id, :arch, :localhost, :attackable, :ids, :webserver, :discovered, :os_info, :lang
+  end
   #XXX: remove this method and fix the real bug
   def interfaces2
     interfaces.select {|i| i.host_id == id }
@@ -107,7 +110,10 @@ class Host < FIDIUS::XmlRpcModel
 {:pid=>1148,:name=>"alg.exe",:arch=>"x86",:session=>0,:user=>"NT-AUTORITAT LOKALER DIENST",:path=>"C:\\WINDOWS System32\\alg.exe"},
 {:pid=>1652,:name=>"logon.scr",:arch=>"x86",:session=>0,:user=>"NT-AUTORITAT SYSTEM",:path=>"C:\\WINDOWS System32\\logon.scr"},
 ]
+  end
 
+  def has_ip? ip
+    interfaces2.select {|i| i.ip == ip}.length >= 1
   end
 
 end

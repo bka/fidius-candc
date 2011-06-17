@@ -43,7 +43,7 @@ module FIDIUS::RpcModelActions
     def self.available_models
       # find all models in app/models 
       res = []
-      p = ["#{RAILS_ROOT}/app/models/", "#{RAILS_ROOT}/app/models/evasion_db"]
+      p = ["#{Rails.root}/app/models/", "#{Rails.root}/app/models/evasion_db"]
       p.each do |path|
         res << Dir.foreach(path).select do |file|
           !File.directory?(path+file)

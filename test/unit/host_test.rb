@@ -5,8 +5,7 @@ class HostTest < ActiveSupport::TestCase
     h = Host.all
     assert_equal 5, h.size
     h = Host.first
-    #assert_equal "192.168.178.1", h.ip
-    #assert_equal "192.168.178.1", h.address
+    assert h.has_ip? "192.168.178.1"
     assert !h.exploited?
     assert_equal "windows", h.os_name
     assert_equal "SP2", h.os_sp
@@ -16,17 +15,13 @@ class HostTest < ActiveSupport::TestCase
     h = Host.new
     assert_equal "unknownpc.png",h.image
 
-    h = Host.find(4)
+    h = Host.find(3)
     assert_equal "unknownpc_hacked.png",h.image
 
-    puts "----------------5-----------------"
-    h = Host.new(5)
-    p h
-    p h.sessions
-    p h.sessions2
+    h = Host.find(4)
     assert_equal "windowsxp_hacked.png",h.image
 
-    #h = Host.new(:exploited=>false,:os_name=>"windows")
+    h = Host.find(5)
     assert_equal "windowsxp.png",h.image
   end
 end

@@ -20,7 +20,6 @@ class XMLRpcModelTest < ActiveSupport::TestCase
     <name></name>
     </host>"
     res = Host.parse_xml(xml)
-    puts res.inspect
     assert_equal "Host",res.class.to_s
     #assert_equal "localhost",res.ip 
     assert_equal nil,res.name 

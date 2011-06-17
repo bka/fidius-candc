@@ -11,6 +11,10 @@ class Interface < FIDIUS::XmlRpcModel
   has_many :services
   belongs_to :host
 
+  #needed for tests with rpc-models
+  if ENV['RAILS_ENV'] == "test"
+    attr_accessible :id, :ip, :host_id, :ip_mask, :ip_ver, :mac, :subnet_id
+  end
   #XXX: remove this method and fix the real bug
   def services2
     services.select {|s| s.interface_id == id }

@@ -5,17 +5,18 @@ class ServiceTest < ActiveSupport::TestCase
     s = Service.all
     assert_equal 3, s.size
     s = Service.first
-    assert "http", s.name
-    assert "http", s.proto
+
+    assert_equal "http", s.name
+    assert_equal "http", s.proto
     assert_equal 80, s.port
-    assert "open", s.state
+    assert_equal "open", s.state
     assert s.exploited?
 
     s = Service.last
-    assert "ftp", s.name
-    assert "ftp", s.proto
-    assert 21, s.port
-    assert "open", s.state
+    assert_equal "ftp", s.name
+    assert_equal "ftp", s.proto
+    assert_equal 21, s.port
+    assert_equal "open", s.state
     assert s.exploited?
   end
 end

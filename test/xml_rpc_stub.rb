@@ -2,16 +2,16 @@ class Host < FIDIUS::XmlRpcModel
   def self.fixtures
     [self.new(:id=>1,:os_name=>"windows",:os_sp=>"SP2"),
      self.new(:id=>2,:os_name=>"windows",:os_sp=>"SP2"),
-     self.new(:id=>3,:os_name=>"windows",:os_sp=>"SP2"),
-     self.new(:id=>4),
+     self.new(:id=>3),
+     self.new(:id=>4,:os_name=>"windows",:os_sp=>"SP2"),
      self.new(:id=>5,:os_name=>"windows",:os_sp=>"SP2")]
   end
 end
 class Service < FIDIUS::XmlRpcModel
   def self.fixtures
-    [self.new(:id=>1,:name=>"http",:port=>80,:proto=>"http",:interface_id=>1,:state=>"open"),
+    [self.new(:id=>1,:name=>"http",:port=>80,:proto=>"http",:interface_id=>3,:state=>"open"),
      self.new(:id=>2,:name=>"ssh",:port=>22,:proto=>"ssh",:interface_id=>2,:state=>"open"),
-     self.new(:id=>2,:name=>"ftp",:port=>21,:proto=>"ftp",:interface_id=>2,:state=>"open")]
+     self.new(:id=>3,:name=>"ftp",:port=>21,:proto=>"ftp",:interface_id=>2,:state=>"open")]
   end
 end
 
@@ -26,11 +26,9 @@ end
 
 class Session < FIDIUS::XmlRpcModel
   def self.fixtures
-    [self.new(:id=>1, :host_id=>1, :service_id=>1),
-     self.new(:id=>2, :host_id=>2, :service_id=>2),
+    [self.new(:id=>2, :host_id=>2, :service_id=>2),
      self.new(:id=>3, :host_id=>3, :service_id=>3),
-     self.new(:id=>4, :host_id=>4, :service_id=>3),
-     self.new(:id=>5, :host_id=>5, :service_id=>3)]
+     self.new(:id=>4, :host_id=>4, :service_id=>3)]
   end
 end
 
@@ -61,7 +59,12 @@ class FIDIUS::XmlRpcModel < ActiveRecord::Base
     raise "model #{model_name} not found " unless model
     opts = ActiveSupport::JSON.decode(args[0])
     if opts.first == :all
-      return model.fixtures
+      if opts[1]
+        s = opts[1][:conditions]
+        return model.fixtures.select {|i| eval(s.gsub(/^#{model.to_s.tableize}\./, "i." ).gsub(/=/, "==").gsub(/\bNULL\b/,"nil"))}
+      else
+        return model.fixtures
+      end
     end
     if opts.first == :first
       return model.fixtures.first
@@ -70,7 +73,7 @@ class FIDIUS::XmlRpcModel < ActiveRecord::Base
       return model.fixtures.last
     end
     if opts.first.integer?
-      return model.fixtures.select
+      return model.fixtures.each {|m| return m  if m.id == opts.first}
     end
     return nil
   end

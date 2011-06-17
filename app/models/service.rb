@@ -9,11 +9,13 @@ class Service < FIDIUS::XmlRpcModel
 
   belongs_to :interface
 
+  #needed for tests with rpc-models
+  if ENV['RAILS_ENV'] == "test"
+    attr_accessible :id, :name, :port, :proto, :interface_id, :state, :info
+  end
+
   def exploited?
-    interface.host.sessions2.each do |session|
-      return true if session.service_id == id
-    end
-    false
+    interface.host.exploited?
   end
 
   # ---------------  CVE-DB Stuff --------------- #
