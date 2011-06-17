@@ -5,3 +5,5 @@ tmp/**/*
 Gemfile.lock
 config/database.yml
 *~
+coverage
+test/reports
