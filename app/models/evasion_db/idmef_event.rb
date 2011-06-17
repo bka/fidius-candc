@@ -1,4 +1,6 @@
 class EvasionDB::IdmefEvent < FIDIUS::XmlRpcModel
+  establish_connection 'evasion_db'
+  set_table_name "idmef_events"
 
   column :id, :integer
   column :attack_module_id, :integer

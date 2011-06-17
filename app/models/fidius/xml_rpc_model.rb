@@ -1,3 +1,4 @@
+require "rexml/document"
 require 'xmlrpc/client'
 require 'fidius/rpc_commands'
 

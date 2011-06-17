@@ -1,4 +1,6 @@
 class EvasionDB::AttackModule < FIDIUS::XmlRpcModel
+  establish_connection 'evasion_db'
+  set_table_name "attack_modules"
 
   column :id, :integer
   column :created_at, :datetime
