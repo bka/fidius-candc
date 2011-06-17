@@ -1,6 +1,8 @@
 class EvasionDB::IdmefEvent < FIDIUS::XmlRpcModel
-  establish_connection 'evasion_db'
-  set_table_name "idmef_events"
+  unless (Object.const_defined?("USE_RPC_FOR_MODELS") && USE_RPC_FOR_MODELS)
+    establish_connection 'evasion_db'
+    set_table_name "idmef_events"
+  end
 
   column :id, :integer
   column :attack_module_id, :integer
