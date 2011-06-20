@@ -58,6 +58,7 @@ class FIDIUS::XmlRpcModel < ActiveRecord::Base
     end    
     raise "model #{model_name} not found " unless model
     opts = ActiveSupport::JSON.decode(args[0])
+    p opts
     if opts.first == :all
       if opts[1]
         s = opts[1][:conditions]

@@ -25,18 +25,9 @@ class Host < FIDIUS::XmlRpcModel
   if ENV['RAILS_ENV'] == "test"
     attr_accessible :id, :os_name, :os_sp, :name, :rating, :pivot_host_id, :arch, :localhost, :attackable, :ids, :webserver, :discovered, :os_info, :lang
   end
-  #XXX: remove this method and fix the real bug
-  def interfaces2
-    interfaces.select {|i| i.host_id == id }
-  end
-
-  #XXX: remove this method and fix the real bug
-  def sessions2
-    sessions.select {|s| s.host_id == id }
-  end
 
   def exploited?
-    !sessions2.empty?
+    !sessions.empty?
   end
 
   def exploited_hosts
@@ -69,7 +60,7 @@ class Host < FIDIUS::XmlRpcModel
 
   def name_for_graphview
     return name if name
-    return interfaces2.first.ip if interfaces2.size>0
+    return interfaces.first.ip if interfaces.size>0
     return "UNKNOWN"
   end
 
@@ -114,7 +105,7 @@ class Host < FIDIUS::XmlRpcModel
   end
 
   def has_ip? ip
-    interfaces2.select {|i| i.ip == ip}.length >= 1
+    interfaces.select {|i| i.ip == ip}.length >= 1
   end
   
   # ---------------  CVE-DB Stuff --------------- #
