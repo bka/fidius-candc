@@ -20,11 +20,11 @@ class HostTest < ActiveSupport::TestCase
     assert_equal "unknownpc_hacked.png",h.image
 
     h = Host.find(4)
-    #p h.sessions
+    p h.sessions
     assert_equal "windowsxp_hacked.png",h.image
 
     h = Host.find(5)
-    #p h.sessions
+    p h.sessions
     assert_equal "windowsxp.png",h.image
   end
 end
