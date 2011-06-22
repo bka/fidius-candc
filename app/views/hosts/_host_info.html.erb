@@ -47,9 +47,9 @@
     </table>
     <% end %>
     <br style="clear:both">
-    <% @host.interfaces2.each do |interface| %>
+    <% @host.interfaces.each do |interface| %>
       <h2><%= interface.ip %></h2>
-      <%= render :partial => "services/services_from_host", :locals => { :services => interface.services2,:host=>@host } %>
+      <%= render :partial => "services/services_from_host", :locals => { :services => interface.services,:host=>@host } %>
    <% end %>
 
     <div class="actions_for_host">

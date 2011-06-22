@@ -1,9 +1,9 @@
 <h1>Host <%= @host.name %> (<%= @host.name %>)</h1>
 
 <h2>Services</h2>
-    <% @host.interfaces2.each do |interface| %>
+    <% @host.interfaces.each do |interface| %>
       <h3><%= interface.ip %></h3>
-      <%= render :partial => "services/services_from_host", :locals => { :services => intrface.services2 } %>
+      <%= render :partial => "services/services_from_host", :locals => { :services => interface.services } %>
    <% end %>
 <h2>Sessions</h2>
 <%= render :partial => "services/sessions_from_host", :locals => { :sessions => @host.exploited_hosts } %>
