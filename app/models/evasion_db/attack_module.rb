@@ -21,4 +21,14 @@ class EvasionDB::AttackModule < FIDIUS::XmlRpcModel
   def self.xml_query_string
     "//attack-module | //fidius-evasion-db-knowledge-attack-module"
   end
+
+  def self.get_exploits_for_host(host_id)
+    exploit_ids = exec_get_exploits_for_host(host_id)
+    exploits = []
+    exploit_ids.each do |id|
+      exploits << find(id)
+    end
+    exploits
+  end
+
 end

@@ -2,7 +2,7 @@ module FIDIUS::RpcCommands
   class FIDIUS::XmlRpcModel < ActiveRecord::Base
     class << self
       def exec_action_scan(iprange)
-        rpc_request("action.scan",iprange)  
+        rpc_request("action.scan",iprange)
       end
 
       def exec_dialog_closed
@@ -61,10 +61,10 @@ module FIDIUS::RpcCommands
       def exec_kill_task(task_id)
         rpc_request("meta.kill_task", task_id)
       end
-      
+
       def exec_single_exploit(host_id, exploit_id)
         rpc_request("action.single_exploit", host_id, exploit_id)
-      end      
+      end
 
       def exec_next_action
         rpc_request("meta.next_action")
@@ -89,7 +89,11 @@ module FIDIUS::RpcCommands
       def meterpreter_exec_command(cmd,session_id)
         return "JO Metepreter #{rand(5023423)}"
       end
-        
+
+      def exec_get_exploits_for_host(host_id)
+        rpc_request("action.get_exploits_for_host", host_id)
+      end
+
     end #class self
   end #class FIDIUS::XmlRpcModel
 end #module FIDIUS::RpcCommands

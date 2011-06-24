@@ -10,12 +10,12 @@ class HostsController < ApplicationController
   def graph
 
   end
-  
+
   def nvd_entries
     @show_nvd    = true
     @host        = Host.find params[:id]
     @nvd_entries = @host.nvd_entries
-    
+
     render :update do |page|
       page <<%{
         $('#nvd-entries').replaceWith("#{escape_javascript(render(:partial =>'hosts/nvd_entries'))}")
@@ -37,7 +37,7 @@ class HostsController < ApplicationController
       page <<%{
         $('#context-menu').html("#{escape_javascript(a+b)}");
       }
-    end       
+    end
   end
 
   def svg_graph
@@ -50,6 +50,9 @@ class HostsController < ApplicationController
 
   def exploits
     begin
+      #Needs evasiondb 0.0.2 first
+      #@exploits = EvasionDB::AttackModule.get_exploits_for_host(params[:id])
+      #@exploits = EvasionDB::AttackModule.all if @exploits.empty?
       @exploits = EvasionDB::AttackModule.all
     rescue
       # handle if no exploits found
@@ -73,7 +76,7 @@ class HostsController < ApplicationController
       page <<%{
         $('#standard_dialog').html("#{escape_javascript(t)}");
       }
-    end    
+    end
   end
 
   def idmef_event_groups
