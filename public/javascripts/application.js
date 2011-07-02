@@ -58,10 +58,23 @@ function attack_host(host_id){
   link_to_dialog('/hosts/'+host_id+'/exploits');
 }
 
+function attack_interface(interface_id){
+  link_to_dialog('/interfaces/'+interface_id+'/exploits');
+}
+
+function attack_service(service_id){
+  link_to_dialog('/services/'+service_id+'/exploits');
+}
+
 function autoexploit_host(host_id){
   jQuery.ajax('/actions/attack_host',{data:"host_id="+host_id});
 }
-function exploit_service(service_id){
+
+function autoexploit_interface(interface_id){
+  jQuery.ajax('/actions/attack_interface',{data:"interface_id="+interface_id});
+}
+
+function autoexploit_service(service_id){
   jQuery.ajax('/actions/attack_service',{data:"service_id="+service_id});
 }
 function reconnaissance_from_host(host_id){
@@ -76,8 +89,17 @@ function pick_exploit(id){
   jQuery.ajax("/exploits/"+id+"/pick");
 }
 
-function run_single_exploit(host_id, exploit_id){
-  jQuery.ajax('/actions/single_exploit',{data:{'host_id':host_id, 'exploit_id':exploit_id}});
+function run_single_exploit_host(host_id, exploit_id){
+  jQuery.ajax('/actions/single_exploit_host',{data:{'host_id':host_id, 'exploit_id':exploit_id}});
+}
+
+function run_single_exploit_interface(interface_id, exploit_id){
+  jQuery.ajax('/actions/single_exploit_interface',{data:{'interface_id':interface_id, 'exploit_id':exploit_id}});
+}
+
+
+function run_single_exploit_service(service_id, exploit_id){
+  jQuery.ajax('/actions/single_exploit_service',{data:{'service_id':service_id, 'exploit_id':exploit_id}});
 }
 
 var storePos = [];

@@ -25,7 +25,7 @@
       <td><%= service.info %></td>
       <td>
       <% if !service.interface.host.localhost && !host.exploited? %>
-          <a class="ui-button" class="exploit_service" onclick="exploit_service(<%= service.id %>);">Exploit</a>
+          <a class="ui-button" class="exploit_service" onclick="attack_service(<%= service.id %>);">Exploit</a>
       <% end %>
       </td>
     </tr>

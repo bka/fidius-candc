@@ -48,7 +48,9 @@
     <% end %>
     <br style="clear:both">
     <% @host.interfaces.each do |interface| %>
-      <h2><%= interface.ip %></h2>
+      <h2><%= interface.ip %></h2> <% if !interface.host.localhost && !@host.exploited? %>
+          <a class="ui-button" class="exploit_interface" onclick="attack_interface(<%= interface.id %>);">Exploit</a>
+      <% end %>
       <%= render :partial => "services/services_from_host", :locals => { :services => interface.services,:host=>@host } %>
    <% end %>
 

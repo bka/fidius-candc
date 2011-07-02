@@ -44,6 +44,11 @@ class ActionsController < ApplicationController
     render :text=>"ok"
   end
 
+  def attack_interface
+    FIDIUS::XmlRpcModel.exec_attack_interface(params[:interface_id])
+    render :text=>"ok"
+  end
+  
   def attack_service
     FIDIUS::XmlRpcModel.exec_attack_service(params[:service_id])
     render :text=>"ok"
@@ -85,10 +90,24 @@ class ActionsController < ApplicationController
     render :text=>"ok"
   end
   
-  def single_exploit    
+  def single_exploit_host
     host = params["host_id"]
     exploit = params["exploit_id"]
-    FIDIUS::XmlRpcModel.exec_single_exploit(host, exploit)
+    FIDIUS::XmlRpcModel.exec_single_exploit_host(host, exploit)
+    render :text=>"ok"
+  end
+
+  def single_exploit_interface
+    interface = params["interface_id"]
+    exploit = params["exploit_id"]
+    FIDIUS::XmlRpcModel.exec_single_exploit_interface(interface, exploit)
+    render :text=>"ok"
+  end
+
+  def single_exploit_service
+    service = params["service_id"]
+    exploit = params["exploit_id"]
+    FIDIUS::XmlRpcModel.exec_single_exploit_service(service, exploit)
     render :text=>"ok"
   end
 

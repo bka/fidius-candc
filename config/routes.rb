@@ -1,5 +1,15 @@
 CommandAndControl::Application.routes.draw do
-  #resources :services
+  resources :services do
+    member do
+      get 'exploits'
+    end
+  end
+  
+  resources :interfaces do
+    member do
+      get 'exploits'
+    end
+  end
   #resources :hosts
 
   # The priority is based upon order of creation:
@@ -113,6 +123,7 @@ CommandAndControl::Application.routes.draw do
       get 'update_all'
       get 'dialog_closed'
       get 'attack_host'
+      get 'attack_interface'
       get 'attack_service'
       get 'reconnaissance'
       post 'scan'
@@ -124,7 +135,9 @@ CommandAndControl::Application.routes.draw do
       get 'clean_hosts'
       post 'start_file_autopwn'
       post 'start_browser_autopwn'
-      get 'single_exploit'
+      get 'single_exploit_host'
+      get 'single_exploit_interface'
+      get 'single_exploit_service'
       get 'new_pentest'
       get 'start_ki'
       get 'stop_ki'

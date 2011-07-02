@@ -24,6 +24,10 @@ module FIDIUS::RpcCommands
       def exec_attack_host(host_id)
         rpc_request("action.attack_host",host_id)
       end
+      
+      def exec_attack_interface(interface_id)
+        rpc_request("action.attack_interface",interface_id)
+      end
 
       def exec_attack_service(service_id)
         rpc_request("action.attack_service",service_id)
@@ -62,8 +66,16 @@ module FIDIUS::RpcCommands
         rpc_request("meta.kill_task", task_id)
       end
 
-      def exec_single_exploit(host_id, exploit_id)
-        rpc_request("action.single_exploit", host_id, exploit_id)
+      def exec_single_exploit_host(host_id, exploit_id)
+        rpc_request("action.single_exploit_host", host_id, exploit_id)
+      end
+
+      def exec_single_exploit_interface(interface_id, exploit_id)
+        rpc_request("action.single_exploit_interface", interface_id, exploit_id)
+      end
+
+      def exec_single_exploit_service(service_id, exploit_id)
+        rpc_request("action.single_exploit_service", service_id, exploit_id)
       end
 
       def exec_next_action
