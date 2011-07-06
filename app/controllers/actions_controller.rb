@@ -31,7 +31,7 @@ class ActionsController < ApplicationController
 
   def remove_finished_tasks
     FIDIUS::XmlRpcModel.exec_remove_finished_tasks
-    render :text=>"ok"
+    render :nothing => true
   end
 
   def clean_hosts

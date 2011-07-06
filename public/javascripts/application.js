@@ -155,3 +155,8 @@ function restore_layout(){
   }
   vis.render();
 }
+
+function remove_finished_tasks(){
+  jQuery.ajax('/actions/remove_finished_tasks');
+}
+

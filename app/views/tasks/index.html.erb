@@ -1,4 +1,4 @@
-<%= link_to "Remove Finished", remove_finished_tasks_actions_path %>
+<a class="ui-button" onclick="remove_finished_tasks();">Remove Finished</a>
 <table width="100%">
   <tr>
     <th>ID</th>
@@ -24,6 +24,7 @@
 <% end %>
 </table>
 <script>
+  $(".ui-button").button();
   <%= render :partial=>"tasks/update_taskbars" %>
   <% @tasks.each do |task| %>
 	  $(function() {
