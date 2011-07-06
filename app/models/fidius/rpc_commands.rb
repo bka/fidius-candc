@@ -37,9 +37,8 @@ module FIDIUS::RpcCommands
         rpc_request("action.reconnaissance",host_id)
       end
 
-      def exec_decision_next
-        rpc_request("decision.nn.train","DOESNTMATTER")
-        rpc_request("decision.nn.next","DOESNMATTER")
+      def exec_decision_next_host
+        rpc_request("decision.next_host")
       end
 
       def exec_clean_hosts

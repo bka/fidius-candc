@@ -16,12 +16,13 @@ class ActionsController < ApplicationController
   end
 
   def next_target
+    interface_id = FIDIUS::XmlRpcModel.exec_decision_next_host
+    inter = Interface.find_by_id(interface_id)
+    puts "mark host #{inter}"
     begin
-      @hosts = Host.all
-      rand = rand(@hosts.size)
       render :update do |page|
         page <<%{
-          mark_host(#{rand});
+          mark_host(#{inter.host_id});
         }
       end
     rescue
