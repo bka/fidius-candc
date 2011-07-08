@@ -150,6 +150,11 @@ CommandAndControl::Application.routes.draw do
       get :user_response
     end
   end
+  
+  scope 'welcome' do
+    match 'credits' => 'welcome#credits', :via => :get
+    match 'license' => 'welcome#license', :via => :get
+  end
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
