@@ -4,6 +4,12 @@ class ActionsController < ApplicationController
     render :text=>"ok"
   end
 
+  def reconnaissance_from_interface
+    interface = Interface.find params["interface_id"]
+    FIDIUS::XmlRpcModel.exec_action_scan("#{interface.ip}/#{interface.ip_mask}")
+    render :text=>"ok"
+  end
+  
   def rate_host
     puts params[:host_id]+","+params[:rating]
     FIDIUS::XmlRpcModel.exec_rate_host(params[:host_id],params[:rating])
@@ -47,11 +53,6 @@ class ActionsController < ApplicationController
   
   def attack_service
     FIDIUS::XmlRpcModel.exec_attack_service(params[:service_id])
-    render :text=>"ok"
-  end
-
-  def reconnaissance
-    FIDIUS::XmlRpcModel.exec_reconnaissance_from_host(params[:host_id])
     render :text=>"ok"
   end
 

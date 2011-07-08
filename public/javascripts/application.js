@@ -77,8 +77,8 @@ function autoexploit_interface(interface_id){
 function autoexploit_service(service_id){
   jQuery.ajax('/actions/attack_service',{data:"service_id="+service_id});
 }
-function reconnaissance_from_host(host_id){
-  jQuery.ajax('/actions/reconnaissance',{data:"host_id="+host_id});
+function reconnaissance_from_interface(interface_id){
+  jQuery.ajax('/actions/reconnaissance_from_interface',{data:"interface_id="+interface_id});
 }
 
 function nvd_entries(host_id){
