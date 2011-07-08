@@ -10,11 +10,6 @@ class ActionsController < ApplicationController
     render :text=>"ok"
   end
 
-  def next_action
-    FIDIUS::XmlRpcModel.exec_next_action    
-    render :text=>"ok"
-  end
-
   def next_target
     interface_id = FIDIUS::XmlRpcModel.exec_decision_next_host
     inter = Interface.find_by_id(interface_id)
@@ -112,13 +107,8 @@ class ActionsController < ApplicationController
     render :text=>"ok"
   end
 
-  def start_ki
-    FIDIUS::XmlRpcModel.exec_start_ki
-    render :text=>"ok"
-  end
-
-  def stop_ki
-    FIDIUS::XmlRpcModel.exec_stop_ki
+  def reset_agent
+    FIDIUS::XmlRpcModel.exec_reset_agent
     render :text=>"ok"
   end
 

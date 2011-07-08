@@ -139,8 +139,7 @@ CommandAndControl::Application.routes.draw do
       get 'single_exploit_interface'
       get 'single_exploit_service'
       get 'new_pentest'
-      get 'start_ki'
-      get 'stop_ki'
+      get 'reset_agent'
     end
   end
 
