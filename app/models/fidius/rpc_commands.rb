@@ -77,10 +77,6 @@ module FIDIUS::RpcCommands
         rpc_request("action.single_exploit_service", service_id, exploit_id)
       end
 
-      def exec_next_action
-        rpc_request("meta.next_action")
-      end
-
       def exec_new_pentest
         rpc_request("meta.new_pentest")
       end
