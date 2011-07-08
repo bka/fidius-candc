@@ -153,6 +153,7 @@ CommandAndControl::Application.routes.draw do
   scope 'welcome' do
     match 'credits' => 'welcome#credits', :via => :get
     match 'license' => 'welcome#license', :via => :get
+    match 'documentation' => 'welcome#documentation', :via => :get
   end
 
   # You can have the root of your site routed with "root"
