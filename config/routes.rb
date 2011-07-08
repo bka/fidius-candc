@@ -125,7 +125,7 @@ CommandAndControl::Application.routes.draw do
       get 'attack_host'
       get 'attack_interface'
       get 'attack_service'
-      get 'reconnaissance'
+      get 'reconnaissance_from_interface'
       post 'scan'
       post 'rate_host'
       get 'next_target'

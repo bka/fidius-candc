@@ -51,6 +51,9 @@
       <h2><%= interface.ip %></h2> <% if !interface.host.localhost && !@host.exploited? %>
           <a class="ui-button" class="exploit_interface" onclick="attack_interface(<%= interface.id %>);">Exploit</a>
       <% end %>
+      <% if @host.exploited? || @host.localhost %>
+        <a class="ui-button" onclick="reconnaissance_from_interface(<%= interface.id %>);">Reconnaissance</a>
+      <% end %>
       <%= render :partial => "services/services_from_host", :locals => { :services => interface.services,:host=>@host } %>
    <% end %>
 
@@ -62,13 +65,11 @@
         <a class="ui-button" id="send_false_positive">False Positive</a>
       <% end %>
       <br>
-      <% if @host.exploited? || @host.localhost %>
-        <a class="ui-button" id="reconnaissance">Reconnaissance</a>
-      <% end %>
       <% if @host.exploited? %>
         <a class="ui-button" id="meterpreter-shell">Meterpreter-Shell</a>
-        <a class="ui-button" id="install-persistence">Persistence</a>
+      <% if @host.webserver != nil %>
         <a class="ui-button" id="booby-trapping">Booby-Trapping</a>
+      <% end %>
       <% end %>
     </div>
 	</div>
@@ -96,8 +97,6 @@
     <% if !@host.localhost %>
   		$("#exploit_host").click(function() { attack_host(<%= @host.id %>) });
     <% end %>
-
- 		$("#reconnaissance").click(function() { reconnaissance_from_host(<%= @host.id %>) });
 	});
 	</script>
 
