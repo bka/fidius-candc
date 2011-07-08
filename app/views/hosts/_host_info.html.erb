@@ -1,5 +1,9 @@
 <div id="tabs<%= @host.id %>" style="width:100%;height:100%;">
+  <% if @host.name %>
   <h1><%= @host.name %></h1>
+  <% else %>
+  <h1><%= @host.interfaces.first.ip %></h1>
+  <% end %>
   <%= @host.os_name %><%= @host.os_sp %>
 
 	<ul>

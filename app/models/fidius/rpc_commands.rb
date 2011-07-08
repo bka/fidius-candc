@@ -40,6 +40,10 @@ module FIDIUS::RpcCommands
       def exec_decision_next_host
         rpc_request("decision.next_host")
       end
+      
+      def exec_reset_agent
+        rpc_request("decision.reset_agent")
+      end
 
       def exec_clean_hosts
         rpc_request("model.clean_hosts","DOESNTMATTER")
@@ -83,14 +87,6 @@ module FIDIUS::RpcCommands
 
       def console_exec_command(cmd)
         return "JO WURST #{rand(5023423)}"
-      end
-
-      def exec_start_ki
-        rpc_request("meta.set_active",true)
-      end
-
-      def exec_stop_ki
-        rpc_request("meta.set_active",false)
       end
 
       def meterpreter_exec_command(cmd,session_id)

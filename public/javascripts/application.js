@@ -111,20 +111,6 @@ function save_layout(){
   }
 }
 
-function toggle_ki(navi_el){
-  navi_el = $(navi_el);
-
-  title = navi_el.html();
-  if(title == "Start"){
-    title = "Stop";
-    jQuery.ajax('/actions/start_ki');  
-  }else{
-    title = "Start";
-    jQuery.ajax('/actions/stop_ki');  
-  }
-  navi_el.html(title);
-}
-
 function mark_host(hostID){
   if(hostID != -1){
     for(i=0;i<layout.nodes().length;i++){

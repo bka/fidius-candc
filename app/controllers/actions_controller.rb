@@ -108,13 +108,8 @@ class ActionsController < ApplicationController
     render :text=>"ok"
   end
 
-  def start_ki
-    FIDIUS::XmlRpcModel.exec_start_ki
-    render :text=>"ok"
-  end
-
-  def stop_ki
-    FIDIUS::XmlRpcModel.exec_stop_ki
+  def reset_agent
+    FIDIUS::XmlRpcModel.exec_reset_agent
     render :text=>"ok"
   end
 

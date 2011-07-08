@@ -139,8 +139,7 @@ CommandAndControl::Application.routes.draw do
       get 'single_exploit_interface'
       get 'single_exploit_service'
       get 'new_pentest'
-      get 'start_ki'
-      get 'stop_ki'
+      get 'reset_agent'
     end
   end
 
@@ -149,6 +148,12 @@ CommandAndControl::Application.routes.draw do
       get :fetch_next_event
       get :user_response
     end
+  end
+  
+  scope 'welcome' do
+    match 'credits' => 'welcome#credits', :via => :get
+    match 'license' => 'welcome#license', :via => :get
+    match 'documentation' => 'welcome#documentation', :via => :get
   end
 
   # You can have the root of your site routed with "root"
