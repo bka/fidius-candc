@@ -7,6 +7,7 @@ gem 'jquery-rails', '>= 0.2.6'
 gem 'sqlite3'
 gem 'mysql', '~>2.8.1'
 gem 'mysql2', '~>0.2.6'
+gem 'rake', '~>0.8.7'
 
 gem 'jquery-rails', '>= 0.2.6'
 
