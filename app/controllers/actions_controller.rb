@@ -56,6 +56,21 @@ class ActionsController < ApplicationController
     render :text=>"ok"
   end
 
+  def attack_ai_host
+    FIDIUS::XmlRpcModel.exec_attack_ai_host(params[:host_id])
+    render :text=>"ok"
+  end
+
+  def attack_ai_interface
+    FIDIUS::XmlRpcModel.exec_attack_ai_interface(params[:interface_id])
+    render :text=>"ok"
+  end
+  
+  def attack_ai_service
+    FIDIUS::XmlRpcModel.exec_attack_ai_service(params[:service_id])
+    render :text=>"ok"
+  end
+
   def dialog_closed
     FIDIUS::XmlRpcModel.exec_dialog_closed
     render :text=>"ok"

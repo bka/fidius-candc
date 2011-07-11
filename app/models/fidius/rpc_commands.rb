@@ -33,6 +33,18 @@ module FIDIUS::RpcCommands
         rpc_request("action.attack_service",service_id)
       end
 
+      def exec_attack_ai_host(host_id)
+        rpc_request("action.attack_ai_host",host_id)
+      end
+      
+      def exec_attack_ai_interface(interface_id)
+        rpc_request("action.attack_ai_interface",interface_id)
+      end
+
+      def exec_attack_ai_service(service_id)
+        rpc_request("action.attack_ai_service",service_id)
+      end
+
       def exec_reconnaissance_from_host(host_id)
         rpc_request("action.reconnaissance",host_id)
       end
