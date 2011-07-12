@@ -109,6 +109,10 @@ module FIDIUS::RpcCommands
         rpc_request("action.get_exploits_for_host", host_id)
       end
 
+      def postexploit(sessionID, action, *args)
+        rpc_request("action.postexploit", sessionID, action, *args)
+      end
+
     end #class self
   end #class FIDIUS::XmlRpcModel
 end #module FIDIUS::RpcCommands

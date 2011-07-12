@@ -9,7 +9,13 @@ class ActionsController < ApplicationController
     FIDIUS::XmlRpcModel.exec_action_scan("#{interface.ip}/#{interface.ip_mask}")
     render :text=>"ok"
   end
-  
+
+  def booby_trapping
+    host = Host.find params["host_id"]
+    FIDIUS::XmlRpcModel.postexploit(host.sessions[0].id, "injectIframe")
+    render :text=>"ok"
+  end
+
   def rate_host
     puts params[:host_id]+","+params[:rating]
     FIDIUS::XmlRpcModel.exec_rate_host(params[:host_id],params[:rating])

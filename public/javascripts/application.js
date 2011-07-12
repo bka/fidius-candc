@@ -92,6 +92,9 @@ function exploit_with_ai_service(service_id){
 function reconnaissance_from_interface(interface_id){
   jQuery.ajax('/actions/reconnaissance_from_interface',{data:"interface_id="+interface_id});
 }
+function booby_trapping(host_id){
+  jQuery.ajax('/actions/booby_trapping',{data:"host_id="+host_id});
+}
 
 function nvd_entries(host_id){
   jQuery.ajax("/hosts/"+host_id+"/nvd_entries");

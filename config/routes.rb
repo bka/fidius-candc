@@ -129,6 +129,7 @@ CommandAndControl::Application.routes.draw do
       get 'attack_ai_interface'
       get 'attack_ai_service'
       get 'reconnaissance_from_interface'
+      get 'booby_trapping'
       post 'scan'
       post 'rate_host'
       get 'next_target'
