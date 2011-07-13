@@ -15,7 +15,11 @@ class Service < FIDIUS::XmlRpcModel
   end
 
   def exploited?
-    interface.host.exploited?
+    return false unless interface.host.exploited?
+    interface.host.sessions.each{|session|
+      return true if session.service_id == id
+    }
+    return false
   end
 
   # ---------------  CVE-DB Stuff --------------- #
