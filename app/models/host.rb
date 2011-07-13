@@ -43,9 +43,13 @@ class Host < FIDIUS::XmlRpcModel
       image = "windowsxp_hacked.png" if exploited?
     end
     if is_linux?
-      image = "linux.png"
-      image = "linux_hacked.png" if exploited?
+      image = "linux_new.png"
+      image = "linux_new_hacked.png" if exploited?
 
+    end
+    if is_apple?
+      image = "apple.png"
+      image = "apple_hacked.png" if exploited?
     end
 
     if is_prelude?
@@ -66,6 +70,15 @@ class Host < FIDIUS::XmlRpcModel
 
   def is_linux?
     return true if os_name.to_s.downcase["ubuntu"] != nil
+    return true if os_name.to_s.downcase["linux"] != nil
+    return true if os_name.to_s.downcase["debian"] != nil
+    return true if os_name.to_s.downcase["suse"] != nil
+  end
+  
+  def is_apple?
+    return true if os_name.to_s.downcase["apple"] != nil
+    return true if os_name.to_s.downcase["mac"] != nil
+    return true if os_name.to_s.downcase["darwin"] != nil
   end
 
   def is_windows?
