@@ -18,11 +18,12 @@ function termOpen() {
 				termDiv: 'termDiv',
 				greeting: help.join('\n'),
 				handler: termHandler,
+        ps: "msf >",
 				exitHandler: termExitHandler
 			}
 		);
 		term.open();
-		
+
 		// dimm UI text
 		var mainPane = (document.getElementById)?
 			document.getElementById('mainPane') : document.all.mainPane;
@@ -55,13 +56,13 @@ function pasteCommand(text) {
 
 function termHandler() {
 	this.newLine();
-	
+  //this.ps = "onkel";
 	this.lineBuffer = this.lineBuffer.replace(/^\s+/, '');
 	var argv = this.lineBuffer.split(/\s+/);
 	var cmd = argv;
-    jQuery.ajax('/console/input', 
-    {type:'post',data: 'cmd='+this.lineBuffer});   
-  
+    jQuery.ajax('/console/input',
+    {type:'post',data: 'cmd='+this.lineBuffer});
+
 	this.prompt();
 }
 

@@ -26,9 +26,7 @@ $(document).ready(function(){
 });
 
 function open_tasks(){
-  //jQuery.ajax('/tasks');
-  //$('#tasks_dialog').dialog('open');
-  link_to_dialog('/tasks');
+  link_to_dialog('/tasks', 'Tasks');
 }
 
 function open_console(path){
@@ -40,10 +38,10 @@ function open_console(path){
   }
 }
 
-function link_to_dialog(path){
+function link_to_dialog(path,title){
   jQuery.ajax(path);
   $('#standard_dialog').html("");
-  $('#standard_dialog').dialog('open');
+  $('#standard_dialog').dialog('open', title);
 }
 
 function update_all(){
@@ -55,15 +53,15 @@ function closed_event_dialog(){
 }
 
 function attack_host(host_id){
-  link_to_dialog('/hosts/'+host_id+'/exploits');
+  link_to_dialog('/hosts/'+host_id+'/exploits', "Attack Host");
 }
 
 function attack_interface(interface_id){
-  link_to_dialog('/interfaces/'+interface_id+'/exploits');
+  link_to_dialog('/interfaces/'+interface_id+'/exploits', "Attack Interface");
 }
 
 function attack_service(service_id){
-  link_to_dialog('/services/'+service_id+'/exploits');
+  link_to_dialog('/services/'+service_id+'/exploits', "Attack Service");
 }
 
 function autoexploit_host(host_id){

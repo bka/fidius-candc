@@ -24,7 +24,7 @@ module FIDIUS::RpcCommands
       def exec_attack_host(host_id)
         rpc_request("action.attack_host",host_id)
       end
-      
+
       def exec_attack_interface(interface_id)
         rpc_request("action.attack_interface",interface_id)
       end
@@ -98,7 +98,7 @@ module FIDIUS::RpcCommands
       end
 
       def console_exec_command(cmd)
-        return "JO WURST #{rand(5023423)}"
+        return rpc_request("meta.exec_msf_command",cmd) #"JO WURST #{rand(5023423)}"
       end
 
       def meterpreter_exec_command(cmd,session_id)

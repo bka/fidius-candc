@@ -9,7 +9,7 @@
 <tbody>
 <% @idmef_event_groups.each do |grp| %>
 <tr>
-  <td><%= link_to grp.title, '#', :onclick => "link_to_dialog('/hosts/#{params[:id]}/idmef_events')" %></td>
+  <td><%= link_to grp.title, '#', :onclick => "link_to_dialog('/hosts/#{params[:id]}/idmef_events', 'IDMEF Events')" %></td>
   <td><%= l grp.time %></td>
   <td><%= grp.idmef_count %></td>
 </tr>

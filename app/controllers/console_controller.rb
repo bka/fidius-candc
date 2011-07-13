@@ -7,7 +7,7 @@ class ConsoleController < ApplicationController
   end
 
   def dialog
-    
+
   end
 
   def input
@@ -15,7 +15,7 @@ class ConsoleController < ApplicationController
     @session_id = params[:session_id]
 
     begin
-      if @session_id != nil 
+      if @session_id != nil
         res = FIDIUS::XmlRpcModel.meterpreter_exec_command @cmd, @session_id
       else
         res = FIDIUS::XmlRpcModel.console_exec_command @cmd
@@ -26,10 +26,17 @@ class ConsoleController < ApplicationController
     res = res.gsub("\\","\\\\\\")
     puts "result is: #{res}"
     render :update do |page|
-      res.to_s.split("\n").each do |line|
-        page << "term.write(\"#{line}\");term.newLine();"
+      lines = res.to_s.split("\n")
+      lines.each do |line|
+        line = line.gsub("\"","")
+        if line == lines.last
+          page << "term.ps = \"#{line}\";"
+        else
+          page << "term.write(\"#{line}\");term.newLine();"
+        end
       end
-    end           
+      page << "term.prompt();"
+    end
 
   end
 end
