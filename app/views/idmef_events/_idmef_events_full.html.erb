@@ -1,9 +1,14 @@
+<% if @idmef_events.empty? %>
+This action didn't produce any IDMEF-Events!
+<% else  %>
+This action produced <%= @idmef_events.size %> IDMEF-Events
 <table width="100%" class="tablesorter sortable">
 <thead>
 <tr>
   <th>Event</th>
-  <th>Source</th>
-  <th>Destination</th>
+  <th>Source Port</th>
+  <th>Destination Port</th>
+  <th>IDS</th>
   <th>Severity</th>
 
 </tr>
@@ -12,14 +17,16 @@
 <% @idmef_events.each do |event| %>
 <tr>
   <td><%= event[:text] %></td>
-  <td><%= event[:src_ip] %></td>
-  <td><%= event[:dest_ip] %></td>
+  <td><%= event[:src_port] %></td>
+  <td><%= event[:dest_port] %></td>
+  <td><%= event[:analyzer_model] %></td>
   <td style="color:<%= idmef_bgcolor(event) %>"><%= event[:severity] %></td>
 
 </tr>
 <% end %>
 </tbody>
 </table>
+<% end %>
 
 <script>
 $(function() {

@@ -125,7 +125,11 @@ CommandAndControl::Application.routes.draw do
       get 'attack_host'
       get 'attack_interface'
       get 'attack_service'
+      get 'attack_ai_host'
+      get 'attack_ai_interface'
+      get 'attack_ai_service'
       get 'reconnaissance_from_interface'
+      get 'booby_trapping'
       post 'scan'
       post 'rate_host'
       get 'next_target'
@@ -154,6 +158,7 @@ CommandAndControl::Application.routes.draw do
     match 'credits' => 'welcome#credits', :via => :get
     match 'license' => 'welcome#license', :via => :get
     match 'documentation' => 'welcome#documentation', :via => :get
+    match 'report' => 'welcome#report', :via => :get
   end
 
   # You can have the root of your site routed with "root"

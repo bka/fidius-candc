@@ -20,5 +20,14 @@ class WelcomeController < ApplicationController
   
   def license
   end
+  
+  def report
+    t = render_to_string 'report', :layout => false
+    render :update do |page|
+      page <<%{
+        $('#standard_dialog').html("#{escape_javascript(t)}");
+      }
+    end
+  end
 
 end

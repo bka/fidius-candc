@@ -48,6 +48,12 @@
         <td>System Language</td>
         <td><%= @host.lang %></td>
       </tr>
+<% if @host.webserver %>
+      <tr>
+        <td>Webserver</td>
+        <td><%= @host.webserver %></td>
+      </tr>
+<% end %>
     </table>
     <% end %>
     <br style="clear:both">
@@ -71,8 +77,8 @@
       <br>
       <% if @host.exploited? %>
         <a class="ui-button" id="meterpreter-shell">Meterpreter-Shell</a>
-      <% if @host.webserver != nil %>
-        <a class="ui-button" id="booby-trapping">Booby-Trapping</a>
+      <% if @host.webserver  and !@host.sessions.empty? %>
+        <a class="ui-button" onclick="booby_trapping(<%= @host.id %>);" id="booby-trapping">Booby-Trapping</a>
       <% end %>
       <% end %>
     </div>

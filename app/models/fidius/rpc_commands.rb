@@ -24,13 +24,25 @@ module FIDIUS::RpcCommands
       def exec_attack_host(host_id)
         rpc_request("action.attack_host",host_id)
       end
-      
+
       def exec_attack_interface(interface_id)
         rpc_request("action.attack_interface",interface_id)
       end
 
       def exec_attack_service(service_id)
         rpc_request("action.attack_service",service_id)
+      end
+
+      def exec_attack_ai_host(host_id)
+        rpc_request("action.attack_ai_host",host_id)
+      end
+      
+      def exec_attack_ai_interface(interface_id)
+        rpc_request("action.attack_ai_interface",interface_id)
+      end
+
+      def exec_attack_ai_service(service_id)
+        rpc_request("action.attack_ai_service",service_id)
       end
 
       def exec_reconnaissance_from_host(host_id)
@@ -86,7 +98,7 @@ module FIDIUS::RpcCommands
       end
 
       def console_exec_command(cmd)
-        return "JO WURST #{rand(5023423)}"
+        return rpc_request("meta.exec_msf_command",cmd) #"JO WURST #{rand(5023423)}"
       end
 
       def meterpreter_exec_command(cmd,session_id)
@@ -95,6 +107,10 @@ module FIDIUS::RpcCommands
 
       def exec_get_exploits_for_host(host_id)
         rpc_request("action.get_exploits_for_host", host_id)
+      end
+
+      def postexploit(sessionID, action, *args)
+        rpc_request("action.postexploit", sessionID, action, *args)
       end
 
     end #class self
