@@ -11,7 +11,7 @@
 <tbody>
 <% @idmef_event_groups.each do |grp| %>
 <tr>
-  <td><a href="#" onclick="link_to_dialog('/hosts/1/idmef_events');"><%= grp.title %></a></td>
+  <td><a href="#" onclick="link_to_dialog('/hosts/1/idmef_events', "IDMEF Events");"><%= grp.title %></a></td>
   <td>10.20.20.1:70</td>
   <td>10.0.0.5:80</td>
   <td><%= l grp.time %></td>
