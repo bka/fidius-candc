@@ -33,12 +33,28 @@ module FIDIUS::RpcCommands
         rpc_request("action.attack_service",service_id)
       end
 
+      def exec_attack_ai_host(host_id)
+        rpc_request("action.attack_ai_host",host_id)
+      end
+      
+      def exec_attack_ai_interface(interface_id)
+        rpc_request("action.attack_ai_interface",interface_id)
+      end
+
+      def exec_attack_ai_service(service_id)
+        rpc_request("action.attack_ai_service",service_id)
+      end
+
       def exec_reconnaissance_from_host(host_id)
         rpc_request("action.reconnaissance",host_id)
       end
 
       def exec_decision_next_host
         rpc_request("decision.next_host")
+      end
+      
+      def exec_reset_agent
+        rpc_request("decision.reset_agent")
       end
 
       def exec_clean_hosts
@@ -85,20 +101,16 @@ module FIDIUS::RpcCommands
         return rpc_request("meta.exec_msf_command",cmd) #"JO WURST #{rand(5023423)}"
       end
 
-      def exec_start_ki
-        rpc_request("meta.set_active",true)
-      end
-
-      def exec_stop_ki
-        rpc_request("meta.set_active",false)
-      end
-
       def meterpreter_exec_command(cmd,session_id)
         return "JO Metepreter #{rand(5023423)}"
       end
 
       def exec_get_exploits_for_host(host_id)
         rpc_request("action.get_exploits_for_host", host_id)
+      end
+
+      def postexploit(sessionID, action, *args)
+        rpc_request("action.postexploit", sessionID, action, *args)
       end
 
     end #class self

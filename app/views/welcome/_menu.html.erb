@@ -1,40 +1,39 @@
 <div style="background-color:#000;background: url(/images/topnav_bg.gif) repeat-x;">
-<ul class="topnav">
-    <li>
-      <a href="#">Pentest</a>
-      <ul class="subnav">
+<ul class="topnav">  
+    <li>  
+      <a href="#">Pentest</a>  
+      <ul class="subnav">  
         <li><a href="#" onclick="jQuery.ajax('/actions/new_pentest');">Start new</a></li>
         <li><a href="#" onclick="open_tasks();" id="task_count">Tasks</a></li>
-        <li><a href="#" onclick="link_to_dialog('/action_logs');">Log</a></li>
-        <li><a href="#">Report</a></li>
-        <li><a href="#" onclick="link_to_dialog('/knowledge')">Knowledge</a></li>
-        <li><a href="#" onclick="open_console();">MsfConsole</a></li>
-      </ul>
+        <li><a href="#" onclick="link_to_dialog('/welcome/report');">Report</a></li>
+        <li><a href="#" onclick="link_to_dialog('/knowledge')">Knowledge</a></li>  
+        <li><a href="#" onclick="open_console();">MsfConsole</a></li>  
+      </ul>  
     </li>
 
-    <li>
-      <a href="#">Actions</a>
+    <li>  
+      <a href="#">Actions</a>  
       <ul class="subnav">
-        <li><a href="#" onclick="$('#scan-dialog').dialog('open','Scan');">Scan</a></li>
-        <li><a href="#" onclick="$('#browser-autopwn-dialog').dialog('open');">Start BrowserAutopwn</a></li>
-        <li><a href="#" onclick="$('#file-autopwn-dialog').dialog('open');">Start FileAutopwn</a></li>
-      </ul>
+        <li><a href="#" onclick="$('#scan-dialog').dialog('open'); ">Scan</a></li>  
+        <li><a href="#" onclick="$('#browser-autopwn-dialog').dialog('open');">Start BrowserAutopwn</a></li>  
+        <li><a href="#" onclick="$('#file-autopwn-dialog').dialog('open');">Start FileAutopwn</a></li>  
+      </ul>  
     </li>
-    <li>
-      <a href="#">KI</a>
+    <li>  
+      <a href="#">AI</a>
       <ul class="subnav">
-        <li><a href="#" onclick="toggle_ki(this);">Start</a></li>
+        <li><a href="#" onclick="jQuery.ajax('/actions/reset_agent');">Reset</a></li>
         <li><a href="#" onclick="jQuery.ajax('/actions/next_target');">Next Target</a></li>
-      </ul>
+      </ul>  
     </li>
     <li>
       <a href="#">Help</a>
       <ul class="subnav">
-        <li><a href="#">Documentation</a></li>
-        <li><a href="#">Credits</a></li>
-      </ul>
-    </li>
- </ul>
+        <li><a href="#" onclick="link_to_dialog('/welcome/documentation');">Documentation</a></li>
+        <li><a href="#" onclick="link_to_dialog('/welcome/credits');">Credits</a></li>
+      </ul>  
+    </li>  
+ </ul> 
 <div style="clear:both;"></div>
 </div>
 
@@ -69,3 +68,6 @@ $( "#progressbar<%= i %>" ).progressbar({
 		});
 <% end %>
 </script>
+
+
+

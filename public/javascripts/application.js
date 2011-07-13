@@ -77,8 +77,23 @@ function autoexploit_interface(interface_id){
 function autoexploit_service(service_id){
   jQuery.ajax('/actions/attack_service',{data:"service_id="+service_id});
 }
-function reconnaissance_from_host(host_id){
-  jQuery.ajax('/actions/reconnaissance',{data:"host_id="+host_id});
+
+function exploit_with_ai_host(host_id){
+  jQuery.ajax('/actions/attack_ai_host',{data:"host_id="+host_id});
+}
+
+function exploit_with_ai_interface(interface_id){
+  jQuery.ajax('/actions/attack_ai_interface',{data:"interface_id="+interface_id});
+}
+
+function exploit_with_ai_service(service_id){
+  jQuery.ajax('/actions/attack_ai_service',{data:"service_id="+service_id});
+}
+function reconnaissance_from_interface(interface_id){
+  jQuery.ajax('/actions/reconnaissance_from_interface',{data:"interface_id="+interface_id});
+}
+function booby_trapping(host_id){
+  jQuery.ajax('/actions/booby_trapping',{data:"host_id="+host_id});
 }
 
 function nvd_entries(host_id){
@@ -109,20 +124,6 @@ function save_layout(){
     node = layout.nodes()[i];
     storePos[node.hostID] = {x:node.x,y:node.y,marked:node.marked};
   }
-}
-
-function toggle_ki(navi_el){
-  navi_el = $(navi_el);
-
-  title = navi_el.html();
-  if(title == "Start"){
-    title = "Stop";
-    jQuery.ajax('/actions/start_ki');  
-  }else{
-    title = "Start";
-    jQuery.ajax('/actions/stop_ki');  
-  }
-  navi_el.html(title);
 }
 
 function mark_host(hostID){

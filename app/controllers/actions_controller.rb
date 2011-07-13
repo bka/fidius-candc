@@ -4,6 +4,18 @@ class ActionsController < ApplicationController
     render :text=>"ok"
   end
 
+  def reconnaissance_from_interface
+    interface = Interface.find params["interface_id"]
+    FIDIUS::XmlRpcModel.exec_action_scan("#{interface.ip}/#{interface.ip_mask}")
+    render :text=>"ok"
+  end
+
+  def booby_trapping
+    host = Host.find params["host_id"]
+    FIDIUS::XmlRpcModel.postexploit(host.sessions[0].id, "injectIframe")
+    render :text=>"ok"
+  end
+
   def rate_host
     puts params[:host_id]+","+params[:rating]
     FIDIUS::XmlRpcModel.exec_rate_host(params[:host_id],params[:rating])
@@ -50,8 +62,18 @@ class ActionsController < ApplicationController
     render :text=>"ok"
   end
 
-  def reconnaissance
-    FIDIUS::XmlRpcModel.exec_reconnaissance_from_host(params[:host_id])
+  def attack_ai_host
+    FIDIUS::XmlRpcModel.exec_attack_ai_host(params[:host_id])
+    render :text=>"ok"
+  end
+
+  def attack_ai_interface
+    FIDIUS::XmlRpcModel.exec_attack_ai_interface(params[:interface_id])
+    render :text=>"ok"
+  end
+  
+  def attack_ai_service
+    FIDIUS::XmlRpcModel.exec_attack_ai_service(params[:service_id])
     render :text=>"ok"
   end
 
@@ -107,13 +129,8 @@ class ActionsController < ApplicationController
     render :text=>"ok"
   end
 
-  def start_ki
-    FIDIUS::XmlRpcModel.exec_start_ki
-    render :text=>"ok"
-  end
-
-  def stop_ki
-    FIDIUS::XmlRpcModel.exec_stop_ki
+  def reset_agent
+    FIDIUS::XmlRpcModel.exec_reset_agent
     render :text=>"ok"
   end
 
