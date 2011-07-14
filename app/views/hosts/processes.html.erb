@@ -3,6 +3,7 @@
 <thead>
 <tr>
   <th>PID</th>
+  <th>Parent ID</th>
   <th>Name</th>
   <th>Arch</th>
   <th>Session</th>
@@ -13,12 +14,13 @@
 <tbody>
 <% @host.processes.each do |process| %>
 <tr>
-  <td><%= process[:pid] %></td>
-  <td><%= process[:name] %></td>
-  <td><%= process[:arch] %></td>
-  <td><%= process[:session] %></td>
-  <td><%= process[:user] %></td>
-  <td><%= process[:path] %></td>
+  <td><%= process["pid"] %></td>
+  <td><%= process["parentid"] %></td>
+  <td><%= process["name"] %></td>
+  <td><%= process["arch"] %></td>
+  <td><%= process["session"] %></td>
+  <td><%= process["user"] %></td>
+  <td><%= process["path"] %></td>
 </tr>
 
 <% end %>

@@ -113,6 +113,10 @@ module FIDIUS::RpcCommands
         rpc_request("action.postexploit", sessionID, action, *args)
       end
 
+      def get_processes(session_id)
+        rpc_request("meta.get_processes", session_id)
+      end
+
     end #class self
   end #class FIDIUS::XmlRpcModel
 end #module FIDIUS::RpcCommands
