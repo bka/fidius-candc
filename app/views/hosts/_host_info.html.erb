@@ -54,6 +54,18 @@
         <td><%= @host.webserver %></td>
       </tr>
 <% end %>
+<% if @host.sessions.first and @host.sessions.first.payload %>
+      <tr>
+        <td>Payload</td>
+        <td><%= @host.sessions.first.payload %></td>
+      </tr>
+<% end %>
+<% if @host.sessions.first and @host.sessions.first.exploit %>
+      <tr>
+        <td>Exploit</td>
+        <td><%= @host.sessions.first.exploit %></td>
+      </tr>
+<% end %>
     </table>
     <% end %>
     <br style="clear:both">
