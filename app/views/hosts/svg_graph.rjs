@@ -3,12 +3,14 @@ page << "miserables = {nodes:["
 links = ""
 #i = 0
 @hosts.each do |host|
+  next unless host.discovered
   page << "{hostID:#{host.id},nodeName:\"#{host.name_for_graphview}\", group:1,hostImage:\"/images/graph/#{host.image}\",isRoot:#{host.localhost},marked:#{host.marked?}},"
 end
 
 page << "],links:["
 i = 0
 @hosts.each do |host|
+  next unless host.discovered
   if host.pivot_host_id != nil
     # index for hostid
     target_index = -1
