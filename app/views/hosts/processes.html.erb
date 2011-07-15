@@ -12,6 +12,7 @@
 </tr>
 </thead>
 <tbody>
+<% if @host.processes %>
 <% @host.processes.each do |process| %>
 <tr>
   <td><%= process["pid"] %></td>
@@ -22,7 +23,7 @@
   <td><%= process["user"] %></td>
   <td><%= process["path"] %></td>
 </tr>
-
+<% end %>
 <% end %>
 </tbody>
 </table>
