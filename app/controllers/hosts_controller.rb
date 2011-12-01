@@ -33,7 +33,7 @@ class HostsController < ApplicationController
     @host = Host.find params[:id]
     a = render_to_string :partial=>"hosts/host_info", :layout => false
     b = render_to_string :partial=>"hosts/host_commands", :layout => false
-    #  page.replace_html "context-menu", a+b
+
     render :update do |page|
       page <<%{
         $('#context-menu').html("#{escape_javascript(a+b)}");
@@ -52,8 +52,6 @@ class HostsController < ApplicationController
   def exploits
     begin
       #Needs evasiondb 0.0.2 first
-      #@exploits = EvasionDB::AttackModule.get_exploits_for_host(params[:id])
-      #@exploits = EvasionDB::AttackModule.all if @exploits.empty?
       @exploits = EvasionDB::AttackModule.all
     rescue
       # handle if no exploits found
@@ -97,7 +95,6 @@ class HostsController < ApplicationController
     host = Host.find(params[:id])
 
     finished_tasks_for_host = Task.find_all_by_name_and_completed("Attack #{host.name}", 't')
-    puts finished_tasks_for_host.inspect
     task_time = Time.now
     unless finished_tasks_for_host.empty?
       task_time = finished_tasks_for_host.last.updated_at

@@ -31,4 +31,7 @@ class EvasionDB::AttackModule < FIDIUS::XmlRpcModel
     exploits
   end
 
+  def description
+    self[:description] || ""
+  end
 end

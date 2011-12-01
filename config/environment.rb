@@ -6,8 +6,8 @@ CommandAndControl::Application.initialize!
 
 
 # All AR findmethods will be transfered over rpc-xml
-# if you want to use direct connection to your local database 
-# set this to false and edit your database.yml to point to 
+# if you want to use direct connection to your local database
+# set this to false and edit your database.yml to point to
 # your database (the same which is used in fidius-core)
 
 if ENV['RAILS_ENV'] == "test"

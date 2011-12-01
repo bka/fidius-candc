@@ -24,7 +24,6 @@ class ConsoleController < ApplicationController
       res = $!.to_s
     end
     res = res.gsub("\\","\\\\\\")
-    puts "result is: #{res}"
     render :update do |page|
       lines = res.to_s.split("\n")
       lines.each do |line|

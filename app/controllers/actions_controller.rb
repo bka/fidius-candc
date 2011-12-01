@@ -17,7 +17,6 @@ class ActionsController < ApplicationController
   end
 
   def rate_host
-    puts params[:host_id]+","+params[:rating]
     FIDIUS::XmlRpcModel.exec_rate_host(params[:host_id],params[:rating])
     render :text=>"ok"
   end
@@ -25,7 +24,6 @@ class ActionsController < ApplicationController
   def next_target
     interface_id = FIDIUS::XmlRpcModel.exec_decision_next_host
     inter = Interface.find_by_id(interface_id)
-    puts "mark host #{inter}"
     begin
       render :update do |page|
         page <<%{
@@ -56,7 +54,7 @@ class ActionsController < ApplicationController
     FIDIUS::XmlRpcModel.exec_attack_interface(params[:interface_id])
     render :text=>"ok"
   end
-  
+
   def attack_service
     FIDIUS::XmlRpcModel.exec_attack_service(params[:service_id])
     render :text=>"ok"
@@ -71,7 +69,7 @@ class ActionsController < ApplicationController
     FIDIUS::XmlRpcModel.exec_attack_ai_interface(params[:interface_id])
     render :text=>"ok"
   end
-  
+
   def attack_ai_service
     FIDIUS::XmlRpcModel.exec_attack_ai_service(params[:service_id])
     render :text=>"ok"
@@ -107,7 +105,7 @@ class ActionsController < ApplicationController
     FIDIUS::XmlRpcModel.exec_kill_task(task_id)
     render :text=>"ok"
   end
-  
+
   def single_exploit_host
     host = params["host_id"]
     exploit = params["exploit_id"]
